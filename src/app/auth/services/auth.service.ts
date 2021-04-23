@@ -26,6 +26,7 @@ export class AuthService {
       await this.getUserInfo().subscribe(data => {
         this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
         this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
+        this.userInfo.personId = JSON.parse(JSON.stringify(data)).personId;
       });
 
       console.log(this.userInfo);
@@ -36,6 +37,7 @@ export class AuthService {
       .subscribe(data => {
         let token = JSON.parse(JSON.stringify(data))['data'].token;
         let tokenExp = JSON.parse(JSON.stringify(data))['data'].tokenExpiration;
+        
         this.saveTokenInfo(token, tokenExp);
         this.userToken = token;
         this.decodedToken = this.jwtHelper.decodeToken(token)
