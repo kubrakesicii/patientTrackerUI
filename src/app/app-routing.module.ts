@@ -5,13 +5,13 @@ import { DoctorHomeComponent } from './doctor-components/doctor-home/doctor-home
 import { LoginComponent } from './shared-components/login/login.component';
 
 const routes: Routes = [
-  {path : "", component : LoginComponent},
-  {path : "admin-home", component : AdminHomeComponent},
-  {path : "doctor-home", component : DoctorHomeComponent}
+  { path: '', component: LoginComponent },
+  { path: 'admin-home', component: AdminHomeComponent },
+  { path: 'doctor-home', component: DoctorHomeComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

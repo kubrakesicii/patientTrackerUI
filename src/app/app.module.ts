@@ -14,13 +14,12 @@ import { DoctorHomeComponent } from './doctor-components/doctor-home/doctor-home
 import { AdminHomeService } from './admin-components/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminHomeComponent,
-    DoctorHomeComponent
+    DoctorHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +28,7 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [
     AuthService,
@@ -37,9 +36,9 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
