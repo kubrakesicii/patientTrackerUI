@@ -1,0 +1,12 @@
+.container.col-md-6 {
+  margin-top: 180px;
+  padding-left: 140px;
+}
+a {
+  text-align: right;
+  float: right;
+  padding-top: 14px;
+}
+.button-link {
+  margin-top: 42px;
+}

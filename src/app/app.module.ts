@@ -15,13 +15,12 @@ import { AdminHomeService } from './admin/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { AuthGuard } from './auth/guards/auth.guard';
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AdminHomeComponent,
-    DoctorHomeComponent
+    DoctorHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +29,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [
     AuthService,
@@ -39,9 +38,9 @@ import { AuthGuard } from './auth/guards/auth.guard';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -17,8 +17,8 @@ export class AuthService {
   decodedToken : any;
   userRole : any;
 
-  public tokenInfo : TokenInfo;
-  public userInfo : UserInfo;
+  public tokenInfo : TokenInfo = new TokenInfo();
+  public userInfo : UserInfo = new UserInfo();
 
   jwtHelper : JwtHelperService = new JwtHelperService();
 
