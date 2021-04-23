@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
 import { Hospital } from '../models/hospital.model';
@@ -12,7 +13,8 @@ import { AdminHomeService } from './admin-home.service';
 })
 export class AdminHomeComponent implements OnInit {
 
-  constructor(private adminHomeService : AdminHomeService) { }
+  constructor(private adminHomeService : AdminHomeService,
+              private authService : AuthService) { }
 
   countryCount : any;
   cityCount : any;
@@ -58,6 +60,10 @@ export class AdminHomeComponent implements OnInit {
     await this.adminHomeService.countDoctors().then(data => this.doctorCount = data);
     await this.adminHomeService.countDept().then(data => this.deptCount = data);
     //await this.adminHomeService.countDiseases().then(data => this.diseaseCount = data);
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   
