@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { User } from 'src/app/auth/models/user.model';
 import { LoginUser } from '../../auth/models/loginUser.model';
 import { AuthService } from '../../auth/services/auth.service';
 
