@@ -51,6 +51,7 @@ export class AdminHomeComponent implements OnInit {
         break;
       case 'city':
         this.clickType = 'city';
+        break;
     }
   }
 

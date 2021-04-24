@@ -14,6 +14,9 @@ import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component'
 import { AdminHomeService } from './admin/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ForgotPassComponent } from './shared-components/forgot-pass/forgot-pass.component';
+
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
     LoginComponent,
     AdminHomeComponent,
     DoctorHomeComponent,
+    ForgotPassComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +34,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    MatDialogModule
   ],
   providers: [
     AuthService,

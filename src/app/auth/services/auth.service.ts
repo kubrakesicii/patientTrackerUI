@@ -28,6 +28,7 @@ export class AuthService {
   async login(loginUser : LoginUser) {
 
       await this.getUserInfo().subscribe(data => {
+                
         this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
         this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
         this.userInfo.personId = JSON.parse(JSON.stringify(data)).personId;
@@ -37,11 +38,10 @@ export class AuthService {
       
       let headers = new HttpHeaders();
       headers = headers.append("Content-type" , "application/json");
-      this.http.post(this.apiUrl+"Authentication/Login",loginUser, {headers : headers, withCredentials : true})
+      this.http.post(this.apiUrl+"Authentication/Login",loginUser, {headers : headers})
       .subscribe(data => {
         let tokenInfo = JSON.parse(JSON.stringify(data))['data'];
-        
-        this.saveTokenInfo(this.tokenInfo);
+        this.saveTokenInfo(tokenInfo);
         
         this.userToken = this.tokenInfo.token;
         this.decodedToken = this.jwtHelper.decodeToken(this.userToken)
@@ -59,9 +59,9 @@ export class AuthService {
 
   saveTokenInfo(tokenInfo : TokenInfo) {
     localStorage.setItem("token", tokenInfo.token)
-    localStorage.setItem("tokenExp", tokenInfo.tokenExp.toString());
+    localStorage.setItem("tokenExp", tokenInfo.tokenExpiration.toString());
     localStorage.setItem("refreshToken",tokenInfo.refreshToken);
-    localStorage.setItem("refreshTokenExp", tokenInfo.refreshTokenExp.toString());
+    localStorage.setItem("refreshTokenExp", tokenInfo.refreshTokenExpiration.toString());
   }
 
   getToken() : any {
@@ -98,6 +98,13 @@ export class AuthService {
 
         this.saveTokenInfo(this.tokenInfo);
       })
+  }
+
+  forgotPass(gsm : string){
+    let headers = new HttpHeaders();
+    headers = headers.append("Content-type" , "application/json");
+
+    return this.http.post(`Authentication/ForgotPassword?gsm=${gsm}`, {headers : headers});
   }
  
 }
