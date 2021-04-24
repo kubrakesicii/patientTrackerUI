@@ -113,4 +113,116 @@ input.form-control.ng-untouched.ng-pristine.ng-valid {
 }
 label.labelT {
   margin-left: 14px;
+  font-family: "Lato", sans-serif;
+}
+
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary {
+  display: flex;
+  justify-content: space-between;
+}
+.card-body {
+  position: relative;
+  height: 400px;
+}
+.card1 {
+  position: absolute;
+  height: 140px;
+}
+.card2 {
+  height: 140px;
+}
+.col-md-6 {
+  margin-top: 70px;
+}
+
+.rounded-xl {
+  border-radius: 1.25rem !important;
+  height: 147px;
+}
+.bg-light-warning {
+  background-color: #fff4de !important;
+}
+.bg-light-primary {
+  background-color: #e1f0ff;
+}
+.bg-light-danger {
+  background-color: #ffe2e5;
+}
+.bg-light-success {
+  background-color: #c9f7f5;
+}
+.bg-light-danger {
+  background-color: #ffe2e5;
+}
+
+.pb-8,
+.py-8 {
+  padding-bottom: 2rem !important;
+}
+.pt-8,
+.py-8 {
+  padding-top: 2rem !important;
+}
+.pl-6,
+.px-6 {
+  padding-left: 1.5rem !important;
+}
+.pr-6,
+.px-6 {
+  padding-right: 1.5rem !important;
+}
+.mb-7,
+.my-7 {
+  margin-bottom: 1rem !important;
+}
+.mr-7,
+.mx-7 {
+  margin-right: 1.75rem !important;
+}
+
+.card-spacer {
+  padding: 2rem 2.25rem !important;
+}
+.mt-n25,
+.my-n25 {
+  margin-top: -6.25rem !important;
+}
+*,
+::after,
+::before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.card-title {
+  font-family: "Lato", sans-serif;
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+}
+.card-number {
+  font-family: "Lato", sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 2px 2px 8px;
+}
+p.card-number {
+  padding-top: 23px;
+}
+
+.card {
+  border: none;
+}
+
+.scroll {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+div#country,
+div#city,
+div#district,
+div#hospital {
+  cursor: pointer;
 }
