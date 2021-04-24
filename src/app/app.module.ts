@@ -13,10 +13,7 @@ import { RouterModule } from '@angular/router';
 import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
 import { AdminHomeService } from './admin/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
-<<<<<<< HEAD
-=======
 import { AuthGuard } from './auth/guards/auth.guard';
->>>>>>> origin/login
 
 @NgModule({
   declarations: [

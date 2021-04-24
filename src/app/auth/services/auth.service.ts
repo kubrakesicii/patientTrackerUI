@@ -39,14 +39,8 @@ export class AuthService {
       headers = headers.append("Content-type" , "application/json");
       this.http.post(this.apiUrl+"Authentication/Login",loginUser, {headers : headers, withCredentials : true})
       .subscribe(data => {
-        let token = JSON.parse(JSON.stringify(data))['data'].token;
-        let tokenExp = JSON.parse(JSON.stringify(data))['data'].tokenExpiration;
+        let tokenInfo = JSON.parse(JSON.stringify(data))['data'];
         
-        this.saveTokenInfo(token);
-        this.userToken = token;
-        this.decodedToken = this.jwtHelper.decodeToken(token)
-        this.userRole = this.userInfo.personType;
-
         this.saveTokenInfo(this.tokenInfo);
         
         this.userToken = this.tokenInfo.token;
@@ -105,24 +99,5 @@ export class AuthService {
         this.saveTokenInfo(this.tokenInfo);
       })
   }
-
-  /*
-  isAuthenticated(): boolean {
-    // get the token
-    const token = this.getToken();
-    // return a boolean reflecting 
-    // whether or not the token is expired
-    return tokenNotExpired(null, token);
-  }
-
-  tokenNotExpired(){
-    const tokenExp = new Date(localStorage.getItem("tokenExp"));
-
-    if(Date.now() > tokenExp){
-
-    }
-  }
-  */
-
  
 }
