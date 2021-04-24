@@ -15,6 +15,8 @@ import { AdminHomeService } from './admin/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { HospitalPipe } from './admin/admin-home/hospital.pipe';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ForgotPassComponent } from './shared-components/forgot-pass/forgot-pass.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { HospitalPipe } from './admin/admin-home/hospital.pipe';
     AdminHomeComponent,
     DoctorHomeComponent,
     HospitalPipe,
+    ForgotPassComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { HospitalPipe } from './admin/admin-home/hospital.pipe';
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    MatDialogModule,
   ],
   providers: [
     AuthService,

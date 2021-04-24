@@ -27,6 +27,17 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` },
       });
     }
-    return next.handle(request);
+
+    return next.handle(request)
+      .pipe(catchError(this.handleError));
   }
+
+  private handleError(err: HttpErrorResponse): Observable<any> {
+    console.log(err);
+    if (err.status === 401 || err.status === 403) {
+        //Token is expired
+    }
+    // handle your auth error or rethrow
+    return Observable.throw(err);
+}
 }
