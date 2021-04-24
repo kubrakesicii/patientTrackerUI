@@ -19,16 +19,20 @@ import { AdminPostService } from '../services/admin-post.service';
   styleUrls: ['./admin-home.component.css'],
 })
 export class AdminHomeComponent implements OnInit {
-  constructor(private getService: AdminGetService,
-              private countService : AdminCountService,
-              private postService : AdminPostService,
-              private alertifyService : AlertifyService,
-              private authService : AuthService) {}
+  constructor(
+    private getService: AdminGetService,
+    private countService: AdminCountService,
+    private postService: AdminPostService,
+    private alertifyService: AlertifyService,
+    private authService: AuthService
+  ) {}
 
-  userInfo : UserInfo = new UserInfo();
-  
+  userInfo: UserInfo = new UserInfo();
+
   countryCount: any;
   cityCount: any;
+  countryid: any;
+
   districtCount: any;
   hospitalCount: any;
   doctorCount: any;
@@ -37,13 +41,13 @@ export class AdminHomeComponent implements OnInit {
 
   hospitalList: any;
   countryList: any;
-  cityList: any;
+  cityList: City[];
   districtList: any;
 
   clickType: string = 'country';
 
-  hospitalId : any = 1;
-  hospitalClickType : string = 'doctor';
+  hospitalId: any = 1;
+  hospitalClickType: string = 'doctor';
 
   // Models
   countryModel: Country = new Country();
@@ -61,6 +65,7 @@ export class AdminHomeComponent implements OnInit {
     console.log(this.cityList);
   }
 
+  selectCountry(event: Event) {}
   titleChange(event: Event) {
     let el = (event.target as Element).id;
     switch (el) {
@@ -109,6 +114,7 @@ export class AdminHomeComponent implements OnInit {
     await this.countService
       .countHospitals()
       .then((data) => (this.hospitalCount = data));
+    
 
     await this.getService
       .getAllHospitals()
@@ -131,40 +137,39 @@ export class AdminHomeComponent implements OnInit {
       .then((x) => (this.districtList = x['$values']));
   }
 
-  addCountry(event : Event){
-    this.postService.addCountry(this.countryModel).subscribe(data => {
-        this.ngOnInit();
-        this.alertifyService.success("Country is Added!")
+  addCountry(event: Event) {
+    this.postService.addCountry(this.countryModel).subscribe((data) => {
+      this.ngOnInit();
+      this.alertifyService.success('Country is Added!');
     });
   }
 
-  addCity(){
-    this.postService.addCity(this.cityModel).subscribe(data => {
+  addCity() {
+    this.postService.addCity(this.cityModel).subscribe((data) => {
       this.ngOnInit();
-      this.alertifyService.success("City is Added!")
-    })
+      this.alertifyService.success('City is Added!');
+    });
   }
 
-  addDistrict(){
-    this.postService.addDistrict(this.districtModel).subscribe(data => {
+  addDistrict() {
+    this.postService.addDistrict(this.districtModel).subscribe((data) => {
       this.ngOnInit();
-      this.alertifyService.success("District is Added!")
-    })
+      this.alertifyService.success('District is Added!');
+    });
   }
 
   async getUserInfo() {
-    await this.authService.getUserInfo().subscribe(data => {
-        this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
-        this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
-        this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
-    })
+    await this.authService.getUserInfo().subscribe((data) => {
+      this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
+      this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
+      this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
+    });
   }
 
-  async setHospitalId(event : Event){
+  async setHospitalId(event: Event) {
     this.hospitalId = (event.target as Element).parentElement?.previousSibling?.previousSibling?.previousSibling?.textContent;
 
     await this.loadHospitalCounters();
-
   }
 
   async loadHospitalCounters() {
@@ -176,15 +181,7 @@ export class AdminHomeComponent implements OnInit {
       .then((data) => (this.deptCount = data));
     await this.countService
       .countDiseases(this.hospitalId)
-      .then(data => this.diseaseCount = data);
+      .then((data) => (this.diseaseCount = data));
   }
-
-addDoctor(event : Event){
-  
-}
-
-
-
-
 
 }
