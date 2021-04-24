@@ -4,7 +4,10 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
+import { Department } from '../models/department.model';
+import { Disease } from '../models/disease.model';
 import { District } from '../models/district.model';
+import { Doctor } from '../models/doctor.model';
 import { Hospital } from '../models/hospital.model';
 import { AdminCountService } from '../services/admin-count.service';
 import { AdminGetService } from '../services/admin-get.service';
@@ -48,6 +51,10 @@ export class AdminHomeComponent implements OnInit {
   districtModel: District = new District();
   hospitalModel: Hospital = new Hospital();
 
+  doctorModel : Doctor = new Doctor();
+  deptModel : Department = new Department();
+  diseaseModel : Disease = new Disease();
+
   ngOnInit(): void {
     this.getUserInfo();
     this.loadCounters();
@@ -71,6 +78,22 @@ export class AdminHomeComponent implements OnInit {
         break;
     }
     console.log(this.clickType);
+  }
+
+  hospTitleChange(event: Event) {
+    let el = (event.target as Element).id;
+    switch (el) {
+      case 'doctor':
+        this.hospitalClickType = 'doctor';
+        break;
+      case 'department':
+        this.hospitalClickType = 'department';
+        break;
+      case 'disease':
+        this.hospitalClickType = 'disease';
+        break;
+    }
+    console.log(this.hospitalClickType);
   }
 
   async loadCounters() {
@@ -156,21 +179,9 @@ export class AdminHomeComponent implements OnInit {
       .then(data => this.diseaseCount = data);
   }
 
-  hospTitleChange(event: Event) {
-    let el = (event.target as Element).id;
-    switch (el) {
-      case 'doctor':
-        this.clickType = 'doctor';
-        break;
-      case 'department':
-        this.clickType = 'department';
-        break;
-      case 'disease':
-        this.clickType = 'disease';
-        break;
-    }
-    console.log(this.hospitalClickType);
-  }
+addDoctor(event : Event){
+  
+}
 
 
 

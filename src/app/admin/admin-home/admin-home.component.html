@@ -305,37 +305,66 @@
         <div class="card-body" [ngSwitch]="this.hospitalClickType">
           <div *ngSwitchCase="'doctor'">
             <h3>Doctor Operations</h3>
-            <div class="col-md-12">
-              <form #countryForm="ngForm" (submit)="addCountry($event)">
-                <div class="row">
-                  <div class="col-md-5">
+              <form #doctorForm="ngForm" (submit)="addDoctor($event)">
+                <div class="row m-0">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Enter Country Name"
-                        name="description"
-                        #description="ngModel"
-                        [(ngModel)]="this.countryModel.description"
+                        placeholder="Enter Firstname"
+                        name="firstname"
+                        #firstname="ngModel"
+                        [(ngModel)]="this.doctorModel.firstname"
                       />
                     </div>
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Enter Country Code"
-                        name="description"
-                        #description="ngModel"
-                        [(ngModel)]="this.countryModel.countryCode"
+                        placeholder="Enter Lastname"
+                        name="lastname"
+                        #lastname="ngModel"
+                        [(ngModel)]="this.doctorModel.lastname"
                       />
                     </div>
-                  </div>
+                  </div> 
+                </div>
 
-                  <div class="col-md-2">
-                    <button class="btn btn-warning" type="submit">Add</button>
+                <div class="row m-0">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Email"
+                        name="email"
+                        #email="ngModel"
+                        [(ngModel)]="this.doctorModel.email"
+                      />
+                    </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Gsm"
+                        name="gsm"
+                        #gsm="ngModel"
+                        [(ngModel)]="this.doctorModel.gsm"
+                      />
+                    </div>
+                  </div> 
+                </div>
+
+                
+                
+
+                <div class="col-md-2">
+                  <button class="btn btn-warning" type="submit">Add</button>
                 </div>
               </form>
               <table class="table table-light">
@@ -514,4 +543,3 @@
       </div>
     </div>
   </div>
-</div>
