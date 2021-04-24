@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class AdminHomeService {
+export class AdminCountService {
+
   apiUrl = 'https://localhost:5001/api/';
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private http : HttpClient) { }
+  
   async countCountries() {
     return this.http.get(this.apiUrl + 'Countries/Count').toPromise();
   }
@@ -43,21 +42,5 @@ export class AdminHomeService {
     return this.http
       .get(this.apiUrl + 'Diseases/Count?hospitalId=1')
       .toPromise();
-  }
-
-  async getAllHospitals() {
-    return this.http.get(this.apiUrl + 'Hospitals').toPromise();
-  }
-
-  async getAllCountries() {
-    return this.http.get(this.apiUrl + 'Countries').toPromise();
-  }
-
-  async getAllCities() {
-    return this.http.get(this.apiUrl + 'Cities/All').toPromise();
-  }
-
-  async getAllDistricts() {
-    return this.http.get(this.apiUrl + 'Districts/All').toPromise();
   }
 }

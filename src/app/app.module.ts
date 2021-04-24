@@ -11,12 +11,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { RouterModule } from '@angular/router';
 import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
-import { AdminHomeService } from './admin/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { HospitalPipe } from './admin/pipes/hospital.pipe';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ForgotPassComponent } from './shared-components/forgot-pass/forgot-pass.component';
+import { AdminCountService } from './admin/services/admin-count.service';
+import { AdminGetService } from './admin/services/admin-get.service';
+import { AdminPostService } from './admin/services/admin-post.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { ForgotPassComponent } from './shared-components/forgot-pass/forgot-pass
   ],
   providers: [
     AuthService,
-    AdminHomeService,
+    AdminCountService,
+    AdminGetService,
+    AdminPostService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
