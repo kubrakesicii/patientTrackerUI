@@ -39,6 +39,7 @@ export class AdminHomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadCounters();
     // this.loadHospitalCounters();
+    console.log(this.cityList);
   }
 
   titleChange(event: Event) {

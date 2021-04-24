@@ -42,7 +42,6 @@
             <a
               ><p class="card-number">{{ this.districtCount }}</p></a
             >
-            <!-- <p class="card-number">{{ districtCount }}</p> -->
           </div>
 
           <div
@@ -52,14 +51,13 @@
           >
             <p class="card-title">Hospital Number</p>
             <p class="card-number">{{ this.hospitalCount }}</p>
-            <!-- <p class="card-number">{{ hospitalCount }}</p> -->
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-6">
-      <div class="card mb-4">
+      <div class="card mb-4 scroll">
         <div class="card-body" [ngSwitch]="this.clickType">
           <div *ngSwitchCase="'country'">
             <h3>Country Operations</h3>
@@ -180,8 +178,8 @@
                       class="form-control"
                       placeholder="Select District"
                       name="districtId"
-                      #countryId="ngModel"
-                      [(ngModel)]="this.districtModel.id"
+                      #cityId="ngModel"
+                      [(ngModel)]="this.districtModel.cityId"
                     >
                       <option value="0" disabled>--Select a Country--</option>
                       <option *ngFor="let city of cityList" [value]="city.id">
@@ -207,6 +205,20 @@
                 </div>
               </div>
             </div>
+            <table class="table table-light">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>City</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let district of districtList">
+                  <td>{{ district.description }}</td>
+                  <td>{{ district.cityId }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <div *ngSwitchCase="'hospital'">

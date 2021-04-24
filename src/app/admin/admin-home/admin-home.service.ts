@@ -58,6 +58,6 @@ export class AdminHomeService {
   }
 
   async getAllDistricts() {
-    return this.http.get(this.apiUrl + 'Districts').toPromise();
+    return this.http.get(this.apiUrl + 'Districts/All').toPromise();
   }
 }
