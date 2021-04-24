@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
 import { District } from '../models/district.model';
@@ -7,8 +9,6 @@ import { Hospital } from '../models/hospital.model';
 import { AdminCountService } from '../services/admin-count.service';
 import { AdminGetService } from '../services/admin-get.service';
 import { AdminPostService } from '../services/admin-post.service';
-
-let $: any;
 
 @Component({
   selector: 'app-admin-home',
@@ -18,8 +18,12 @@ let $: any;
 export class AdminHomeComponent implements OnInit {
   constructor(private getService: AdminGetService,
               private countService : AdminCountService,
-              private postService : AdminPostService) {}
+              private postService : AdminPostService,
+              private alertifyService : AlertifyService,
+              private authService : AuthService) {}
 
+  userInfo : UserInfo = new UserInfo();
+  
   countryCount: any;
   cityCount: any;
   districtCount: any;
@@ -35,6 +39,9 @@ export class AdminHomeComponent implements OnInit {
 
   clickType: string = 'country';
 
+  hospitalId : any = 1;
+  hospitalClickType : string = 'doctor';
+
   // Models
   countryModel: Country = new Country();
   cityModel: City = new City();
@@ -42,8 +49,8 @@ export class AdminHomeComponent implements OnInit {
   hospitalModel: Hospital = new Hospital();
 
   ngOnInit(): void {
+    this.getUserInfo();
     this.loadCounters();
-    // this.loadHospitalCounters();
     console.log(this.cityList);
   }
 
@@ -79,13 +86,6 @@ export class AdminHomeComponent implements OnInit {
     await this.countService
       .countHospitals()
       .then((data) => (this.hospitalCount = data));
-    await this.countService
-      .countDoctors()
-      .then((data) => (this.doctorCount = data));
-    await this.countService
-      .countDept()
-      .then((data) => (this.deptCount = data));
-    //await this.adminHomeService.countDiseases().then(data => this.diseaseCount = data);
 
     await this.getService
       .getAllHospitals()
@@ -108,13 +108,72 @@ export class AdminHomeComponent implements OnInit {
       .then((x) => (this.districtList = x['$values']));
   }
 
+  addCountry(event : Event){
+    this.postService.addCountry(this.countryModel).subscribe(data => {
+        this.ngOnInit();
+        this.alertifyService.success("Country is Added!")
+    });
+  }
+
+  addCity(){
+    this.postService.addCity(this.cityModel).subscribe(data => {
+      this.ngOnInit();
+      this.alertifyService.success("City is Added!")
+    })
+  }
+
+  addDistrict(){
+    this.postService.addDistrict(this.districtModel).subscribe(data => {
+      this.ngOnInit();
+      this.alertifyService.success("District is Added!")
+    })
+  }
+
+  async getUserInfo() {
+    await this.authService.getUserInfo().subscribe(data => {
+        this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
+        this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
+        this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
+    })
+  }
+
+  async setHospitalId(event : Event){
+    this.hospitalId = (event.target as Element).parentElement?.previousSibling?.previousSibling?.previousSibling?.textContent;
+
+    await this.loadHospitalCounters();
+
+  }
+
   async loadHospitalCounters() {
     await this.countService
-      .countDoctors()
+      .countDoctors(this.hospitalId)
       .then((data) => (this.doctorCount = data));
     await this.countService
-      .countDept()
+      .countDept(this.hospitalId)
       .then((data) => (this.deptCount = data));
-    //await this.adminHomeService.countDiseases().then(data => this.diseaseCount = data);
+    await this.countService
+      .countDiseases(this.hospitalId)
+      .then(data => this.diseaseCount = data);
   }
+
+  hospTitleChange(event: Event) {
+    let el = (event.target as Element).id;
+    switch (el) {
+      case 'doctor':
+        this.clickType = 'doctor';
+        break;
+      case 'department':
+        this.clickType = 'department';
+        break;
+      case 'disease':
+        this.clickType = 'disease';
+        break;
+    }
+    console.log(this.hospitalClickType);
+  }
+
+
+
+
+
 }

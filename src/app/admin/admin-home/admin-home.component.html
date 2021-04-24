@@ -7,6 +7,8 @@
   </form>
 </nav>
 
+<h2 class="text-center">Welcome {{ userInfo.fullName }}</h2>
+
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -62,36 +64,38 @@
           <div *ngSwitchCase="'country'">
             <h3>Country Operations</h3>
             <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Country Name"
-                      name="description"
-                      #description="ngModel"
-                      [(ngModel)]="this.countryModel.description"
-                    />
+              <form #countryForm="ngForm" (submit)="addCountry($event)">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Country Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.countryModel.description"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-5">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Country Code"
-                      name="description"
-                      #description="ngModel"
-                      [(ngModel)]="this.countryModel.countryCode"
-                    />
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Country Code"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.countryModel.countryCode"
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-md-2">
-                  <button class="btn btn-warning">Add</button>
+                  <div class="col-md-2">
+                    <button class="btn btn-warning" type="submit">Add</button>
+                  </div>
                 </div>
-              </div>
+              </form>
               <table class="table table-light">
                 <thead>
                   <tr>
@@ -112,43 +116,45 @@
           <div *ngSwitchCase="'city'">
             <h3>City Operations</h3>
             <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="form-group">
-                    <select
-                      type="text"
-                      class="form-control"
-                      placeholder="Select Country"
-                      name="countryId"
-                      #countryId="ngModel"
-                      [(ngModel)]="this.cityModel.countryId"
-                    >
-                      <option value="0" disabled>--Select a Country--</option>
-                      <option
-                        *ngFor="let country of countryList"
-                        [value]="country.id"
+              <form #cityForm="ngForm" (submit)="addCity()">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <select
+                        type="text"
+                        class="form-control"
+                        placeholder="Select Country"
+                        name="countryId"
+                        #countryId="ngModel"
+                        [(ngModel)]="this.cityModel.countryId"
                       >
-                        {{ country.description }}
-                      </option>
-                    </select>
+                        <option value="0" disabled>--Select a Country--</option>
+                        <option
+                          *ngFor="let country of countryList"
+                          [value]="country.id"
+                        >
+                          {{ country.description }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter City Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.cityModel.description"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-warning" type="submit">Add</button>
                   </div>
                 </div>
-                <div class="col-md-5">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter City Name"
-                      name="description"
-                      #description="ngModel"
-                      [(ngModel)]="this.cityModel.description"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <button class="btn btn-warning">Add</button>
-                </div>
-              </div>
+              </form>
             </div>
 
             <table class="table table-light">
@@ -170,40 +176,42 @@
           <div *ngSwitchCase="'district'">
             <h3>District Operations</h3>
             <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-5">
-                  <div class="form-group">
-                    <select
-                      type="text"
-                      class="form-control"
-                      placeholder="Select District"
-                      name="districtId"
-                      #cityId="ngModel"
-                      [(ngModel)]="this.districtModel.cityId"
-                    >
-                      <option value="0" disabled>--Select a Country--</option>
-                      <option *ngFor="let city of cityList" [value]="city.id">
-                        {{ city.description }}
-                      </option>
-                    </select>
+              <form #districtForm="ngForm" (submit)="addDistrict()">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <select
+                        type="text"
+                        class="form-control"
+                        placeholder="Select District"
+                        name="districtId"
+                        #cityId="ngModel"
+                        [(ngModel)]="this.districtModel.cityId"
+                      >
+                        <option value="0" disabled>--Select a City--</option>
+                        <option *ngFor="let city of cityList" [value]="city.id">
+                          {{ city.description }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Discription Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.districtModel.description"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-warning" type="submit">Add</button>
                   </div>
                 </div>
-                <div class="col-md-5">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter Discription Name"
-                      name="description"
-                      #description="ngModel"
-                      [(ngModel)]="this.districtModel.description"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <button class="btn btn-warning">Add</button>
-                </div>
-              </div>
+              </form>
             </div>
             <table class="table table-light">
               <thead>
@@ -222,8 +230,8 @@
           </div>
 
           <div *ngSwitchCase="'hospital'">
-            <h3>Hospital Operations</h3>
-            <div class="col-md-5">
+            <h3 class="text-danger">Hospital Operations</h3>
+            <div class="col-md-12">
               <div class="form-group">
                 <select
                   type="text"
@@ -242,82 +250,268 @@
                   </option>
                 </select>
               </div>
+
+              <div class="container">
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let hosp of hospitalList">
+                      <td>{{ hosp.description }}</td>
+                      <td>{{ hosp.address }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="container">
-    <table class="table table-light">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let hosp of hospitalList">
-          <td>{{ hosp.description }}</td>
-          <td>{{ hosp.address }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </div>
 
-<!--Add City Form-->
-<div class="card p-5 mb-4">
-  <div class="col-md-10">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <select
-            type="text"
-            class="form-control"
-            placeholder="Select Country"
-            name="countryId"
-            #countryId="ngModel"
-            [(ngModel)]="this.cityModel.countryId"
-          >
-            <option value="0" disabled>--Select a Country--</option>
-            <option *ngFor="let country of countryList" [value]="country.id">
-              {{ country.description }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter City Name"
-            name="description"
-            #description="ngModel"
-            [(ngModel)]="this.cityModel.description"
-          />
-        </div>
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-warning">Add</button>
-      </div>
-    </div>
-  </div>
-
-  <table class="table table-light">
+<div class="container mt-3">
+  <h3 class="text-danger">
+    Select a Hospital and view statistics about that hospital
+  </h3>
+  <table class="table table-striped">
     <thead>
-      <tr>
-        <th>Description</th>
-        <th>Country</th>
-      </tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th></th>
     </thead>
+
     <tbody>
-      <tr *ngFor="let city of cityList">
-        <td>{{ city.description }}</td>
-        <td>{{ city.countryId }}</td>
+      <tr *ngFor="let hospital of hospitalList">
+        <td>{{ hospital.id }}</td>
+        <td>{{ hospital.description }}</td>
+        <td>{{ hospital.address }}</td>
+        <td><a (click)="setHospitalId($event)">EDIT</a></td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4 scroll">
+        <div class="card-body" [ngSwitch]="this.hospitalClickType">
+          <div *ngSwitchCase="'doctor'">
+            <h3>Doctor Operations</h3>
+            <div class="col-md-12">
+              <form #countryForm="ngForm" (submit)="addCountry($event)">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Country Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.countryModel.description"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Country Code"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.countryModel.countryCode"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <button class="btn btn-warning" type="submit">Add</button>
+                  </div>
+                </div>
+              </form>
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Country Code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let country of countryList">
+                    <td>{{ country.description }}</td>
+                    <td>{{ country.countryCode }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div *ngSwitchCase="'department'">
+            <h3>Department Operations</h3>
+            <div class="col-md-12">
+              <form #cityForm="ngForm" (submit)="addCity()">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <select
+                        type="text"
+                        class="form-control"
+                        placeholder="Select Country"
+                        name="countryId"
+                        #countryId="ngModel"
+                        [(ngModel)]="this.cityModel.countryId"
+                      >
+                        <option value="0" disabled>--Select a Country--</option>
+                        <option
+                          *ngFor="let country of countryList"
+                          [value]="country.id"
+                        >
+                          {{ country.description }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter City Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.cityModel.description"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-warning" type="submit">Add</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <table class="table table-light">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let city of cityList">
+                  <td>{{ city.description }}</td>
+                  <td>{{ city.countryId }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div *ngSwitchCase="'disease'">
+            <h3>Disease Operations</h3>
+            <div class="col-md-12">
+              <form #districtForm="ngForm" (submit)="addDistrict()">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <select
+                        type="text"
+                        class="form-control"
+                        placeholder="Select District"
+                        name="districtId"
+                        #cityId="ngModel"
+                        [(ngModel)]="this.districtModel.cityId"
+                      >
+                        <option value="0" disabled>--Select a City--</option>
+                        <option *ngFor="let city of cityList" [value]="city.id">
+                          {{ city.description }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Discription Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.districtModel.description"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-warning" type="submit">Add</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <table class="table table-light">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>City</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let district of districtList">
+                  <td>{{ district.description }}</td>
+                  <td>{{ district.cityId }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card border-primary mb-3" style="max-width: 40rem">
+        <!--begin::Row-->
+        <div class="row m-0">
+          <div
+            id="doctor"
+            class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
+            (click)="hospTitleChange($event)"
+          >
+            <p class="card-title">Doctor Number</p>
+            <p class="card-number">{{ this.doctorCount }}</p>
+          </div>
+          <div
+            id="department"
+            class="col bg-light-primary px-6 py-8 rounded-xl mb-7"
+            (click)="hospTitleChange($event)"
+          >
+            <p class="card-title">Department Number</p>
+            <p class="card-number">{{ this.deptCount }}</p>
+          </div>
+        </div>
+
+        <div class="row m-0">
+          <div class="col-md-6 m-0 text-center">
+            <div
+              id="disease"
+              class="col bg-light-danger px-10 py-8 rounded-xl mr-7"
+              (click)="hospTitleChange($event)"
+            >
+              <a><p class="card-title">Disease Number</p></a>
+              <a
+                ><p class="card-number">{{ this.diseaseCount }}</p></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

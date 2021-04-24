@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class AdminCountService {
 
-  apiUrl = 'https://localhost:5001/api/';
+  apiUrl = 'https://localhost:5001/api';
 
   constructor(private http : HttpClient) { }
   
@@ -15,32 +15,32 @@ export class AdminCountService {
   }
 
   async countCities() {
-    return this.http.get(this.apiUrl + 'Cities/Count').toPromise();
+    return this.http.get(`${this.apiUrl}/Cities/Count`).toPromise();
   }
 
   async countDistricts() {
-    return this.http.get(this.apiUrl + 'Districts/Count').toPromise();
+    return this.http.get(`${this.apiUrl}/Districts/Count`).toPromise();
   }
 
   async countHospitals() {
-    return this.http.get(this.apiUrl + 'Hospitals/Count').toPromise();
+    return this.http.get(`${this.apiUrl}/Hospitals/Count`).toPromise();
   }
 
-  async countDept() {
+  async countDept(hospitalId : any) {
     return this.http
-      .get(this.apiUrl + 'Departments/Count?hospitalId=1')
+      .get(`${this.apiUrl}/Departments/Count?hospitalId=${hospitalId}`)
       .toPromise();
   }
 
-  async countDoctors() {
+  async countDoctors(hospitalId : any) {
     return this.http
-      .get(this.apiUrl + 'Doctors/Count?hospitalId=1')
+      .get(`${this.apiUrl}/Doctors/Count?hospitalId=${hospitalId}`)
       .toPromise();
   }
 
-  async countDiseases() {
+  async countDiseases(hospitalId : any) {
     return this.http
-      .get(this.apiUrl + 'Diseases/Count?hospitalId=1')
+      .get(`${this.apiUrl}/Diseases/Count?hospitalId=${hospitalId}`)
       .toPromise();
   }
 }

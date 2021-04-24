@@ -27,15 +27,19 @@
   .bg-light-warning {
     background-color: #fff4de !important;
   }
-  .col.bg-light-primary.px-6.py-8.rounded-xl.mb-7 {
+  .bg-light-primary{
     background-color: #e1f0ff;
   }
-  .col.bg-light-danger.px-6.py-8.rounded-xl.mr-7 {
+  .bg-light-danger{
     background-color: #ffe2e5;
   }
-  .col.bg-light-success.px-6.py-8.rounded-xl {
+  .bg-light-success{
     background-color: #c9f7f5;
   }
+  .bg-light-danger {
+    background-color: #ffe2e5;
+  }
+
   .pb-8,
   .py-8 {
     padding-bottom: 2rem !important;
@@ -97,7 +101,7 @@
   }
 
   .scroll{
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
   }
   
