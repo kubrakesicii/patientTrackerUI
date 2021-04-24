@@ -14,6 +14,7 @@ import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component'
 import { AdminHomeService } from './admin/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { HospitalPipe } from './admin/admin-home/hospital.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthGuard } from './auth/guards/auth.guard';
     LoginComponent,
     AdminHomeComponent,
     DoctorHomeComponent,
+    HospitalPipe,
   ],
   imports: [
     BrowserModule,

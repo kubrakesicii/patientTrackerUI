@@ -1,5 +1,5 @@
-export class Hospital{
-    description : String;
-    address : String;
-    district : Number;
+export class Hospital {
+  description: String;
+  address: String;
+  districtId: Number;
 }
