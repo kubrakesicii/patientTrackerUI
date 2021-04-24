@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
+import { District } from '../models/district.model';
 import { Hospital } from '../models/hospital.model';
 import { AdminHomeService } from './admin-home.service';
 let $: any;
@@ -24,12 +25,14 @@ export class AdminHomeComponent implements OnInit {
   hospitalList: any;
   countryList: any;
   cityList: any;
+  districtList: any;
 
   clickType: string = 'country';
 
   // Models
   countryModel: Country = new Country();
   cityModel: City = new City();
+  districtModel: District = new District();
 
   ngOnInit(): void {
     this.loadCounters();
@@ -80,7 +83,7 @@ export class AdminHomeComponent implements OnInit {
       .then((x) => (this.hospitalList = x['$values']));
 
     await this.adminHomeService
-      .getAllCoutries()
+      .getAllCountries()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.countryList = x['$values']));
 
@@ -88,6 +91,11 @@ export class AdminHomeComponent implements OnInit {
       .getAllCities()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.cityList = x['$values']));
+
+    await this.adminHomeService
+      .getAllDistricts()
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.districtList = x['$values']));
   }
 
   async loadHospitalCounters() {

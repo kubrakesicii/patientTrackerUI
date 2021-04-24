@@ -7,24 +7,6 @@
   </form>
 </nav>
 
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card border-primary mb-3" style="max-width: 40rem">
-        <div class="card-body">
-          <div class="row">
-            <div class="card text-white bg-info mb-3" style="max-width: 12rem">
-              <div class="card1"></div>
-            </div>
-            <div class="card text-white bg-dark mb-3" style="max-width: 12rem">
-              <div class="card2"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -188,6 +170,56 @@
 
           <div *ngSwitchCase="'district'">
             <h3>District Operations</h3>
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <select
+                      type="text"
+                      class="form-control"
+                      placeholder="Select City"
+                      name="cityId"
+                      #cityId="ngModel"
+                      [(ngModel)]="this.districtModel.cityId"
+                    >
+                      <option value="0" disabled>--Select a City--</option>
+                      <option *ngFor="let city of cityList" [value]="city.id">
+                        {{ city.description }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter District Name"
+                      name="description"
+                      #description="ngModel"
+                      [(ngModel)]="this.districtModel.description"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-warning">Add</button>
+                </div>
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>City</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let district of districtList">
+                      <td>{{ district.description }}</td>
+                      <td>{{ district.cityId }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
 
           <div *ngSwitchCase="'hospital'">

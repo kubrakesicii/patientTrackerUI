@@ -81,7 +81,7 @@ export class AdminHomeComponent implements OnInit {
       .then((x) => (this.hospitalList = x['$values']));
 
     await this.adminHomeService
-      .getAllCoutries()
+      .getAllCountries()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.countryList = x['$values']));
 
