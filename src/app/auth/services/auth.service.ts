@@ -15,7 +15,7 @@ export class AuthService {
   apiUrl = "https://localhost:5001/api/";
   userToken : any;
   decodedToken : any;
-  userRole : any;
+  userRole : number;
 
   public tokenInfo : TokenInfo = new TokenInfo();
   public userInfo : UserInfo = new UserInfo();
@@ -26,16 +26,7 @@ export class AuthService {
 
 
   async login(loginUser : LoginUser) {
-
-      await this.getUserInfo().subscribe(data => {
-                
-        this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
-        this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
-        this.userInfo.personId = JSON.parse(JSON.stringify(data)).personId;
-      });
-
-      console.log(this.userInfo);
-      
+  
       let headers = new HttpHeaders();
       headers = headers.append("Content-type" , "application/json");
       this.http.post(this.apiUrl+"Authentication/Login",loginUser, {headers : headers})
@@ -45,15 +36,23 @@ export class AuthService {
         
         this.userToken = this.tokenInfo.token;
         this.decodedToken = this.jwtHelper.decodeToken(this.userToken)
-        this.userRole = this.userInfo.personType;
-      
-        if(this.userRole == 3){
-            this.router.navigateByUrl("admin-home");
-        }
-        else if(this.userRole == 2) {
-            this.router.navigateByUrl("doctor-home");
-        }
       });
+
+      await this.getUserInfo().subscribe(data => {
+        this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
+        this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
+        this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
+      });
+
+      console.log(this.userInfo.personType);
+      this.userRole = this.userInfo.personType;
+
+      if(this.userRole == 3){
+        this.router.navigateByUrl("admin-home");
+      }
+      else if(this.userRole == 2) {
+         this.router.navigateByUrl("doctor-home");
+      }
   }
 
 
@@ -73,7 +72,9 @@ export class AuthService {
   }
 
   getUserInfo() {
-    return this.http.get(this.apiUrl+"Authentication/UserInfo");
+    let headers = new HttpHeaders();
+    headers = headers.append("Authorization",`Bearer ${this.getToken()}`)
+    return this.http.get(this.apiUrl+"Authentication/UserInfo",{headers : headers});
   }
 
   isLoggedIn(){

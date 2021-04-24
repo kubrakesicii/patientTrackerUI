@@ -3,41 +3,30 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
+  HttpInterceptor
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public authService: AuthService) {}
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const token = this.authService.tokenInfo;
-    const isLoggedIn = token && token.token;
+  constructor(private authService : AuthService) {}
 
-    const isApiUrl = request.url.startsWith(this.authService.apiUrl);
-    if (isLoggedIn && isApiUrl) {
-      request = request.clone({
-        setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` },
-      });
-    }
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    // const token = this.authService.tokenInfo;
+    // const isLoggedIn = token && token.token;
 
-    return next.handle(request)
-      .pipe(catchError(this.handleError));
+    // const isApiUrl = request.url.startsWith(this.authService.apiUrl);
+    // if (isLoggedIn && isApiUrl) {
+    //   request = request.clone({
+    //     setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` },
+    //   });
+    // }
+
+    request = request.clone({
+      setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` },
+    });
+    return next.handle(request);
   }
-
-  private handleError(err: HttpErrorResponse): Observable<any> {
-    console.log(err);
-    if (err.status === 401 || err.status === 403) {
-        //Token is expired
-    }
-    // handle your auth error or rethrow
-    return Observable.throw(err);
-}
 }
