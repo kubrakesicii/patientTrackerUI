@@ -8,11 +8,15 @@ import { LoginComponent } from './shared-components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminHomeComponent } from './admin-components/admin-home/admin-home.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { RouterModule } from '@angular/router';
-import { DoctorHomeComponent } from './doctor-components/doctor-home/doctor-home.component';
-import { AdminHomeService } from './admin-components/admin-home/admin-home.service';
+import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
+import { AdminHomeService } from './admin/admin-home/admin-home.service';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+<<<<<<< HEAD
+=======
+import { AuthGuard } from './auth/guards/auth.guard';
+>>>>>>> origin/login
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
   providers: [
     AuthService,
     AdminHomeService,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
