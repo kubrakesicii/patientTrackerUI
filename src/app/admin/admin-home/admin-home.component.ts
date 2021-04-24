@@ -16,12 +16,16 @@ let $: any;
   styleUrls: ['./admin-home.component.css'],
 })
 export class AdminHomeComponent implements OnInit {
-  constructor(private getService: AdminGetService,
-              private countService : AdminCountService,
-              private postService : AdminPostService) {}
+  constructor(
+    private getService: AdminGetService,
+    private countService: AdminCountService,
+    private postService: AdminPostService
+  ) {}
 
   countryCount: any;
   cityCount: any;
+  countryid: any;
+
   districtCount: any;
   hospitalCount: any;
   doctorCount: any;
@@ -30,7 +34,7 @@ export class AdminHomeComponent implements OnInit {
 
   hospitalList: any;
   countryList: any;
-  cityList: any;
+  cityList: City[];
   districtList: any;
 
   clickType: string = 'country';
@@ -47,6 +51,7 @@ export class AdminHomeComponent implements OnInit {
     console.log(this.cityList);
   }
 
+  selectCountry(event: Event) {}
   titleChange(event: Event) {
     let el = (event.target as Element).id;
     switch (el) {
@@ -82,9 +87,7 @@ export class AdminHomeComponent implements OnInit {
     await this.countService
       .countDoctors()
       .then((data) => (this.doctorCount = data));
-    await this.countService
-      .countDept()
-      .then((data) => (this.deptCount = data));
+    await this.countService.countDept().then((data) => (this.deptCount = data));
     //await this.adminHomeService.countDiseases().then(data => this.diseaseCount = data);
 
     await this.getService
@@ -112,9 +115,7 @@ export class AdminHomeComponent implements OnInit {
     await this.countService
       .countDoctors()
       .then((data) => (this.doctorCount = data));
-    await this.countService
-      .countDept()
-      .then((data) => (this.deptCount = data));
+    await this.countService.countDept().then((data) => (this.deptCount = data));
     //await this.adminHomeService.countDiseases().then(data => this.diseaseCount = data);
   }
 }

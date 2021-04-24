@@ -3,7 +3,7 @@ import { City } from '../models/city.model';
 import { Hospital } from '../models/hospital.model';
 
 @Pipe({
-  name: 'hospital',
+  name: 'hospitalPipe',
 })
 export class HospitalPipe implements PipeTransform {
   transform(value: City[], countryid?: number): City[] {

@@ -223,24 +223,104 @@
 
           <div *ngSwitchCase="'hospital'">
             <h3>Hospital Operations</h3>
-            <div class="col-md-5">
-              <div class="form-group">
-                <select
-                  type="text"
-                  class="form-control"
-                  placeholder="Select District"
-                  name="districtId"
-                  #countryId="ngModel"
-                  [(ngModel)]="this.hospitalModel.districtId"
-                >
-                  <option value="0" disabled>--Select a Country--</option>
-                  <option
-                    *ngFor="let hospital of hospitalList"
-                    [value]="hospital.districtId"
-                  >
-                    {{ hospital.description }}
-                  </option>
-                </select>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Select Country</label>
+                    <select
+                      type="text"
+                      class="form-control"
+                      placeholder="Select District"
+                      name="districtId"
+                      #countryId="ngModel"
+                      [(ngModel)]="this.countryModel.id"
+                      [(value)]="countryid"
+                    >
+                      <option disabled>--Select a Country--</option>
+                      <option
+                        *ngFor="let country of countryList"
+                        [value]="country.countryId"
+                      >
+                        {{ country.description }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Select City</label>
+                    <select
+                      onchange=""
+                      type="text"
+                      class="form-control"
+                      placeholder="Select District"
+                      name="cityId"
+                      #countryId="ngModel"
+                      [(ngModel)]="this.cityModel.countryId"
+                    >
+                      <option disabled>--Select a City--</option>
+                      <option
+                        *ngFor="let city of cityList | hospitalPipe: countryid"
+                        [value]="city.countryId"
+                      >
+                        {{ city.description }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Select District</label>
+                    <select
+                      onchange=""
+                      type="text"
+                      class="form-control"
+                      placeholder="Select District"
+                      name="cityId"
+                      #countryId="ngModel"
+                      [(ngModel)]="this.cityModel.countryId"
+                    >
+                      <option disabled>--Select a City--</option>
+                      <option
+                        *ngFor="let city of cityList | hospitalPipe: countryid"
+                        [value]="city.countryId"
+                      >
+                        {{ city.description }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="labelT">Enter Address</label>
+                  <input
+                    type="text"
+                    style="width: 470px"
+                    class="form-control"
+                    placeholder="Address"
+                    name="description"
+                    #description="ngModel"
+                    [(ngModel)]="this.cityModel.description"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label class="labelT">Enter Hospital Name</label>
+                  <input
+                    type="text"
+                    style="width: 480px"
+                    class="form-control"
+                    placeholder="Hospital Name"
+                    name="description"
+                    #description="ngModel"
+                    [(ngModel)]="this.cityModel.description"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -248,23 +328,22 @@
       </div>
     </div>
   </div>
-
-  <div class="container">
-    <table class="table table-light">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let hosp of hospitalList">
-          <td>{{ hosp.description }}</td>
-          <td>{{ hosp.address }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+</div>
+<div class="container">
+  <table class="table table-light">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hosp of hospitalList">
+        <td>{{ hosp.description }}</td>
+        <td>{{ hosp.address }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <!--Add City Form-->
