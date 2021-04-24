@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
+import { District } from '../models/district.model';
 import { Hospital } from '../models/hospital.model';
 import { AdminHomeService } from './admin-home.service';
 let $: any;
@@ -25,12 +26,15 @@ export class AdminHomeComponent implements OnInit {
   hospitalList: any;
   countryList: any;
   cityList: any;
+  districtList: any;
 
   clickType: string = 'country';
 
   // Models
   countryModel: Country = new Country();
   cityModel: City = new City();
+  districtModel: District = new District();
+  hospitalModel: Hospital = new Hospital();
 
   ngOnInit(): void {
     this.loadCounters();
@@ -38,8 +42,8 @@ export class AdminHomeComponent implements OnInit {
   }
 
   titleChange(event: Event) {
-    console.log(this.clickType);
-    switch ((event.target as Element).id) {
+    let el = (event.target as Element).id;
+    switch (el) {
       case 'country':
         this.clickType = 'country';
         break;
@@ -53,6 +57,7 @@ export class AdminHomeComponent implements OnInit {
         this.clickType = 'city';
         break;
     }
+    console.log(this.clickType);
   }
 
   async loadCounters() {
@@ -90,6 +95,11 @@ export class AdminHomeComponent implements OnInit {
       .getAllCities()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.cityList = x['$values']));
+
+    await this.adminHomeService
+      .getAllDistricts()
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.districtList = x['$values']));
   }
 
   async loadHospitalCounters() {
