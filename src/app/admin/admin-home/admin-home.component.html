@@ -521,8 +521,8 @@
                   </tbody>
                 </table>
               </div>
-
-              <div *ngSwitchCase="'department'">
+            </div>
+            <div *ngSwitchCase="'department'">
                 <h3>Department Operations</h3>
                 <div class="col-md-12">
                   <form #deptForm="ngForm">
@@ -564,9 +564,8 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
-
-              <div *ngSwitchCase="'disease'">
+            </div>
+            <div *ngSwitchCase="'disease'">
                 <h3>Disease Operations</h3>
                 <div class="col-md-12">
                   <form #deptForm="ngForm">
@@ -629,7 +628,8 @@
                     </tbody>
                   </table>
                 </div>
-              </div>
+            </div>
+
             </div>
           </div>
         </div>
@@ -640,7 +640,7 @@
             <div class="row m-0">
               <div
                 id="doctor"
-                class="col-5 bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
+                class="col-5 bg-light-warning px-6 py-8 rounded-xl ml-2 mr-2 mb-7"
                 (click)="hospTitleChange($event)"
               >
                 <p class="card-title">Doctor Number</p>
@@ -658,7 +658,7 @@
               <div class="row m-0">
                 <div
                   id="disease"
-                  class="col-5 bg-light-danger px-6 py-8 rounded-xl mr-7"
+                  class="col-8 bg-light-danger px-6 py-8 rounded-xl ml-5"
                   (click)="hospTitleChange($event)"
                 >
                   <a><p class="card-title">Disease Number</p></a>
@@ -673,4 +673,3 @@
       </div>
     </div>
   </div>
-</div>
