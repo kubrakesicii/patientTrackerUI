@@ -43,7 +43,7 @@ export class AdminHomeComponent implements OnInit {
   countryList: any;
   cityList: City[];
   districtList: any;
-  doctorList : any;
+  doctorList : Doctor[];
   deptList : any;
   diseaseList : any;
   degreeList : any;
@@ -63,13 +63,16 @@ export class AdminHomeComponent implements OnInit {
   clickType: string = 'country';
   hospitalClickType: string = 'doctor';
 
-  hospitalId: any = 1;
+  selectedHospitalId: any = 1;
+  selectedHospitalName : any ="";
   countryid: any;
 
 
   ngOnInit(): void {
     this.getUserInfo();
     this.loadCounters();
+    this.loadHospitalCounters(this.selectedHospitalId);
+
     console.log(this.cityList);
   }
 
@@ -144,24 +147,24 @@ export class AdminHomeComponent implements OnInit {
       .then((x) => (this.districtList = x['$values']));
 
       await this.getService
-      .getAllDoctorsByHospital(this.hospitalId)
+      .getAllDoctorsByHospital(this.selectedHospitalId)
       .then((data) => JSON.parse(JSON.stringify(data)))
-      .then((x) => (this.doctorList = x['$values']));
+      .then((x) => this.doctorList = x['$values']);
 
       await this.getService
-      .getAllDeptsByHospital(this.hospitalId)
+      .getAllDeptsByHospital(this.selectedHospitalId)
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.deptList = x['$values']));
 
       await this.getService
-      .getAllDiseasesByHospital(this.hospitalId)
+      .getAllDiseasesByHospital(this.selectedHospitalId)
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.diseaseList = x['$values']));
 
       await this.getService
       .getAllDegrees()
       .then((data) => JSON.parse(JSON.stringify(data)))
-      .then((x) => (this.diseaseList = x['$values']));
+      .then((x) => (this.degreeList = x['$values']));
   }
 
   addCountry(event: Event) {
@@ -194,20 +197,24 @@ export class AdminHomeComponent implements OnInit {
   }
 
   async setHospitalId(event: Event) {
-    this.hospitalId = (event.target as Element).parentElement?.previousSibling?.previousSibling?.previousSibling?.textContent;
+    this.selectedHospitalId = (event.target as Element).parentElement?.previousSibling?.previousSibling?.previousSibling?.textContent;
 
-    await this.loadHospitalCounters();
+    this.selectedHospitalName = (event.target as Element).parentElement?.previousSibling?.previousSibling?.textContent;
+
+    this.ngOnInit()
+
+    await this.loadHospitalCounters(this.selectedHospitalId);
   }
 
-  async loadHospitalCounters() {
+  async loadHospitalCounters(hospitalId : any) {
     await this.countService
-      .countDoctors(this.hospitalId)
+      .countDoctors(hospitalId)
       .then((data) => (this.doctorCount = data));
     await this.countService
-      .countDept(this.hospitalId)
+      .countDept(hospitalId)
       .then((data) => (this.deptCount = data));
     await this.countService
-      .countDiseases(this.hospitalId)
+      .countDiseases(hospitalId)
       .then((data) => (this.diseaseCount = data));
   }
 

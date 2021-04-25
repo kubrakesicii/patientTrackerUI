@@ -376,10 +376,12 @@
     </table>
   </div>
 
-  <div class="container">
+  <div class="container pt-5">
+    <h2>{{ selectedHospitalName }}</h2>
+
     <div class="row">
-      <div class="col-md-6">
-        <div class="card mb-4">
+      <div class="col-md-8">
+        <div class="card mb-4 scroll">
           <div class="card-body" [ngSwitch]="this.hospitalClickType">
             <div *ngSwitchCase="'doctor'">
               <h3>Doctor Operations</h3>
@@ -394,7 +396,7 @@
                           placeholder="Enter Firstname"
                           name="firstname"
                           #firstname="ngModel"
-                          [(ngModel)]="this.doctorModel.firstname"
+                          [(ngModel)]="this.doctorModel.firstName"
                         />
                       </div>
                     </div>
@@ -406,7 +408,7 @@
                           placeholder="Enter Lastname"
                           name="lastname"
                           #lastname="ngModel"
-                          [(ngModel)]="this.doctorModel.lastname"
+                          [(ngModel)]="this.doctorModel.lastName"
                         />
                       </div>
                     </div>
@@ -448,7 +450,7 @@
                           placeholder="Select Department"
                           name="deptId"
                           #deptId="ngModel"
-                          [(ngModel)]="this.doctorModel.departmentId"
+                          [(ngModel)]="this.doctorModel.departmentName"
                         >
                           <option value="0" disabled>
                             --Select a Department--
@@ -471,10 +473,10 @@
                           placeholder="Select Degree"
                           name="degreeId"
                           #degreeId="ngModel"
-                          [(ngModel)]="this.doctorModel.degreeId"
+                          [(ngModel)]="this.doctorModel.degreeName"
                         >
                           <option value="0" disabled>
-                            --Select a Department--
+                            --Select a Degree--
                           </option>
                           <option
                             *ngFor="let degree of degreeList"
@@ -493,151 +495,178 @@
                     </div>
                   </div>
                 </form>
-              </div>
-            </div>
 
-            <div *ngSwitchCase="'department'">
-              <h3>Department Operations</h3>
-              <div class="col-md-12">
-                <form #deptForm="ngForm">
-                  <div class="row">
-                    <div class="col-md-10">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Enter Country Name"
-                          name="description"
-                          #description="ngModel"
-                          [(ngModel)]="this.deptModel.description"
-                        />
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Email</th>
+                      <th>Gsm</th>
+                      <th>Department</th>
+                      <th>Degree</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let doctor of doctorList">
+                      <td>{{ doctor.$id }}</td>
+                      <td>{{ doctor.firstName }}</td>
+                      <td>{{ doctor.lastName }}</td>
+                      <td>{{ doctor.email }}</td>
+                      <td>{{ doctor.gsm }}</td>
+                      <td>{{ doctor.departmentName }}</td>
+                      <td>{{ doctor.degreeName }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div *ngSwitchCase="'department'">
+                <h3>Department Operations</h3>
+                <div class="col-md-12">
+                  <form #deptForm="ngForm">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter Country Name"
+                            name="description"
+                            #description="ngModel"
+                            [(ngModel)]="this.deptModel.description"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <button class="btn btn-warning" type="submit">
+                          Add
+                        </button>
                       </div>
                     </div>
+                  </form>
+
+                  <table class="table table-light">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Hospital</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dept of deptList">
+                        <td>{{ dept.id }}</td>
+                        <td>{{ dept.description }}</td>
+                        <td>{{ dept.hospitalId }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'disease'">
+                <h3>Disease Operations</h3>
+                <div class="col-md-12">
+                  <form #deptForm="ngForm">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select
+                            type="text"
+                            class="form-control"
+                            placeholder="Select Department"
+                            name="deptId"
+                            #deptId="ngModel"
+                            [(ngModel)]="this.diseaseModel.departmentId"
+                          >
+                            <option value="0" disabled>
+                              --Select a Department--
+                            </option>
+                            <option
+                              *ngFor="let dept of deptList"
+                              [value]="dept.id"
+                            >
+                              {{ dept.description }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter Country Name"
+                            name="description"
+                            #description="ngModel"
+                            [(ngModel)]="this.diseaseModel.description"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="col-md-2">
                       <button class="btn btn-warning" type="submit">Add</button>
                     </div>
-                  </div>
-                </form>
+                  </form>
 
-                <table class="table table-light">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Description</th>
-                      <th>Hospital</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let dept of deptList">
-                      <td>{{ dept.id }}</td>
-                      <td>{{ dept.description }}</td>
-                      <td>{{ dept.hospitalId }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div *ngSwitchCase="'disease'">
-              <h3>Disease Operations</h3>
-              <div class="col-md-12">
-                <form #deptForm="ngForm">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <select
-                          type="text"
-                          class="form-control"
-                          placeholder="Select Department"
-                          name="deptId"
-                          #deptId="ngModel"
-                          [(ngModel)]="this.doctorModel.departmentId"
-                        >
-                          <option value="0" disabled>
-                            --Select a Department--
-                          </option>
-                          <option
-                            *ngFor="let dept of deptList"
-                            [value]="dept.id"
-                          >
-                            {{ dept.description }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Enter Country Name"
-                          name="description"
-                          #description="ngModel"
-                          [(ngModel)]="this.deptModel.description"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-md-2">
-                    <button class="btn btn-warning" type="submit">Add</button>
-                  </div>
-                </form>
-
-                <table class="table table-light">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Description</th>
-                      <th>Hospital</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let dept of deptList">
-                      <td>{{ dept.id }}</td>
-                      <td>{{ dept.description }}</td>
-                      <td>{{ dept.hospitalId }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                  <table class="table table-light">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Department</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let disease of diseaseList">
+                        <td>{{ disease.id }}</td>
+                        <td>{{ disease.description }}</td>
+                        <td>{{ disease.departmentId }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="card border-primary mb-3" style="max-width: 40rem">
-          <!--begin::Row-->
-          <div class="row m-0">
-            <div
-              id="doctor"
-              class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
-              (click)="hospTitleChange($event)"
-            >
-              <p class="card-title">Doctor Number</p>
-              <p class="card-number">{{ doctorCount }}</p>
-            </div>
-            <div
-              id="department"
-              class="col bg-light-primary px-6 py-8 rounded-xl mb-7"
-              (click)="hospTitleChange($event)"
-            >
-              <p class="card-title">DepartmentNumber</p>
-              <p class="card-number">{{ this.deptCount }}</p>
-            </div>
-          </div>
-
-          <div class="row m-0">
-            <div
-              id="disease"
-              class="col bg-light-danger px-6 py-8 rounded-xl mr-7"
-              (click)="hospTitleChange($event)"
-            >
-              <a><p class="card-title">Disease Number</p></a>
-              <a
-                ><p class="card-number">{{ this.diseaseCount }}</p></a
+        <div class="col-md-4">
+          <div class="card border-primary mb-3" style="max-width: 40rem">
+            <!--begin::Row-->
+            <div class="row m-0">
+              <div
+                id="doctor"
+                class="col-5 bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
+                (click)="hospTitleChange($event)"
               >
+                <p class="card-title">Doctor Number</p>
+                <p class="card-number">{{ doctorCount }}</p>
+              </div>
+              <div
+                id="department"
+                class="col-5 bg-light-primary px-6 py-8 rounded-xl mb-7"
+                (click)="hospTitleChange($event)"
+              >
+                <p class="card-title">DepartmentNumber</p>
+                <p class="card-number">{{ this.deptCount }}</p>
+              </div>
+
+              <div class="row m-0">
+                <div
+                  id="disease"
+                  class="col-5 bg-light-danger px-6 py-8 rounded-xl mr-7"
+                  (click)="hospTitleChange($event)"
+                >
+                  <a><p class="card-title">Disease Number</p></a>
+                  <a
+                    ><p class="card-number">{{ this.diseaseCount }}</p></a
+                  >
+                </div>
+              </div>
             </div>
           </div>
         </div>
