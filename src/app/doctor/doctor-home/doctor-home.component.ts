@@ -12,4 +12,6 @@ export class DoctorHomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+ 
+
 }

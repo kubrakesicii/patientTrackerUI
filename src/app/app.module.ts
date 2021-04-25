@@ -19,6 +19,7 @@ import { ForgotPassComponent } from './shared-components/forgot-pass/forgot-pass
 import { AdminCountService } from './admin/services/admin-count.service';
 import { AdminGetService } from './admin/services/admin-get.service';
 import { AdminPostService } from './admin/services/admin-post.service';
+import { NavbarComponent } from './shared-components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AdminPostService } from './admin/services/admin-post.service';
     DoctorHomeComponent,
     HospitalPipe,
     ForgotPassComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
