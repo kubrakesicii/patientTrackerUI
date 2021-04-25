@@ -1,6 +1,9 @@
 * {
   font-family: "Lato", sans-serif;
 }
+.item-body {
+  background-color: #fafafa;
+}
 nav.navbar.navbar-expand-lg.navbar-dark.bg-primary {
   display: flex;
   justify-content: space-between;
@@ -97,8 +100,8 @@ p.card-number {
 }
 
 .scroll {
-  max-height: 300px;
   overflow-y: auto;
+  max-height: 300px;
 }
 
 div#country,
@@ -224,5 +227,12 @@ div#country,
 div#city,
 div#district,
 div#hospital {
+  cursor: pointer;
+}
+
+button.btn.btn-warning {
+  width: 114px;
+}
+td {
   cursor: pointer;
 }
