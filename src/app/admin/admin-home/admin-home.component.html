@@ -389,7 +389,7 @@
             <div *ngSwitchCase="'doctor'">
               <h3>Doctor Operations</h3>
               <div class="col-md-12">
-                <form #doctorForm="ngForm">
+                <form #doctorForm="ngForm" (click)="addDoctor()">
                   <div class="row m-0">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -400,6 +400,7 @@
                           name="firstname"
                           #firstname="ngModel"
                           [(ngModel)]="this.doctorModel.firstName"
+                          [(ngModel)]="this.postDoctor.firstName"
                         />
                       </div>
                     </div>
@@ -412,6 +413,7 @@
                           name="lastname"
                           #lastname="ngModel"
                           [(ngModel)]="this.doctorModel.lastName"
+                          [(ngModel)]="this.postDoctor.lastName"
                         />
                       </div>
                     </div>
@@ -427,6 +429,7 @@
                           name="email"
                           #email="ngModel"
                           [(ngModel)]="this.doctorModel.email"
+                          [(ngModel)]="this.postDoctor.email"
                         />
                       </div>
                     </div>
@@ -439,6 +442,7 @@
                           name="gsm"
                           #gsm="ngModel"
                           [(ngModel)]="this.doctorModel.gsm"
+                          [(ngModel)]="this.postDoctor.gsm"
                         />
                       </div>
                     </div>
@@ -454,6 +458,7 @@
                           name="deptId"
                           #deptId="ngModel"
                           [(ngModel)]="this.doctorModel.departmentName"
+                          [(ngModel)]="this.postDoctor.departmentId"
                         >
                           <option value="0" disabled>
                             --Select a Department--
@@ -477,6 +482,7 @@
                           name="degreeId"
                           #degreeId="ngModel"
                           [(ngModel)]="this.doctorModel.degreeName"
+                          [(ngModel)]="this.postDoctor.degreeId"
                         >
                           <option value="0" disabled>
                             --Select a Degree--
@@ -528,14 +534,14 @@
             <div *ngSwitchCase="'department'">
               <h3>Department Operations</h3>
               <div class="col-md-12">
-                <form #deptForm="ngForm">
+                <form #deptForm="ngForm" (click)="addDepartment()">
                   <div class="row">
                     <div class="col-md-10">
                       <div class="form-group">
                         <input
                           type="text"
                           class="form-control"
-                          placeholder="Enter Country Name"
+                          placeholder="Enter Department Name"
                           name="description"
                           #description="ngModel"
                           [(ngModel)]="this.deptModel.description"
@@ -569,7 +575,7 @@
             <div *ngSwitchCase="'disease'">
               <h3>Disease Operations</h3>
               <div class="col-md-12">
-                <form #deptForm="ngForm">
+                <form #diseaseForm="ngForm" (submit)="addDisease()">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -630,15 +636,51 @@
                 </table>
               </div>
             </div>
+            <div *ngSwitchCase="'degree'">
+              <h3>Degree Operations</h3>
+              <div class="col-md-12">
+                <form #degreeForm="ngForm" (submit)="addDegree()">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter Degree Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.degreeModel.description"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button class="btn btn-warning" type="submit">Add</button>
+                    </div>
+                  </div>
+                </form>
+
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let degree of degreeList">
+                      <td>{{ degree.id }}</td>
+                      <td>{{ degree.description }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="col-md-4">
-        <div
-          class="card border-primary mb-3 card-background"
-          style="max-width: 40rem"
-        >
+        <div class="card border-primary mb-3" style="max-width: 40rem">
           <!--begin::Row-->
           <div class="row m-0">
             <div
@@ -661,12 +703,23 @@
             <div class="row m-0">
               <div
                 id="disease"
-                class="col-8 bg-light-danger px-6 py-8 rounded-xl ml-5"
+                class="col-5 bg-light-danger px-6 py-8 rounded-xl ml-2 mr-2 mb-7"
                 (click)="hospTitleChange($event)"
               >
                 <a><p class="card-title">Disease Number</p></a>
                 <a
                   ><p class="card-number">{{ this.diseaseCount }}</p></a
+                >
+              </div>
+
+              <div
+                id="degree"
+                class="col-5 bg-light-success px-6 py-8 rounded-xl mb-7"
+                (click)="hospTitleChange($event)"
+              >
+                <a><p class="card-title">Degree Number</p></a>
+                <a
+                  ><p class="card-number">{{ this.degreesCount }}</p></a
                 >
               </div>
             </div>

@@ -26,6 +26,10 @@ export class AdminCountService {
     return this.http.get(`${this.apiUrl}/Hospitals/Count`).toPromise();
   }
 
+  async countDegrees() {
+    return this.http.get(`${this.apiUrl}/Degrees/Count`).toPromise();
+  }
+
   async countDept(hospitalId : any) {
     return this.http
       .get(`${this.apiUrl}/Departments/Count?hospitalId=${hospitalId}`)
