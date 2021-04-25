@@ -11,7 +11,7 @@ export class AdminCountService {
   constructor(private http : HttpClient) { }
   
   async countCountries() {
-    return this.http.get(this.apiUrl + 'Countries/Count').toPromise();
+    return this.http.get(`${this.apiUrl}/Countries/Count`).toPromise();
   }
 
   async countCities() {
