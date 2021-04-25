@@ -15,15 +15,11 @@ export class ForgotPassComponent implements OnInit {
   }
 
   sendSms(gsm : string){
+    //console.log(gsm);
     this.authService.forgotPass(gsm).subscribe(data => {
         let result = JSON.parse(JSON.stringify(data));
         console.log(result);
-        // if(result['success'] == false){
-        //   console.log("Gsm is not found");
-        // }
-        // else {
-        //   console.log("Your new password is send to your gsm! You can login with it");
-        // }
+        console.log(result['message']);
     })
   }
 

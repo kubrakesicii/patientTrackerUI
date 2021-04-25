@@ -29,7 +29,7 @@ export class AuthService {
   
       let headers = new HttpHeaders();
       headers = headers.append("Content-type" , "application/json");
-      this.http.post(this.apiUrl+"Authentication/Login",loginUser, {headers : headers})
+      await this.http.post(this.apiUrl+"Authentication/Login",loginUser, {headers : headers})
       .subscribe(data => {
         let tokenInfo = JSON.parse(JSON.stringify(data))['data'];
         this.saveTokenInfo(tokenInfo);
@@ -105,7 +105,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers = headers.append("Content-type" , "application/json");
 
-    return this.http.post(`Authentication/ForgotPassword?gsm=${gsm}`, {headers : headers});
+    return this.http.post(`${this.apiUrl}Authentication/ForgotPassword?gsm=${gsm}`, {headers : headers});
   }
  
 }

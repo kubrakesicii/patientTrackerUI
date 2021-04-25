@@ -1,10 +1,12 @@
 
 <div class="container">
     <form #forgotPassForm = "ngForm" (submit)="sendSms(gsm.value)">
-        <label for="">Enter your gsm to get new password!</label>
-        <input type="text" #gsm class="form-control" placeholder=Gsm...>
+        <div class="col">
+            <label for="">Enter your gsm to get new password!</label>
+            <input type="text" #gsm class="form-control" placeholder=Gsm...>
+        </div>       
 
-        <button class="btn btn-warning" type="submit">Send</button>
+        <button class="btn btn-warning mt-2 float-right" type="submit">Send</button>
 
     </form>
     
