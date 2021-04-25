@@ -29,27 +29,27 @@ export class AdminHomeComponent implements OnInit {
 
   userInfo: UserInfo = new UserInfo();
 
+  //Counts
   countryCount: any;
   cityCount: any;
-  countryid: any;
-
   districtCount: any;
   hospitalCount: any;
   doctorCount: any;
   deptCount: any;
   diseaseCount: any;
 
+  //Lists
   hospitalList: any;
   countryList: any;
   cityList: City[];
   districtList: any;
+  doctorList : any;
+  deptList : any;
+  diseaseList : any;
+  degreeList : any;
 
-  clickType: string = 'country';
 
-  hospitalId: any = 1;
-  hospitalClickType: string = 'doctor';
-
-  // Models
+//Models
   countryModel: Country = new Country();
   cityModel: City = new City();
   districtModel: District = new District();
@@ -59,13 +59,20 @@ export class AdminHomeComponent implements OnInit {
   deptModel : Department = new Department();
   diseaseModel : Disease = new Disease();
 
+  
+  clickType: string = 'country';
+  hospitalClickType: string = 'doctor';
+
+  hospitalId: any = 1;
+  countryid: any;
+
+
   ngOnInit(): void {
     this.getUserInfo();
     this.loadCounters();
     console.log(this.cityList);
   }
 
-  selectCountry(event: Event) {}
   titleChange(event: Event) {
     let el = (event.target as Element).id;
     switch (el) {
@@ -135,6 +142,26 @@ export class AdminHomeComponent implements OnInit {
       .getAllDistricts()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.districtList = x['$values']));
+
+      await this.getService
+      .getAllDoctorsByHospital(this.hospitalId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.doctorList = x['$values']));
+
+      await this.getService
+      .getAllDeptsByHospital(this.hospitalId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.deptList = x['$values']));
+
+      await this.getService
+      .getAllDiseasesByHospital(this.hospitalId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.diseaseList = x['$values']));
+
+      await this.getService
+      .getAllDegrees()
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.diseaseList = x['$values']));
   }
 
   addCountry(event: Event) {
