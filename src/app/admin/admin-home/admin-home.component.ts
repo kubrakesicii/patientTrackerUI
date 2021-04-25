@@ -4,11 +4,13 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
+import { Degree } from '../models/degree.model';
 import { Department } from '../models/department.model';
 import { Disease } from '../models/disease.model';
 import { District } from '../models/district.model';
 import { Doctor } from '../models/doctor.model';
 import { Hospital } from '../models/hospital.model';
+import { PostDoctor } from '../models/post-doctor.model';
 import { AdminCountService } from '../services/admin-count.service';
 import { AdminGetService } from '../services/admin-get.service';
 import { AdminPostService } from '../services/admin-post.service';
@@ -37,6 +39,7 @@ export class AdminHomeComponent implements OnInit {
   doctorCount: any;
   deptCount: any;
   diseaseCount: any;
+  degreesCount : any;
 
   //Lists
   hospitalList: any;
@@ -56,8 +59,10 @@ export class AdminHomeComponent implements OnInit {
   hospitalModel: Hospital = new Hospital();
 
   doctorModel : Doctor = new Doctor();
+  postDoctor : PostDoctor = new PostDoctor();
   deptModel : Department = new Department();
   diseaseModel : Disease = new Disease();
+  degreeModel : Degree = new Degree();
 
   
   clickType: string = 'country';
@@ -69,11 +74,8 @@ export class AdminHomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getUserInfo();
-    this.loadCounters();
-    this.loadHospitalCounters(this.selectedHospitalId);
+    this.loadPageData();
 
-    console.log(this.cityList);
   }
 
   titleChange(event: Event) {
@@ -107,11 +109,14 @@ export class AdminHomeComponent implements OnInit {
       case 'disease':
         this.hospitalClickType = 'disease';
         break;
+      case 'degree' :
+        this.hospitalClickType = 'degree';
+        break;
     }
     console.log(this.hospitalClickType);
   }
 
-  async loadCounters() {
+  async loadGeneralData() {
     await this.countService
       .countCountries()
       .then((data) => (this.countryCount = data));
@@ -165,6 +170,7 @@ export class AdminHomeComponent implements OnInit {
       .getAllDegrees()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.degreeList = x['$values']));
+
   }
 
   addCountry(event: Event) {
@@ -201,12 +207,11 @@ export class AdminHomeComponent implements OnInit {
 
     this.selectedHospitalName = (event.target as Element).parentElement?.previousSibling?.previousSibling?.textContent;
 
-    this.ngOnInit()
-
-    await this.loadHospitalCounters(this.selectedHospitalId);
+    await this.loadHospitalData(this.selectedHospitalId);
+    this.ngOnInit();
   }
 
-  async loadHospitalCounters(hospitalId : any) {
+  async loadHospitalData(hospitalId : any) {
     await this.countService
       .countDoctors(hospitalId)
       .then((data) => (this.doctorCount = data));
@@ -216,6 +221,44 @@ export class AdminHomeComponent implements OnInit {
     await this.countService
       .countDiseases(hospitalId)
       .then((data) => (this.diseaseCount = data));
+    await this.countService
+      .countDegrees()
+      .then(data => this.degreesCount = data);
+  }
+
+  async loadPageData(){
+    await this.loadGeneralData();
+    await this.loadHospitalData(this.selectedHospitalId);
+  }
+
+  addDoctor(){
+    this.postService.addDoctor(this.postDoctor).subscribe((data) => {
+      this.ngOnInit();
+      this.alertifyService.success('Doctor is Added!');
+    });
+  }
+
+  addDepartment(){
+    this.deptModel.hospitalId = this.selectedHospitalId;
+    this.postService.addDepartment(this.deptModel).subscribe(data => {
+      this.ngOnInit();
+      this.alertifyService.success('Department is Added!');
+    });
+  }
+
+  addDisease(){
+    this.postService.addDisease(this.diseaseModel).subscribe(data => {
+      this.ngOnInit();
+      this.alertifyService.success('Disease is Added!');
+    });
+  }
+
+  addDegree(){
+    console.log("Degree added");
+    this.postService.addDegree(this.degreeModel).subscribe(data => {
+      this.ngOnInit();
+      this.alertifyService.success('Degree is Added!');
+    });
   }
 
 }
