@@ -399,9 +399,13 @@
   </table>
 </div>
 
-<div class="container">
+
+<div class="container pt-5">
+
+  <h2> {{selectedHospitalName}} </h2>
+
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div class="card mb-4 scroll">
         <div class="card-body" [ngSwitch]="this.hospitalClickType">
           <div *ngSwitchCase="'doctor'">
@@ -417,7 +421,7 @@
                         placeholder="Enter Firstname"
                         name="firstname"
                         #firstname="ngModel"
-                        [(ngModel)]="this.doctorModel.firstname"
+                        [(ngModel)]="this.doctorModel.firstName"
                       />
                     </div>
                   </div>
@@ -429,7 +433,7 @@
                         placeholder="Enter Lastname"
                         name="lastname"
                         #lastname="ngModel"
-                        [(ngModel)]="this.doctorModel.lastname"
+                        [(ngModel)]="this.doctorModel.lastName"
                       />
                     </div>
                   </div>
@@ -471,7 +475,7 @@
                         placeholder="Select Department"
                         name="deptId"
                         #deptId="ngModel"
-                        [(ngModel)]="this.doctorModel.departmentId"
+                        [(ngModel)]="this.doctorModel.departmentName"
                       >
                         <option value="0" disabled>
                           --Select a Department--
@@ -491,10 +495,10 @@
                         placeholder="Select Degree"
                         name="degreeId"
                         #degreeId="ngModel"
-                        [(ngModel)]="this.doctorModel.degreeId"
+                        [(ngModel)]="this.doctorModel.degreeName"
                       >
                         <option value="0" disabled>
-                          --Select a Department--
+                          --Select a Degree--
                         </option>
                         <option
                           *ngFor="let degree of degreeList"
@@ -513,6 +517,32 @@
                   </div>
                 </div>
               </form>
+
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Gsm</th>
+                    <th>Department</th>
+                    <th>Degree</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let doctor of doctorList">
+                    <td>{{ doctor.$id }}</td>
+                    <td>{{ doctor.firstName }}</td>
+                    <td>{{ doctor.lastName }}</td>
+                    <td>{{ doctor.email }}</td>
+                    <td>{{ doctor.gsm }}</td>
+                    <td>{{ doctor.departmentName }}</td>
+                    <td>{{ doctor.degreeName }}</td>
+                  </tr>
+                </tbody>
+              </table>
+
             </div>
           </div>
 
@@ -571,7 +601,7 @@
                         placeholder="Select Department"
                         name="deptId"
                         #deptId="ngModel"
-                        [(ngModel)]="this.doctorModel.departmentId"
+                        [(ngModel)]="this.diseaseModel.departmentId"
                       >
                         <option value="0" disabled>
                           --Select a Department--
@@ -590,7 +620,7 @@
                         placeholder="Enter Country Name"
                         name="description"
                         #description="ngModel"
-                        [(ngModel)]="this.deptModel.description"
+                        [(ngModel)]="this.diseaseModel.description"
                       />
                     </div>
                   </div>
@@ -606,14 +636,14 @@
                   <tr>
                     <th>ID</th>
                     <th>Description</th>
-                    <th>Hospital</th>
+                    <th>Department</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let dept of deptList">
-                    <td>{{ dept.id }}</td>
-                    <td>{{ dept.description }}</td>
-                    <td>{{ dept.hospitalId }}</td>
+                  <tr *ngFor="let disease of diseaseList">
+                    <td>{{ disease.id }}</td>
+                    <td>{{ disease.description }}</td>
+                    <td>{{ disease.departmentId }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -623,13 +653,13 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="card border-primary mb-3" style="max-width: 40rem">
         <!--begin::Row-->
         <div class="row m-0">
           <div
             id="doctor"
-            class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
+            class="col-5 bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
             (click)="hospTitleChange($event)"
           >
             <p class="card-title">Doctor Number</p>
@@ -637,7 +667,7 @@
           </div>
           <div
             id="department"
-            class="col bg-light-primary px-6 py-8 rounded-xl mb-7"
+            class="col-5 bg-light-primary px-6 py-8 rounded-xl mb-7"
             (click)="hospTitleChange($event)"
           >
             <p class="card-title">DepartmentNumber</p>
@@ -648,7 +678,7 @@
         <div class="row m-0">
           <div
             id="disease"
-            class="col bg-light-danger px-6 py-8 rounded-xl mr-7"
+            class="col-5 bg-light-danger px-6 py-8 rounded-xl mr-7"
             (click)="hospTitleChange($event)"
           >
             <a><p class="card-title">Disease Number</p></a>

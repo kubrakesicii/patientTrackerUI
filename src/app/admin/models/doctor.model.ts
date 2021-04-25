@@ -1,9 +1,9 @@
 export class Doctor {
-    id : number;
+    $id : number;
     email : string;
-    firstname : string;
-    lastname : string;
+    firstName : string;
+    lastName : string;
     gsm : string;
-    departmentId : number;
-    degreeId : number;
+    departmentName : string;
+    degreeName : string;
 }
