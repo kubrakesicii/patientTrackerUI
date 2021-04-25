@@ -1,17 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="#">ADMIN HOME</a>
-
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="text" placeholder="Search" />
-    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-  </form>
 </nav>
 <div class="item-body">
   <h2 class="text-center">Welcome {{ userInfo.fullName }}</h2>
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div
           class="card border-primary mb-3 card-background"
           style="max-width: 40rem"
@@ -61,7 +56,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="card mb-4 scroll">
           <div class="card-body" [ngSwitch]="this.clickType">
             <div *ngSwitchCase="'country'">
@@ -238,7 +233,7 @@
               </table>
             </div>
 
-            <div class="hospital-operations" *ngSwitchCase="'hospital'">
+            <div *ngSwitchCase="'hospital'">
               <h3>Hospital Operations</h3>
               <div class="container">
                 <div class="row">
@@ -365,7 +360,12 @@
         <th>ID</th>
         <th>Name</th>
         <th>Address</th>
-        <th></th>
+        <th>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" />
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+      </th>
       </thead>
 
       <tbody>
@@ -680,7 +680,7 @@
       </div>
 
       <div class="col-md-4">
-        <div class="card border-primary mb-3" style="max-width: 40rem">
+        <div class="card border-primary mb-3 card-background" style="max-width: 40rem">
           <!--begin::Row-->
           <div class="row m-0">
             <div
