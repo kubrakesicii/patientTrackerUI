@@ -10,24 +10,24 @@ export class DoctorGetService {
 
   constructor(private http : HttpClient) { }
 
-  getAllAdvices(deptId : any){
-    return this.http.get(`${this.apiUrl}/Advices?deptId=${deptId}`);
+  async getAllAdvices(deptId : any){
+    return this.http.get(`${this.apiUrl}/Advices?deptId=${deptId}`).toPromise();
   }
 
-  getAllQuestions(deptId : any){
-    return this.http.get(`${this.apiUrl}/Questions/All?deptId=${deptId}`);
+  async getAllQuestions(deptId : any){
+    return this.http.get(`${this.apiUrl}/Questions/All?deptId=${deptId}`).toPromise();
   }
 
-  getAllAppointments(doctorId:any){
-    return this.http.get(`${this.apiUrl}/Appointments/Doctors?doctorId=${doctorId}`);
+  async getAllAppointments(doctorId:any){
+    return this.http.get(`${this.apiUrl}/Appointments/Doctors?doctorId=${doctorId}`).toPromise();
   }
 
-  getAllPatients(doctorId : any){
-    return this.http.get(`${this.apiUrl}/DoctorPatients/PatientsOfDoctor?doctorId=${doctorId}`);
+  async getAllPatients(doctorId : any){
+    return this.http.get(`${this.apiUrl}/DoctorPatients/PatientsOfDoctor?doctorId=${doctorId}`).toPromise();
   }
 
-  getDoctorById(doctorId : number) {
-    return this.http.get(`${this.apiUrl}/Doctors/PersonId?personId=${doctorId}`);
+  async getDoctorById(doctorId : number) {
+    return this.http.get(`${this.apiUrl}/Doctors/PersonId?personId=${doctorId}`).toPromise();
   }
   
 

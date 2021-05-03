@@ -1,8 +1,9 @@
 export class Patient {
     $id : number;
-    identitynumber : string;
+    identityNumber : string;
     firstName : string;
     lastName : string;
     gsm : string;
     email : string;
+    healthScore : number;
 }

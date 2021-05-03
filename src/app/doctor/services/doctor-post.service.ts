@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Advice } from '../models/advice.model';
 import { Answer } from '../models/answer.model';
+import { Appointment } from '../models/appointment.model';
 import { PatientDisease } from '../models/patient-disease.model';
 import { Patient } from '../models/patient.model';
 import { Question } from '../models/question.model';
@@ -47,7 +48,7 @@ export class DoctorPostService {
   }
 
 
-  addDiseaseToPatient(patientDiseaseModel : PatientDisease) {
+  addDiseaseToPatient(patientDiseaseModel : PatientDisease) {  /*bu modelin patient idsi tıklanan patientten alınacak */
     let headers = new HttpHeaders();
     headers = headers.append("Content-type" , "application/json");
 
@@ -55,8 +56,12 @@ export class DoctorPostService {
   }
 
 
+  addAppointment(appointmentModel : Appointment) { /*bu modelin patient idsi tıklanan patientten alınacak */
+    let headers = new HttpHeaders();
+    headers = headers.append("Content-type" , "application/json");
 
-
+    return this.http.post(`${this.apiUrl}/Appointments`, appointmentModel, {headers : headers});
+  }
 
 }
 

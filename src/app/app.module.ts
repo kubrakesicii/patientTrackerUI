@@ -20,6 +20,7 @@ import { AdminCountService } from './admin/services/admin-count.service';
 import { AdminGetService } from './admin/services/admin-get.service';
 import { AdminPostService } from './admin/services/admin-post.service';
 import { NavbarComponent } from './shared-components/navbar/navbar.component';
+import { DoctorSidebarComponent } from './doctor/doctor-sidebar/doctor-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NavbarComponent } from './shared-components/navbar/navbar.component';
     HospitalPipe,
     ForgotPassComponent,
     NavbarComponent,
+    DoctorSidebarComponent,
   ],
   imports: [
     BrowserModule,
