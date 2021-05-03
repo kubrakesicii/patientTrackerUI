@@ -1,0 +1,196 @@
+<div class="container">
+    <h3>Add Patient Form</h3>
+    <form #patientForm="ngForm" (submit)="addPatient()">
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Firstname"
+                name="firstname"
+                #firstname="ngModel"
+                [(ngModel)]="this.patientModel.firstName"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Lastname"
+                name="lastname"
+                #lastname="ngModel"
+                [(ngModel)]="this.patientModel.lastName"
+              />
+            </div>
+          </div>
+        </div>
+    
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Gsm"
+                name="gsm"
+                #gsm="ngModel"
+                [(ngModel)]="this.patientModel.gsm"
+              />
+            </div>
+          </div>
+    
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter ID"
+                name="identity"
+                #identity="ngModel"
+                [(ngModel)]="this.patientModel.identitynumber"
+              />
+            </div>
+          </div>
+        </div>
+    
+        <div class="row m-0">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Email"
+                  name="email"
+                  #email="ngModel"
+                  [(ngModel)]="this.patientModel.email"
+                />
+              </div>
+            </div>
+      
+          </div>
+    
+    
+        <div class="row m-0">
+          <div class="col-md-2">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
+
+
+      <h3>Add Question Form</h3>
+      <form #questionForm="ngForm" (submit)="addQuestion()">
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter description"
+                name="description"
+                #description="ngModel"
+                [(ngModel)]="this.questionModel.description"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+                <select
+                type="text"
+                class="form-control selection"
+                placeholder="Select questionType"
+                name="questionType"
+                #questionType="ngModel"
+                [(ngModel)]="this.questionModel.questionType"
+              >
+                <option value="0" disabled>
+                  --Select a Question Type--
+                </option>
+                <option value="1">Multiple Choice Question</option>
+                <option value="2">Numeric Question</option>
+              </select>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter lowerLimit"
+                name="gsm"
+                #lowerLimit="ngModel"
+                [(ngModel)]="this.questionModel.lowerLimit"
+              />
+            </div>
+          </div>
+    
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter ID"
+                name="upperLimit"
+                #upperLimit="ngModel"
+                [(ngModel)]="this.questionModel.upperLimit"
+              />
+            </div>
+          </div>
+        </div>    
+        <div class="row m-0">
+          <div class="col-md-2">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
+
+      <h3>Add Question Form</h3>
+      <form #questionForm="ngForm" (submit)="addDisease()">
+
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter patientId"
+                name="patientId"
+                #patientId="ngModel"
+                [(ngModel)]="this.patDiseaseModel.patientId"
+              />
+            </div>
+          </div>
+    
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter diseaseId"
+                name="diseaseId"
+                #diseaseId="ngModel"
+                [(ngModel)]="this.patDiseaseModel.diseaseId"
+              />
+            </div>
+          </div>
+        </div>    
+        <div class="row m-0">
+          <div class="col-md-2">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
+
+
+</div>
+
+
+  <button class="btn btn-success" (click)="getAllPatients()">PATIENTS GET</button>
+  <button class="btn btn-success" (click)="getCurrentDoctor()">DOCTOR GET</button>
+  <button class="btn btn-success" (click)="getAllAdvices()">ADVICE GET</button>

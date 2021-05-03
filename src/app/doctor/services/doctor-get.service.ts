@@ -26,6 +26,9 @@ export class DoctorGetService {
     return this.http.get(`${this.apiUrl}/DoctorPatients/PatientsOfDoctor?doctorId=${doctorId}`);
   }
 
+  getDoctorById(doctorId : number) {
+    return this.http.get(`${this.apiUrl}/Doctors/PersonId?personId=${doctorId}`);
+  }
   
 
 }
