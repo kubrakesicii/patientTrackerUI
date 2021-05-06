@@ -21,6 +21,7 @@ import { AdminCountService } from './admin/services/admin-count.service';
 import { AdminGetService } from './admin/services/admin-get.service';
 import { AdminPostService } from './admin/services/admin-post.service';
 import { SearchPipe } from './admin/pipes/search.pipe';
+import { NavbarComponent } from './shared-components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { SearchPipe } from './admin/pipes/search.pipe';
     HospitalPipe,
     ForgotPassComponent,
     SearchPipe,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

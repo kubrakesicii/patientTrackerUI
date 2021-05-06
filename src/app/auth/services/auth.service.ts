@@ -39,6 +39,8 @@ export class AuthService {
       });
 
       await this.getUserInfo().subscribe(data => {
+        localStorage.setItem("userInfo",JSON.stringify(data))
+
         this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
         this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
         this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
