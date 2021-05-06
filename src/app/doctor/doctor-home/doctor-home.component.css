@@ -1,0 +1,34 @@
+.tp-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.tp-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.side-section {
+  background-color: rgb(125, 209, 137);
+  width: 250px;
+}
+.title {
+  background-color: rgb(82, 139, 90);
+  height: 150px;
+  position: relative;
+}
+.dr-name {
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  position: absolute;
+  left: auto;
+}
+p.dr-name {
+  margin-left: 50px;
+  margin-top: 25px;
+}

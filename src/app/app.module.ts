@@ -8,6 +8,7 @@ import { LoginComponent } from './shared-components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { RouterModule } from '@angular/router';
 import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
@@ -19,6 +20,7 @@ import { ForgotPassComponent } from './shared-components/forgot-pass/forgot-pass
 import { AdminCountService } from './admin/services/admin-count.service';
 import { AdminGetService } from './admin/services/admin-get.service';
 import { AdminPostService } from './admin/services/admin-post.service';
+import { SearchPipe } from './admin/pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { AdminPostService } from './admin/services/admin-post.service';
     DoctorHomeComponent,
     HospitalPipe,
     ForgotPassComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { AdminPostService } from './admin/services/admin-post.service';
     FormsModule,
     RouterModule,
     MatDialogModule,
+    MatSidenavModule,
   ],
   providers: [
     AuthService,

@@ -358,11 +358,12 @@
     <table class="table table-striped">
       <thead>
         <th>ID</th>
-        <th>Name</th>
+        <th>Description</th>
         <th>Address</th>
         <th>
           <form class="form-inline my-2 my-lg-0">
             <input
+              [(ngModel)]="filterText"
               class="form-control mr-sm-2"
               type="text"
               placeholder="Search"
@@ -375,7 +376,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let hospital of hospitalList">
+        <tr *ngFor="let hospital of hospitalList | searchPipe: filterText">
           <td>{{ hospital.id }}</td>
           <td>{{ hospital.description }}</td>
           <td>{{ hospital.address }}</td>
