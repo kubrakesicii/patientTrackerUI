@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+      <div class="col-3">
+        <app-sidebar></app-sidebar>
+      </div>
+  
+      <div class="col-9">
+        <H3>CHANGING CONTENT</H3>
+        <h3>Question Processes</h3>
+           
+      <h3>Add Question Form</h3>
+      <form #questionForm="ngForm" (submit)="addQuestion()">
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter description"
+                name="description"
+                #description="ngModel"
+                [(ngModel)]="this.questionModel.description"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <select
+                type="text"
+                class="form-control selection"
+                placeholder="Select questionType"
+                name="questionType"
+                #questionType="ngModel"
+                [(ngModel)]="this.questionModel.questionType"
+              >
+                <option value="0" disabled>--Select a Question Type--</option>
+                <option value="1">Multiple Choice Question</option>
+                <option value="2">Numeric Question</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter lowerLimit"
+                name="gsm"
+                #lowerLimit="ngModel"
+                [(ngModel)]="this.questionModel.lowerLimit"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter ID"
+                name="upperLimit"
+                #upperLimit="ngModel"
+                [(ngModel)]="this.questionModel.upperLimit"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row m-0">
+          <div class="col-md-2">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  

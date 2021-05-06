@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+      <div class="col-3">
+        <app-sidebar></app-sidebar>
+      </div>
+  
+      <div class="col-9">
+        <H3>CHANGING CONTENT</H3>
+        <h3>Advice Processes</h3>
+            
+        <h3>Add Advice Form</h3>
+        <form #adviceForm="ngForm" (submit)="addAdvice()">
+          <div class="row m-0">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter description"
+                  name="description"
+                  #description="ngModel"
+                  [(ngModel)]="this.adviceModel.description"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter lowerLimit"
+                  name="gsm"
+                  #lowerLimit="ngModel"
+                  [(ngModel)]="this.adviceModel.readingTime"
+                />
+              </div>
+            </div>
+          </div>
+
+        
+          <div class="row m-0">
+            <div class="col-md-2">
+              <button class="btn btn-warning" type="submit">Add</button>
+            </div>
+          </div>
+        </form>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Advice</th>
+              <th>Day</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let advice of this.adviceList">
+              <td> {{advice.id}} </td>
+              <td> {{advice.description}} </td>
+              <td> {{advice.readingTime}} </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+  

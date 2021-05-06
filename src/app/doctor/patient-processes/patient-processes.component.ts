@@ -1,46 +1,41 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
-import { Jsonp } from '@angular/http';
-import { Disease } from 'src/app/admin/models/disease.model';
+import { Doctor } from 'src/app/doctor/models/doctor.model';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { Advice } from '../models/advice.model';
-import { Answer } from '../models/answer.model';
-import { Appointment } from '../models/appointment.model';
-import { Doctor } from '../models/doctor.model';
-import { PatientDisease } from '../models/patient-disease.model';
 import { Patient } from '../models/patient.model';
-import { Question } from '../models/question.model';
 import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
+import { PatientDisease } from '../models/patient-disease.model';
+import { Disease } from 'src/app/admin/models/disease.model';
 
 @Component({
-  selector: 'app-doctor-home',
-  templateUrl: './doctor-home.component.html',
-  styleUrls: ['./doctor-home.component.css']
+  selector: 'app-patient-processes',
+  templateUrl: './patient-processes.component.html',
+  styleUrls: ['./patient-processes.component.css']
 })
-export class DoctorHomeComponent implements OnInit {
+export class PatientProcessesComponent implements OnInit {
   userInfo : UserInfo = new UserInfo();
+
   doctorModel : Doctor = new Doctor();
-  patDiseaseModel : PatientDisease = new PatientDisease();
-  diseaseList : Disease[];
+  patientModel : Patient = new Patient();
   patientList : Patient[];
 
-  constructor(private authService : AuthService,
-              private getService : DoctorGetService, 
+  patDiseaseModel : PatientDisease = new PatientDisease();
+  diseaseList : Disease[];
+  
+  constructor(private getService : DoctorGetService,
               private postService : DoctorPostService) { }
 
-
   ngOnInit(): void {
-    this.loadListData(); 
+    this.loadListData();
   }
 
-   async getUserInfo(){
-       this.userInfo.personId = JSON.parse(localStorage.getItem("userInfo") || "{}").id;
-       this.userInfo.personType = JSON.parse(localStorage.getItem("userInfo") || "{}").personType;
-       this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
-   }
-  
+
+  async getUserInfo(){
+    this.userInfo.personId = JSON.parse(localStorage.getItem("userInfo") || "{}").id;
+    this.userInfo.personType = JSON.parse(localStorage.getItem("userInfo") || "{}").personType;
+    this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
+  }
+
   async loadListData(){
     await this.getUserInfo();
 
@@ -56,14 +51,15 @@ export class DoctorHomeComponent implements OnInit {
     await this.getService.getAllPatients(this.userInfo.personId)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.patientList = x['$values']));
-
   }
 
+  addPatient() {
+    return this.postService.addPatient(this.patientModel).subscribe(data => console.log(data));
+  }
 
   addDisease(){
     return this.postService.addDiseaseToPatient(this.patDiseaseModel).subscribe(data => console.log(data));
   }
-
 
 
 }

@@ -3,6 +3,6 @@ export class Advice {
     description : string;
     createdUserName : string;  //user info full nam
     departmentId: number;
-    creayedAt : Date;
+    createdAt : Date;
     readingTime : Date;
 }

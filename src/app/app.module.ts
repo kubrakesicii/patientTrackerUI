@@ -22,6 +22,11 @@ import { AdminGetService } from './admin/services/admin-get.service';
 import { AdminPostService } from './admin/services/admin-post.service';
 import { SearchPipe } from './admin/pipes/search.pipe';
 import { NavbarComponent } from './shared-components/navbar/navbar.component';
+import { SidebarComponent } from './shared-components/sidebar/sidebar.component';
+import { PatientProcessesComponent } from './doctor/patient-processes/patient-processes.component';
+import { AdviceProcessesComponent } from './doctor/advice-processes/advice-processes.component';
+import { QuestionProcessesComponent } from './doctor/question-processes/question-processes.component';
+import { AppointmentProcessesComponent } from './doctor/appointment-processes/appointment-processes.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,11 @@ import { NavbarComponent } from './shared-components/navbar/navbar.component';
     ForgotPassComponent,
     SearchPipe,
     NavbarComponent,
+    SidebarComponent,
+    PatientProcessesComponent,
+    AdviceProcessesComponent,
+    QuestionProcessesComponent,
+    AppointmentProcessesComponent,
   ],
   imports: [
     BrowserModule,

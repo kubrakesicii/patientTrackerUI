@@ -29,6 +29,5 @@ export class DoctorGetService {
   async getDoctorById(doctorId : number) {
     return this.http.get(`${this.apiUrl}/Doctors/PersonId?personId=${doctorId}`).toPromise();
   }
-  
 
 }
