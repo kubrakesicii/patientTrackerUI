@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor } from 'src/app/doctor/models/doctor.model';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
-import { Patient } from '../models/patient.model';
+import { GetPatient } from '../models/get-patient.model';
 import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
 import { PatientDisease } from '../models/patient-disease.model';
 import { Disease } from 'src/app/admin/models/disease.model';
+import { Router } from '@angular/router';
+import { AddPatient } from '../models/add-patient.model';
 
 @Component({
   selector: 'app-patient-processes',
@@ -16,14 +18,15 @@ export class PatientProcessesComponent implements OnInit {
   userInfo : UserInfo = new UserInfo();
 
   doctorModel : Doctor = new Doctor();
-  patientModel : Patient = new Patient();
-  patientList : Patient[];
+  patientModel : AddPatient = new AddPatient();
+  patientList : GetPatient[];
 
   patDiseaseModel : PatientDisease = new PatientDisease();
   diseaseList : Disease[];
   
   constructor(private getService : DoctorGetService,
-              private postService : DoctorPostService) { }
+              private postService : DoctorPostService,
+              private router : Router) { }
 
   ngOnInit(): void {
     this.loadListData();
@@ -54,12 +57,16 @@ export class PatientProcessesComponent implements OnInit {
   }
 
   addPatient() {
-    return this.postService.addPatient(this.patientModel).subscribe(data => console.log(data));
+    this.postService.addPatient(this.patientModel).subscribe(data => {
+      console.log(data);
+      this.ngOnInit();
+    });
   }
 
   addDisease(){
     return this.postService.addDiseaseToPatient(this.patDiseaseModel).subscribe(data => console.log(data));
   }
+
 
 
 }

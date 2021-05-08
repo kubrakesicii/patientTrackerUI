@@ -3,6 +3,7 @@ import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { Answer } from '../models/answer.model';
 import { Doctor } from '../models/doctor.model';
 import { Question } from '../models/question.model';
+import { DoctorDeleteService } from '../services/doctor-delete.service';
 import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
 
@@ -21,7 +22,8 @@ export class QuestionProcessesComponent implements OnInit {
 
 
   constructor(private getService : DoctorGetService, 
-              private postService : DoctorPostService) { }
+              private postService : DoctorPostService,
+              private deleteService : DoctorDeleteService) { }
 
   ngOnInit(): void {
     this.loadListData();
@@ -59,6 +61,13 @@ async loadListData(){
   
   addAnswer(){
     return this.postService.addAnswer(this.answerModel).subscribe(data => console.log(data));
+  }
+
+  deleteQuestion(questionId : number) {
+    this.deleteService.deleteQuestion(questionId).subscribe(() => {
+      this.ngOnInit();
+      //Alertify
+    })
   }
 
 

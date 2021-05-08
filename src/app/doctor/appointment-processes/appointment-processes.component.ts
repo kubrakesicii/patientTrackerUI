@@ -22,6 +22,7 @@ export class AppointmentProcessesComponent implements OnInit {
               private postService : DoctorPostService) { }
 
   ngOnInit(): void {
+    this.loadData();
   }
 
   async getUserInfo(){
@@ -30,7 +31,7 @@ export class AppointmentProcessesComponent implements OnInit {
     this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
 }
 
-async loadListData(){
+async loadData(){
     await this.getUserInfo();
 
     await this.getService.getDoctorById(this.userInfo.personId).then(data =>{

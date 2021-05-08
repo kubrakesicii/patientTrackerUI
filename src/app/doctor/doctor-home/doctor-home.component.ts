@@ -1,16 +1,10 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
-import { Jsonp } from '@angular/http';
 import { Disease } from 'src/app/admin/models/disease.model';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Advice } from '../models/advice.model';
-import { Answer } from '../models/answer.model';
-import { Appointment } from '../models/appointment.model';
 import { Doctor } from '../models/doctor.model';
 import { PatientDisease } from '../models/patient-disease.model';
-import { Patient } from '../models/patient.model';
-import { Question } from '../models/question.model';
+import { GetPatient } from '../models/get-patient.model';
 import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
 
@@ -24,7 +18,7 @@ export class DoctorHomeComponent implements OnInit {
   doctorModel : Doctor = new Doctor();
   patDiseaseModel : PatientDisease = new PatientDisease();
   diseaseList : Disease[];
-  patientList : Patient[];
+  patientList : GetPatient[];
 
   constructor(private authService : AuthService,
               private getService : DoctorGetService, 

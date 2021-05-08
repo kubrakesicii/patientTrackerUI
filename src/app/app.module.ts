@@ -27,6 +27,7 @@ import { PatientProcessesComponent } from './doctor/patient-processes/patient-pr
 import { AdviceProcessesComponent } from './doctor/advice-processes/advice-processes.component';
 import { QuestionProcessesComponent } from './doctor/question-processes/question-processes.component';
 import { AppointmentProcessesComponent } from './doctor/appointment-processes/appointment-processes.component';
+import { PatientDetailComponent } from './doctor/patient-detail/patient-detail.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AppointmentProcessesComponent } from './doctor/appointment-processes/ap
     AdviceProcessesComponent,
     QuestionProcessesComponent,
     AppointmentProcessesComponent,
+    PatientDetailComponent,
   ],
   imports: [
     BrowserModule,

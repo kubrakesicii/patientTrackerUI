@@ -4,60 +4,45 @@
         <app-sidebar></app-sidebar>
       </div>
   
-      <div class="col-9">
-        <H3>CHANGING CONTENT</H3>
+      <div class="col-9 mt-4">
         <h3>Advice Processes</h3>
             
-        <h3>Add Advice Form</h3>
         <form #adviceForm="ngForm" (submit)="addAdvice()">
           <div class="row m-0">
-            <div class="col-md-6">
+            <div class="col-md-10">
               <div class="form-group">
-                <input
+                <textarea
                   type="text"
                   class="form-control"
                   placeholder="Enter description"
+                  cols="40" rows="7"
                   name="description"
                   #description="ngModel"
                   [(ngModel)]="this.adviceModel.description"
-                />
+                ></textarea>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter lowerLimit"
-                  name="gsm"
-                  #lowerLimit="ngModel"
-                  [(ngModel)]="this.adviceModel.readingTime"
-                />
-              </div>
-            </div>
-          </div>
-
         
-          <div class="row m-0">
             <div class="col-md-2">
               <button class="btn btn-warning" type="submit">Add</button>
             </div>
           </div>
+
         </form>
 
-        <table>
+        <table class="table table-light mt-4">
           <thead>
             <tr>
               <th>ID</th>
               <th>Advice</th>
-              <th>Day</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let advice of this.adviceList">
               <td> {{advice.id}} </td>
               <td> {{advice.description}} </td>
-              <td> {{advice.readingTime}} </td>
+              <td><button class="btn btn-danger" (click)="deleteAdvice(advice.id)">X</button></td>
             </tr>
           </tbody>
         </table>

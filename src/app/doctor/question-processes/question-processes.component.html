@@ -4,11 +4,9 @@
         <app-sidebar></app-sidebar>
       </div>
   
-      <div class="col-9">
-        <H3>CHANGING CONTENT</H3>
+      <div class="col-9 mt-4">
         <h3>Question Processes</h3>
            
-      <h3>Add Question Form</h3>
       <form #questionForm="ngForm" (submit)="addQuestion()">
         <div class="row m-0">
           <div class="col-md-6">
@@ -47,7 +45,7 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Enter lowerLimit"
+                placeholder="Enter Lower Limit"
                 name="gsm"
                 #lowerLimit="ngModel"
                 [(ngModel)]="this.questionModel.lowerLimit"
@@ -60,7 +58,7 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="Enter ID"
+                placeholder="Enter Upper Limit"
                 name="upperLimit"
                 #upperLimit="ngModel"
                 [(ngModel)]="this.questionModel.upperLimit"
@@ -74,6 +72,28 @@
           </div>
         </div>
       </form>
+
+      <table class="table table-light mt-4">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Upper Limit</th>
+            <th>Lower Limit</th>
+            <th>Question Type</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let question of this.questionList">
+            <td> {{question.description}} </td>
+            <td> {{question.upperLimit}} </td>
+            <td> {{question.lowerLimit}} </td>
+            <td> {{question.questionType}} </td>
+
+            <td><button class="btn btn-danger" (click)="deleteQuestion(question.id)">X</button></td>
+          </tr>
+        </tbody>
+      </table>
       </div>
     </div>
   </div>

@@ -4,12 +4,31 @@
         <app-sidebar></app-sidebar>
       </div>
   
-      <div class="col-9">
+      <div class="col-9 mt-4">
         <H3>CHANGING CONTENT</H3>
         <h3>Appointment Processes</h3>
-        <h3>Add Appointment Form</h3>
        
-       
+        <table class="table table-light mt-4">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Doctor</th>
+              <th>Patient Name</th>
+              <th>Date</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of this.appointmentList">
+              <td> {{appointment.id}} </td>
+              <td> {{appointment.doctorName}} </td>
+              <td> {{appointment.patientName}} </td>
+              <td> {{appointment.date}} </td>
+              <td> {{appointment.time}} </td>
+            </tr>
+          </tbody>
+        </table>
+
 
       </div>
     </div>

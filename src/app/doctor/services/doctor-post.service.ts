@@ -4,7 +4,7 @@ import { Advice } from '../models/advice.model';
 import { Answer } from '../models/answer.model';
 import { Appointment } from '../models/appointment.model';
 import { PatientDisease } from '../models/patient-disease.model';
-import { Patient } from '../models/patient.model';
+import { AddPatient } from '../models/add-patient.model';
 import { Question } from '../models/question.model';
 
 @Injectable({
@@ -17,50 +17,32 @@ export class DoctorPostService {
   constructor(private http : HttpClient) { }
 
   addAdvice(adviceModel : Advice){
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-    
-    return this.http.post(`${this.apiUrl}/Advices`, adviceModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Advices`, adviceModel);
   }
 
 
-  addPatient(patientModel : Patient){
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Patients`, patientModel, {headers : headers});
+  addPatient(patientModel : AddPatient){
+    return this.http.post(`${this.apiUrl}/Patients`, patientModel);
   }
 
 
   addQuestion(questionModel : Question){
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Questions`, questionModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Questions`, questionModel);
   }
 
   //Burada bir soru seçilecek. Bu sorunun id'si alınacak, answer modelin questionId'si olacak. Böylece srouya şık eklenmiş olacak.
   addAnswer(answerModel : Answer){
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Answers`, answerModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Answers`, answerModel);
   }
 
 
   addDiseaseToPatient(patientDiseaseModel : PatientDisease) {  /*bu modelin patient idsi tıklanan patientten alınacak */
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/PatientDiseases`, patientDiseaseModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/PatientDiseases`, patientDiseaseModel);
   }
 
 
   addAppointment(appointmentModel : Appointment) { /*bu modelin patient idsi tıklanan patientten alınacak */
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Appointments`, appointmentModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Appointments`, appointmentModel);
   }
 
 }

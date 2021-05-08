@@ -5,17 +5,17 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { AdviceProcessesComponent } from './doctor/advice-processes/advice-processes.component';
 import { AppointmentProcessesComponent } from './doctor/appointment-processes/appointment-processes.component';
 import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
+import { PatientDetailComponent } from './doctor/patient-detail/patient-detail.component';
 import { PatientProcessesComponent } from './doctor/patient-processes/patient-processes.component';
 import { QuestionProcessesComponent } from './doctor/question-processes/question-processes.component';
 import { LoginComponent } from './shared-components/login/login.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   {
     path: 'admin-home',
     component: AdminHomeComponent,
-    canActivate: [AuthGuard],
-    data : {roles : [3]}
+    canActivate: [AuthGuard]
   },
   {
     path: 'doctor-home',
@@ -37,6 +37,10 @@ const routes: Routes = [
   {
     path : 'doctor-home/appointment-processes',
     component : AppointmentProcessesComponent
+  },
+  {
+    path : "doctor-home/patient-details/:patientId",
+    component : PatientDetailComponent
   }
   
 ];

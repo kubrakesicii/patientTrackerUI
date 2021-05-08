@@ -2,8 +2,8 @@ import { Time } from "@angular/common";
 
 export class Appointment{
     id : number;
-    doctorId : number;
-    patientId : number;
+    doctorName : number;
+    patientName : number;
     date : Date;
     time : Time;
 }

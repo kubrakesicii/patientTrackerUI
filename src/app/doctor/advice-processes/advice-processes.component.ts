@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { Advice } from '../models/advice.model';
 import { Doctor } from '../models/doctor.model';
+import { DoctorDeleteService } from '../services/doctor-delete.service';
 import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
 
@@ -18,7 +19,8 @@ export class AdviceProcessesComponent implements OnInit {
   adviceList : Advice[];
 
   constructor(private getService : DoctorGetService, 
-              private postService : DoctorPostService) { }
+              private postService : DoctorPostService,
+              private deleteService : DoctorDeleteService) { }
 
   ngOnInit(): void {
     this.loadListData();
@@ -52,6 +54,16 @@ async loadListData(){
       this.adviceModel.departmentId = this.doctorModel.departmentId;
       this.adviceModel.createdUserName = this.userInfo.fullName;
 
-      return this.postService.addAdvice(this.adviceModel).subscribe(data => console.log(data));
+      return this.postService.addAdvice(this.adviceModel).subscribe(data => {
+        this.ngOnInit();
+        //show alertify message
+      });
+    }
+
+    deleteAdvice(adviceId : number) {
+      this.deleteService.deleteAdvice(adviceId).subscribe(data => {
+        this.ngOnInit();
+        //Alertify
+      })
     }
 }

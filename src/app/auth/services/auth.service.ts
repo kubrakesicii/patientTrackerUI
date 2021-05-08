@@ -85,10 +85,15 @@ export class AuthService {
     return true;
   }
 
-  logout() {
-    this.http.post(this.apiUrl + "Authentication/Logout", this.userInfo.personId);
+  logout(personId : number) {
+    this.http.post(`${this.apiUrl}Authentication/Logout`,personId);
     localStorage.removeItem("token");
-    this.router.navigateByUrl("login");
+    localStorage.removeItem("tokenExp");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("refreshTokenExp");
+
+    localStorage.removeItem("userInfo");
+    this.router.navigateByUrl("/");
   }
 
   refreshLogin(refreshToken : string) {
