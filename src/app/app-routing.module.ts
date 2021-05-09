@@ -15,34 +15,32 @@ const routes: Routes = [
   {
     path: 'admin-home',
     component: AdminHomeComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'doctor-home',
     component: DoctorHomeComponent,
-    canActivate: [AuthGuard],
   },
   {
-    path : 'doctor-home/patient-processes',
-    component : PatientProcessesComponent
+    path: 'doctor-home/patient-processes',
+    component: PatientProcessesComponent,
   },
   {
-    path : 'doctor-home/advice-processes',
-    component : AdviceProcessesComponent
+    path: 'doctor-home/advice-processes',
+    component: AdviceProcessesComponent,
   },
   {
-    path : 'doctor-home/question-processes',
-    component : QuestionProcessesComponent
+    path: 'doctor-home/question-processes',
+    component: QuestionProcessesComponent,
   },
   {
-    path : 'doctor-home/appointment-processes',
-    component : AppointmentProcessesComponent
+    path: 'doctor-home/appointment-processes',
+    component: AppointmentProcessesComponent,
   },
   {
-    path : "doctor-home/patient-details/:patientId",
-    component : PatientDetailComponent
-  }
-  
+    path: 'doctor-home/patient-details/:patientId',
+    component: PatientDetailComponent,
+  },
 ];
 
 @NgModule({

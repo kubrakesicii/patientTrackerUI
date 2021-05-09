@@ -1,118 +1,121 @@
-<div class="container">
-    <div class="row">
-      <div class="col-3">
-        <app-sidebar></app-sidebar>
-      </div>
-  
-      <div class="col-9">
-        <H3>CHANGING CONTENT</H3>
-        <h3>Patient Processes</h3>
+<div class="container" style="height: 600px">
+  <div class="row">
+    <div class="col-3">
+      <app-sidebar></app-sidebar>
+    </div>
 
-        <form #patientForm="ngForm" (submit)="addPatient()">
-          <div class="row m-0">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Firstname"
-                  name="firstname"
-                  #firstname="ngModel"
-                  [(ngModel)]="this.patientModel.firstName"
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Lastname"
-                  name="lastname"
-                  #lastname="ngModel"
-                  [(ngModel)]="this.patientModel.lastName"
-                />
-              </div>
+    <div class="col-9">
+      <H3>CHANGING CONTENT</H3>
+      <h3>Patient Processes</h3>
+
+      <form #patientForm="ngForm" (submit)="addPatient()">
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Firstname"
+                name="firstname"
+                #firstname="ngModel"
+                [(ngModel)]="this.patientModel.firstName"
+              />
             </div>
           </div>
-  
-          <div class="row m-0">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Gsm"
-                  name="gsm"
-                  #gsm="ngModel"
-                  [(ngModel)]="this.patientModel.gsm"
-                />
-              </div>
-            </div>
-  
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter ID"
-                  name="identity"
-                  #identity="ngModel"
-                  [(ngModel)]="this.patientModel.identityNumber"
-                />
-              </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Lastname"
+                name="lastname"
+                #lastname="ngModel"
+                [(ngModel)]="this.patientModel.lastName"
+              />
             </div>
           </div>
-  
-          <div class="row m-0">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter Email"
-                  name="email"
-                  #email="ngModel"
-                  [(ngModel)]="this.patientModel.email"
-                />
-              </div>
+        </div>
+
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Gsm"
+                name="gsm"
+                #gsm="ngModel"
+                [(ngModel)]="this.patientModel.gsm"
+              />
             </div>
           </div>
-  
-          <div class="row m-0">
-            <div class="col-md-2">
-              <button class="btn btn-warning" type="submit">Add</button>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter ID"
+                name="identity"
+                #identity="ngModel"
+                [(ngModel)]="this.patientModel.identityNumber"
+              />
             </div>
           </div>
-        </form>
-  
-        <table class="table table-light mt-4">
-          <thead>
-            <tr>
-              <th>Patient Id</th>
-              <th>Identity Number</th>
-              <th>Name</th>
-              <th>Gsm</th>
-              <th>Health Score</th>
-              <th>Detail</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            <tr *ngFor="let patient of this.patientList"
-            [ngClass]="{'danger': patient.danger > 0}"
->
-              <td>{{ patient.id }}</td>
-              <td>{{ patient.identityNumber }}</td>
-              <td>{{ patient.firstName }} {{ patient.lastName }}</td>
-              <td>{{ patient.gsm }}</td>
-              <td>{{ patient.healthScore }}</td>
-              <td><a [routerLink]="['/doctor-home/patient-details', patient.id]">See Detail</a></td>
-            </tr>
-          </tbody>
-        </table>
-           
-      </div>
+        </div>
+
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Email"
+                name="email"
+                #email="ngModel"
+                [(ngModel)]="this.patientModel.email"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-0">
+          <div class="col-md-2">
+            <button class="btn btn-warning" type="submit">Add</button>
+          </div>
+        </div>
+      </form>
+
+      <table class="table table-light mt-4">
+        <thead>
+          <tr>
+            <th>Patient Id</th>
+            <th>Identity Number</th>
+            <th>Name</th>
+            <th>Gsm</th>
+            <th>Health Score</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            *ngFor="let patient of this.patientList"
+            [ngClass]="{ danger: patient.danger > 0 }"
+          >
+            <td>{{ patient.id }}</td>
+            <td>{{ patient.identityNumber }}</td>
+            <td>{{ patient.firstName }} {{ patient.lastName }}</td>
+            <td>{{ patient.gsm }}</td>
+            <td>{{ patient.healthScore }}</td>
+            <td>
+              <a [routerLink]="['/doctor-home/patient-details', patient.id]"
+                >See Detail</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
+</div>

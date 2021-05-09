@@ -1,5 +1,12 @@
 .danger {
-    background-color: rgb(209, 137, 137);
-    color: white;
-    font-weight: bold;
+  background-color: rgb(209, 137, 137);
+  color: white;
+  font-weight: bold;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  height: 650px;
 }
