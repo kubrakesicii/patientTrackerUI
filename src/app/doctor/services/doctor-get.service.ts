@@ -4,6 +4,7 @@ import { Degree } from 'src/app/admin/models/degree.model';
 import { Department } from 'src/app/admin/models/department.model';
 import { PatientAnswer } from '../models/patient-answer.model';
 import { GetPatient } from '../models/get-patient.model';
+import { Question } from '../models/question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class DoctorGetService {
   }
 
   async getAllQuestions(deptId : any){
-    return this.http.get(`${this.apiUrl}/Questions/All?deptId=${deptId}`).toPromise();
+    return this.http.get<Question[]>(`${this.apiUrl}/Questions/All?deptId=${deptId}`).toPromise();
   }
 
   async getAllAppointments(doctorId:any){

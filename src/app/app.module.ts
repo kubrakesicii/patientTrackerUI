@@ -28,6 +28,9 @@ import { AdviceProcessesComponent } from './doctor/advice-processes/advice-proce
 import { QuestionProcessesComponent } from './doctor/question-processes/question-processes.component';
 import { AppointmentProcessesComponent } from './doctor/appointment-processes/appointment-processes.component';
 import { PatientDetailComponent } from './doctor/patient-detail/patient-detail.component';
+import { CreateAppointmentComponent } from './doctor/patient-detail/create-appointment/create-appointment.component';
+import { AddDiseaseComponent } from './doctor/patient-detail/add-disease/add-disease.component';
+import { AddQuestionComponent } from './doctor/patient-detail/add-question/add-question.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { PatientDetailComponent } from './doctor/patient-detail/patient-detail.c
     QuestionProcessesComponent,
     AppointmentProcessesComponent,
     PatientDetailComponent,
+    CreateAppointmentComponent,
+    AddDiseaseComponent,
+    AddQuestionComponent,
   ],
   imports: [
     BrowserModule,

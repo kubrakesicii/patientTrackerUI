@@ -8,4 +8,6 @@ export class GetPatient {
     healthScore : number;
     diseases : Array<string>;
     danger : number;
+    departmentId : number;
+    hospitalId : number;
 }

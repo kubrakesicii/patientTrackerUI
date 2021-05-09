@@ -1,0 +1,21 @@
+<h4>Add Disease to Patient</h4>
+<table class="table table-light mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Add</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let disease of this.diseaseList"
+        [ngClass]="{'passive' : this.diseases.indexOf(disease.description) != -1}">
+            <td> {{disease.id}} </td>
+            <td> {{disease.description}} </td>
+            <td> 
+                <button class="btn btn-warning mr-3" [disabled]="this.diseases.indexOf(disease.description) != -1" (click)="addToPatient(disease.id, $event)">+</button>
+                <button class="btn btn-warning" [disabled]="this.diseases.indexOf(disease.description) == -1" (click)="deleteFromPatient(disease.id,this.patientId)">-</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

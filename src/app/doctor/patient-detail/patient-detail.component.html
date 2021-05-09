@@ -21,7 +21,7 @@
               <p class="d-inline">{{ patientModel.identityNumber }}</p>
             </div>
             <div class="col-4">
-                <button class="btn btn-primary">Add Disease</button>
+                <button class="btn btn-primary" (click)="openDiseaseDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, patientModel.diseases)">Add Disease</button>
             </div>
           </div>
           <div class="row mt-2">
@@ -34,7 +34,7 @@
               <p class="d-inline">{{ patientModel.gsm }}</p>
             </div>
             <div class="col-4">
-              <button class="btn btn-warning">Create Appointment</button>
+              <button class="btn btn-warning" (click)="openAppointmentDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId)">Create Appointment</button>
           </div>
           </div>
           <div class="row mt-2">
@@ -47,7 +47,7 @@
               <p class="d-inline">{{ patientModel.diseases }}</p>
             </div>
             <div class="col-4">
-              <button class="btn btn-secondary">Add Question</button>            
+              <button class="btn btn-secondary" (click)="openQuestionDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, this.patQuestions)">Add Question</button>            
             </div>
           </div>
         </div>

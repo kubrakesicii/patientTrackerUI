@@ -1,0 +1,30 @@
+<h4>Add Question to this Patient</h4>
+
+<table class="table table-light mt-3">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Add/Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let question of this.questionList"
+            [ngClass]="{'passive' : this.patQuestions.indexOf(question.description) != -1}">
+            <td> {{question.id}} </td>
+            <td> {{question.description}} </td>
+            <td> 
+                <button class="btn btn-warning" 
+                [disabled]="this.patQuestions.indexOf(question.description) != -1" 
+                (click)="addToPatient(question.id)">
+                +
+                </button> 
+                <button class="btn btn-danger"
+                [disabled]="this.patQuestions.indexOf(question.description) == -1"
+                (click)="deletePatQuestion(question.id)">
+                    -
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
