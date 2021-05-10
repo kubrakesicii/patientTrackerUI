@@ -10,6 +10,8 @@ import { Department } from '../models/department.model';
 import { Disease } from '../models/disease.model';
 import { District } from '../models/district.model';
 import { Doctor } from '../models/doctor.model';
+import { GetCity } from '../models/get-city.model';
+import { GetDistrict } from '../models/get-district.model';
 import { Hospital } from '../models/hospital.model';
 import { PostDoctor } from '../models/post-doctor.model';
 import { AdminCountService } from '../services/admin-count.service';
@@ -48,7 +50,9 @@ export class AdminHomeComponent implements OnInit {
   hospitalList: any;
   countryList: any;
   cityList: City[];
+  getCityList : GetCity[];
   districtList: any;
+  getDistrictList : GetDistrict[];
   doctorList: Doctor[];
   deptList: any;
   diseaseList: any;
@@ -142,12 +146,12 @@ export class AdminHomeComponent implements OnInit {
     await this.getService
       .getAllCities()
       .then((data) => JSON.parse(JSON.stringify(data)))
-      .then((x) => (this.cityList = x['$values']));
+      .then((x) => (this.getCityList = x['$values']));
 
     await this.getService
       .getAllDistricts()
       .then((data) => JSON.parse(JSON.stringify(data)))
-      .then((x) => (this.districtList = x['$values']));
+      .then((x) => (this.getDistrictList = x['$values']));
 
     await this.getService
       .getAllDoctorsByHospital(this.selectedHospitalId)

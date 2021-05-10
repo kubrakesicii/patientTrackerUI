@@ -237,7 +237,11 @@ p.card-number {
 div#country,
 div#city,
 div#district,
-div#hospital {
+div#hospital,
+div#doctor,
+div#department,
+div#disease,
+div#degree {
   cursor: pointer;
 }
 

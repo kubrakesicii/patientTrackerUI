@@ -169,9 +169,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let city of cityList">
+                  <tr *ngFor="let city of getCityList">
                     <td>{{ city.description }}</td>
-                    <td>{{ city.countryId }}</td>
+                    <td>{{ city.countryName }}</td>
                     <td>
                       <button class="btn btn-danger mr-2" (click)="deleteCity(city.id)">X</button>
                       <button class="btn btn-primary">U</button>
@@ -234,9 +234,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let district of districtList">
+                  <tr *ngFor="let district of getDistrictList">
                     <td>{{ district.description }}</td>
-                    <td>{{ district.cityId }}</td>
+                    <td>{{ district.cityName }}</td>
                     <td>
                       <button class="btn btn-danger mr-2" (click)="deleteDistrict(district.id)">X</button>
                       <button class="btn btn-primary">U</button>
