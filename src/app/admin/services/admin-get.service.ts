@@ -30,7 +30,7 @@ export class AdminGetService {
 
   async getAllDeptsByHospital(hospitalId: any) {
     return this.http
-      .get(`${this.apiUrl}/Departments/All?hospitalId=${hospitalId}`)
+      .get(`${this.apiUrl}/Departments?hospitalId=${hospitalId}`)
       .toPromise();
   }
 

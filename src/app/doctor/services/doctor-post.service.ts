@@ -6,6 +6,7 @@ import { Appointment } from '../models/appointment.model';
 import { PatientDisease } from '../models/patient-disease.model';
 import { AddPatient } from '../models/add-patient.model';
 import { Question } from '../models/question.model';
+import { PatientQuestion } from '../models/patient-question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +41,15 @@ export class DoctorPostService {
     return this.http.post(`${this.apiUrl}/PatientDiseases`, patientDiseaseModel);
   }
 
+  addQuestiontoPatient(patientQuestionModel : PatientQuestion) {
+    return this.http.post(`${this.apiUrl}/PatientQuestions`, patientQuestionModel);
+  }
 
   addAppointment(appointmentModel : Appointment) { /*bu modelin patient idsi tıklanan patientten alınacak */
     return this.http.post(`${this.apiUrl}/Appointments`, appointmentModel);
   }
+
+
 
 }
 

@@ -5,5 +5,5 @@ export class Question{
     description : string;
     upperLimit : number;
     lowerLimit : number;
-    questionType : QuestionType;
+    questionType : any;
 }

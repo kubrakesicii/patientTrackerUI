@@ -1,6 +1,7 @@
 export class Hospital {
   id: number;
-  description: String;
-  address: String;
-  districtId: Number;
+  description: string;
+  address: string;
+  districtId: number;
+  phone : string;
 }

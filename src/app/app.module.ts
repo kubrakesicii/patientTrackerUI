@@ -28,9 +28,14 @@ import { AdviceProcessesComponent } from './doctor/advice-processes/advice-proce
 import { QuestionProcessesComponent } from './doctor/question-processes/question-processes.component';
 import { AppointmentProcessesComponent } from './doctor/appointment-processes/appointment-processes.component';
 import { PatientDetailComponent } from './doctor/patient-detail/patient-detail.component';
-import { CreateAppointmentComponent } from './doctor/patient-detail/create-appointment/create-appointment.component';
-import { AddDiseaseComponent } from './doctor/patient-detail/add-disease/add-disease.component';
-import { AddQuestionComponent } from './doctor/patient-detail/add-question/add-question.component';
+import { DiseaseDetailComponent } from './doctor/patient-detail/disease-detail/disease-detail.component';
+import { QuestionDetailComponent } from './doctor/patient-detail/question-detail/question-detail.component';
+import { AppointmentDetailComponent } from './doctor/patient-detail/appointment-detail/appointment-detail.component';
+import { ToastrModule } from 'ngx-toastr';
+import { DoctorGetService } from './doctor/services/doctor-get.service';
+import { DoctorPostService } from './doctor/services/doctor-post.service';
+import { DoctorDeleteService } from './doctor/services/doctor-delete.service';
+import { DoctorUpdateService } from './doctor/services/doctor-update.service';
 
 @NgModule({
   declarations: [
@@ -48,9 +53,9 @@ import { AddQuestionComponent } from './doctor/patient-detail/add-question/add-q
     QuestionProcessesComponent,
     AppointmentProcessesComponent,
     PatientDetailComponent,
-    CreateAppointmentComponent,
-    AddDiseaseComponent,
-    AddQuestionComponent,
+    DiseaseDetailComponent,
+    QuestionDetailComponent,
+    AppointmentDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,12 +67,17 @@ import { AddQuestionComponent } from './doctor/patient-detail/add-question/add-q
     RouterModule,
     MatDialogModule,
     MatSidenavModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService,
     AdminCountService,
     AdminGetService,
     AdminPostService,
+    DoctorGetService,
+    DoctorPostService,
+    DoctorDeleteService,
+    DoctorUpdateService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

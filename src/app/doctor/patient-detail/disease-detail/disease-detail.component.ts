@@ -8,11 +8,12 @@ import { DoctorGetService } from '../../services/doctor-get.service';
 import { DoctorPostService } from '../../services/doctor-post.service';
 
 @Component({
-  selector: 'app-add-disease',
-  templateUrl: './add-disease.component.html',
-  styleUrls: ['./add-disease.component.css']
+  selector: 'app-disease-detail',
+  templateUrl: './disease-detail.component.html',
+  styleUrls: ['./disease-detail.component.css']
 })
-export class AddDiseaseComponent implements OnInit {
+export class DiseaseDetailComponent implements OnInit {
+
   patientId : number;
   hospitalId : number;
   deptId : number;
@@ -20,10 +21,11 @@ export class AddDiseaseComponent implements OnInit {
 
   diseaseList : Disease[];
   patientDiseaseModel : PatientDisease = new PatientDisease();
+  patdiseaseId : number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data : any,
-    public dialogRef: MatDialogRef<AddDiseaseComponent>,
+    public dialogRef: MatDialogRef<DiseaseDetailComponent>,
     private getService : DoctorGetService,
     private postService : DoctorPostService,
     private adminGetService : AdminGetService,
@@ -56,16 +58,22 @@ export class AddDiseaseComponent implements OnInit {
     this.postService.addDiseaseToPatient(this.patientDiseaseModel).subscribe(data => {
       var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
       tr?.classList.add("passive");
+      this.ngOnInit();
     })
   }
 
 
-  deleteFromPatient(diseaseId : number, patientId : number){
+  async deleteFromPatient(diseaseId : number, patientId : number,  event : Event){
     this.patientDiseaseModel.diseaseId = diseaseId;
     this.patientDiseaseModel.patientId = patientId;
 
-    this.deleteService.removeDiseaseFromPatient(this.patientDiseaseModel).subscribe(() => this.ngOnInit());
-  }
+    await this.getService.getPatDiseaseId(this.patientDiseaseModel).then(data => this.patdiseaseId = data);
 
+    await this.deleteService.removeDiseaseFromPatient(this.patdiseaseId).subscribe(() => {
+      this.ngOnInit();
+      var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
+      tr?.classList.remove("passive");
+    });
+  }
 
 }

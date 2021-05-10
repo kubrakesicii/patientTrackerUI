@@ -14,7 +14,7 @@
             <td> {{disease.description}} </td>
             <td> 
                 <button class="btn btn-warning mr-3" [disabled]="this.diseases.indexOf(disease.description) != -1" (click)="addToPatient(disease.id, $event)">+</button>
-                <button class="btn btn-warning" [disabled]="this.diseases.indexOf(disease.description) == -1" (click)="deleteFromPatient(disease.id,this.patientId)">-</button>
+                <button class="btn btn-danger" [disabled]="this.diseases.indexOf(disease.description) == -1" (click)="deleteFromPatient(disease.id,this.patientId, $event)">-</button>
             </td>
         </tr>
     </tbody>

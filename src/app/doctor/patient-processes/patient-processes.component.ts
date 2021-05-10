@@ -8,6 +8,7 @@ import { PatientDisease } from '../models/patient-disease.model';
 import { Disease } from 'src/app/admin/models/disease.model';
 import { Router } from '@angular/router';
 import { AddPatient } from '../models/add-patient.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-patient-processes',
@@ -56,10 +57,11 @@ export class PatientProcessesComponent implements OnInit {
     .then((x) => (this.patientList = x['$values']));
   }
 
-  addPatient() {
+  addPatient(patientForm : NgForm) {
     this.postService.addPatient(this.patientModel).subscribe(data => {
       console.log(data);
       this.ngOnInit();
+      this.resetForm(patientForm);
     });
   }
 
@@ -67,6 +69,18 @@ export class PatientProcessesComponent implements OnInit {
     return this.postService.addDiseaseToPatient(this.patDiseaseModel).subscribe(data => console.log(data));
   }
 
-
-
+  resetForm(form : NgForm) {
+    if(form == null){
+      this.resetForm(form);
+    }
+    this.patientModel = {
+      identityNumber : '',
+      email : '',
+      firstName : '',
+      lastName : '',
+      gsm : '',
+    }
+  }
 }
+
+

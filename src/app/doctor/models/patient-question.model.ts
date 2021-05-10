@@ -1,7 +1,5 @@
 export class PatientQuestion{
     id : number;
-    questionId : number;
+    questionPoolId : number;
     patientId : number;
-    day : number;
-    createdAt : Date;
 }

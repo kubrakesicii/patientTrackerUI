@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { Advice } from '../models/advice.model';
 import { Doctor } from '../models/doctor.model';
@@ -20,7 +22,8 @@ export class AdviceProcessesComponent implements OnInit {
 
   constructor(private getService : DoctorGetService, 
               private postService : DoctorPostService,
-              private deleteService : DoctorDeleteService) { }
+              private deleteService : DoctorDeleteService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadListData();
@@ -50,11 +53,13 @@ async loadListData(){
     }
 
 
-    addAdvice(){
+    addAdvice(adviceForm : NgForm){
       this.adviceModel.departmentId = this.doctorModel.departmentId;
       this.adviceModel.createdUserName = this.userInfo.fullName;
 
       return this.postService.addAdvice(this.adviceModel).subscribe(data => {
+        this.resetForm(adviceForm);
+        this.toastr.success("Advice is added successfully");
         this.ngOnInit();
         //show alertify message
       });
@@ -65,5 +70,17 @@ async loadListData(){
         this.ngOnInit();
         //Alertify
       })
+    }
+
+    resetForm(form?: NgForm) {
+      if(form == null){
+        this.resetForm();
+      }
+      this.adviceModel = {
+        description : '',
+        createdUserName : 'string',
+        departmentId: 0,
+        id : 0
+      }
     }
 }

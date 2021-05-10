@@ -7,6 +7,7 @@ import { Department } from '../models/department.model';
 import { Disease } from '../models/disease.model';
 import { District } from '../models/district.model';
 import { Doctor } from '../models/doctor.model';
+import { Hospital } from '../models/hospital.model';
 import { PostDoctor } from '../models/post-doctor.model';
 
 @Injectable({
@@ -20,53 +21,37 @@ export class AdminPostService {
   constructor(private http : HttpClient) { }
 
   addCountry(countryModel : Country){
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Countries`, countryModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Countries`, countryModel);
   }
 
   addCity(cityModel : City){
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Cities`, cityModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Cities`, cityModel);
   }
 
   addDistrict(districtModel : District){
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
+    return this.http.post(`${this.apiUrl}/Districts`, districtModel);
+  }
 
-    return this.http.post(`${this.apiUrl}/Districts`, districtModel, {headers : headers});
+  
+  addHospital(hospitalModel : Hospital) {
+    return this.http.post(`${this.apiUrl}/Hospitals`,hospitalModel)
   }
 
 
   addDoctor(doctorModel : PostDoctor) {
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Doctors`, doctorModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Doctors`, doctorModel);
   }
 
   addDepartment(deptModel : Department) {
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Departments`, deptModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Departments`, deptModel);
     //department modelindeki hospitalId yerine, tıkladıgımda aldıgım değer atanacak,kullanıcdan sadece desc al.
   }
 
   addDisease(diseaseModel : Disease) {
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Diseases`, diseaseModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Diseases`, diseaseModel);
   }
 
   addDegree(degreeModel : Degree) {
-    let headers = new HttpHeaders();
-    headers = headers.append("Content-type" , "application/json");
-
-    return this.http.post(`${this.apiUrl}/Degrees`, degreeModel, {headers : headers});
+    return this.http.post(`${this.apiUrl}/Degrees`, degreeModel);
   }
 }

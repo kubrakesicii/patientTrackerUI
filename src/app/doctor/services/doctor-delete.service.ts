@@ -19,12 +19,12 @@ export class DoctorDeleteService {
     return this.http.delete(`${this.apiUrl}/Questions/${questionId}`);
   }
 
-  removeQuestionFromPatient(patientQuestion : PatientQuestion){
-    return this.http.post(`${this.apiUrl}/PatientQuestions/RemoveFromPatient`,patientQuestion);
+  removeQuestionFromPatient(patientQuestionId : number){
+    return this.http.delete(`${this.apiUrl}/PatientQuestions/${patientQuestionId}`);
   }
 
   
-  removeDiseaseFromPatient(patientDisease : PatientDisease){
-    return this.http.post(`${this.apiUrl}/PatientDiseases/RemoveFromPatient`,patientDisease);
+  removeDiseaseFromPatient(patientDiseaseId : number){
+    return this.http.delete(`${this.apiUrl}/PatientDiseases/${patientDiseaseId}`);
   }
 }

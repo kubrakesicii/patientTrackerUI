@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { Answer } from '../models/answer.model';
 import { Doctor } from '../models/doctor.model';
@@ -19,11 +20,15 @@ export class QuestionProcessesComponent implements OnInit {
   questionModel : Question = new Question();
   questionList : Question[];
   answerModel : Answer = new Answer();
+  options : any;
 
 
   constructor(private getService : DoctorGetService, 
               private postService : DoctorPostService,
-              private deleteService : DoctorDeleteService) { }
+              private deleteService : DoctorDeleteService) {
+                this.options = [{name :  "Multiple Choice Question", value : 1},
+                                {name :  "Numeric Question", value : 2}];
+               }
 
   ngOnInit(): void {
     this.loadListData();
@@ -51,15 +56,24 @@ async loadListData(){
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.questionList = x['$values']));
 
+    this.questionList.forEach((x) => {
+      x.questionType == 1 ? x.questionType = "Multiple Choice" : x.questionType = "Numeric"
+    })
   }
 
     
-  addQuestion(){
-    return this.postService.addQuestion(this.questionModel).subscribe(data => console.log(data));
+  addQuestion(questionForm : NgForm){
+    console.log(this.questionModel);
+    this.questionModel.questionType = parseInt(this.questionModel.questionType);
+    return this.postService.addQuestion(this.questionModel).subscribe(() => {
+      this.ngOnInit();
+      this.resetForm(questionForm);
+    });
   }
 
   
   addAnswer(){
+    this.answerModel.questionId = this.questionModel.id;
     return this.postService.addAnswer(this.answerModel).subscribe(data => console.log(data));
   }
 
@@ -68,6 +82,30 @@ async loadListData(){
       this.ngOnInit();
       //Alertify
     })
+  }
+
+  updateQuestion(questionId : number) {
+
+  }
+
+
+  resetForm(form : NgForm) {
+    if(form == null){
+      this.resetForm(form);
+    }
+    this.questionModel = {
+      id : 0,
+      description : '',
+      upperLimit : 0,
+      lowerLimit : 0,
+      questionType : 0
+    }
+    this.answerModel = {
+      id : 0,
+      questionId : 0,
+      description : '',
+      score : 0,
+    }
   }
 
 

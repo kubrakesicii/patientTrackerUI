@@ -35,3 +35,9 @@
     color: white;
     font-weight: bold;
 }
+
+.passive {
+  background-color: rgb(203, 204, 206);
+  color: snow;
+  font-weight: bold;
+}

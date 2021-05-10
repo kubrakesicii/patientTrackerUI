@@ -5,6 +5,8 @@ import { Department } from 'src/app/admin/models/department.model';
 import { PatientAnswer } from '../models/patient-answer.model';
 import { GetPatient } from '../models/get-patient.model';
 import { Question } from '../models/question.model';
+import { PatientDisease } from '../models/patient-disease.model';
+import { PatientQuestion } from '../models/patient-question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,7 @@ export class DoctorGetService {
   }
 
   async getAllQuestions(deptId : any){
-    return this.http.get<Question[]>(`${this.apiUrl}/Questions/All?deptId=${deptId}`).toPromise();
+    return this.http.get<Question[]>(`${this.apiUrl}/Questions?deptId=${deptId}`).toPromise();
   }
 
   async getAllAppointments(doctorId:any){
@@ -49,6 +51,18 @@ export class DoctorGetService {
 
   async getAnswersOfPatient(patientId : number) {
     return this.http.get<PatientAnswer[]>(`${this.apiUrl}/PatientAnswers/AnswersOfPatient?patientId=${patientId}`).toPromise();
+  }
+
+  async getQuestionsOfPatient(patientId : number) {
+    return this.http.get<PatientAnswer[]>(`${this.apiUrl}/PatientQuestions/Questions?patientId=${patientId}`).toPromise();
+  }
+
+  async getPatDiseaseId(model : PatientDisease) {
+    return this.http.post<number>(`${this.apiUrl}/PatientDiseases/GetId`,model).toPromise();
+  }
+
+  async getPatQuestionId(model : PatientQuestion) {
+    return this.http.post<number>(`${this.apiUrl}/PatientQuestions/GetId`,model).toPromise();
   }
 
 }

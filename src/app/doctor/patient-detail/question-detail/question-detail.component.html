@@ -14,14 +14,14 @@
             <td> {{question.id}} </td>
             <td> {{question.description}} </td>
             <td> 
-                <button class="btn btn-warning" 
+                <button class="btn btn-warning mr-2" 
                 [disabled]="this.patQuestions.indexOf(question.description) != -1" 
-                (click)="addToPatient(question.id)">
+                (click)="addToPatient(question.id, this.patientId, $event)">
                 +
                 </button> 
                 <button class="btn btn-danger"
                 [disabled]="this.patQuestions.indexOf(question.description) == -1"
-                (click)="deletePatQuestion(question.id)">
+                (click)="deletePatQuestion(question.id,this.patientId, $event)">
                     -
                 </button>
             </td>

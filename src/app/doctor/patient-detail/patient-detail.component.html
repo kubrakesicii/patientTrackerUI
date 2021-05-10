@@ -21,7 +21,7 @@
               <p class="d-inline">{{ patientModel.identityNumber }}</p>
             </div>
             <div class="col-4">
-                <button class="btn btn-primary" (click)="openDiseaseDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, patientModel.diseases)">Add Disease</button>
+                <button class="btn btn-primary" (click)="openDiseaseDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, patientModel.diseases)"> Disease Detail </button>
             </div>
           </div>
           <div class="row mt-2">
@@ -34,7 +34,7 @@
               <p class="d-inline">{{ patientModel.gsm }}</p>
             </div>
             <div class="col-4">
-              <button class="btn btn-warning" (click)="openAppointmentDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId)">Create Appointment</button>
+              <button class="btn btn-warning" (click)="openAppointmentDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId)">Appointment Detail</button>
           </div>
           </div>
           <div class="row mt-2">
@@ -47,7 +47,7 @@
               <p class="d-inline">{{ patientModel.diseases }}</p>
             </div>
             <div class="col-4">
-              <button class="btn btn-secondary" (click)="openQuestionDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, this.patQuestions)">Add Question</button>            
+              <button class="btn btn-secondary" (click)="openQuestionDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, this.patQuestions)">Question Detail</button>            
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let answer of this.patientAnswerList"
-            [ngClass]="{'danger': answer.result == false}">
+            [ngClass]="{'danger': answer.result == false, 'passive' : this.patQuestions.indexOf(answer.questionDesc) == -1}">
               <td> {{answer.questionDesc}} </td>
               <td> {{answer.upperLimit}} </td>
               <td> {{answer.lowerLimit}} </td>

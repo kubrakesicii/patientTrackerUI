@@ -5,7 +5,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { UserInfo } from '../models/userInfo.model';
 import { TokenInfo } from '../models/tokenInfo.model';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,37 +25,38 @@ export class AuthService {
 
 
   async login(loginUser : LoginUser) {
-  
-      let headers = new HttpHeaders();
-      headers = headers.append("Content-type" , "application/json");
-      await this.http.post(this.apiUrl+"Authentication/Login",loginUser, {headers : headers})
-      .subscribe(data => {
-        let tokenInfo = JSON.parse(JSON.stringify(data))['data'];
-        this.saveTokenInfo(tokenInfo);
-        
-        this.userToken = this.tokenInfo.token;
-        this.decodedToken = this.jwtHelper.decodeToken(this.userToken)
-      });
+    
+    await this.http.post(this.apiUrl+"Authentication/Login",loginUser)
+    .subscribe(data => {
+      let tokenInfo = JSON.parse(JSON.stringify(data))['data'];
+      this.saveTokenInfo(tokenInfo);
+      this.decodedToken = this.jwtHelper.decodeToken(tokenInfo.token)
+      console.log("decoded :",this.decodedToken);
 
-      await this.getUserInfo().subscribe(data => {
+      this.userRole = this.decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      console.log(this.userRole);
+
+      this.getUserInfo().subscribe(data => {
         localStorage.setItem("userInfo",JSON.stringify(data))
-
+  
         this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
         this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
         this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
       });
 
-      console.log(this.userInfo.personType);
-      this.userRole = this.userInfo.personType;
-
       if(this.userRole == 3){
-        this.router.navigateByUrl("admin-home");
+        this.router.navigateByUrl("admin-home");       
       }
       else if(this.userRole == 2) {
          this.router.navigateByUrl("doctor-home");
       }
+      else {
+        this.router.navigateByUrl("");
+      }
+    });
   }
 
+  
 
   saveTokenInfo(tokenInfo : TokenInfo) {
     localStorage.setItem("token", tokenInfo.token)
@@ -74,9 +74,7 @@ export class AuthService {
   }
 
   getUserInfo() {
-    let headers = new HttpHeaders();
-    headers = headers.append("Authorization",`Bearer ${this.getToken()}`)
-    return this.http.get(this.apiUrl+"Authentication/UserInfo",{headers : headers});
+    return this.http.get(this.apiUrl+"Authentication/UserInfo");
   }
 
   isLoggedIn(){
