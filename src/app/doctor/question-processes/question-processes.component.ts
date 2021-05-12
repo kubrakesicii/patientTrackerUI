@@ -19,11 +19,17 @@ export class QuestionProcessesComponent implements OnInit {
   doctorModel : Doctor = new Doctor();
   questionModel : Question = new Question();
   questionList : Question[];
-  answerModel : Answer = new Answer();
+  insertId : number;
+  questionType : number;
+  answer1 : Answer = new Answer();
+  answer2 : Answer = new Answer();
+  answer3 : Answer = new Answer();
+  answer4 : Answer = new Answer();
+
   options : any;
 
 
-  constructor(private getService : DoctorGetService, 
+  constructor(private getService : DoctorGetService,
               private postService : DoctorPostService,
               private deleteService : DoctorDeleteService) {
                 this.options = [{name :  "Multiple Choice Question", value : 1},
@@ -61,20 +67,38 @@ async loadListData(){
     })
   }
 
-    
-  addQuestion(questionForm : NgForm){
-    console.log(this.questionModel);
+
+  async addQuestion(questionForm : NgForm){
     this.questionModel.questionType = parseInt(this.questionModel.questionType);
-    return this.postService.addQuestion(this.questionModel).subscribe(() => {
+    this.questionType = this.questionModel.questionType;
+
+    await this.postService.addQuestion(this.questionModel).then((data) => {
+      this.insertId = JSON.parse(JSON.stringify(data))['data'].id;
       this.ngOnInit();
       this.resetForm(questionForm);
+
+      this.answer1.questionPoolId = this.insertId;
+      this.answer2.questionPoolId = this.insertId;
+      this.answer3.questionPoolId = this.insertId;
+      this.answer4.questionPoolId = this.insertId;  
+
+      console.log("a1 : ",this.answer1.questionPoolId);
+      console.log("a2 : ",this.answer2.questionPoolId);
+      console.log("a3 : ",this.answer3.questionPoolId);
+      console.log("a4 : ",this.answer4.questionPoolId);
     });
+
+
+    if(this.questionType == 1) {
+      await this.addAnswer();
+    }     
   }
 
-  
-  addAnswer(){
-    this.answerModel.questionId = this.questionModel.id;
-    return this.postService.addAnswer(this.answerModel).subscribe(data => console.log(data));
+  async addAnswer(){   
+      await this.postService.addAnswer(this.answer1).then(data => console.log(data));
+      await this.postService.addAnswer(this.answer2).then(data => console.log(data));
+      await this.postService.addAnswer(this.answer3).then(data => console.log(data));
+      await this.postService.addAnswer(this.answer4).then(data => console.log(data));
   }
 
   deleteQuestion(questionId : number) {
@@ -99,12 +123,6 @@ async loadListData(){
       upperLimit : 0,
       lowerLimit : 0,
       questionType : 0
-    }
-    this.answerModel = {
-      id : 0,
-      questionId : 0,
-      description : '',
-      score : 0,
     }
   }
 

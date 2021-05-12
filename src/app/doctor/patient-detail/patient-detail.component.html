@@ -58,18 +58,44 @@
           <thead>
             <tr>
               <th>Question</th>
+              <th>Answer</th>
+              <th>Score</th>
               <th>Upper Limit</th>
               <th>Lower Limit</th>
-              <th>Patient Answer</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let answer of this.patientAnswerList"
-            [ngClass]="{'danger': answer.result == false, 'passive' : this.patQuestions.indexOf(answer.questionDesc) == -1}">
+            [ngClass]="{'danger': answer.result == false}">
+            <td> {{answer.questionDesc}} </td>
+            <td> {{answer.answerDesc}} </td>
+            <td> {{answer.patientScore}} </td>
+            <td> {{answer.upperLimit}} </td>
+            <td> {{answer.lowerLimit}} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row mt-3">
+        <p class="text-danger">Answer History</p>
+        <table class="table table-light">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Score</th>
+              <th>Upper Limit</th>
+              <th>Lower Limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let answer of this.answerHistory" class="passive">
               <td> {{answer.questionDesc}} </td>
+              <td> {{answer.answerDesc}} </td>
+              <td> {{answer.patientScore}} </td>
               <td> {{answer.upperLimit}} </td>
               <td> {{answer.lowerLimit}} </td>
-              <td> {{answer.patientScore}} </td>
             </tr>
           </tbody>
         </table>

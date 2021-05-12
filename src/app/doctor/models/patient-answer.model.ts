@@ -4,4 +4,5 @@ export class PatientAnswer {
     lowerLimit : number;
     patientScore : number;
     result : boolean;
+    answerDesc : string;
 }

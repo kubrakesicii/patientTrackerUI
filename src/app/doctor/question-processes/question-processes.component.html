@@ -64,48 +64,140 @@
             </div>
           </div>
         </div>
-        <div class="row m-0">
-          <div class="col-md-2">
-            <button class="btn btn-warning" type="submit">Add</button>
-          </div>
-        </div>
-      </form>
 
-      <form #answerForm="ngForm" class="mt-3" *ngIf="this.questionModel.questionType == 1" (submit)="addAnswer()">
-        <p>Add Answer To This Question</p>
         <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Description"
-                name="gsm"
-                #lowerLimit="ngModel"
-                [(ngModel)]="this.answerModel.description"
-              />
+          <form #answerForm="ngForm" class="mt-3" *ngIf="this.questionModel.questionType == 1">
+            <div class="row m-0">
+              <div class="col-md-2">
+                <label>Answer 1 :</label>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Description"
+                    name="gsm"
+                    #lowerLimit="ngModel"
+                    [(ngModel)]="this.answer1.description"
+                  />
+                </div>
+              </div>
+    
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter Score"
+                    name="upperLimit"
+                    #upperLimit="ngModel"
+                    [(ngModel)]="this.answer1.score"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Enter Score"
-                name="upperLimit"
-                #upperLimit="ngModel"
-                [(ngModel)]="this.answerModel.score"
-              />
+            <div class="row m-0">
+              <div class="col-md-2">
+                <label>Answer 2 :</label>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Description"
+                    name="gsm"
+                    #lowerLimit="ngModel"
+                    [(ngModel)]="this.answer2.description"
+                  />
+                </div>
+              </div>
+    
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter Score"
+                    name="upperLimit"
+                    #upperLimit="ngModel"
+                    [(ngModel)]="this.answer2.score"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
+            <div class="row m-0">
+              <div class="col-md-2">
+                <label>Answer 3 :</label>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Description"
+                    name="gsm"
+                    #lowerLimit="ngModel"
+                    [(ngModel)]="this.answer3.description"
+                  />
+                </div>
+              </div>
+    
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter Score"
+                    name="upperLimit"
+                    #upperLimit="ngModel"
+                    [(ngModel)]="this.answer3.score"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-2">
+                <label>Answer 4 :</label>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Description"
+                    name="gsm"
+                    #lowerLimit="ngModel"
+                    [(ngModel)]="this.answer4.description"
+                  />
+                </div>
+              </div>
+    
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter Score"
+                    name="upperLimit"
+                    #upperLimit="ngModel"
+                    [(ngModel)]="this.answer4.score"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
         <div class="row m-0">
           <div class="col-md-12">
-            <button class="btn btn-warning" type="submit">Add Answer</button>
+            <button class="btn btn-warning float-right" type="submit">Add Question</button>
           </div>
         </div>
       </form>
+
+<hr>
+
 
       <table class="table table-light mt-4">
         <thead>

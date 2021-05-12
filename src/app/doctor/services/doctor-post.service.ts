@@ -27,13 +27,13 @@ export class DoctorPostService {
   }
 
 
-  addQuestion(questionModel : Question){
-    return this.http.post(`${this.apiUrl}/Questions`, questionModel);
+  async addQuestion(questionModel : Question){
+    return this.http.post(`${this.apiUrl}/Questions`, questionModel).toPromise();
   }
 
   //Burada bir soru seçilecek. Bu sorunun id'si alınacak, answer modelin questionId'si olacak. Böylece srouya şık eklenmiş olacak.
-  addAnswer(answerModel : Answer){
-    return this.http.post(`${this.apiUrl}/Answers`, answerModel);
+  async addAnswer(answerModel : Answer){
+    return this.http.post(`${this.apiUrl}/Answers`, answerModel).toPromise();
   }
 
 

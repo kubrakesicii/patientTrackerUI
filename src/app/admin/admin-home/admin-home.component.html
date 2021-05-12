@@ -106,7 +106,7 @@
                       <td>{{ country.countryCode }}</td>
                       <td>
                         <button class="btn btn-danger mr-2" (click)="deleteCountry(country.id)">X</button>
-                        <button class="btn btn-primary">U</button>
+                        <button class="btn btn-primary" (click)="updateCountry(country.id)">U</button>
                       </td>
                     </tr>
                   </tbody>
@@ -174,7 +174,7 @@
                     <td>{{ city.countryName }}</td>
                     <td>
                       <button class="btn btn-danger mr-2" (click)="deleteCity(city.id)">X</button>
-                      <button class="btn btn-primary">U</button>
+                      <button class="btn btn-primary" (click)="updateCity(city.id)">U</button>
                     </td>
                   </tr>
                 </tbody>
@@ -239,7 +239,7 @@
                     <td>{{ district.cityName }}</td>
                     <td>
                       <button class="btn btn-danger mr-2" (click)="deleteDistrict(district.id)">X</button>
-                      <button class="btn btn-primary">U</button>
+                      <button class="btn btn-primary" (click)="updateDistrict(district.id)">U</button>
                     </td>
                   </tr>
                 </tbody>
@@ -411,7 +411,7 @@
           <td><a (click)="setHospitalId($event)">EDIT</a></td>
           <td>
             <button class="btn btn-danger mr-2" (click)="deleteHospital(hospital.id)">X</button>
-            <button class="btn btn-primary">U</button>
+            <button class="btn btn-primary" (click)="updateHospital(hospital.id)">U</button>
           </td>
         </tr>
       </tbody>
@@ -562,7 +562,7 @@
                       <td>{{ doctor.degreeName }}</td>
                       <td>
                         <button class="btn btn-danger mr-2" (click)="deleteDoctor(doctor.id)">X</button>
-                        <button class="btn btn-primary">U</button>
+                        <button class="btn btn-primary" (click)="updateDoctor(doctor.id)">U</button>
                       </td>
                     </tr>
                   </tbody>
@@ -608,7 +608,7 @@
                       <td>{{ dept.hospitalId }}</td>
                       <td>
                         <button class="btn btn-danger mr-2" (click)="deleteDepartment(dept.id)">X</button>
-                        <button class="btn btn-primary">U</button>
+                        <button class="btn btn-primary" (click)="updateDepartment(dept.id)">U</button>
                       </td>
                     </tr>
                   </tbody>
@@ -677,7 +677,7 @@
                       <td>{{ disease.departmentId }}</td>
                       <td>
                         <button class="btn btn-danger mr-2" (click)="deleteDisease(disease.id)">X</button>
-                        <button class="btn btn-primary">U</button>
+                        <button class="btn btn-primary" (click)="updateDisease(disease.id)">U</button>
                       </td>
                     </tr>
                   </tbody>
@@ -721,7 +721,7 @@
                       <td>{{ degree.description }}</td>
                       <td>
                         <button class="btn btn-danger mr-2" (click)="deleteDegree(degree.id)">X</button>
-                        <button class="btn btn-primary">U</button>
+                        <button class="btn btn-primary" (click)="updateDegree(degree.id)">U</button>
                       </td>
                     </tr>
                   </tbody>

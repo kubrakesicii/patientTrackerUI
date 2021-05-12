@@ -174,6 +174,8 @@ export class AdminHomeComponent implements OnInit {
       .then((x) => (this.degreeList = x['$values']));
   }
 
+  ////////
+
   addCountry() {
     this.postService.addCountry(this.countryModel).subscribe((data) => {
       this.countryModel = {
@@ -191,6 +193,12 @@ export class AdminHomeComponent implements OnInit {
       //alert
     })
   }
+
+  updateCountry(countryId : number) {
+
+  }
+
+////////
 
   addCity() {
     this.postService.addCity(this.cityModel).subscribe((data) => {
@@ -210,6 +218,12 @@ export class AdminHomeComponent implements OnInit {
     })
   }
 
+  updateCity(cityId : number) {
+    
+  }
+
+////////
+
   addDistrict() {
     this.postService.addDistrict(this.districtModel).subscribe((data) => {
       this.districtModel = {
@@ -228,6 +242,11 @@ export class AdminHomeComponent implements OnInit {
     })
   }
 
+  updateDistrict(districtId : number) {
+
+  }
+
+////////
 
   addHospital(){
     this.postService.addHospital(this.hospitalModel).subscribe((data) => {
@@ -248,6 +267,12 @@ export class AdminHomeComponent implements OnInit {
       //alert
     })
   }
+
+  updateHospital(hospitalId : number) {
+
+  }
+
+  ////////
 
   async getUserInfo() {
     await this.authService.getUserInfo().subscribe((data) => {
@@ -286,6 +311,8 @@ export class AdminHomeComponent implements OnInit {
     await this.loadHospitalData(this.selectedHospitalId);
   }
 
+  ////////
+
   addDoctor() {
     this.postService.addDoctor(this.postDoctor).subscribe((data) => {
       this.doctorModel = {
@@ -308,6 +335,12 @@ export class AdminHomeComponent implements OnInit {
     })
   }
 
+  updateDoctor(doctorId : number) {
+
+  }
+
+  ////////
+
 
   addDepartment() {
     this.deptModel.hospitalId = this.selectedHospitalId;
@@ -328,6 +361,12 @@ export class AdminHomeComponent implements OnInit {
     })
   }
 
+  updateDepartment(deptId : number) {
+
+  }
+
+  ////////
+
   addDisease() {
     this.postService.addDisease(this.diseaseModel).subscribe((data) => {
       this.diseaseModel = {
@@ -338,7 +377,6 @@ export class AdminHomeComponent implements OnInit {
       this.ngOnInit();
     });
   }
-
   
   deleteDisease(diseaseId : number) {
     this.deleteService.deleteDisease(diseaseId).subscribe(() => {
@@ -346,6 +384,12 @@ export class AdminHomeComponent implements OnInit {
       //alert
     })
   }
+
+  updateDisease(diseaseId : number) {
+
+  }
+
+  /////////
 
   addDegree() {
     this.postService.addDegree(this.degreeModel).subscribe((data) => {
@@ -363,6 +407,12 @@ export class AdminHomeComponent implements OnInit {
       //alert
     })
   }
+
+  updateDegree(degreeId : number) {
+
+  }
+
+  ////////
 
   logout(){
     this.authService.logout(this.userInfo.personId);

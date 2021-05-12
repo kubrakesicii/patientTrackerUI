@@ -20,7 +20,9 @@ export class PatientDetailComponent implements OnInit {
  
   private sub : any;
   patientModel : GetPatient = new GetPatient();
-  patientAnswerList : PatientAnswer[];
+  patientAnswerList : PatientAnswer[] = new Array();
+  answerHistory : PatientAnswer[] = new Array();
+
   patientQuestionList : GetPatQuestion[];
   patQuestions : string[] = new Array();
   patAnswers : string[] = new Array();
@@ -38,6 +40,8 @@ export class PatientDetailComponent implements OnInit {
 
     console.log(this.patientId);
     this.getPatientInfo();
+
+    console.log("hist : ",this.answerHistory);
   }
 
 
@@ -63,15 +67,27 @@ export class PatientDetailComponent implements OnInit {
     await this.getService.getQuestionsOfPatient(this.patientId)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.patientQuestionList = x['$values']));
-
     this.patientQuestionList.forEach(x => this.patQuestions.push(x.questionDesc));
+
 
     await this.getService.getAnswersOfPatient(this.patientId)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.patientAnswerList = x['$values']));
     this.patientAnswerList.forEach(x => this.patAnswers.push(x.questionDesc));
 
+    this.patientAnswerList = this.patientAnswerList.filter(ans => {
+      if(this.patQuestions.indexOf(ans.questionDesc) == -1){
+        this.answerHistory.push(ans);
+        return false;
+      }
+      return true;
+    })
+
+    console.log("curr : ",this.patientAnswerList);
+
   }
+
+
 
   openQuestionDialog(patientId : number, deptId : number, hospitalId : number, patQuestions : string[]){
       const dialogConfig = new MatDialogConfig();

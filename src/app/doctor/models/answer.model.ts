@@ -1,6 +1,6 @@
 export class Answer{
     id : number;
-    questionId : number;
+    questionPoolId : number;
     description : string;
     score : number;
 }
