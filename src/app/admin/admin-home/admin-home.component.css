@@ -251,3 +251,22 @@ button.btn.btn-warning {
 td {
   cursor: pointer;
 }
+button.btn.btn-danger.mr-2 {
+  margin-bottom: 5px;
+}
+.input-field {
+  width: 30%;
+  font-weight: bold;
+  background-color: transparent;
+  border: 1px solid;
+  font-size: 13px;
+  font-family: Arial;
+  float: left;
+}
+input:last-child {
+  float: right;
+}
+button.btn.btn-primary {
+  margin-left: 15px;
+  margin-right: 6px;
+}

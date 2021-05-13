@@ -18,6 +18,7 @@ import { AdminCountService } from '../services/admin-count.service';
 import { AdminDeleteService } from '../services/admin-delete.service';
 import { AdminGetService } from '../services/admin-get.service';
 import { AdminPostService } from '../services/admin-post.service';
+import { AdminUpdateService } from '../services/admin-update.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -29,8 +30,9 @@ export class AdminHomeComponent implements OnInit {
     private getService: AdminGetService,
     private countService: AdminCountService,
     private postService: AdminPostService,
-    private deleteService : AdminDeleteService,
-    private authService: AuthService
+    private deleteService: AdminDeleteService,
+    private authService: AuthService,
+    private updateService: AdminUpdateService
   ) {}
 
   userInfo: UserInfo = new UserInfo();
@@ -50,9 +52,9 @@ export class AdminHomeComponent implements OnInit {
   hospitalList: any;
   countryList: any;
   cityList: City[];
-  getCityList : GetCity[];
+  getCityList: GetCity[];
   districtList: any;
-  getDistrictList : GetDistrict[];
+  getDistrictList: GetDistrict[];
   doctorList: Doctor[];
   deptList: any;
   diseaseList: any;
@@ -76,6 +78,8 @@ export class AdminHomeComponent implements OnInit {
   selectedHospitalId: any = 1;
   selectedHospitalName: any = '';
   countryid: any;
+
+  public editMode = false;
 
   ngOnInit(): void {
     this.loadPageData();
@@ -179,98 +183,111 @@ export class AdminHomeComponent implements OnInit {
   addCountry() {
     this.postService.addCountry(this.countryModel).subscribe((data) => {
       this.countryModel = {
-        id : 0,
-        description : '',
-        countryCode : ''
-      }
+        id: 0,
+        description: '',
+        countryCode: '',
+      };
       this.ngOnInit();
     });
   }
 
-  deleteCountry(countryId : number) {
+  deleteCountry(countryId: number) {
     this.deleteService.deleteCountry(countryId).subscribe(() => {
       this.ngOnInit();
       //alert
-    })
+    });
   }
 
-  updateCountry(countryId : number) {
-
+  updateCountry(countryId: number) {
+    console.log(countryId);
+    this.editMode = true;
+    this.countryModel.id = countryId;
+  }
+  save() {
+    this.updateService
+      .updateCountry(this.countryModel.id, this.countryModel)
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+  cancel() {
+    this.editMode = false;
+  }
+  saveHospital() {
+    this.updateService
+      .updateHospital(this.hospitalModel.id, this.hospitalModel)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 
-////////
+  ////////
 
   addCity() {
     this.postService.addCity(this.cityModel).subscribe((data) => {
       this.cityModel = {
         id: 0,
         description: '',
-        countryId: 0
-      }
+        countryId: 0,
+      };
       this.ngOnInit();
     });
   }
 
-  deleteCity(cityId : number) {
+  deleteCity(cityId: number) {
     this.deleteService.deleteCity(cityId).subscribe(() => {
       this.ngOnInit();
       //alert
-    })
+    });
   }
 
-  updateCity(cityId : number) {
-    
-  }
+  updateCity(cityId: number) {}
 
-////////
+  ////////
 
   addDistrict() {
     this.postService.addDistrict(this.districtModel).subscribe((data) => {
       this.districtModel = {
         id: 0,
         cityId: 0,
-        description: ''
-      }
+        description: '',
+      };
       this.ngOnInit();
     });
   }
 
-  deleteDistrict(districtId : number) {
+  deleteDistrict(districtId: number) {
     this.deleteService.deleteDistrict(districtId).subscribe(() => {
       this.ngOnInit();
       //alert
-    })
+    });
   }
 
-  updateDistrict(districtId : number) {
+  updateDistrict(districtId: number) {}
 
-  }
+  ////////
 
-////////
-
-  addHospital(){
+  addHospital() {
     this.postService.addHospital(this.hospitalModel).subscribe((data) => {
       this.hospitalModel = {
         id: 0,
         description: '',
         address: '',
         districtId: 0,
-        phone : ''
-      }
+        phone: '',
+      };
       this.ngOnInit();
-    })
+    });
   }
 
-  deleteHospital(hospitalId : number) {
+  deleteHospital(hospitalId: number) {
     this.deleteService.deleteHospital(hospitalId).subscribe(() => {
       this.ngOnInit();
       //alert
-    })
+    });
   }
 
-  updateHospital(hospitalId : number) {
-
-  }
+  updateHospital(hospitalId: number) {}
 
   ////////
 
@@ -283,9 +300,13 @@ export class AdminHomeComponent implements OnInit {
   }
 
   async setHospitalId(event: Event) {
-    this.selectedHospitalId = (event.target as Element).parentElement?.previousSibling?.previousSibling?.previousSibling?.textContent;
+    this.selectedHospitalId = (
+      event.target as Element
+    ).parentElement?.previousSibling?.previousSibling?.previousSibling?.textContent;
 
-    this.selectedHospitalName = (event.target as Element).parentElement?.previousSibling?.previousSibling?.textContent;
+    this.selectedHospitalName = (
+      event.target as Element
+    ).parentElement?.previousSibling?.previousSibling?.textContent;
 
     await this.loadHospitalData(this.selectedHospitalId);
     this.ngOnInit();
@@ -316,106 +337,96 @@ export class AdminHomeComponent implements OnInit {
   addDoctor() {
     this.postService.addDoctor(this.postDoctor).subscribe((data) => {
       this.doctorModel = {
-        id : 0,
-        email : '',
-        firstName : '',
-        lastName : '',
-        gsm : '',
-        departmentName : '',
-        degreeName : ''
-      }
+        id: 0,
+        email: '',
+        firstName: '',
+        lastName: '',
+        gsm: '',
+        departmentName: '',
+        degreeName: '',
+      };
       this.ngOnInit();
     });
   }
 
-  deleteDoctor(doctorId : number) {
+  deleteDoctor(doctorId: number) {
     this.deleteService.deleteDoctor(doctorId).subscribe(() => {
       this.ngOnInit();
       //alertify
-    })
+    });
   }
 
-  updateDoctor(doctorId : number) {
-
-  }
+  updateDoctor(doctorId: number) {}
 
   ////////
-
 
   addDepartment() {
     this.deptModel.hospitalId = this.selectedHospitalId;
     this.postService.addDepartment(this.deptModel).subscribe((data) => {
       this.deptModel = {
-        id : 0,
-        description : '',
-        hospitalId : 0
-      }
+        id: 0,
+        description: '',
+        hospitalId: 0,
+      };
       this.ngOnInit();
     });
   }
 
-  deleteDepartment(deptId : number) {
+  deleteDepartment(deptId: number) {
     this.deleteService.deleteDepartment(deptId).subscribe(() => {
       this.ngOnInit();
       //alert
-    })
+    });
   }
 
-  updateDepartment(deptId : number) {
-
-  }
+  updateDepartment(deptId: number) {}
 
   ////////
 
   addDisease() {
     this.postService.addDisease(this.diseaseModel).subscribe((data) => {
       this.diseaseModel = {
-        id : 0,
-        description : '',
-        departmentId : 0
-      }
+        id: 0,
+        description: '',
+        departmentId: 0,
+      };
       this.ngOnInit();
     });
   }
-  
-  deleteDisease(diseaseId : number) {
+
+  deleteDisease(diseaseId: number) {
     this.deleteService.deleteDisease(diseaseId).subscribe(() => {
       this.ngOnInit();
       //alert
-    })
+    });
   }
 
-  updateDisease(diseaseId : number) {
-
-  }
+  updateDisease(diseaseId: number) {}
 
   /////////
 
   addDegree() {
     this.postService.addDegree(this.degreeModel).subscribe((data) => {
-      this.degreeModel= {
-        id : 0,
-        description : ''
-      }
+      this.degreeModel = {
+        id: 0,
+        description: '',
+      };
       this.ngOnInit();
     });
   }
 
-  deleteDegree(degreeId : number) {
+  deleteDegree(degreeId: number) {
     this.deleteService.deleteDegree(degreeId).subscribe(() => {
       this.ngOnInit();
       //alert
-    })
+    });
   }
 
-  updateDegree(degreeId : number) {
-
-  }
+  updateDegree(degreeId: number) {}
 
   ////////
 
-  logout(){
+  logout() {
     this.authService.logout(this.userInfo.personId);
   }
-
 }

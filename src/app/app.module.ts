@@ -36,6 +36,7 @@ import { DoctorGetService } from './doctor/services/doctor-get.service';
 import { DoctorPostService } from './doctor/services/doctor-post.service';
 import { DoctorDeleteService } from './doctor/services/doctor-delete.service';
 import { DoctorUpdateService } from './doctor/services/doctor-update.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { DoctorUpdateService } from './doctor/services/doctor-update.service';
     RouterModule,
     MatDialogModule,
     MatSidenavModule,
-    ToastrModule.forRoot()
+    MatIconModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     AuthService,
