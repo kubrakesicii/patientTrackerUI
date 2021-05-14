@@ -1,8 +1,8 @@
-<div class="item-body">
+<div class="item-body m-0 p-0">
   <h2 class="text-center">Welcome {{ userInfo.fullName }}</h2>
   <button class="btn btn-danger mt-5 ml-5" (click)="logout()">LOGOUT</button>
 
-  <div class="container">
+  <div class="container mb-5">
     <div class="row">
       <div class="col-md-4">
         <div
@@ -102,9 +102,9 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let country of countryList">
-                      <th *ngIf="!editMode">{{ country.description }}</th>
-                      <th *ngIf="!editMode">{{ country.countryCode }}</th>
-                      <td *ngIf="!editMode">
+                      <td *ngIf="!(editMode && country.id == this.updatedCountry.id)">{{ country.description }}</td>
+                      <td *ngIf="!(editMode && country.id == this.updatedCountry.id)">{{ country.countryCode }}</td>
+                      <td *ngIf="!(editMode && country.id == this.updatedCountry.id)">
                         <button
                           class="btn btn-danger mr-2"
                           (click)="deleteCountry(country.id)"
@@ -118,35 +118,37 @@
                           <i class="fa fa-pencil-alt"></i>
                         </button>
                       </td>
-                      <td *ngIf="editMode">
+                      <td *ngIf="editMode && country.id == this.updatedCountry.id">
                         <span scope="row" *ngIf="editMode">
                           <input
                             class="form-control input-field"
-                            placeholder="description"
-                            [(ngModel)]="countryModel.description"
-                            name="description"
-                            [ngModelOptions]="{ standalone: true }"
-                          />
-
-                          <input
-                            class="form-control input-field"
-                            placeholder="countryCode"
-                            [(ngModel)]="countryModel.countryCode"
-                            name="countryCode"
-                            [ngModelOptions]="{ standalone: true }"
-                          />
-                          <button
-                            mat-button
-                            class="btn btn-primary"
-                            (click)="save(); editMode = false"
-                          >
-                            <i class="far fa-save"></i>
-                          </button>
-                          <button class="btn btn-danger" (click)="cancel()">
-                            <i class="fas fa-times"></i>
-                          </button>
+                            [(ngModel)]="updatedCountry.description"
+                            type="text"
+                            />
                         </span>
                       </td>
+                      <td *ngIf="editMode && country.id == this.updatedCountry.id">
+                        <span scope="row" *ngIf="editMode">
+                          <input
+                          class="form-control input-field"
+                          [(ngModel)]="updatedCountry.countryCode"
+                          type="text"
+                        />
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && country.id == this.updatedCountry.id">
+                        <span scope="row" *ngIf="editMode">
+                          <button
+                          class="btn btn-primary mr-2"
+                          (click)="saveCountry(); editMode = false"
+                        >
+                          <i class="far fa-save"></i>
+                        </button>
+                        <button class="btn btn-danger" (click)="cancelCountry()">
+                          <i class="fas fa-times"></i>
+                        </button>
+                        </span>
+                      </td>    
                     </tr>
                   </tbody>
                 </table>
@@ -209,22 +211,64 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let city of getCityList">
-                    <td>{{ city.description }}</td>
-                    <td>{{ city.countryName }}</td>
-                    <td>
+                    <td *ngIf="!(editMode && city.id == this.updatedCity.id)">{{ city.description }}</td>
+                    <td *ngIf="!(editMode && city.id == this.updatedCity.id)">{{ city.countryName }}</td>
+                    <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
                       <button
                         class="btn btn-danger mr-2"
                         (click)="deleteCity(city.id)"
                       >
-                        X
+                      <i class="far fa-trash-alt"></i>
                       </button>
                       <button
                         class="btn btn-primary"
                         (click)="updateCity(city.id)"
                       >
-                        U
+                      <i class="fa fa-pencil-alt"></i>
                       </button>
                     </td>
+
+                    <td *ngIf="editMode && city.id == this.updatedCity.id">
+                      <span scope="row" *ngIf="editMode">
+                        <input
+                          class="form-control input-field"
+                          [(ngModel)]="updatedCity.description"
+                          type="text"
+                          />
+                      </span>
+                    </td>
+                    <td *ngIf="editMode && city.id == this.updatedCity.id">
+                      <span scope="row" *ngIf="editMode">
+                        <select
+                          type="text"
+                          class="form-control input-field"
+                          placeholder="Select Country"
+                          [(ngModel)]="this.updatedCity.countryId"
+                        >
+                          <option
+                            *ngFor="let country of countryList"
+                            [value]="country.id"
+                          >
+                            {{ country.description }}
+                          </option>
+                        </select>
+                      </span>
+                    </td>
+                    <td *ngIf="editMode && city.id == this.updatedCity.id">
+                      <span scope="row" *ngIf="editMode">
+                        <button
+                        mat-button
+                        class="btn btn-primary mr-2"
+                        (click)="saveCity(); editMode = false"
+                      >
+                        <i class="far fa-save"></i>
+                      </button>
+                      <button class="btn btn-danger" (click)="cancelCity()">
+                        <i class="fas fa-times"></i>
+                      </button>
+                      </span>
+                    </td>    
+
                   </tr>
                 </tbody>
               </table>
@@ -240,7 +284,6 @@
                         <select
                           type="text"
                           class="form-control"
-                          y
                           placeholder="Select District"
                           name="districtId"
                           #cityId="ngModel"
@@ -284,22 +327,64 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let district of getDistrictList">
-                    <td>{{ district.description }}</td>
-                    <td>{{ district.cityName }}</td>
-                    <td>
+                    <td *ngIf="!(editMode && district.id == this.updatedDistrict.id)">{{ district.description }}</td>
+                    <td *ngIf="!(editMode && district.id == this.updatedDistrict.id)">{{ district.cityName }}</td>
+                    <td *ngIf="!(editMode && district.id == this.updatedDistrict.id)">
                       <button
                         class="btn btn-danger mr-2"
                         (click)="deleteDistrict(district.id)"
                       >
-                        X
+                      <i class="far fa-trash-alt"></i>
                       </button>
                       <button
                         class="btn btn-primary"
                         (click)="updateDistrict(district.id)"
                       >
-                        U
+                      <i class="fa fa-pencil-alt"></i>
                       </button>
                     </td>
+
+                    <td *ngIf="editMode && district.id == this.updatedDistrict.id">
+                      <span scope="row">
+                        <input
+                          class="form-control input-field"
+                          [(ngModel)]="updatedDistrict.description"
+                          type="text"
+                          />
+                      </span>
+                    </td>
+                    <td *ngIf="editMode && district.id == this.updatedDistrict.id">
+                      <span scope="row">
+                        <select
+                          type="text"
+                          class="form-control input-field"
+                          #cityId="ngModel"
+                          [(ngModel)]="this.updatedDistrict.cityId"
+                        >
+                          <option value="0" disabled>--Select a City--</option>
+                          <option
+                            *ngFor="let city of cityList"
+                            [value]="city.id"
+                          >
+                            {{ city.description }}
+                          </option>
+                        </select>
+                      </span>
+                    </td>
+                    <td *ngIf="editMode && district.id == this.updatedDistrict.id">
+                      <span scope="row">
+                        <button
+                        class="btn btn-primary mr-2"
+                        (click)="saveDistrict(); editMode = false"
+                      >
+                        <i class="far fa-save"></i>
+                      </button>
+                      <button class="btn btn-danger" (click)="cancelDistrict()">
+                        <i class="fas fa-times"></i>
+                      </button>
+                      </span>
+                    </td>    
+
                   </tr>
                 </tbody>
               </table>
@@ -316,14 +401,13 @@
                         <select
                           type="text"
                           class="form-control"
-                          placeholder="Select District"
+                          placeholder="Select Country"
                           name="districtId"
                           [(value)]="countryid"
                         >
                           <option disabled>--Select a Country--</option>
                           <option
                             *ngFor="let country of countryList"
-                            [value]="country.countryId"
                           >
                             {{ country.description }}
                           </option>
@@ -362,16 +446,16 @@
                           placeholder="Select District"
                           name="districtId"
                           #districtId="ngModel"
-                          [(ngModel)]="this.hospitalModel.districtId"
+                          [(ngModel)]="this.hospitalModel.districtName"
                         >
                           <option disabled>--Select a District--</option>
                           <option
                             *ngFor="
-                              let city of cityList | hospitalPipe: countryid
+                              let district of districtList
                             "
-                            [value]="city.countryId"
+                            [value]="district.cityId"
                           >
-                            {{ city.description }}
+                            {{ district.description }}
                           </option>
                         </select>
                       </div>
@@ -442,9 +526,12 @@
       </h3>
       <table class="table table-striped">
         <thead>
-          <th>ID</th>
           <th>Description</th>
           <th>Address</th>
+          <th>Country</th>
+          <th>City</th>
+          <th>District</th>
+          <th>Phone</th>
           <th>
             <form class="form-inline my-2 my-lg-0">
               <input
@@ -458,18 +545,18 @@
               </button>
             </form>
           </th>
-          <th>R / U</th>
         </thead>
 
         <tbody>
           <tr *ngFor="let hospital of hospitalList | searchPipe: filterText">
-            <td>{{ hospital.id }}</td>
-            <td *ngIf="!editMode">{{ hospital.description }}</td>
-            <td *ngIf="!editMode">{{ hospital.address }}</td>
-            <td *ngIf="!editMode">
-              <a (click)="setHospitalId($event)">EDIT</a>
-            </td>
-            <td *ngIf="!editMode">
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">{{ hospital.description }}</td>
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">{{ hospital.address }}</td>
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">{{ hospital.countryName }}</td>
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">{{ hospital.cityName }}</td>
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">{{ hospital.districtName }}</td>
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">{{ hospital.phone }}</td>
+      
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
               <button
                 class="btn btn-danger mr-2"
                 (click)="deleteHospital(hospital.id)"
@@ -477,36 +564,98 @@
                 <i class="far fa-trash-alt"></i>
               </button>
               <button
-                class="btn btn-primary"
+                class="btn btn-primary mr-2"
                 (click)="updateHospital(hospital.id); editMode = true"
               >
                 <i class="fa fa-pencil-alt"></i>
               </button>
+              <button class="btn btn-success" (click)="setHospital(hospital.id, hospital.description)">
+                <i class="fas fa-info-circle"></i>
+              </button>
             </td>
-            <td *ngIf="editMode">
-              <span class="inline" scope="row" *ngIf="editMode">
-                <input
-                  class="form-control input-field"
-                  placeholder="description"
-                  [(ngModel)]="hospitalModel.description"
-                  name="description"
-                  [ngModelOptions]="{ standalone: true }"
-                />
 
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
                 <input
                   class="form-control input-field"
-                  placeholder="address"
-                  [(ngModel)]="hospitalModel.address"
-                  name="address"
+                  [(ngModel)]="updatedHospital.description"
+                  #desc="ngModel"
                   [ngModelOptions]="{ standalone: true }"
                 />
+              </span>
+            </td>
+
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
+              <input
+                  class="form-control input-field"
+                  [(ngModel)]="updatedHospital.address"
+                  #address="ngModel"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </span>
+            </td>
+
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
+                <select
+                type="text"
+                class="form-control input-field"
+                name="districtId"
+                [(ngModel)]="updatedHospital.countryName"
+              >
+                <option
+                  *ngFor="let country of countryList"
+                >
+                  {{ country.description }}
+                </option>
+              </select>
+              </span>
+            </td>
+
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
+                <select
+                  type="text"
+                  class="form-control input-field"
+                  name="cityId"
+                >
+                  <option 
+                  *ngFor="let city of cityList | hospitalPipe: countryid"
+                  [(ngModel)]="updatedHospital.cityName"
+                   >
+                      {{ city.description }}
+                  </option>
+                </select>
+              </span>
+            </td>
+
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
+                <select
+                  type="text"
+                  class="form-control input-field"
+                  name="districtId"
+                >
+                  <option 
+                  *ngFor="let district of districtList"
+                  [(ngModel)]="updatedHospital.districtName"
+                   >
+                      {{ district.description }}
+                  </option>
+                </select>
+              </span>
+            </td>
+
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
                 <button
-                  class="btn btn-primary"
-                  (click)="saveHospital(); editMode = false"
+                  class="btn btn-primary mr-2"
+                  (click)="saveHospital()"
                 >
                   <i class="far fa-save"></i>
                 </button>
-                <button class="btn btn-danger" (click)="cancel()">
+                <button class="btn btn-danger" (click)="cancelHospital()">
                   <i class="fa fa-times"></i>
                 </button>
               </span>
@@ -647,7 +796,8 @@
                   <table class="table table-light">
                     <thead>
                       <tr>
-                        <th>Full Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Email</th>
                         <th>Department</th>
                         <th>Degree</th>
@@ -656,24 +806,101 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let doctor of doctorList">
-                        <td>{{ doctor.firstName }} {{ doctor.lastName }}</td>
-                        <td>{{ doctor.email }}</td>
-                        <td>{{ doctor.departmentName }}</td>
-                        <td>{{ doctor.degreeName }}</td>
-                        <td>
+                        <td *ngIf="!(editMode && doctor.id == this.updatedDoctorId)">{{ doctor.firstName }} </td>
+                        <td *ngIf="!(editMode && doctor.id == this.updatedDoctorId)">{{ doctor.lastName }} </td>
+                        <td *ngIf="!(editMode && doctor.id == this.updatedDoctorId)">{{ doctor.email }}</td>
+                        <td *ngIf="!(editMode && doctor.id == this.updatedDoctorId)">{{ doctor.departmentName }}</td>
+                        <td *ngIf="!(editMode && doctor.id == this.updatedDoctorId)">{{ doctor.degreeName }}</td>
+                        <td *ngIf="!(editMode && doctor.id == this.updatedDoctorId)">
                           <button
                             class="btn btn-danger mr-2"
                             (click)="deleteDoctor(doctor.id)"
                           >
-                            X
+                          <i class="far fa-trash-alt"></i>
                           </button>
                           <button
                             class="btn btn-primary"
                             (click)="updateDoctor(doctor.id)"
                           >
-                            U
+                          <i class="fa fa-pencil-alt"></i>
                           </button>
                         </td>
+
+                        <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                          <span scope="row">
+                            <input
+                              class="form-control input-field"
+                              [(ngModel)]="this.updatedDoctor.firstName"
+                              type="text"
+                              />
+                          </span>
+                        </td>
+                        <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                          <span scope="row">
+                            <input
+                              class="form-control input-field"
+                              [(ngModel)]="this.updatedDoctor.lastName"
+                              type="text"
+                              />
+                          </span>
+                        </td>
+                        <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                          <span scope="row">
+                            <input
+                              class="form-control input-field"
+                              [(ngModel)]="this.updatedDoctor.email"
+                              type="text"
+                              />
+                          </span>
+                        </td>
+                        <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                          <span scope="row">
+                            <select
+                            type="text"
+                            class="form-control input-field"
+                            #deptId="ngModel"
+                            [(ngModel)]="this.updatedDoctor.departmentId"
+                          >
+                            <option
+                              *ngFor="let dept of deptList"
+                              [value]="dept.id"
+                            >
+                              {{ dept.description }}
+                            </option>
+                          </select>
+                          </span>
+                        </td>
+                        <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                          <span scope="row">
+                            <select
+                            type="text"
+                            class="form-control input-field"
+                            #degreeId="ngModel"
+                            [(ngModel)]="this.updatedDoctor.degreeId"
+                          >
+                            <option
+                              *ngFor="let degree of degreeList"
+                              [value]="degree.id"
+                            >
+                              {{ degree.description }}
+                            </option>
+                          </select>
+                          </span>
+                        </td>
+                        <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                          <span scope="row">
+                            <button
+                            class="btn btn-primary mr-2"
+                            (click)="saveDoctor()"
+                          >
+                            <i class="far fa-save"></i>
+                          </button>
+                          <button class="btn btn-danger" (click)="cancelDoctor()">
+                            <i class="fas fa-times"></i>
+                          </button>
+                          </span>
+                        </td>
+
                       </tr>
                     </tbody>
                   </table>
@@ -707,31 +934,52 @@
                   <table class="table table-light">
                     <thead>
                       <tr>
-                        <th>ID</th>
                         <th>Description</th>
-                        <th>Hospital</th>
                         <th>R / U</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let dept of deptList">
-                        <td>{{ dept.id }}</td>
-                        <td>{{ dept.description }}</td>
-                        <td>{{ dept.hospitalId }}</td>
-                        <td>
+                        <td *ngIf="!(editMode && dept.id == this.updatedDept.id)">{{ dept.description }}</td>
+                        <td *ngIf="!(editMode && dept.id == this.updatedDept.id)">
                           <button
                             class="btn btn-danger mr-2"
                             (click)="deleteDepartment(dept.id)"
                           >
-                            X
+                          <i class="far fa-trash-alt"></i>
                           </button>
                           <button
                             class="btn btn-primary"
                             (click)="updateDepartment(dept.id)"
                           >
-                            U
+                          <i class="fa fa-pencil-alt"></i>
                           </button>
                         </td>
+
+                        <td *ngIf="editMode && dept.id == this.updatedDept.id">
+                          <span scope="row" *ngIf="editMode">
+                            <input
+                              class="form-control input-field"
+                              [(ngModel)]="updatedDept.description"
+                              type="text"
+                              />
+                          </span>
+                        </td>
+
+                        <td *ngIf="editMode && dept.id == this.updatedDept.id">
+                          <span scope="row" *ngIf="editMode">
+                            <button
+                              class="btn btn-primary mr-2"
+                              (click)="saveDept()"
+                            >
+                              <i class="far fa-save"></i>
+                            </button>
+                            <button class="btn btn-danger" (click)="cancelDept()">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </span>
+                        </td>
+
                       </tr>
                     </tbody>
                   </table>
@@ -786,7 +1034,6 @@
                   <table class="table table-light">
                     <thead>
                       <tr>
-                        <th>ID</th>
                         <th>Description</th>
                         <th>Department</th>
                         <th>R / U</th>
@@ -794,23 +1041,66 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let disease of diseaseList">
-                        <td>{{ disease.id }}</td>
-                        <td>{{ disease.description }}</td>
-                        <td>{{ disease.departmentId }}</td>
-                        <td>
+                        <td *ngIf="!(editMode && disease.id == this.updatedDisease.id)">{{ disease.description }}</td>
+                        <td *ngIf="!(editMode && disease.id == this.updatedDisease.id)">{{ disease.departmentName }}</td>
+                        <td *ngIf="!(editMode && disease.id == this.updatedDisease.id)">
                           <button
                             class="btn btn-danger mr-2"
                             (click)="deleteDisease(disease.id)"
                           >
-                            X
+                          <i class="far fa-trash-alt"></i>
                           </button>
                           <button
                             class="btn btn-primary"
                             (click)="updateDisease(disease.id)"
                           >
-                            U
+                          <i class="fa fa-pencil-alt"></i>
                           </button>
                         </td>
+
+                        <td *ngIf="editMode && disease.id == this.updatedDisease.id">
+                          <span scope="row">
+                            <input
+                              class="form-control input-field"
+                              [(ngModel)]="updatedDisease.description"
+                              type="text"
+                              />
+                          </span>
+                        </td>
+
+                        <td *ngIf="editMode && disease.id == this.updatedDisease.id">
+                          <span scope="row">
+                            <select
+                            type="text"
+                            class="form-control input-field"
+                            #deptId="ngModel"
+                            [(ngModel)]="this.updatedDisease.departmentId"
+                          >
+                            <option
+                              *ngFor="let dept of deptList"
+                              [value]="dept.id"
+                            >
+                              {{ dept.description }}
+                            </option>
+                          </select>
+                          </span>
+                        </td>
+
+                        <td *ngIf="editMode && disease.id == this.updatedDisease.id">
+                          <span scope="row">
+                            <button
+                            mat-button
+                            class="btn btn-primary mr-2"
+                            (click)="saveDisease(); editMode = false"
+                          >
+                            <i class="far fa-save"></i>
+                          </button>
+                          <button class="btn btn-danger" (click)="cancelDisease()">
+                            <i class="fas fa-times"></i>
+                          </button>
+                          </span>
+                        </td>    
+
                       </tr>
                     </tbody>
                   </table>
@@ -844,29 +1134,51 @@
                   <table class="table table-light">
                     <thead>
                       <tr>
-                        <th>ID</th>
                         <th>Description</th>
                         <th>R / U</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let degree of degreeList">
-                        <td>{{ degree.id }}</td>
-                        <td>{{ degree.description }}</td>
-                        <td>
+                        <td *ngIf="!(editMode && degree.id == this.updatedDegree.id)">{{ degree.description }}</td>
+                        <td *ngIf="!(editMode && degree.id == this.updatedDegree.id)">
                           <button
                             class="btn btn-danger mr-2"
                             (click)="deleteDegree(degree.id)"
                           >
-                            X
+                          <i class="far fa-trash-alt"></i>
                           </button>
                           <button
                             class="btn btn-primary"
                             (click)="updateDegree(degree.id)"
                           >
-                            U
+                          <i class="fa fa-pencil-alt"></i>
                           </button>
                         </td>
+
+                        <td *ngIf="editMode && degree.id == this.updatedDegree.id">
+                          <span scope="row">
+                            <input
+                              class="form-control input-field"
+                              [(ngModel)]="updatedDegree.description"
+                              type="text"
+                              />
+                          </span>
+                        </td>
+                        <td *ngIf="editMode && degree.id == this.updatedDegree.id">
+                          <span scope="row">
+                            <button
+                              class="btn btn-primary mr-2"
+                              (click)="saveDegree(); editMode = false"
+                            >
+                              <i class="far fa-save"></i>
+                            </button>
+                            <button class="btn btn-danger" (click)="cancelDegree()">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </span>
+                        </td>
+
                       </tr>
                     </tbody>
                   </table>

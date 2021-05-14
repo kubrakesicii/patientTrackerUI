@@ -1,11 +1,8 @@
-export class Doctor {
-    id : number;
+export class UpdateDoctor {
     email : string;
     firstName : string;
     lastName : string;
     gsm : string;
-    departmentName : string;
-    degreeName : string;
     departmentId : number;
     degreeId : number;
 }

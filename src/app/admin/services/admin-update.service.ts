@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
+import { Degree } from '../models/degree.model';
 import { Department } from '../models/department.model';
 import { Disease } from '../models/disease.model';
 import { District } from '../models/district.model';
 import { Doctor } from '../models/doctor.model';
 import { Hospital } from '../models/hospital.model';
+import { PostDoctor } from '../models/post-doctor.model';
+import { UpdateDoctor } from '../models/update-doctor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +36,8 @@ export class AdminUpdateService {
     return this.http.put(`${this.apiUrl}/Hospitals?id=${hospitalId}`,updatedHospital);
   }
 
-  updateDoctor(doctorId : number, updatedDoctor : Doctor) {
-    return this.http.put(`${this.apiUrl}/Doctors?doctorId=${doctorId}`,updatedDoctor);
+  updateDoctor(doctorId : number, updatedDoctor : UpdateDoctor) {
+    return this.http.put(`${this.apiUrl}/Doctors?id=${doctorId}`,updatedDoctor);
   }
 
   updateDepartment(deptId : number, updatedDept : Department) {
@@ -45,7 +48,7 @@ export class AdminUpdateService {
     return this.http.put(`${this.apiUrl}/Diseases?id=${diseaseId}`,updatedDisease);
   }
 
-  updateDegree(degreeId : number, updatedDegree : Hospital) {
-    return this.http.put(`${this.apiUrl}/Degrees?is=${degreeId}`,updatedDegree);
+  updateDegree(degreeId : number, updatedDegree : Degree) {
+    return this.http.put(`${this.apiUrl}/Degrees?id=${degreeId}`,updatedDegree);
   }
 }

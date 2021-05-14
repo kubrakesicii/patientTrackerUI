@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
 import { Degree } from '../models/degree.model';
@@ -14,6 +12,7 @@ import { GetCity } from '../models/get-city.model';
 import { GetDistrict } from '../models/get-district.model';
 import { Hospital } from '../models/hospital.model';
 import { PostDoctor } from '../models/post-doctor.model';
+import { UpdateDoctor } from '../models/update-doctor.model';
 import { AdminCountService } from '../services/admin-count.service';
 import { AdminDeleteService } from '../services/admin-delete.service';
 import { AdminGetService } from '../services/admin-get.service';
@@ -49,16 +48,16 @@ export class AdminHomeComponent implements OnInit {
   filterText: '';
 
   //Lists
-  hospitalList: any;
-  countryList: any;
+  hospitalList: Hospital[];
+  countryList: Country[];
   cityList: City[];
   getCityList: GetCity[];
-  districtList: any;
+  districtList: District[];
   getDistrictList: GetDistrict[];
   doctorList: Doctor[];
-  deptList: any;
-  diseaseList: any;
-  degreeList: any;
+  deptList: Department[];
+  diseaseList: Disease[];
+  degreeList: Degree[];
 
   //Models
   countryModel: Country = new Country();
@@ -71,6 +70,17 @@ export class AdminHomeComponent implements OnInit {
   deptModel: Department = new Department();
   diseaseModel: Disease = new Disease();
   degreeModel: Degree = new Degree();
+
+  updatedCountry: Country = new Country();
+  updatedCity: City = new City();
+  updatedDistrict: District = new District();
+  updatedHospital: Hospital = new Hospital();
+
+  updatedDoctorId: number;
+  updatedDoctor: UpdateDoctor = new UpdateDoctor();
+  updatedDept: Department = new Department();
+  updatedDisease: Disease = new Disease();
+  updatedDegree: Degree = new Degree();
 
   clickType: string = 'country';
   hospitalClickType: string = 'doctor';
@@ -153,9 +163,19 @@ export class AdminHomeComponent implements OnInit {
       .then((x) => (this.getCityList = x['$values']));
 
     await this.getService
+      .getAllCities()
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.cityList = x['$values']));
+
+    await this.getService
       .getAllDistricts()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.getDistrictList = x['$values']));
+
+      await this.getService
+      .getAllDistricts()
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.districtList = x['$values']));
 
     await this.getService
       .getAllDoctorsByHospital(this.selectedHospitalId)
@@ -175,7 +195,8 @@ export class AdminHomeComponent implements OnInit {
     await this.getService
       .getAllDegrees()
       .then((data) => JSON.parse(JSON.stringify(data)))
-      .then((x) => (this.degreeList = x['$values']));
+      .then(x =>this. degreeList = x["$values"]);
+
   }
 
   ////////
@@ -198,27 +219,28 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateCountry(countryId: number) {
+  async updateCountry(countryId: number) {
     console.log(countryId);
     this.editMode = true;
-    this.countryModel.id = countryId;
+    await this.getService.getCountryById(countryId).then(data => this.updatedCountry = JSON.parse(JSON.stringify(data)));
+   
   }
-  save() {
+  saveCountry() {
     this.updateService
-      .updateCountry(this.countryModel.id, this.countryModel)
+      .updateCountry(this.updatedCountry.id, this.updatedCountry)
       .subscribe((data) => {
         console.log(data);
+        this.ngOnInit();
       });
+      this.editMode = false;
   }
-  cancel() {
+  cancelCountry() {
     this.editMode = false;
-  }
-  saveHospital() {
-    this.updateService
-      .updateHospital(this.hospitalModel.id, this.hospitalModel)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    this.updatedCountry = {
+      id : 0,
+      description : '',
+      countryCode : ''
+    }
   }
 
   ////////
@@ -241,7 +263,28 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateCity(cityId: number) {}
+  async updateCity(cityId: number) {
+    this.editMode = true;
+    await this.getService.getCityById(cityId).then(data => this.updatedCity = JSON.parse(JSON.stringify(data)));
+  }
+
+  saveCity() {
+    this.updateService
+      .updateCity(this.updatedCity.id, this.updatedCity)
+      .subscribe((data) => {
+        console.log(data);
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+  cancelCity() {
+    this.editMode = false;
+    this.updatedCity = {
+      id : 0,
+      description : '',
+      countryId : 0
+    }
+  }
 
   ////////
 
@@ -263,7 +306,28 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateDistrict(districtId: number) {}
+  async updateDistrict(districtId: number) {
+    this.editMode = true;
+    await this.getService.getDistrictById(districtId).then(data => this.updatedDistrict = JSON.parse(JSON.stringify(data)));
+  }
+
+  saveDistrict() {
+    this.updateService
+      .updateDistrict(this.updatedDistrict.id, this.updatedDistrict)
+      .subscribe((data) => {
+        console.log(data);
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+  cancelDistrict() {
+    this.editMode = false;
+    this.updatedDistrict = {
+      id : 0,
+      description : '',
+      cityId : 0
+    }
+  }
 
   ////////
 
@@ -273,7 +337,9 @@ export class AdminHomeComponent implements OnInit {
         id: 0,
         description: '',
         address: '',
-        districtId: 0,
+        districtName: '',
+        cityName: '',
+        countryName: '',
         phone: '',
       };
       this.ngOnInit();
@@ -287,7 +353,32 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateHospital(hospitalId: number) {}
+  async updateHospital(hospitalId: number) {
+    this.editMode = true;
+    await this.getService.getHospitalById(hospitalId).then(data => this.updatedHospital = JSON.parse(JSON.stringify(data)));
+  }
+
+  saveHospital() {
+    this.updateService
+      .updateHospital(this.updatedHospital.id, this.updatedHospital)
+      .subscribe((data) => {
+        console.log(data);
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+  cancelHospital() {
+    this.editMode = false;
+    this.updatedHospital = {
+      id : 0,
+      description : '',
+      address : '',
+      phone : '',
+      cityName : '',
+      districtName : '',
+      countryName : ''
+    }
+  }
 
   ////////
 
@@ -299,14 +390,10 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  async setHospitalId(event: Event) {
-    this.selectedHospitalId = (
-      event.target as Element
-    ).parentElement?.previousSibling?.previousSibling?.previousSibling?.textContent;
+  async setHospital(hospitalId : number, hospitalName : string) {
+    this.selectedHospitalId = hospitalId;
 
-    this.selectedHospitalName = (
-      event.target as Element
-    ).parentElement?.previousSibling?.previousSibling?.textContent;
+    this.selectedHospitalName = hospitalName;
 
     await this.loadHospitalData(this.selectedHospitalId);
     this.ngOnInit();
@@ -344,6 +431,8 @@ export class AdminHomeComponent implements OnInit {
         gsm: '',
         departmentName: '',
         degreeName: '',
+        departmentId : 0,
+        degreeId : 0
       };
       this.ngOnInit();
     });
@@ -356,7 +445,32 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateDoctor(doctorId: number) {}
+  async updateDoctor(doctorId: number) {
+    this.editMode = true;
+    await this.getService.getDoctorById(doctorId).then(data => this.updatedDoctorId = JSON.parse(JSON.stringify(data))['id']);
+    await this.getService.getDoctorById(doctorId).then(data => this.updatedDoctor = JSON.parse(JSON.stringify(data)));
+  }
+
+  saveDoctor() {
+    console.log(this.updatedDoctor);
+    this.updateService
+      .updateDoctor(this.updatedDoctorId, this.updatedDoctor)
+      .subscribe((data) => {
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+  cancelDoctor() {
+    this.editMode = false;
+    this.updatedDoctor = {
+      firstName : '',
+      lastName : '',
+      email : '',
+      gsm : '',
+      departmentId : 0,
+      degreeId : 0,
+    }
+  }
 
   ////////
 
@@ -379,7 +493,29 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateDepartment(deptId: number) {}
+  async updateDepartment(deptId: number) {
+    this.editMode = true;
+    await this.getService.getDeptById(deptId).then(data => this.updatedDept = JSON.parse(JSON.stringify(data)));
+  }
+
+  saveDept() {
+    this.updateService
+      .updateDepartment(this.updatedDept.id, this.updatedDept)
+      .subscribe((data) => {
+        console.log(data);
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+  cancelDept() {
+    this.editMode = false;
+    this.updatedDept = {
+      id : 0,
+      description : '',
+      hospitalId : 0
+    }
+  }
+
 
   ////////
 
@@ -388,7 +524,8 @@ export class AdminHomeComponent implements OnInit {
       this.diseaseModel = {
         id: 0,
         description: '',
-        departmentId: 0,
+        departmentName : '',
+        departmentId : 0
       };
       this.ngOnInit();
     });
@@ -401,7 +538,30 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateDisease(diseaseId: number) {}
+  async updateDisease(diseaseId: number) {
+    this.editMode = true;
+    await this.getService.getDiseaseById(diseaseId).then(data => this.updatedDisease = JSON.parse(JSON.stringify(data)));
+  }
+
+  saveDisease() {
+    this.updateService
+      .updateDisease(this.updatedDisease.id, this.updatedDisease)
+      .subscribe((data) => {
+        console.log(data);
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+  cancelDisease() {
+    this.editMode = false;
+    this.updatedDisease = {
+      id : 0,
+      description : '',
+      departmentName : '',
+      departmentId : 0
+    }
+  }
+
 
   /////////
 
@@ -422,7 +582,27 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateDegree(degreeId: number) {}
+  async updateDegree(degreeId: number) {
+    this.editMode = true;
+    await this.getService.getDegreeById(degreeId).then(data => this.updatedDegree = JSON.parse(JSON.stringify(data)));
+  }
+  
+  saveDegree() {
+    this.updateService
+      .updateDegree(this.updatedDegree.id, this.updatedDegree)
+      .subscribe((data) => {
+        console.log(data);
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+  cancelDegree() {
+    this.editMode = false;
+    this.updatedDegree = {
+      id : 0,
+      description : ''
+    }
+  }
 
   ////////
 

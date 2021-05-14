@@ -3,6 +3,8 @@
 }
 .item-body {
   background-color: #fafafa;
+  margin: 0;
+  padding: 0;
 }
 .card-background {
   background-color: #fafafa;
@@ -136,10 +138,6 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary {
 .card2 {
   height: 140px;
 }
-.col-md-6 {
-  margin-bottom: 10px;
-  padding-top: 21px;
-}
 
 .rounded-xl {
   border-radius: 1.25rem !important;
@@ -250,23 +248,24 @@ button.btn.btn-warning {
 }
 td {
   cursor: pointer;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 2px
 }
-button.btn.btn-danger.mr-2 {
-  margin-bottom: 5px;
-}
+
 .input-field {
-  width: 30%;
-  font-weight: bold;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   background-color: transparent;
-  border: 1px solid;
-  font-size: 13px;
+  border: 0.2px solid;
   font-family: Arial;
-  float: left;
 }
-input:last-child {
-  float: right;
-}
-button.btn.btn-primary {
-  margin-left: 15px;
-  margin-right: 6px;
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: 0 auto;
+  margin-left: 0 auto;
 }
