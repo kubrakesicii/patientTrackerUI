@@ -48,6 +48,13 @@ async loadData(){
     .then((x) => (this.appointmentList = x['$values']));
   }
 
+
+  deleteAppointment(appointmentId : number) {
+
+  }
   
+  updateAppointment(appointmentId : number) {
+    
+  }
 
 }

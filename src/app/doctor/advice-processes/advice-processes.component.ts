@@ -72,6 +72,10 @@ async loadListData(){
       })
     }
 
+    updateAdvice(adviceId : number) {
+      
+    }
+
     resetForm(form?: NgForm) {
       if(form == null){
         this.resetForm();

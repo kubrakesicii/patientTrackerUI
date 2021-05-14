@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'doctor-home',
-    component: DoctorHomeComponent,
+    component: PatientProcessesComponent,
   },
   {
     path: 'doctor-home/patient-processes',
