@@ -283,3 +283,6 @@ select.form-control.input-field {
 span.inline {
   display: flex;
 }
+span {
+  display: flex;
+}

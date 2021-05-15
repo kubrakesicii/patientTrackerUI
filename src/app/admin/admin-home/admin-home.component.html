@@ -583,7 +583,7 @@
           <th>
             <form class="form-inline my-2 my-lg-0">
               <input
-                [(ngModel)]="filterText"
+                [ngModel]="filterText"
                 class="form-control mr-sm-2"
                 type="text"
                 placeholder="Search"
@@ -712,10 +712,16 @@
 
             <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
               <span class="inline" scope="row">
-                <button class="btn btn-primary mr-2" (click)="saveHospital()">
+                <button
+                  class="btn btn-primary mr-2 buttons"
+                  (click)="saveHospital()"
+                >
                   <i class="far fa-save"></i>
                 </button>
-                <button class="btn btn-danger" (click)="cancelHospital()">
+                <button
+                  class="btn btn-danger buttons"
+                  (click)="cancelHospital()"
+                >
                   <i class="fa fa-times"></i>
                 </button>
               </span>
