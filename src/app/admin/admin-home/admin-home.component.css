@@ -250,7 +250,7 @@ td {
   cursor: pointer;
   margin: 0;
   padding-left: 0;
-  padding-right: 2px
+  padding-right: 2px;
 }
 
 .input-field {
@@ -262,10 +262,24 @@ td {
   font-family: Arial;
 }
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
   width: 100%;
   padding-right: 0;
   padding-left: 0;
   margin-right: 0 auto;
   margin-left: 0 auto;
+}
+button.btn.btn-primary.mr-2 {
+  margin-left: 2px;
+}
+select.form-control.input-field {
+  margin-left: 10px;
+}
+span.inline {
+  display: flex;
 }

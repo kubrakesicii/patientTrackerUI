@@ -640,6 +640,7 @@
             <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
               <span class="inline" scope="row">
                 <input
+                  style="margin-right: 5px"
                   class="form-control input-field"
                   [(ngModel)]="updatedHospital.description"
                   #description="ngModel"
@@ -651,6 +652,7 @@
             <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
               <span class="inline" scope="row">
                 <input
+                  style="padding-right: 5px"
                   class="form-control input-field"
                   [(ngModel)]="updatedHospital.address"
                   #address="ngModel"
