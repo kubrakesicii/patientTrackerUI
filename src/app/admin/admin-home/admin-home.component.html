@@ -593,7 +593,6 @@
           <th>City</th>
           <th>District</th>
           <th>Phone</th>
-          <th>R/U</th>
         </thead>
 
         <tbody>
@@ -650,21 +649,45 @@
                 </span>
               </td>
             </ng-template>
+     
 
-            <ng-template #hAddress>
-              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                <span class="inline" scope="row">
-                <textarea
-                    rows="4" cols="10"
-                    class="form-control input-field"
-                    [(ngModel)]="updatedHospital.address"
-                    #address="ngModel"
-                    [ngModelOptions]="{ standalone: true }"
-                  ></textarea>
-                </span>
-              </td>
-            </ng-template>
-            
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
+                <select
+                type="text"
+                class="form-control input-field"
+                name="districtId"
+                [(ngModel)]="updatedHospital.countryId"
+              >
+                <option
+                  *ngFor="let country of countryList"
+                  [value]="country.id"
+                >
+                  <option *ngFor="let country of countryList">
+                    {{ country.description }}
+                  </option>
+                </select>
+              </span>
+            </td>
+
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
+                <select
+                  type="text"
+                  class="form-control input-field"
+                  name="cityId"
+                  [(ngModel)]="updatedHospital.cityId"
+                >
+                  <option 
+                  *ngFor="let city of cityList | hospitalPipe: countryid"
+                  [value]="city.id"
+                   >
+                      {{ city.description }}
+                  </option>
+                </select>
+              </span>
+            </td>
+
             <ng-template #hDistrict>
               <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
                 <span class="inline" scope="row">
@@ -684,7 +707,23 @@
                 </span>
               </td>
             </ng-template>
+            
 
+            <ng-template #hAddress>
+              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                <span class="inline" scope="row">
+                <textarea
+                    rows="4" cols="10"
+                    class="form-control input-field"
+                    [(ngModel)]="updatedHospital.address"
+                    #address="ngModel"
+                    [ngModelOptions]="{ standalone: true }"
+                  ></textarea>
+                </span>
+              </td>
+            </ng-template>
+            
+           
             <ng-template #hPhone>
               <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
                 <span class="inline" scope="row">
@@ -703,7 +742,10 @@
                 <button class="btn btn-primary mr-2" (click)="saveHospital()">
                   <i class="far fa-save"></i>
                 </button>
-                <button class="btn btn-danger" (click)="cancelHospital()">
+                <button
+                  class="btn btn-danger buttons"
+                  (click)="cancelHospital()"
+                >
                   <i class="fa fa-times"></i>
                 </button>
               </span>

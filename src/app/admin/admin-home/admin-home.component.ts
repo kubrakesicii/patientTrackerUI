@@ -45,7 +45,7 @@ export class AdminHomeComponent implements OnInit {
   deptCount: any;
   diseaseCount: any;
   degreesCount: any;
-  filterText: '';
+  filterText: string;
 
   //Lists
   hospitalList: Hospital[];
