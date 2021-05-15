@@ -7,6 +7,7 @@ import { Question } from '../models/question.model';
 import { DoctorDeleteService } from '../services/doctor-delete.service';
 import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
+import { DoctorUpdateService } from '../services/doctor-update.service';
 
 @Component({
   selector: 'app-question-processes',
@@ -18,6 +19,7 @@ export class QuestionProcessesComponent implements OnInit {
 
   doctorModel : Doctor = new Doctor();
   questionModel : Question = new Question();
+  updatedQuestion : Question = new Question();
   questionList : Question[];
   insertId : number;
   questionType : number;
@@ -27,11 +29,13 @@ export class QuestionProcessesComponent implements OnInit {
   answer4 : Answer = new Answer();
 
   options : any;
+  public editMode = false;
 
 
   constructor(private getService : DoctorGetService,
               private postService : DoctorPostService,
-              private deleteService : DoctorDeleteService) {
+              private deleteService : DoctorDeleteService,
+              private updateService : DoctorUpdateService) {
                 this.options = [{name :  "Multiple Choice Question", value : 1},
                                 {name :  "Numeric Question", value : 2}];
                }
@@ -108,8 +112,28 @@ async loadListData(){
     })
   }
 
-  updateQuestion(questionId : number) {
+  async updateQuestion(questionId : number) {
+    this.editMode = true;
+    await this.getService.getQuestionById(questionId).then(data => this.updatedQuestion = JSON.parse(JSON.stringify(data)));
+  }
 
+  saveQuestion(){
+    this.updateService.updateQuestion(this.updatedQuestion.id, this.updatedQuestion)
+    .subscribe((data) => {
+      this.ngOnInit();
+    });
+    this.editMode = false;
+  }
+
+  cancelQuestion() {
+    this.editMode = false;
+    this.updatedQuestion = {
+      id : 0,
+      description : '',
+      lowerLimit : 0,
+      upperLimit : 0,
+      questionType : 0
+    }
   }
 
 

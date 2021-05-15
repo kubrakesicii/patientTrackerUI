@@ -490,12 +490,12 @@
                           placeholder="Select District"
                           name="districtId"
                           #districtId="ngModel"
-                          [(ngModel)]="this.hospitalModel.districtName"
+                          [(ngModel)]="this.hospitalModel.districtId"
                         >
                           <option disabled>--Select a District--</option>
                           <option
                             *ngFor="let district of districtList"
-                            [value]="district.cityId"
+                            [value]="district.id"
                           >
                             {{ district.description }}
                           </option>
@@ -598,22 +598,22 @@
 
         <tbody>
           <tr *ngFor="let hospital of hospitalList | searchPipe: filterText">
-            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id); else hDesc">
               {{ hospital.description }}
             </td>
-            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id) ; else hAddress">
               {{ hospital.address }}
             </td>
-            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
+            <td>
               {{ hospital.countryName }}
             </td>
-            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
+            <td>
               {{ hospital.cityName }}
             </td>
-            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id); else hDistrict">
               {{ hospital.districtName }}
             </td>
-            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
+            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id); else hPhone">
               {{ hospital.phone }}
             </td>
 
@@ -638,97 +638,65 @@
               </button>
             </td>
 
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <input
+            <ng-template #hDesc>
+              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                <span class="inline" scope="row">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedHospital.description"
+                    #description="ngModel"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                </span>
+              </td>
+            </ng-template>
+
+            <ng-template #hAddress>
+              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                <span class="inline" scope="row">
+                <textarea
+                    rows="4" cols="10"
+                    class="form-control input-field"
+                    [(ngModel)]="updatedHospital.address"
+                    #address="ngModel"
+                    [ngModelOptions]="{ standalone: true }"
+                  ></textarea>
+                </span>
+              </td>
+            </ng-template>
+            
+            <ng-template #hDistrict>
+              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                <span class="inline" scope="row">
+                  <select
+                    type="text"
+                    class="form-control input-field"
+                    name="districtId"
+                    [(ngModel)]="updatedHospital.districtId"
+                  >
+                    <option 
+                    *ngFor="let district of districtList"
+                    [value]="district.id"
+                     >
+                        {{ district.description }}
+                    </option>
+                  </select>
+                </span>
+              </td>
+            </ng-template>
+
+            <ng-template #hPhone>
+              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                <span class="inline" scope="row">
+                  <input
                   class="form-control input-field"
-                  [(ngModel)]="updatedHospital.description"
-                  #description="ngModel"
+                  [(ngModel)]="updatedHospital.phone"
+                  #phone="ngModel"
                   [ngModelOptions]="{ standalone: true }"
                 />
-              </span>
-            </td>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-              <textarea
-                  rows="4" cols="10"
-                  class="form-control input-field"
-                  [(ngModel)]="updatedHospital.address"
-                  #address="ngModel"
-                  [ngModelOptions]="{ standalone: true }"
-                ></textarea>
-              </span>
-            </td>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <select
-                type="text"
-                class="form-control input-field"
-                name="districtId"
-                [(ngModel)]="updatedHospital.countryId"
-              >
-                <option
-                  *ngFor="let country of countryList"
-                  [value]="country.id"
-                >
-                  <option *ngFor="let country of countryList">
-                    {{ country.description }}
-                  </option>
-                </select>
-              </span>
-            </td>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <select
-                  type="text"
-                  class="form-control input-field"
-                  name="cityId"
-                  [(ngModel)]="updatedHospital.cityId"
-                >
-                  <option 
-                  *ngFor="let city of cityList | hospitalPipe: countryid"
-                  [value]="city.id"
-                   >
-                      {{ city.description }}
-                  </option>
-                </select>
-              </span>
-            </td>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <select
-                  type="text"
-                  class="form-control input-field"
-                  name="districtId"
-                  [(ngModel)]="updatedHospital.districtId"
-                >
-                  <option 
-                  *ngFor="let district of districtList"
-                  [value]="district.id"
-                   >
-                      {{ district.description }}
-                  </option>
-                </select>
-              </span>
-            </td>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <input
-                class="form-control input-field"
-                [(ngModel)]="updatedHospital.phone"
-                #phone="ngModel"
-                [ngModelOptions]="{ standalone: true }"
-              />
-              </span>
-            </td>
-
-            
-
+                </span>
+              </td>  
+            </ng-template>
 
             <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
               <span class="inline" scope="row">
