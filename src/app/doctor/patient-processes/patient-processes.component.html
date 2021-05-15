@@ -1,220 +1,242 @@
-<div class="container" style="height: 600px">
-  <div class="row">
-    <div class="col-3">
-      <app-sidebar></app-sidebar>
-    </div>
+<div class="row">
+  <div class="col-3">
+    <app-sidebar></app-sidebar>
+  </div>
 
-    <div class="col-9">
-      <h3>Patient Processes</h3>
+  <div class="col-9">
+    <h3>Patient Processes</h3>
 
-      <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Firstname"
-                name="firstname"
-                #firstname="ngModel"
-                [(ngModel)]="this.patientModel.firstName"
-              />
-            </div>
+    <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
+      <div class="row m-0">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Firstname"
+              name="firstname"
+              #firstname="ngModel"
+              [(ngModel)]="this.patientModel.firstName"
+            />
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Lastname"
-                name="lastname"
-                #lastname="ngModel"
-                [(ngModel)]="this.patientModel.lastName"
-              />
-            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Lastname"
+              name="lastname"
+              #lastname="ngModel"
+              [(ngModel)]="this.patientModel.lastName"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Gsm"
+              name="gsm"
+              #gsm="ngModel"
+              [(ngModel)]="this.patientModel.gsm"
+            />
           </div>
         </div>
 
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Gsm"
-                name="gsm"
-                #gsm="ngModel"
-                [(ngModel)]="this.patientModel.gsm"
-              />
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter ID"
-                name="identity"
-                #identity="ngModel"
-                [(ngModel)]="this.patientModel.identityNumber"
-              />
-            </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter ID"
+              name="identity"
+              #identity="ngModel"
+              [(ngModel)]="this.patientModel.identityNumber"
+            />
           </div>
         </div>
+      </div>
 
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Email"
-                name="email"
-                #email="ngModel"
-                [(ngModel)]="this.patientModel.email"
-              />
-            </div>
+      <div class="row m-0">
+        <div class="col-md-6">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Email"
+              name="email"
+              #email="ngModel"
+              [(ngModel)]="this.patientModel.email"
+            />
           </div>
         </div>
+      </div>
 
-        <div class="row m-0">
-          <div class="col-md-2">
-            <button class="btn btn-warning" type="submit">Add</button>
-          </div>
+      <div class="row m-0">
+        <div class="col-md-2">
+          <button class="btn btn-warning" type="submit">Add</button>
         </div>
-      </form>
+      </div>
+    </form>
 
-      <table class="table table-light mt-4">
-        <thead>
-          <tr>
-            <th>Identity Number</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gsm</th>
-            <th>Health Score</th>
-            <th>Detail/R/U</th>
-          </tr>
-        </thead>
+    <table class="table table-light mt-4">
+      <thead>
+        <tr>
+          <th>Identity Number</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gsm</th>
+          <th>Health Score</th>
+          <th>Detail/R/U</th>
+        </tr>
+      </thead>
 
-        <tbody>
-          <tr
-            *ngFor="let patient of this.activePatientList"
-            [ngClass]="{ danger: patient.danger > 0 }"
+      <tbody>
+        <tr
+          *ngFor="let patient of this.activePatientList"
+          [ngClass]="{ danger: patient.danger > 0 }"
+        >
+          <td
+            *ngIf="
+              !(editMode && patient.id == this.updatedPatient.id);
+              else idnum
+            "
           >
-            <td *ngIf="!(editMode && patient.id == this.updatedPatient.id); else idnum">{{ patient.identityNumber }}</td>
-            <td *ngIf="!(editMode && patient.id == this.updatedPatient.id); else fname">{{ patient.firstName }}</td>
-            <td *ngIf="!(editMode && patient.id == this.updatedPatient.id); else lname">{{ patient.lastName }}</td>
-            <td *ngIf="!(editMode && patient.id == this.updatedPatient.id); else gsm">{{ patient.gsm }}</td>
-            <td>{{ patient.healthScore }}</td>
-            <td *ngIf="!(editMode && patient.id == this.updatedPatient.id)">
-              <a [routerLink]="['/doctor-home/patient-details', patient.id]"
-                class="btn btn-warning mr-2">
-                <i class="fas fa-info-circle"></i>
-                </a
-              >
-              <button
-                    class="btn btn-danger mr-2"
-                    (click)="deletePatient(patient.id)"
-                >
-                   <i class="far fa-trash-alt"></i>
-                </button>
-                <button
-                    class="btn btn-primary"
-                    (click)="updatePatient(patient.id)"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-            </td>
+            {{ patient.identityNumber }}
+          </td>
+          <td
+            *ngIf="
+              !(editMode && patient.id == this.updatedPatient.id);
+              else fname
+            "
+          >
+            {{ patient.firstName }}
+          </td>
+          <td
+            *ngIf="
+              !(editMode && patient.id == this.updatedPatient.id);
+              else lname
+            "
+          >
+            {{ patient.lastName }}
+          </td>
+          <td
+            *ngIf="
+              !(editMode && patient.id == this.updatedPatient.id);
+              else gsm
+            "
+          >
+            {{ patient.gsm }}
+          </td>
+          <td>{{ patient.healthScore }}</td>
+          <td *ngIf="!(editMode && patient.id == this.updatedPatient.id)">
+            <a
+              [routerLink]="['/doctor-home/patient-details', patient.id]"
+              class="btn btn-warning mr-2"
+            >
+              <i class="fas fa-info-circle"></i>
+            </a>
+            <button
+              class="btn btn-danger mr-2"
+              (click)="deletePatient(patient.id)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+            <button class="btn btn-primary" (click)="updatePatient(patient.id)">
+              <i class="fa fa-pencil-alt"></i>
+            </button>
+          </td>
 
-            <ng-template #idnum>
-              <td *ngIf="editMode && patient.id == this.updatedPatient.id">
-                <span scope="row">
-                  <input
-                    class="form-control input-field"
-                    [(ngModel)]="updatedPatient.identityNumber"
-                    type="text"
-                    />
-                </span>
-              </td>
-            </ng-template>
-           
-            <ng-template #fname>
-              <td *ngIf="editMode && patient.id == this.updatedPatient.id">
-                <span scope="row">
-                  <input
-                    class="form-control input-field mr-2"
-                    [(ngModel)]="updatedPatient.firstName"
-                    type="text"
-                    />
-                </span>
-              </td>
-            </ng-template>
-            
-            <ng-template #lname>
-              <td *ngIf="editMode && patient.id == this.updatedPatient.id">
-                <span scope="row">
-                    <input
-                    class="form-control input-field"
-                    [(ngModel)]="updatedPatient.lastName"
-                    type="text"
-                    />
-                </span>
-              </td>
-            </ng-template>
-
-            <ng-template #gsm>
-              <td>
-                <span scope="row">
-                  <input
-                    class="form-control input-field"
-                    [(ngModel)]="updatedPatient.gsm"
-                    type="text"
-                    />
-                </span>
-              </td>  
-            </ng-template>
-            
+          <ng-template #idnum>
             <td *ngIf="editMode && patient.id == this.updatedPatient.id">
               <span scope="row">
-                <button
-                  class="btn btn-primary mr-2"
-                  (click)="savePatient(); editMode = false"
-                >
-                  <i class="far fa-save"></i>
-                </button>
-                <button class="btn btn-danger" (click)="cancelPatient()">
-                  <i class="fas fa-times"></i>
-                </button>
+                <input
+                  class="form-control input-field"
+                  [(ngModel)]="updatedPatient.identityNumber"
+                  type="text"
+                />
               </span>
             </td>
+          </ng-template>
 
-          </tr>
-        </tbody>
-      </table>
+          <ng-template #fname>
+            <td *ngIf="editMode && patient.id == this.updatedPatient.id">
+              <span scope="row">
+                <input
+                  class="form-control input-field mr-2"
+                  [(ngModel)]="updatedPatient.firstName"
+                  type="text"
+                />
+              </span>
+            </td>
+          </ng-template>
 
+          <ng-template #lname>
+            <td *ngIf="editMode && patient.id == this.updatedPatient.id">
+              <span scope="row">
+                <input
+                  class="form-control input-field"
+                  [(ngModel)]="updatedPatient.lastName"
+                  type="text"
+                />
+              </span>
+            </td>
+          </ng-template>
 
-      <h3>Patient History</h3>
-      <table class="table table-light mt-4">
-        <thead>
-          <tr>
-            <th>Identity Number</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gsm</th>
-            <th>Health Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let patient of removedPatientList" class="passive">
-            <td> {{patient.identityNumber}} </td>
-            <td> {{patient.firstName}} </td>
-            <td> {{patient.lastName}} </td>
-            <td> {{patient.gsm}} </td>
-            <td> {{patient.healthScore}} </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+          <ng-template #gsm>
+            <td>
+              <span scope="row">
+                <input
+                  class="form-control input-field"
+                  [(ngModel)]="updatedPatient.gsm"
+                  type="text"
+                />
+              </span>
+            </td>
+          </ng-template>
+
+          <td *ngIf="editMode && patient.id == this.updatedPatient.id">
+            <span scope="row">
+              <button
+                class="btn btn-primary mr-2"
+                (click)="savePatient(); editMode = false"
+              >
+                <i class="far fa-save"></i>
+              </button>
+              <button class="btn btn-danger" (click)="cancelPatient()">
+                <i class="fas fa-times"></i>
+              </button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Patient History</h3>
+    <table class="table table-light mt-4">
+      <thead>
+        <tr>
+          <th>Identity Number</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gsm</th>
+          <th>Health Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of removedPatientList" class="passive">
+          <td>{{ patient.identityNumber }}</td>
+          <td>{{ patient.firstName }}</td>
+          <td>{{ patient.lastName }}</td>
+          <td>{{ patient.gsm }}</td>
+          <td>{{ patient.healthScore }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

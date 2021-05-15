@@ -1,105 +1,140 @@
-<div class="container">
-  <div class="row">
-    <div class="col-3">
-      <app-sidebar></app-sidebar>
-    </div>
+<div class="row">
+  <div class="col-3">
+    <app-sidebar></app-sidebar>
+  </div>
 
-    <div class="col-9">
-      <h3>Patient Detail</h3>
+  <div class="col-9">
+    <h3>Patient Detail</h3>
 
-      <div class="row">
-        <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
-          <div class="row">
-            <div class="col-4">
-              <label>Patient Name : </label>
-              <h4 class="card-title d-inline">
-                {{ patientModel.firstName }} {{ patientModel.lastName }}
-              </h4>
-            </div>
-            <div class="col-4">
-              <label>ID : </label>
-              <p class="d-inline">{{ patientModel.identityNumber }}</p>
-            </div>
-            <div class="col-4">
-                <button class="btn btn-primary" (click)="openDiseaseDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, patientModel.diseases)"> Disease Detail </button>
-            </div>
+    <div class="row">
+      <div class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
+        <div class="row">
+          <div class="col-4">
+            <label>Patient Name : </label>
+            <h4 class="card-title d-inline">
+              {{ patientModel.firstName }} {{ patientModel.lastName }}
+            </h4>
           </div>
-          <div class="row mt-2">
-            <div class="col-4">
-              <label>Email : </label>
-              <p class="d-inline">{{ patientModel.email }}</p>
-            </div>
-            <div class="col-4">
-              <label>Gsm : </label>
-              <p class="d-inline">{{ patientModel.gsm }}</p>
-            </div>
-            <div class="col-4">
-              <button class="btn btn-warning" (click)="openAppointmentDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId)">Appointment Detail</button>
+          <div class="col-4">
+            <label>ID : </label>
+            <p class="d-inline">{{ patientModel.identityNumber }}</p>
           </div>
+          <div class="col-4">
+            <button
+              class="btn btn-primary"
+              (click)="
+                openDiseaseDialog(
+                  patientModel.id,
+                  patientModel.departmentId,
+                  patientModel.hospitalId,
+                  patientModel.diseases
+                )
+              "
+            >
+              Disease Detail
+            </button>
           </div>
-          <div class="row mt-2">
-            <div class="col-4">
-              <label>Health Score : </label>
-              <p class="text-danger d-inline">{{ patientModel.healthScore }}</p>
-            </div>
-            <div class="col-4">
-              <label>Diseases : </label>
-              <p class="d-inline">{{ patientModel.diseases }}</p>
-            </div>
-            <div class="col-4">
-              <button class="btn btn-secondary" (click)="openQuestionDialog(patientModel.id, patientModel.departmentId, patientModel.hospitalId, this.patQuestions)">Question Detail</button>            
-            </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <label>Email : </label>
+            <p class="d-inline">{{ patientModel.email }}</p>
+          </div>
+          <div class="col-4">
+            <label>Gsm : </label>
+            <p class="d-inline">{{ patientModel.gsm }}</p>
+          </div>
+          <div class="col-4">
+            <button
+              class="btn btn-warning"
+              (click)="
+                openAppointmentDialog(
+                  patientModel.id,
+                  patientModel.departmentId,
+                  patientModel.hospitalId
+                )
+              "
+            >
+              Appointment Detail
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4">
+            <label>Health Score : </label>
+            <p class="text-danger d-inline">{{ patientModel.healthScore }}</p>
+          </div>
+          <div class="col-4">
+            <label>Diseases : </label>
+            <p class="d-inline">{{ patientModel.diseases }}</p>
+          </div>
+          <div class="col-4">
+            <button
+              class="btn btn-secondary"
+              (click)="
+                openQuestionDialog(
+                  patientModel.id,
+                  patientModel.departmentId,
+                  patientModel.hospitalId,
+                  this.patQuestions
+                )
+              "
+            >
+              Question Detail
+            </button>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="row mt-3">
-        <table class="table table-light">
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Answer</th>
-              <th>Score</th>
-              <th>Upper Limit</th>
-              <th>Lower Limit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let answer of this.patientAnswerList"
-            [ngClass]="{'danger': answer.result == false}">
-            <td> {{answer.questionDesc}} </td>
-            <td> {{answer.answerDesc}} </td>
-            <td> {{answer.patientScore}} </td>
-            <td> {{answer.upperLimit}} </td>
-            <td> {{answer.lowerLimit}} </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="row mt-3">
+      <table class="table table-light">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Score</th>
+            <th>Upper Limit</th>
+            <th>Lower Limit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let answer of this.patientAnswerList"
+            [ngClass]="{ danger: answer.result == false }"
+          >
+            <td>{{ answer.questionDesc }}</td>
+            <td>{{ answer.answerDesc }}</td>
+            <td>{{ answer.patientScore }}</td>
+            <td>{{ answer.upperLimit }}</td>
+            <td>{{ answer.lowerLimit }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div class="row mt-3">
-        <p class="text-danger">Answer History</p>
-        <table class="table table-light">
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Answer</th>
-              <th>Score</th>
-              <th>Upper Limit</th>
-              <th>Lower Limit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let answer of this.answerHistory" class="passive">
-              <td> {{answer.questionDesc}} </td>
-              <td> {{answer.answerDesc}} </td>
-              <td> {{answer.patientScore}} </td>
-              <td> {{answer.upperLimit}} </td>
-              <td> {{answer.lowerLimit}} </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="row mt-3">
+      <p class="text-danger">Answer History</p>
+      <table class="table table-light">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Answer</th>
+            <th>Score</th>
+            <th>Upper Limit</th>
+            <th>Lower Limit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let answer of this.answerHistory" class="passive">
+            <td>{{ answer.questionDesc }}</td>
+            <td>{{ answer.answerDesc }}</td>
+            <td>{{ answer.patientScore }}</td>
+            <td>{{ answer.upperLimit }}</td>
+            <td>{{ answer.lowerLimit }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

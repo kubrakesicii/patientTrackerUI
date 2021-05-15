@@ -1,49 +1,44 @@
-<div class="container">
-    <div class="row">
-      <div class="col-3">
-        <app-sidebar></app-sidebar>
-      </div>
-  
-      <div class="col-9 mt-4">
-        <H3>CHANGING CONTENT</H3>
-        <h3>Appointment Processes</h3>
-       
-        <table class="table table-light mt-4">
-          <thead>
-            <tr>
-              <th>Doctor</th>
-              <th>Patient Name</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>R/U</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let appointment of this.appointmentList">
-              <td> {{appointment.doctorName}} </td>
-              <td> {{appointment.patientName}} </td>
-              <td> {{appointment.date}} </td>
-              <td> {{appointment.time}} </td>
-              <td>
-                <button
-                    class="btn btn-danger mr-2"
-                    (click)="deleteAppointment(appointment.id)"
-                >
-                   <i class="far fa-trash-alt"></i>
-                </button>
-                <button
-                    class="btn btn-primary"
-                    (click)="updateAppointment(appointment.id)"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-
-      </div>
-    </div>
+<div class="row">
+  <div class="col-3">
+    <app-sidebar></app-sidebar>
   </div>
-  
+
+  <div class="col-9 mt-4">
+    <H3>CHANGING CONTENT</H3>
+    <h3>Appointment Processes</h3>
+
+    <table class="table table-light mt-4">
+      <thead>
+        <tr>
+          <th>Doctor</th>
+          <th>Patient Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>R/U</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of this.appointmentList">
+          <td>{{ appointment.doctorName }}</td>
+          <td>{{ appointment.patientName }}</td>
+          <td>{{ appointment.date }}</td>
+          <td>{{ appointment.time }}</td>
+          <td>
+            <button
+              class="btn btn-danger mr-2"
+              (click)="deleteAppointment(appointment.id)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="updateAppointment(appointment.id)"
+            >
+              <i class="fa fa-pencil-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

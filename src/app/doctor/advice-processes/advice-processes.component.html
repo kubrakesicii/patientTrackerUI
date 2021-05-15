@@ -1,89 +1,80 @@
-<div class="container">
-    <div class="row">
-      <div class="col-3">
-        <app-sidebar></app-sidebar>
-      </div>
-  
-      <div class="col-9 mt-4">
-        <h3>Advice Processes</h3>
-            
-        <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
-          <div class="row m-0">
-            <div class="col-md-10">
-              <div class="form-group">
-                <textarea
-                  type="text"
-                  class="form-control"
-                  placeholder="Enter description"
-                  cols="40" rows="7"
-                  name="description"
-                  #description="ngModel"
-                  [(ngModel)]="this.adviceModel.description"
-                ></textarea>
-              </div>
-            </div>
-        
-            <div class="col-md-2">
-              <button class="btn btn-warning" type="submit">Add</button>
-            </div>
-          </div>
-
-        </form>
-
-        <table class="table table-light mt-4">
-          <thead>
-            <tr>
-              <th>Advice</th>
-              <th>R/U</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let advice of this.adviceList">
-              <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)"> {{advice.description}} </td>
-              <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
-                  <button
-                  class="btn btn-danger mr-2"
-                  (click)="deleteAdvice(advice.id)"
-              >
-                <i class="far fa-trash-alt"></i>
-              </button>
-              <button
-                  class="btn btn-primary"
-                  (click)="updateAdvice(advice.id)"
-              >
-                <i class="fa fa-pencil-alt"></i>
-              </button>
-              </td>
-
-              <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
-                <span scope="row" *ngIf="editMode">
-                  <input
-                    class="form-control input-field"
-                    [(ngModel)]="updatedAdvice.description"
-                    type="text"
-                    />
-                </span>
-              </td>
-
-              <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
-                <span scope="row" *ngIf="editMode">
-                  <button
-                  class="btn btn-primary mr-2"
-                  (click)="saveAdvice()"
-                >
-                  <i class="far fa-save"></i>
-                </button>
-                <button class="btn btn-danger" (click)="cancelAdvice()">
-                  <i class="fas fa-times"></i>
-                </button>
-                </span>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
-    </div>
+<div class="row">
+  <div class="col-3">
+    <app-sidebar></app-sidebar>
   </div>
-  
+
+  <div class="col-9 mt-4">
+    <h3>Advice Processes</h3>
+
+    <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
+      <div class="row m-0">
+        <div class="col-md-10">
+          <div class="form-group">
+            <textarea
+              type="text"
+              class="form-control"
+              placeholder="Enter description"
+              cols="40"
+              rows="7"
+              name="description"
+              #description="ngModel"
+              [(ngModel)]="this.adviceModel.description"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <button class="btn btn-warning" type="submit">Add</button>
+        </div>
+      </div>
+    </form>
+
+    <table class="table table-light mt-4">
+      <thead>
+        <tr>
+          <th>Advice</th>
+          <th>R/U</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let advice of this.adviceList">
+          <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
+            {{ advice.description }}
+          </td>
+          <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
+            <button
+              class="btn btn-danger mr-2"
+              (click)="deleteAdvice(advice.id)"
+            >
+              <i class="far fa-trash-alt"></i>
+            </button>
+            <button class="btn btn-primary" (click)="updateAdvice(advice.id)">
+              <i class="fa fa-pencil-alt"></i>
+            </button>
+          </td>
+
+          <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
+            <span scope="row" *ngIf="editMode">
+              <input
+                class="form-control input-field"
+                [(ngModel)]="updatedAdvice.description"
+                type="text"
+              />
+            </span>
+          </td>
+
+          <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
+            <span scope="row" *ngIf="editMode">
+              <button class="btn btn-primary mr-2" (click)="saveAdvice()">
+                <i class="far fa-save"></i>
+              </button>
+              <button class="btn btn-danger" (click)="cancelAdvice()">
+                <i class="fas fa-times"></i>
+              </button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
