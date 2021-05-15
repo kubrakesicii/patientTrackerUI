@@ -14,3 +14,11 @@
   background-color: rgb(185, 185, 185);
   color: white;
 }
+
+
+
+.thead {
+  background-color: #4e8846;
+  text-transform: uppercase;
+  color: white;
+}

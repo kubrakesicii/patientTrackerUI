@@ -5,16 +5,9 @@
         <img src="assets/images/log-out.png" />
       </button>
     </a>
-    <p class="welcome">Welcome KARDELEN {{ userInfo.fullName }} <br /></p>
-
-    <!-- <h2 style="text-align: center">Welcome {{ userInfo.fullName }}</h2> -->
+    <p class="welcome">Welcome {{ userInfo.fullName }} <br /></p>
   </nav>
-  <!-- <h2 class="text-center">Welcome {{ userInfo.fullName }}</h2> -->
-  <!-- <div class="logout">
-    <button class="btn btn-danger mt-5 ml-5" (click)="logout()">
-      <img src="assets/images/log-out.png" />
-    </button>
-  </div> -->
+ 
 
   <div class="container mb-5">
     <div class="row">
@@ -531,47 +524,51 @@
                   </div>
 
                   <div class="row">
-                    <div class="form-group">
-                      <label class="labelT">Enter Address</label>
-                      <input
-                        type="text"
-                        style="width: 470px"
-                        class="form-control"
-                        placeholder="Address"
-                        name="description"
-                        #description="ngModel"
-                        [(ngModel)]="this.hospitalModel.address"
-                      />
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="labelT">Enter Address</label>
+                        <textarea
+                          type="text"
+                          rows="3"
+                          class="form-control"
+                          placeholder="Address"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.hospitalModel.address"
+                        ></textarea>
+                      </div>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="form-group">
-                      <label class="labelT">Enter Hospital Name</label>
-                      <input
-                        type="text"
-                        style="width: 480px"
-                        class="form-control"
-                        placeholder="Hospital Name"
-                        name="description"
-                        #description="ngModel"
-                        [(ngModel)]="this.hospitalModel.description"
-                      />
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="labelT">Enter Hospital Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Hospital Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.hospitalModel.description"
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div class="row">
-                    <div class="form-group">
-                      <label class="labelT">Enter Phone</label>
-                      <input
-                        type="text"
-                        style="width: 480px"
-                        class="form-control"
-                        placeholder="Enter Phone"
-                        name="phone"
-                        #phone="ngModel"
-                        [(ngModel)]="this.hospitalModel.phone"
-                      />
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="labelT">Enter Phone</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter Phone"
+                          name="phone"
+                          #phone="ngModel"
+                          [(ngModel)]="this.hospitalModel.phone"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -590,6 +587,8 @@
       </div>
     </div>
 
+    <hr class="mt-5 mb-5">
+
     <div class="container mt-3">
       <div class="row">
         <div class="col-md-6">
@@ -600,14 +599,12 @@
         <div class="col-md-6">
           <form class="form-inline my-2 my-lg-0 float-right">
             <input
-              [(ngModel)]="filterText"
+              #filterText
               class="form-control mr-sm-2"
               type="text"
               placeholder="Search"
+              (keyup)="searchHospital(filterText.value)"
             />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-              Search
-            </button>
           </form>
         </div>
       </div>
@@ -623,7 +620,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let hospital of hospitalList | searchPipe: filterText">
+          <tr *ngFor="let hospital of hospitalList ">
             <td
               *ngIf="
                 !(editMode && hospital.id == this.updatedHospital.id);
@@ -799,6 +796,8 @@
         </tbody>
       </table>
     </div>
+
+    <hr class="mt-5 mb-5">
 
     <div class="container pt-5">
       <h2>{{ selectedHospitalName }}</h2>

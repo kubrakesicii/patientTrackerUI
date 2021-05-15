@@ -45,7 +45,7 @@ export class AdminHomeComponent implements OnInit {
   deptCount: any;
   diseaseCount: any;
   degreesCount: any;
-  filterText: string;
+  // filterText: string = "";
 
   //Lists
   hospitalList: Hospital[];
@@ -632,6 +632,22 @@ export class AdminHomeComponent implements OnInit {
       id: 0,
       description: '',
     };
+  }
+
+  ////////
+
+  async searchHospital(filterText : string){
+    if(filterText == ""){
+      await this.getService
+      .getAllHospitals()
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.hospitalList = x['$values']));
+    }
+    this.hospitalList = this.hospitalList.filter(hosp => {
+       if(hosp.description.toLowerCase().includes(filterText.toLowerCase()))
+         return true;
+       return false;
+    })
   }
 
   ////////
