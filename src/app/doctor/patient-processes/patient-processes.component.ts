@@ -81,6 +81,14 @@ export class PatientProcessesComponent implements OnInit {
       gsm : '',
     }
   }
+
+  deletePatient(patientId : number) {
+
+  }
+
+  updatePatient(patientId : number) {
+    
+  }
 }
 
 
