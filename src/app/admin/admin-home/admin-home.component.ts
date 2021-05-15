@@ -310,16 +310,11 @@ export class AdminHomeComponent implements OnInit {
 
   async updateDistrict(districtId: number) {
     this.editMode = true;
-<<<<<<< HEAD
-    await this.getService.getDistrictById(districtId).then(data => this.updatedDistrict = JSON.parse(JSON.stringify(data)));
-    console.log(this.updatedHospital);
-=======
     await this.getService
       .getDistrictById(districtId)
       .then(
         (data) => (this.updatedDistrict = JSON.parse(JSON.stringify(data)))
       );
->>>>>>> bec9081b32b8e2574df3e66023bbf03583030097
   }
 
   saveDistrict() {
@@ -369,16 +364,11 @@ export class AdminHomeComponent implements OnInit {
 
   async updateHospital(hospitalId: number) {
     this.editMode = true;
-<<<<<<< HEAD
-    await this.getService.getHospitalById(hospitalId).then(data => this.updatedHospital = JSON.parse(JSON.stringify(data)));
-    console.log(this.updatedHospital);
-=======
     await this.getService
       .getHospitalById(hospitalId)
       .then(
         (data) => (this.updatedHospital = JSON.parse(JSON.stringify(data)))
       );
->>>>>>> bec9081b32b8e2574df3e66023bbf03583030097
   }
 
   saveHospital() {
@@ -396,7 +386,6 @@ export class AdminHomeComponent implements OnInit {
       id: 0,
       description: '',
       address: '',
-<<<<<<< HEAD
       districtName: '',
       cityName: '',
       countryName: '',
@@ -405,13 +394,6 @@ export class AdminHomeComponent implements OnInit {
       cityId : 0,
       countryId : 0
     }
-=======
-      phone: '',
-      cityName: '',
-      districtName: '',
-      countryName: '',
-    };
->>>>>>> bec9081b32b8e2574df3e66023bbf03583030097
   }
 
   ////////
