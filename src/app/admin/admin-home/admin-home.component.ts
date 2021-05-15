@@ -172,7 +172,7 @@ export class AdminHomeComponent implements OnInit {
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.getDistrictList = x['$values']));
 
-      await this.getService
+    await this.getService
       .getAllDistricts()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.districtList = x['$values']));
@@ -195,8 +195,7 @@ export class AdminHomeComponent implements OnInit {
     await this.getService
       .getAllDegrees()
       .then((data) => JSON.parse(JSON.stringify(data)))
-      .then(x =>this. degreeList = x["$values"]);
-
+      .then((x) => (this.degreeList = x['$values']));
   }
 
   ////////
@@ -222,8 +221,9 @@ export class AdminHomeComponent implements OnInit {
   async updateCountry(countryId: number) {
     console.log(countryId);
     this.editMode = true;
-    await this.getService.getCountryById(countryId).then(data => this.updatedCountry = JSON.parse(JSON.stringify(data)));
-   
+    await this.getService
+      .getCountryById(countryId)
+      .then((data) => (this.updatedCountry = JSON.parse(JSON.stringify(data))));
   }
   saveCountry() {
     this.updateService
@@ -232,15 +232,15 @@ export class AdminHomeComponent implements OnInit {
         console.log(data);
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelCountry() {
     this.editMode = false;
     this.updatedCountry = {
-      id : 0,
-      description : '',
-      countryCode : ''
-    }
+      id: 0,
+      description: '',
+      countryCode: '',
+    };
   }
 
   ////////
@@ -265,7 +265,9 @@ export class AdminHomeComponent implements OnInit {
 
   async updateCity(cityId: number) {
     this.editMode = true;
-    await this.getService.getCityById(cityId).then(data => this.updatedCity = JSON.parse(JSON.stringify(data)));
+    await this.getService
+      .getCityById(cityId)
+      .then((data) => (this.updatedCity = JSON.parse(JSON.stringify(data))));
   }
 
   saveCity() {
@@ -275,15 +277,15 @@ export class AdminHomeComponent implements OnInit {
         console.log(data);
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelCity() {
     this.editMode = false;
     this.updatedCity = {
-      id : 0,
-      description : '',
-      countryId : 0
-    }
+      id: 0,
+      description: '',
+      countryId: 0,
+    };
   }
 
   ////////
@@ -308,8 +310,16 @@ export class AdminHomeComponent implements OnInit {
 
   async updateDistrict(districtId: number) {
     this.editMode = true;
+<<<<<<< HEAD
     await this.getService.getDistrictById(districtId).then(data => this.updatedDistrict = JSON.parse(JSON.stringify(data)));
     console.log(this.updatedHospital);
+=======
+    await this.getService
+      .getDistrictById(districtId)
+      .then(
+        (data) => (this.updatedDistrict = JSON.parse(JSON.stringify(data)))
+      );
+>>>>>>> bec9081b32b8e2574df3e66023bbf03583030097
   }
 
   saveDistrict() {
@@ -319,15 +329,15 @@ export class AdminHomeComponent implements OnInit {
         console.log(data);
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelDistrict() {
     this.editMode = false;
     this.updatedDistrict = {
-      id : 0,
-      description : '',
-      cityId : 0
-    }
+      id: 0,
+      description: '',
+      cityId: 0,
+    };
   }
 
   ////////
@@ -359,8 +369,16 @@ export class AdminHomeComponent implements OnInit {
 
   async updateHospital(hospitalId: number) {
     this.editMode = true;
+<<<<<<< HEAD
     await this.getService.getHospitalById(hospitalId).then(data => this.updatedHospital = JSON.parse(JSON.stringify(data)));
     console.log(this.updatedHospital);
+=======
+    await this.getService
+      .getHospitalById(hospitalId)
+      .then(
+        (data) => (this.updatedHospital = JSON.parse(JSON.stringify(data)))
+      );
+>>>>>>> bec9081b32b8e2574df3e66023bbf03583030097
   }
 
   saveHospital() {
@@ -370,7 +388,7 @@ export class AdminHomeComponent implements OnInit {
         console.log(data);
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelHospital() {
     this.editMode = false;
@@ -378,6 +396,7 @@ export class AdminHomeComponent implements OnInit {
       id: 0,
       description: '',
       address: '',
+<<<<<<< HEAD
       districtName: '',
       cityName: '',
       countryName: '',
@@ -386,6 +405,13 @@ export class AdminHomeComponent implements OnInit {
       cityId : 0,
       countryId : 0
     }
+=======
+      phone: '',
+      cityName: '',
+      districtName: '',
+      countryName: '',
+    };
+>>>>>>> bec9081b32b8e2574df3e66023bbf03583030097
   }
 
   ////////
@@ -398,7 +424,7 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  async setHospital(hospitalId : number, hospitalName : string) {
+  async setHospital(hospitalId: number, hospitalName: string) {
     this.selectedHospitalId = hospitalId;
 
     this.selectedHospitalName = hospitalName;
@@ -440,8 +466,8 @@ export class AdminHomeComponent implements OnInit {
         gsm: '',
         departmentName: '',
         degreeName: '',
-        departmentId : 0,
-        degreeId : 0
+        departmentId: 0,
+        degreeId: 0,
       };
       this.ngOnInit();
     });
@@ -456,8 +482,15 @@ export class AdminHomeComponent implements OnInit {
 
   async updateDoctor(doctorId: number) {
     this.editMode = true;
-    await this.getService.getDoctorById(doctorId).then(data => this.updatedDoctorId = JSON.parse(JSON.stringify(data))['id']);
-    await this.getService.getDoctorById(doctorId).then(data => this.updatedDoctor = JSON.parse(JSON.stringify(data)));
+    await this.getService
+      .getDoctorById(doctorId)
+      .then(
+        (data) =>
+          (this.updatedDoctorId = JSON.parse(JSON.stringify(data))['id'])
+      );
+    await this.getService
+      .getDoctorById(doctorId)
+      .then((data) => (this.updatedDoctor = JSON.parse(JSON.stringify(data))));
   }
 
   saveDoctor() {
@@ -467,18 +500,18 @@ export class AdminHomeComponent implements OnInit {
       .subscribe((data) => {
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelDoctor() {
     this.editMode = false;
     this.updatedDoctor = {
-      firstName : '',
-      lastName : '',
-      email : '',
-      gsm : '',
-      departmentId : 0,
-      degreeId : 0,
-    }
+      firstName: '',
+      lastName: '',
+      email: '',
+      gsm: '',
+      departmentId: 0,
+      degreeId: 0,
+    };
   }
 
   ////////
@@ -504,7 +537,9 @@ export class AdminHomeComponent implements OnInit {
 
   async updateDepartment(deptId: number) {
     this.editMode = true;
-    await this.getService.getDeptById(deptId).then(data => this.updatedDept = JSON.parse(JSON.stringify(data)));
+    await this.getService
+      .getDeptById(deptId)
+      .then((data) => (this.updatedDept = JSON.parse(JSON.stringify(data))));
   }
 
   saveDept() {
@@ -514,17 +549,16 @@ export class AdminHomeComponent implements OnInit {
         console.log(data);
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelDept() {
     this.editMode = false;
     this.updatedDept = {
-      id : 0,
-      description : '',
-      hospitalId : 0
-    }
+      id: 0,
+      description: '',
+      hospitalId: 0,
+    };
   }
-
 
   ////////
 
@@ -533,8 +567,8 @@ export class AdminHomeComponent implements OnInit {
       this.diseaseModel = {
         id: 0,
         description: '',
-        departmentName : '',
-        departmentId : 0
+        departmentName: '',
+        departmentId: 0,
       };
       this.ngOnInit();
     });
@@ -549,7 +583,9 @@ export class AdminHomeComponent implements OnInit {
 
   async updateDisease(diseaseId: number) {
     this.editMode = true;
-    await this.getService.getDiseaseById(diseaseId).then(data => this.updatedDisease = JSON.parse(JSON.stringify(data)));
+    await this.getService
+      .getDiseaseById(diseaseId)
+      .then((data) => (this.updatedDisease = JSON.parse(JSON.stringify(data))));
   }
 
   saveDisease() {
@@ -559,18 +595,17 @@ export class AdminHomeComponent implements OnInit {
         console.log(data);
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelDisease() {
     this.editMode = false;
     this.updatedDisease = {
-      id : 0,
-      description : '',
-      departmentName : '',
-      departmentId : 0
-    }
+      id: 0,
+      description: '',
+      departmentName: '',
+      departmentId: 0,
+    };
   }
-
 
   /////////
 
@@ -593,9 +628,11 @@ export class AdminHomeComponent implements OnInit {
 
   async updateDegree(degreeId: number) {
     this.editMode = true;
-    await this.getService.getDegreeById(degreeId).then(data => this.updatedDegree = JSON.parse(JSON.stringify(data)));
+    await this.getService
+      .getDegreeById(degreeId)
+      .then((data) => (this.updatedDegree = JSON.parse(JSON.stringify(data))));
   }
-  
+
   saveDegree() {
     this.updateService
       .updateDegree(this.updatedDegree.id, this.updatedDegree)
@@ -603,14 +640,14 @@ export class AdminHomeComponent implements OnInit {
         console.log(data);
         this.ngOnInit();
       });
-      this.editMode = false;
+    this.editMode = false;
   }
   cancelDegree() {
     this.editMode = false;
     this.updatedDegree = {
-      id : 0,
-      description : ''
-    }
+      id: 0,
+      description: '',
+    };
   }
 
   ////////
