@@ -9,6 +9,9 @@ import { Disease } from 'src/app/admin/models/disease.model';
 import { Router } from '@angular/router';
 import { AddPatient } from '../models/add-patient.model';
 import { NgForm } from '@angular/forms';
+import { UpdatePatient } from '../models/update-patient.model';
+import { DoctorDeleteService } from '../services/doctor-delete.service';
+import { DoctorUpdateService } from '../services/doctor-update.service';
 
 @Component({
   selector: 'app-patient-processes',
@@ -20,13 +23,19 @@ export class PatientProcessesComponent implements OnInit {
 
   doctorModel : Doctor = new Doctor();
   patientModel : AddPatient = new AddPatient();
-  patientList : GetPatient[];
+  updatedPatient : UpdatePatient = new UpdatePatient();
+  activePatientList : GetPatient[];
+  removedPatientList : GetPatient[];
+
+  public editMode = false;
 
   patDiseaseModel : PatientDisease = new PatientDisease();
   diseaseList : Disease[];
   
   constructor(private getService : DoctorGetService,
               private postService : DoctorPostService,
+              private deleteService : DoctorDeleteService,
+              private updateService : DoctorUpdateService,
               private router : Router) { }
 
   ngOnInit(): void {
@@ -52,9 +61,13 @@ export class PatientProcessesComponent implements OnInit {
       this.doctorModel.personId = JSON.parse(JSON.stringify(data)).personId;
     });
 
-    await this.getService.getAllPatients(this.userInfo.personId)
+    await this.getService.getAllActivePatients(this.userInfo.personId)
     .then((data) => JSON.parse(JSON.stringify(data)))
-    .then((x) => (this.patientList = x['$values']));
+    .then((x) => (this.activePatientList = x['$values']));
+
+    await this.getService.getAllRemovedPatients(this.userInfo.personId)
+    .then((data) => JSON.parse(JSON.stringify(data)))
+    .then((x) => (this.removedPatientList = x['$values']));
   }
 
   addPatient(patientForm : NgForm) {
@@ -83,11 +96,37 @@ export class PatientProcessesComponent implements OnInit {
   }
 
   deletePatient(patientId : number) {
-
+    this.deleteService.deletePatient(patientId).subscribe(() => {
+      //alert
+      this.ngOnInit();
+    })
   }
 
-  updatePatient(patientId : number) {
-    
+  async updatePatient(patientId : number) {
+    this.editMode = true;
+    await this.getService.getPatientById(patientId).then(data => this.updatedPatient = JSON.parse(JSON.stringify(data)));
+  }
+
+  savePatient(){
+    this.updateService
+      .updatePatient(this.updatedPatient.id, this.updatedPatient)
+      .subscribe((data) => {
+        console.log(data);
+        this.ngOnInit();
+      });
+      this.editMode = false;
+  }
+
+  cancelPatient() {
+    this.editMode = false;
+    this.updatedPatient = {
+      id : 0,
+      firstName : '',
+      lastName : '',
+      gsm : '',
+      email : '',
+      identityNumber : ''
+    }
   }
 }
 

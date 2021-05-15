@@ -11,7 +11,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { RouterModule } from '@angular/router';
-import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { HospitalPipe } from './admin/pipes/hospital.pipe';
@@ -43,7 +42,6 @@ import { MatIconModule } from '@angular/material/icon';
     AppComponent,
     LoginComponent,
     AdminHomeComponent,
-    DoctorHomeComponent,
     HospitalPipe,
     ForgotPassComponent,
     SearchPipe,

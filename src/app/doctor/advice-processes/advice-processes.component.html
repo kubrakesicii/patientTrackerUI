@@ -39,8 +39,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let advice of this.adviceList">
-              <td> {{advice.description}} </td>
-              <td>
+              <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)"> {{advice.description}} </td>
+              <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
                   <button
                   class="btn btn-danger mr-2"
                   (click)="deleteAdvice(advice.id)"
@@ -54,6 +54,31 @@
                 <i class="fa fa-pencil-alt"></i>
               </button>
               </td>
+
+              <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
+                <span scope="row" *ngIf="editMode">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedAdvice.description"
+                    type="text"
+                    />
+                </span>
+              </td>
+
+              <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
+                <span scope="row" *ngIf="editMode">
+                  <button
+                  class="btn btn-primary mr-2"
+                  (click)="saveAdvice()"
+                >
+                  <i class="far fa-save"></i>
+                </button>
+                <button class="btn btn-danger" (click)="cancelAdvice()">
+                  <i class="fas fa-times"></i>
+                </button>
+                </span>
+              </td>
+
             </tr>
           </tbody>
         </table>

@@ -9,3 +9,8 @@
   margin-right: -15px;
   margin-left: -15px;
 }
+
+.passive {
+  background-color: rgb(185, 185, 185);
+  color: white;
+}

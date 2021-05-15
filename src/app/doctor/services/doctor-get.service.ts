@@ -29,8 +29,12 @@ export class DoctorGetService {
     return this.http.get(`${this.apiUrl}/Appointments/Doctors?doctorId=${doctorId}`).toPromise();
   }
 
-  async getAllPatients(doctorId : any){
-    return this.http.get(`${this.apiUrl}/DoctorPatients/PatientsOfDoctor?doctorId=${doctorId}`).toPromise();
+  async getAllActivePatients(doctorId : any){
+    return this.http.get(`${this.apiUrl}/DoctorPatients/ActivePatientsOfDoctor?doctorId=${doctorId}`).toPromise();
+  }
+
+  async getAllRemovedPatients(doctorId : any){
+    return this.http.get(`${this.apiUrl}/DoctorPatients/RemovedPatientsOfDoctor?doctorId=${doctorId}`).toPromise();
   }
 
   async getDoctorById(doctorId : number) {
@@ -47,6 +51,14 @@ export class DoctorGetService {
 
   async getPatientById(patientId : number) {
     return this.http.get<GetPatient>(`${this.apiUrl}/Patients/ById/${patientId}`).toPromise();
+  }
+
+  async getAdviceById(adviceId : number) {
+    return this.http.get(`${this.apiUrl}/Advices/${adviceId}`).toPromise();
+  }
+
+  async getAppointmentById(appointmentId : number) {
+    return this.http.get(`${this.apiUrl}/Appointments/${appointmentId}`).toPromise();
   }
 
   async getAnswersOfPatient(patientId : number) {

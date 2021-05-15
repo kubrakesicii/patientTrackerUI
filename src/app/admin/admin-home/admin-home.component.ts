@@ -309,6 +309,7 @@ export class AdminHomeComponent implements OnInit {
   async updateDistrict(districtId: number) {
     this.editMode = true;
     await this.getService.getDistrictById(districtId).then(data => this.updatedDistrict = JSON.parse(JSON.stringify(data)));
+    console.log(this.updatedHospital);
   }
 
   saveDistrict() {
@@ -341,6 +342,9 @@ export class AdminHomeComponent implements OnInit {
         cityName: '',
         countryName: '',
         phone: '',
+        districtId : 0,
+        cityId : 0,
+        countryId : 0
       };
       this.ngOnInit();
     });
@@ -356,6 +360,7 @@ export class AdminHomeComponent implements OnInit {
   async updateHospital(hospitalId: number) {
     this.editMode = true;
     await this.getService.getHospitalById(hospitalId).then(data => this.updatedHospital = JSON.parse(JSON.stringify(data)));
+    console.log(this.updatedHospital);
   }
 
   saveHospital() {
@@ -370,13 +375,16 @@ export class AdminHomeComponent implements OnInit {
   cancelHospital() {
     this.editMode = false;
     this.updatedHospital = {
-      id : 0,
-      description : '',
-      address : '',
-      phone : '',
-      cityName : '',
-      districtName : '',
-      countryName : ''
+      id: 0,
+      description: '',
+      address: '',
+      districtName: '',
+      cityName: '',
+      countryName: '',
+      phone: '',
+      districtId : 0,
+      cityId : 0,
+      countryId : 0
     }
   }
 
@@ -422,6 +430,7 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addDoctor() {
+    console.log(this.postDoctor);
     this.postService.addDoctor(this.postDoctor).subscribe((data) => {
       this.doctorModel = {
         id: 0,

@@ -119,7 +119,7 @@
                         </button>
                       </td>
                       <td *ngIf="editMode && country.id == this.updatedCountry.id">
-                        <span scope="row" *ngIf="editMode">
+                        <span scope="row">
                           <input
                             class="form-control input-field"
                             [(ngModel)]="updatedCountry.description"
@@ -128,7 +128,7 @@
                         </span>
                       </td>
                       <td *ngIf="editMode && country.id == this.updatedCountry.id">
-                        <span scope="row" *ngIf="editMode">
+                        <span scope="row">
                           <input
                           class="form-control input-field"
                           [(ngModel)]="updatedCountry.countryCode"
@@ -137,7 +137,7 @@
                         </span>
                       </td>
                       <td *ngIf="editMode && country.id == this.updatedCountry.id">
-                        <span scope="row" *ngIf="editMode">
+                        <span scope="row">
                           <button
                           class="btn btn-primary mr-2"
                           (click)="saveCountry(); editMode = false"
@@ -229,7 +229,7 @@
                     </td>
 
                     <td *ngIf="editMode && city.id == this.updatedCity.id">
-                      <span scope="row" *ngIf="editMode">
+                      <span scope="row">
                         <input
                           class="form-control input-field"
                           [(ngModel)]="updatedCity.description"
@@ -238,7 +238,7 @@
                       </span>
                     </td>
                     <td *ngIf="editMode && city.id == this.updatedCity.id">
-                      <span scope="row" *ngIf="editMode">
+                      <span scope="row">
                         <select
                           type="text"
                           class="form-control input-field"
@@ -255,7 +255,7 @@
                       </span>
                     </td>
                     <td *ngIf="editMode && city.id == this.updatedCity.id">
-                      <span scope="row" *ngIf="editMode">
+                      <span scope="row">
                         <button
                         mat-button
                         class="btn btn-primary mr-2"
@@ -521,9 +521,28 @@
     </div>
 
     <div class="container mt-3">
-      <h3 class="text-danger">
-        Select a Hospital and view statistics about that hospital
-      </h3>
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="text-danger">
+            Select a Hospital and view statistics about that hospital
+          </h3>
+        </div>
+        <div class="col-md-6">
+          <form class="form-inline my-2 my-lg-0 float-right">
+            <input
+              [(ngModel)]="filterText"
+              class="form-control mr-sm-2"
+              type="text"
+              placeholder="Search"
+            />
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+      
+    
       <table class="table table-striped">
         <thead>
           <th>Description</th>
@@ -532,19 +551,7 @@
           <th>City</th>
           <th>District</th>
           <th>Phone</th>
-          <th>
-            <form class="form-inline my-2 my-lg-0">
-              <input
-                [(ngModel)]="filterText"
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Search"
-              />
-              <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-                Search
-              </button>
-            </form>
-          </th>
+          <th>R/U</th>
         </thead>
 
         <tbody>
@@ -587,12 +594,13 @@
 
             <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
               <span class="inline" scope="row">
-              <input
+              <textarea
+                  rows="4" cols="10"
                   class="form-control input-field"
                   [(ngModel)]="updatedHospital.address"
                   #address="ngModel"
                   [ngModelOptions]="{ standalone: true }"
-                />
+                ></textarea>
               </span>
             </td>
 
@@ -602,10 +610,11 @@
                 type="text"
                 class="form-control input-field"
                 name="districtId"
-                [(ngModel)]="updatedHospital.countryName"
+                [(ngModel)]="updatedHospital.countryId"
               >
                 <option
                   *ngFor="let country of countryList"
+                  [value]="country.id"
                 >
                   {{ country.description }}
                 </option>
@@ -619,10 +628,11 @@
                   type="text"
                   class="form-control input-field"
                   name="cityId"
+                  [(ngModel)]="updatedHospital.cityId"
                 >
                   <option 
                   *ngFor="let city of cityList | hospitalPipe: countryid"
-                  [(ngModel)]="updatedHospital.cityName"
+                  [value]="city.id"
                    >
                       {{ city.description }}
                   </option>
@@ -636,16 +646,29 @@
                   type="text"
                   class="form-control input-field"
                   name="districtId"
+                  [(ngModel)]="updatedHospital.districtId"
                 >
                   <option 
                   *ngFor="let district of districtList"
-                  [(ngModel)]="updatedHospital.districtName"
+                  [value]="district.id"
                    >
                       {{ district.description }}
                   </option>
                 </select>
               </span>
             </td>
+
+            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+              <span class="inline" scope="row">
+                <input
+                  class="form-control input-field"
+                  [(ngModel)]="updatedHospital.phone"
+                  #phone="ngModel"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </span>
+            </td>
+
 
             <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
               <span class="inline" scope="row">
@@ -675,7 +698,7 @@
               <div *ngSwitchCase="'doctor'">
                 <h3>Doctor Operations</h3>
                 <div class="col-md-12">
-                  <form #doctorForm="ngForm" (click)="addDoctor()">
+                  <form #doctorForm="ngForm" (submit)="addDoctor()">
                     <div class="row m-0">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -957,7 +980,7 @@
                         </td>
 
                         <td *ngIf="editMode && dept.id == this.updatedDept.id">
-                          <span scope="row" *ngIf="editMode">
+                          <span scope="row">
                             <input
                               class="form-control input-field"
                               [(ngModel)]="updatedDept.description"
@@ -967,7 +990,7 @@
                         </td>
 
                         <td *ngIf="editMode && dept.id == this.updatedDept.id">
-                          <span scope="row" *ngIf="editMode">
+                          <span scope="row">
                             <button
                               class="btn btn-primary mr-2"
                               (click)="saveDept()"
@@ -1217,7 +1240,7 @@
                 class="col-5 bg-light-primary px-6 py-8 rounded-xl mb-7"
                 (click)="hospTitleChange($event)"
               >
-                <p class="card-title">DepartmentNumber</p>
+                <p class="card-title">Department Number</p>
                 <p class="card-number">{{ this.deptCount }}</p>
               </div>
 
