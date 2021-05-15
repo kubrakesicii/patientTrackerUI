@@ -196,6 +196,8 @@ export class AdminHomeComponent implements OnInit {
       .getAllDegrees()
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.degreeList = x['$values']));
+
+    await this.getUserInfo();
   }
 
   ////////

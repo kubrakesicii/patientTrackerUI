@@ -211,12 +211,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let question of this.questionList">
-            <td> {{question.description}} </td>
-            <td> {{question.upperLimit}} </td>
-            <td> {{question.lowerLimit}} </td>
+            <td *ngIf="!(editMode && question.id == this.updatedQuestion.id); else qDesc"> {{question.description}} </td>
+            <td *ngIf="!(editMode && question.id == this.updatedQuestion.id); else qUp"> {{question.upperLimit}} </td>
+            <td *ngIf="!(editMode && question.id == this.updatedQuestion.id); else qLow"> {{question.lowerLimit}} </td>
             <td> {{question.questionType}} </td>
 
-            <td>
+            <td *ngIf="!(editMode && question.id == this.updatedQuestion.id)">
               <button class="btn btn-danger mr-2" (click)="deleteQuestion(question.id)">
                 <i class="far fa-trash-alt"></i>
               </button>
@@ -224,6 +224,57 @@
                 <i class="fa fa-pencil-alt"></i>
               </button>
             </td>
+
+            <ng-template #qDesc>
+              <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+                <span scope="row" *ngIf="editMode">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedQuestion.description"
+                    type="text"
+                    />
+                </span>
+              </td>
+            </ng-template>
+
+            <ng-template #qUp>
+              <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+                <span scope="row" *ngIf="editMode">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedQuestion.upperLimit"
+                    type="text"
+                    />
+                </span>
+              </td>
+            </ng-template>
+
+            <ng-template #qLow>
+              <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+                <span scope="row" *ngIf="editMode">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedQuestion.lowerLimit"
+                    type="text"
+                    />
+                </span>
+              </td>
+            </ng-template>
+
+            <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+              <span scope="row" *ngIf="editMode">
+                <button
+                  class="btn btn-primary mr-2"
+                  (click)="saveQuestion()"
+                >
+                  <i class="far fa-save"></i>
+                </button>
+                <button class="btn btn-danger" (click)="cancelQuestion()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </span>
+            </td>
+
           </tr>
         </tbody>
       </table>
