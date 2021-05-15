@@ -3,4 +3,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Original+Surfer&display=swap");
 @import "~alertifyjs/build/css/alertify.min.css";
 @import "~alertifyjs/build/css/themes/bootstrap.min.css";
-@import "~font-awesome/css/font-awesome.min.css"
+@import "~font-awesome/css/font-awesome.min.css";
+
+    td {
+      margin-left : 0;
+      margin-right: 0;
+    }
+  
+  
+  .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: 0 auto;
+    margin-left: 0 auto;
+  }
+  

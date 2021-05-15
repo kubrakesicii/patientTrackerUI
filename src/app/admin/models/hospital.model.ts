@@ -6,4 +6,7 @@ export class Hospital {
   districtName : string;
   cityName : string;
   countryName : string;
+  districtId : number;
+  cityId : number; 
+  countryId : number;
 }

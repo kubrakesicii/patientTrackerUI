@@ -248,9 +248,13 @@ button.btn.btn-warning {
 }
 td {
   cursor: pointer;
+<<<<<<< HEAD
   margin: 0;
   padding-left: 0;
   padding-right: 2px;
+=======
+  padding-right: 2px
+>>>>>>> fbd0a2b67d0f644a5551697bbf9a5fe417b43fef
 }
 
 .input-field {
@@ -258,7 +262,6 @@ td {
   margin: 0;
   padding: 0;
   background-color: transparent;
-  border: 0.2px solid;
   font-family: Arial;
 }
 

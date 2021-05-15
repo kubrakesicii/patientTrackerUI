@@ -22,9 +22,12 @@ export class DoctorDeleteService {
   removeQuestionFromPatient(patientQuestionId : number){
     return this.http.delete(`${this.apiUrl}/PatientQuestions/${patientQuestionId}`);
   }
-
   
   removeDiseaseFromPatient(patientDiseaseId : number){
     return this.http.delete(`${this.apiUrl}/PatientDiseases/${patientDiseaseId}`);
+  }
+
+  deletePatient(patientId : number) {
+    return this.http.delete(`${this.apiUrl}/Patients/${patientId}`);
   }
 }

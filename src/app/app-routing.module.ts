@@ -4,7 +4,6 @@ import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { AdviceProcessesComponent } from './doctor/advice-processes/advice-processes.component';
 import { AppointmentProcessesComponent } from './doctor/appointment-processes/appointment-processes.component';
-import { DoctorHomeComponent } from './doctor/doctor-home/doctor-home.component';
 import { PatientDetailComponent } from './doctor/patient-detail/patient-detail.component';
 import { PatientProcessesComponent } from './doctor/patient-processes/patient-processes.component';
 import { QuestionProcessesComponent } from './doctor/question-processes/question-processes.component';

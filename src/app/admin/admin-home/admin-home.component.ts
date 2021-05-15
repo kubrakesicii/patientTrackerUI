@@ -347,6 +347,9 @@ export class AdminHomeComponent implements OnInit {
         cityName: '',
         countryName: '',
         phone: '',
+        districtId : 0,
+        cityId : 0,
+        countryId : 0
       };
       this.ngOnInit();
     });
@@ -383,11 +386,14 @@ export class AdminHomeComponent implements OnInit {
       id: 0,
       description: '',
       address: '',
-      phone: '',
-      cityName: '',
       districtName: '',
+      cityName: '',
       countryName: '',
-    };
+      phone: '',
+      districtId : 0,
+      cityId : 0,
+      countryId : 0
+    }
   }
 
   ////////
@@ -432,6 +438,7 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addDoctor() {
+    console.log(this.postDoctor);
     this.postService.addDoctor(this.postDoctor).subscribe((data) => {
       this.doctorModel = {
         id: 0,
