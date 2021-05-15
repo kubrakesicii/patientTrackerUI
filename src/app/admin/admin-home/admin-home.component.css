@@ -248,13 +248,7 @@ button.btn.btn-warning {
 }
 td {
   cursor: pointer;
-<<<<<<< HEAD
-  margin: 0;
-  padding-left: 0;
   padding-right: 2px;
-=======
-  padding-right: 2px
->>>>>>> fbd0a2b67d0f644a5551697bbf9a5fe417b43fef
 }
 
 .input-field {
@@ -288,4 +282,57 @@ span.inline {
 }
 span {
   display: flex;
+}
+img {
+  height: 20px;
+  width: 20px;
+}
+button.btn.btn-danger.mt-5.ml-5 {
+  background-color: white;
+}
+a {
+  color: black;
+  font-size: large;
+}
+a:hover {
+  color: #e1f0ff;
+}
+h2 {
+  padding-top: 12px;
+  display: contents;
+}
+
+button.btn.btn-outline-warning {
+  width: 100px;
+  margin-bottom: 12px;
+}
+
+.welcome {
+  font-weight: 700;
+  text-align: center;
+  font-size: 20px;
+  font-family: Hack, sans-serif;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #000, #fff, #000);
+  letter-spacing: 5px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: shine 5s linear infinite;
+  position: relative;
+}
+
+@keyframes shine {
+  0% {
+    background-position-x: -500%;
+  }
+  100% {
+    background-position-x: 500%;
+  }
+}
+p.welcome {
+  margin-top: 11px;
+  margin-left: 500px;
 }

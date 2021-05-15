@@ -16,6 +16,7 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -98,9 +99,7 @@
               "./node_modules/font-awesome/css/font-awesome.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "./node_modules/alertifyjs/build/alertify.min.js"
-            ]
+            "scripts": ["./node_modules/alertifyjs/build/alertify.min.js"]
           }
         },
         "lint": {
