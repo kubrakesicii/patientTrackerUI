@@ -1,31 +1,32 @@
 
-<div class="container col-md-6">
-  <div class="col-md-8">
-    <form #loginForm="ngForm" (submit)="login(loginForm)">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input
-          class="form-control"
-          type="text"
-          name="username"
-          #username="ngModel"
-          [(ngModel)]="this.loginModel.username"
-        />
-      </div>
-      <div class="form-group">
-        <label for="username">Password</label>
-        <input
-          class="form-control"
-          type="password"
-          name="password"
-          #password="ngModel"
-          [(ngModel)]="this.loginModel.password"
-        />
-      </div>
-      <div class="button-link">
-        <button type="submit" class="btn btn-primary">LOGIN</button>
-        <a (click)="changePassword()" style="cursor: pointer;">FORGOT PASSWORD</a>
-      </div>
-    </form>
-  </div>
+
+<div class="bg-img">
+  <div class="login-box">
+      <form #loginForm="ngForm" (submit)="login(loginForm)">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            class="form-control"
+            style="width: 250px;"
+            type="text"
+            name="username"
+            #username="ngModel"
+            [(ngModel)]="this.loginModel.username"
+          />
+        </div>
+        <div class="form-group">
+          <label for="username">Password</label>
+          <input
+            class="form-control"
+            type="password"
+            name="password"
+            #password="ngModel"
+            [(ngModel)]="this.loginModel.password"
+          />
+        </div>
+          <input type="submit" value="LOGIN" />
+          <a (click)="changePassword()" class="forgotPass">FORGOT PASSWORD</a>
+      </form>
+    </div>
 </div>
+  
