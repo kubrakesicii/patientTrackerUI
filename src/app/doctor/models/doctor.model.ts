@@ -4,5 +4,4 @@ export class Doctor{
     degreeId : number;
     personId : number;
     email : string;
-    isBlocked : boolean;
 }

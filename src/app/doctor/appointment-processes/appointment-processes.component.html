@@ -10,7 +10,6 @@
     <table class="table table-light mt-4">
       <thead>
         <tr>
-          <th>Doctor</th>
           <th>Patient Name</th>
           <th>Date</th>
           <th>Time</th>
@@ -19,7 +18,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let appointment of this.appointmentList">
-          <td>{{ appointment.doctorName }}</td>
           <td>{{ appointment.patientName }}</td>
           <td>{{ appointment.date }}</td>
           <td>{{ appointment.time }}</td>

@@ -40,7 +40,6 @@ async loadData(){
    this.doctorModel.departmentId = JSON.parse(JSON.stringify(data)).departmentId;
    this.doctorModel.degreeId = JSON.parse(JSON.stringify(data)).degreeId;
    this.doctorModel.email = JSON.parse(JSON.stringify(data)).email;
-   this.doctorModel.isBlocked = JSON.parse(JSON.stringify(data)).isBlocked;
    this.doctorModel.personId = JSON.parse(JSON.stringify(data)).personId;
  });
 

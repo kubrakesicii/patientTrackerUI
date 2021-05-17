@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   login(form : NgForm){
     this.authService.login(this.loginModel);
-    this.alertify.success("Logged in sucessfully");
   }
 
   changePassword(){

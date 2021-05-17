@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
+import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { Appointment } from '../models/appointment.model';
 import { Doctor } from '../models/doctor.model';
+import { DoctorDeleteService } from '../services/doctor-delete.service';
 import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
 
@@ -17,9 +19,14 @@ export class AppointmentProcessesComponent implements OnInit {
   appointmentModel : Appointment = new Appointment();
   appointmentList : Appointment[];
 
+  public editMode = false;
+
 
   constructor(private getService : DoctorGetService, 
-              private postService : DoctorPostService) { }
+              private postService : DoctorPostService,
+              private alertify : AlertifyService,
+              private deleteService : DoctorDeleteService)
+              { }
 
   ngOnInit(): void {
     this.loadData();
@@ -39,7 +46,6 @@ async loadData(){
       this.doctorModel.departmentId = JSON.parse(JSON.stringify(data)).departmentId;
       this.doctorModel.degreeId = JSON.parse(JSON.stringify(data)).degreeId;
       this.doctorModel.email = JSON.parse(JSON.stringify(data)).email;
-      this.doctorModel.isBlocked = JSON.parse(JSON.stringify(data)).isBlocked;
       this.doctorModel.personId = JSON.parse(JSON.stringify(data)).personId;
     });
 
@@ -50,7 +56,12 @@ async loadData(){
 
 
   deleteAppointment(appointmentId : number) {
-
+    this.alertify.confirm("Are you sure you want to remove this Appointment?", () => {
+      this.deleteService.deleteAppointment(appointmentId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Appointment is Removed Successfully!");
+      })
+    })
   }
   
   updateAppointment(appointmentId : number) {

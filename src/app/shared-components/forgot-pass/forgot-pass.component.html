@@ -1,13 +1,14 @@
 
 <div class="container">
-    <form #forgotPassForm = "ngForm" (submit)="sendSms(gsm.value)">
-        <div class="col">
-            <label for="">Enter your gsm to get new password!</label>
-            <input type="text" #gsm class="form-control" placeholder=Gsm...>
-        </div>       
-
-        <button class="btn btn-warning mt-2 float-right" type="submit">Send</button>
-
-    </form>
-    
+    <div class="row">
+            <form #forgotPassForm = "ngForm" (submit)="sendSms(gsm.value)" class="p-4">
+                    <span class="badge badge-info p-2 w-100" style="font-size: 15px;">Enter your gsm to get new password!</span>
+                    <hr>
+                    <div class="form-group">
+                        <input type="text" #gsm class="form-control" placeholder=Gsm...>
+                    </div>
+        
+                <button class="btn btn-outline-warning btn-block mt-2 text-center" type="submit">Send</button>
+            </form>           
+    </div>
 </div>

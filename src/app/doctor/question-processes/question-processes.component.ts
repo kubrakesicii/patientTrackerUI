@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
+import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { Answer } from '../models/answer.model';
 import { Doctor } from '../models/doctor.model';
 import { Question } from '../models/question.model';
@@ -35,7 +36,8 @@ export class QuestionProcessesComponent implements OnInit {
   constructor(private getService : DoctorGetService,
               private postService : DoctorPostService,
               private deleteService : DoctorDeleteService,
-              private updateService : DoctorUpdateService) {
+              private updateService : DoctorUpdateService,
+              private alertify : AlertifyService) {
                 this.options = [{name :  "Multiple Choice Question", value : 1},
                                 {name :  "Numeric Question", value : 2}];
                }
@@ -58,7 +60,6 @@ async loadListData(){
       this.doctorModel.departmentId = JSON.parse(JSON.stringify(data)).departmentId;
       this.doctorModel.degreeId = JSON.parse(JSON.stringify(data)).degreeId;
       this.doctorModel.email = JSON.parse(JSON.stringify(data)).email;
-      this.doctorModel.isBlocked = JSON.parse(JSON.stringify(data)).isBlocked;
       this.doctorModel.personId = JSON.parse(JSON.stringify(data)).personId;
     });
 
@@ -85,17 +86,14 @@ async loadListData(){
       this.answer2.questionPoolId = this.insertId;
       this.answer3.questionPoolId = this.insertId;
       this.answer4.questionPoolId = this.insertId;  
-
-      console.log("a1 : ",this.answer1.questionPoolId);
-      console.log("a2 : ",this.answer2.questionPoolId);
-      console.log("a3 : ",this.answer3.questionPoolId);
-      console.log("a4 : ",this.answer4.questionPoolId);
     });
 
 
     if(this.questionType == 1) {
       await this.addAnswer();
-    }     
+    } 
+    
+    this.alertify.success("Question Added Successfully!");
   }
 
   async addAnswer(){   
@@ -106,9 +104,11 @@ async loadListData(){
   }
 
   deleteQuestion(questionId : number) {
-    this.deleteService.deleteQuestion(questionId).subscribe(() => {
-      this.ngOnInit();
-      //Alertify
+    this.alertify.confirm("Are you sure you want to remove this Question?", () => {
+      this.deleteService.deleteQuestion(questionId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Question Removed Successfully!");
+      })
     })
   }
 
@@ -121,6 +121,7 @@ async loadListData(){
     this.updateService.updateQuestion(this.updatedQuestion.id, this.updatedQuestion)
     .subscribe((data) => {
       this.ngOnInit();
+      this.alertify.success("Question Updated Successfully!");
     });
     this.editMode = false;
   }

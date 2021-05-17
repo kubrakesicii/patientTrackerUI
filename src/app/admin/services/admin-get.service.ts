@@ -86,4 +86,11 @@ export class AdminGetService {
     return this.http.get(`${this.apiUrl}/Doctors/${doctorId}`).toPromise();
   }
 
+  async getCitiesByCountry(countryId : number) {
+    return this.http.get(`${this.apiUrl}/Cities?countryId=${countryId}`).toPromise();
+  }
+
+  async getDistrictsByCity(cityId : number) {
+    return this.http.get(`${this.apiUrl}/Districts?cityId=${cityId}`).toPromise();
+  }
 }

@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 import { UpdatePatient } from '../models/update-patient.model';
 import { DoctorDeleteService } from '../services/doctor-delete.service';
 import { DoctorUpdateService } from '../services/doctor-update.service';
+import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 
 @Component({
   selector: 'app-patient-processes',
@@ -36,7 +37,8 @@ export class PatientProcessesComponent implements OnInit {
               private postService : DoctorPostService,
               private deleteService : DoctorDeleteService,
               private updateService : DoctorUpdateService,
-              private router : Router) { }
+              private router : Router,
+              private alertify : AlertifyService) { }
 
   ngOnInit(): void {
     this.loadListData();
@@ -57,7 +59,6 @@ export class PatientProcessesComponent implements OnInit {
       this.doctorModel.departmentId = JSON.parse(JSON.stringify(data)).departmentId;
       this.doctorModel.degreeId = JSON.parse(JSON.stringify(data)).degreeId;
       this.doctorModel.email = JSON.parse(JSON.stringify(data)).email;
-      this.doctorModel.isBlocked = JSON.parse(JSON.stringify(data)).isBlocked;
       this.doctorModel.personId = JSON.parse(JSON.stringify(data)).personId;
     });
 
@@ -72,9 +73,9 @@ export class PatientProcessesComponent implements OnInit {
 
   addPatient(patientForm : NgForm) {
     this.postService.addPatient(this.patientModel).subscribe(data => {
-      console.log(data);
       this.ngOnInit();
       this.resetForm(patientForm);
+      this.alertify.success("Patient Added Successfully!");
     });
   }
 
@@ -96,9 +97,11 @@ export class PatientProcessesComponent implements OnInit {
   }
 
   deletePatient(patientId : number) {
-    this.deleteService.deletePatient(patientId).subscribe(() => {
-      //alert
-      this.ngOnInit();
+    this.alertify.confirm("Are you sure yout want to remove this Patient?", () => {
+      this.deleteService.deletePatient(patientId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Patient Removed Successfully!");
+      })
     })
   }
 
@@ -111,8 +114,8 @@ export class PatientProcessesComponent implements OnInit {
     this.updateService
       .updatePatient(this.updatedPatient.id, this.updatedPatient)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("Patient Updated Successfully!");
       });
       this.editMode = false;
   }

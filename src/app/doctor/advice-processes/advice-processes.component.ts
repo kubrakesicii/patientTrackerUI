@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
+import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { Advice } from '../models/advice.model';
 import { Doctor } from '../models/doctor.model';
 import { DoctorDeleteService } from '../services/doctor-delete.service';
@@ -28,7 +29,7 @@ export class AdviceProcessesComponent implements OnInit {
               private postService : DoctorPostService,
               private deleteService : DoctorDeleteService,
               private updateService : DoctorUpdateService,
-              private toastr: ToastrService) { }
+              private alertify : AlertifyService) { }
 
   ngOnInit(): void {
     this.loadListData();
@@ -48,7 +49,6 @@ async loadListData(){
       this.doctorModel.departmentId = JSON.parse(JSON.stringify(data)).departmentId;
       this.doctorModel.degreeId = JSON.parse(JSON.stringify(data)).degreeId;
       this.doctorModel.email = JSON.parse(JSON.stringify(data)).email;
-      this.doctorModel.isBlocked = JSON.parse(JSON.stringify(data)).isBlocked;
       this.doctorModel.personId = JSON.parse(JSON.stringify(data)).personId;
     });
 
@@ -64,16 +64,17 @@ async loadListData(){
 
       return this.postService.addAdvice(this.adviceModel).subscribe(data => {
         this.resetForm(adviceForm);
-        this.toastr.success("Advice is added successfully");
         this.ngOnInit();
-        //show alertify message
+        this.alertify.success("Advice Added Successfully!");
       });
     }
 
     deleteAdvice(adviceId : number) {
-      this.deleteService.deleteAdvice(adviceId).subscribe(data => {
-        this.ngOnInit();
-        //Alertify
+      this.alertify.confirm("Are you sure you want to delete this advice?", () => {
+        this.deleteService.deleteAdvice(adviceId).subscribe(data => {
+          this.ngOnInit();
+          this.alertify.success("Advice Removed Successfully!");
+        })
       })
     }
 
@@ -84,16 +85,14 @@ async loadListData(){
         this.updatedAdvice.description = JSON.parse(JSON.stringify(data))['description'];
         this.updatedAdvice.createdUserName = JSON.parse(JSON.stringify(data))['createdUserName'];
         this.updatedAdvice.departmentId = this.doctorModel.departmentId;
-
-        //console.log(this.updatedAdvice);
       });
     }
 
     saveAdvice() {
       this.updateService.updateAdvice(this.updatedAdvice.id, this.updatedAdvice)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("Advice Updated Successfully!");
       });
       this.editMode = false;
     }

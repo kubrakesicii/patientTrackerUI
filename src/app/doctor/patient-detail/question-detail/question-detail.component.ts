@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { PatientQuestion } from '../../models/patient-question.model';
 import { Question } from '../../models/question.model';
 import { DoctorDeleteService } from '../../services/doctor-delete.service';
@@ -25,7 +26,8 @@ export class QuestionDetailComponent implements OnInit {
     public dialogRef: MatDialogRef<QuestionDetailComponent>,
     private getService : DoctorGetService,
     private postService : DoctorPostService,
-    private deleteService : DoctorDeleteService) { }
+    private deleteService : DoctorDeleteService,
+    private alertify : AlertifyService) { }
 
   ngOnInit(): void {
     this.patientId = this.data.patientId;
@@ -51,6 +53,7 @@ export class QuestionDetailComponent implements OnInit {
     this.postService.addQuestiontoPatient(this.patientQuestion).subscribe(() => {
       var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
       tr?.classList.add("passive");
+      this.alertify.success("Question Added to Patient!");
     });
   }
 
@@ -63,6 +66,7 @@ export class QuestionDetailComponent implements OnInit {
     await this.deleteService.removeQuestionFromPatient(this.patQuestionId).subscribe(() => { 
       var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
       tr?.classList.remove("passive");
+      this.alertify.success("Question Removed from Patient!");
     });
 
   }

@@ -16,4 +16,29 @@
     margin-right: 0 auto;
     margin-left: 0 auto;
   }
+
+  .alertify .ajs-dialog {
+    max-width: 250px;
+    min-height: 122px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.2);
+    box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
+    border-radius: 6px;
+  }
+
+  .ajs-button{
+    border: none;
+    text-align: center;
+    color: white;
+    min-width: 50px;
+    min-height: 35px;
+  }
+  
+  .ajs-button.ajs-ok{
+    background-color: rgb(58, 131, 58);  
+  }
+  
+  .ajs-button.ajs-cancel{
+    background-color: rgb(165, 84, 73);
+  }
   

@@ -17,13 +17,21 @@
           style="max-width: 40rem"
         >
           <!--begin::Row-->
+          <div class="row">
+            <div class="col-md-12">
+              <span class="badge badge-primary p-2 mb-2 text-center" style="font-size: 17px; text-align:center;">
+                <i class="fas fa-chart-line mr-3"></i> General Statistics ( # )
+              </span>
+            </div>
+            <hr>
+          </div>
           <div class="row m-0">
             <div
               id="country"
               class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
               (click)="titleChange($event)"
             >
-              <p class="card-title">Country Number</p>
+              <p class="card-title">Country</p>
               <p class="card-number">{{ countryCount }}</p>
             </div>
             <div
@@ -31,7 +39,7 @@
               class="col bg-light-primary px-6 py-8 rounded-xl mb-7"
               (click)="titleChange($event)"
             >
-              <p class="card-title">City Number</p>
+              <p class="card-title">City</p>
               <p class="card-number">{{ this.cityCount }}</p>
               <!-- <p class="card-number">{{ cityCount }}</p> -->
             </div>
@@ -43,7 +51,7 @@
               class="col bg-light-danger px-6 py-8 rounded-xl mr-7"
               (click)="titleChange($event)"
             >
-              <a><p class="card-title">District Number</p></a>
+              <a><p class="card-title">District</p></a>
               <a
                 ><p class="card-number">{{ this.districtCount }}</p></a
               >
@@ -54,7 +62,7 @@
               class="col bg-light-success px-6 py-8 rounded-xl"
               (click)="titleChange($event)"
             >
-              <p class="card-title">Hospital Number</p>
+              <p class="card-title">Hospital</p>
               <p class="card-number">{{ this.hospitalCount }}</p>
             </div>
           </div>
@@ -473,11 +481,13 @@
                           type="text"
                           class="form-control"
                           placeholder="Select Country"
-                          name="districtId"
+                          name="countryId"
+                          #country
                           [(value)]="countryid"
+                          (change)="filterCity(country.options[country.selectedIndex].value)"
                         >
-                          <option disabled>--Select a Country--</option>
-                          <option *ngFor="let country of countryList">
+                          <option>--Select a Country--</option>
+                          <option [value]="country.id" *ngFor="let country of countryList">
                             {{ country.description }}
                           </option>
                         </select>
@@ -492,13 +502,16 @@
                           class="form-control"
                           placeholder="Select City"
                           name="cityId"
+                          #city
+                          (change)="filterDistrict(city.options[city.selectedIndex].value)"
+
                         >
-                          <option disabled>--Select a City--</option>
+                          <option>--Select a City--</option>
                           <option
                             *ngFor="
-                              let city of cityList | hospitalPipe: countryid
+                              let city of filteredCityList
                             "
-                            [value]="city.countryId"
+                            [value]="city.id"
                           >
                             {{ city.description }}
                           </option>
@@ -517,9 +530,9 @@
                           #districtId="ngModel"
                           [(ngModel)]="this.hospitalModel.districtId"
                         >
-                          <option disabled>--Select a District--</option>
+                          <option value="0">--Select a District--</option>
                           <option
-                            *ngFor="let district of districtList"
+                            *ngFor="let district of filteredDistrictList"
                             [value]="district.id"
                           >
                             {{ district.description }}
@@ -589,6 +602,7 @@
               </div>
             </div>
           </div>
+         
         </div>
       </div>
     </div>
@@ -599,7 +613,7 @@
     <div class="container mt-3">
       <div class="row">
         <div class="col-md-6">
-            <span class="badge badge-danger p-2 w75">Select a Hospital and view statistics about that hospital</span>
+            <span class="badge badge-danger p-2 w-75">Select a Hospital and view statistics about that hospital</span>
             <hr>
         </div>
         <div class="col-md-6">
@@ -1100,7 +1114,7 @@
               <div *ngSwitchCase="'department'">
                 <span class="badge badge-dark p-2 w-25">Department Operations</span>
                 <hr>
-                  <form #deptForm="ngForm" (click)="addDepartment()">
+                  <form #deptForm="ngForm" (submit)="addDepartment()">
                     <div class="row">
                       <div class="col-md-10">
                         <div class="form-group">
@@ -1444,6 +1458,14 @@
             style="max-width: 40rem"
           >
             <!--begin::Row-->
+            <div class="row">
+              <div class="col-md-12">
+                <span class="badge badge-primary p-2 mb-2 text-center" style="font-size: 18px; text-align:center;">
+                  <i class="fas fa-chart-line mr-3"></i> {{selectedHospitalName}} Statistics ( # )
+                </span>
+              </div>
+              <hr>
+            </div>
             <div class="row m-0">
               <div
                 id="doctor"
@@ -1459,7 +1481,7 @@
                 "
                 (click)="hospTitleChange($event)"
               >
-                <p class="card-title">Doctor Number</p>
+                <p class="card-title">Doctor</p>
                 <p class="card-number">{{ doctorCount }}</p>
               </div>
               <div
@@ -1467,41 +1489,40 @@
                 class="col-5 bg-light-primary px-6 py-8 rounded-xl mb-7"
                 (click)="hospTitleChange($event)"
               >
-                <p class="card-title">Department Number</p>
+                <p class="card-title">Department</p>
                 <p class="card-number">{{ this.deptCount }}</p>
               </div>
-
-              <div class="row m-0">
-                <div
-                  id="disease"
-                  class="
-                    col-5
-                    bg-light-danger
-                    px-6
-                    py-8
-                    rounded-xl
-                    ml-2
-                    mr-2
-                    mb-7
-                  "
-                  (click)="hospTitleChange($event)"
+            </div>
+            <div class="row m-0">
+              <div
+                id="disease"
+                class="
+                  col-5
+                  bg-light-danger
+                  px-6
+                  py-8
+                  rounded-xl
+                  ml-2
+                  mr-2
+                  mb-7
+                "
+                (click)="hospTitleChange($event)"
+              >
+                <a><p class="card-title">Disease</p></a>
+                <a
+                  ><p class="card-number">{{ this.diseaseCount }}</p></a
                 >
-                  <a><p class="card-title">Disease Number</p></a>
-                  <a
-                    ><p class="card-number">{{ this.diseaseCount }}</p></a
-                  >
-                </div>
+              </div>
 
-                <div
-                  id="degree"
-                  class="col-5 bg-light-success px-6 py-8 rounded-xl mb-7"
-                  (click)="hospTitleChange($event)"
+              <div
+                id="degree"
+                class="col-5 bg-light-success px-6 py-8 rounded-xl mb-7"
+                (click)="hospTitleChange($event)"
+              >
+                <a><p class="card-title">Degree</p></a>
+                <a
+                  ><p class="card-number">{{ this.degreesCount }}</p></a
                 >
-                  <a><p class="card-title">Degree Number</p></a>
-                  <a
-                    ><p class="card-number">{{ this.degreesCount }}</p></a
-                  >
-                </div>
               </div>
             </div>
           </div>

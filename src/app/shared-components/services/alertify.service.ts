@@ -23,4 +23,16 @@ export class AlertifyService {
   warning(message: string) {
     alertify.warning(message);
   }
+
+  confirm(message: string, okCallback: () => any) {
+    alertify.confirm(message, function(e: any) {
+        if (e) {
+            okCallback();
+        } else {
+
+        }
+    }).setHeader("").set('closable', false);
+  }
+
+  
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
 import { Degree } from '../models/degree.model';
@@ -31,7 +33,8 @@ export class AdminHomeComponent implements OnInit {
     private postService: AdminPostService,
     private deleteService: AdminDeleteService,
     private authService: AuthService,
-    private updateService: AdminUpdateService
+    private updateService: AdminUpdateService,
+    private alertify : AlertifyService
   ) {}
 
   userInfo: UserInfo = new UserInfo();
@@ -87,8 +90,11 @@ export class AdminHomeComponent implements OnInit {
 
   selectedHospitalId: any = 1;
   selectedHospitalName: any = 'Central Hospital';
+  filteredCityList : City[] = [];
+  filteredDistrictList : District[] = [];
 
   countryid: any;
+  public loading = false;
 
   public editMode = false;
 
@@ -204,21 +210,27 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addCountry() {
-    this.postService.addCountry(this.countryModel).subscribe((data) => {
+    this.loading = true;
+    this.postService.addCountry(this.countryModel)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe((data) => {
       this.countryModel = {
         id: 0,
         description: '',
         countryCode: '',
       };
       this.ngOnInit();
+      this.alertify.success("Country Added Successfully!");
     });
   }
 
   deleteCountry(countryId: number) {
-    this.deleteService.deleteCountry(countryId).subscribe(() => {
-      this.ngOnInit();
-      //alert
-    });
+    this.alertify.confirm("Are you sure you want to remove this country?",() => {
+      this.deleteService.deleteCountry(countryId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Country Removed Successfully!");
+      });
+    })
   }
 
   async updateCountry(countryId: number) {
@@ -232,8 +244,8 @@ export class AdminHomeComponent implements OnInit {
     this.updateService
       .updateCountry(this.updatedCountry.id, this.updatedCountry)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("Country Updated Successfully!");
       });
     this.editMode = false;
   }
@@ -256,14 +268,17 @@ export class AdminHomeComponent implements OnInit {
         countryId: 0,
       };
       this.ngOnInit();
+      this.alertify.success("City Added Successfully!");
     });
   }
 
   deleteCity(cityId: number) {
-    this.deleteService.deleteCity(cityId).subscribe(() => {
-      this.ngOnInit();
-      //alert
-    });
+    this.alertify.confirm("Are you sure you want to remove this city?", () => {
+      this.deleteService.deleteCity(cityId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("City Removed Successfully!");
+      });
+    })
   }
 
   async updateCity(cityId: number) {
@@ -277,8 +292,8 @@ export class AdminHomeComponent implements OnInit {
     this.updateService
       .updateCity(this.updatedCity.id, this.updatedCity)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("City Updated Successfully!");
       });
     this.editMode = false;
   }
@@ -301,14 +316,17 @@ export class AdminHomeComponent implements OnInit {
         description: '',
       };
       this.ngOnInit();
+      this.alertify.success("District Added Successfully!");
     });
   }
 
   deleteDistrict(districtId: number) {
-    this.deleteService.deleteDistrict(districtId).subscribe(() => {
-      this.ngOnInit();
-      //alert
-    });
+    this.alertify.confirm("Are you sure you want to remove this district?", () => {
+      this.deleteService.deleteDistrict(districtId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("District Removed Successfully!");
+      });
+    })
   }
 
   async updateDistrict(districtId: number) {
@@ -324,8 +342,8 @@ export class AdminHomeComponent implements OnInit {
     this.updateService
       .updateDistrict(this.updatedDistrict.id, this.updatedDistrict)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("District Updated Successfully!");
       });
     this.editMode = false;
   }
@@ -339,6 +357,23 @@ export class AdminHomeComponent implements OnInit {
   }
 
   ////////
+
+  async filterCity(countryId : any) {
+    countryId = parseInt(countryId);
+    
+    await this.getService.getCitiesByCountry(countryId)
+    .then((data) => JSON.parse(JSON.stringify(data)))
+    .then((x) => (this.filteredCityList = x['$values']));
+  }
+
+  async filterDistrict(cityId : any) {
+    cityId = parseInt(cityId);
+
+    console.log(cityId);
+    await this.getService.getDistrictsByCity(cityId)
+    .then((data) => JSON.parse(JSON.stringify(data)))
+    .then((x) => (this.filteredDistrictList = x['$values']));
+  }
 
   addHospital() {
     this.postService.addHospital(this.hospitalModel).subscribe((data) => {
@@ -355,14 +390,17 @@ export class AdminHomeComponent implements OnInit {
         countryId : 0
       };
       this.ngOnInit();
+      this.alertify.success("Hospital Added Successfully!");
     });
   }
 
   deleteHospital(hospitalId: number) {
-    this.deleteService.deleteHospital(hospitalId).subscribe(() => {
-      this.ngOnInit();
-      //alert
-    });
+    this.alertify.confirm("Are you sure you want to remove this hospital?", () => {
+      this.deleteService.deleteHospital(hospitalId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Hospital Removed Successfully!");
+      });
+    })
   }
 
   async updateHospital(hospitalId: number) {
@@ -378,8 +416,8 @@ export class AdminHomeComponent implements OnInit {
     this.updateService
       .updateHospital(this.updatedHospital.id, this.updatedHospital)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("Hospital Updated Successfully!");
       });
     this.editMode = false;
   }
@@ -455,14 +493,17 @@ export class AdminHomeComponent implements OnInit {
         degreeId: 0,
       };
       this.ngOnInit();
+      this.alertify.success("Doctor Added Successfully!");
     });
   }
 
   deleteDoctor(doctorId: number) {
-    this.deleteService.deleteDoctor(doctorId).subscribe(() => {
-      this.ngOnInit();
-      //alertify
-    });
+    this.alertify.confirm("Are you sure you want to remove this doctor?", () => {
+      this.deleteService.deleteDoctor(doctorId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Doctor Removed Successfully!");
+      });
+    })
   }
 
   async updateDoctor(doctorId: number) {
@@ -479,11 +520,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveDoctor() {
-    console.log(this.updatedDoctor);
     this.updateService
       .updateDoctor(this.updatedDoctorId, this.updatedDoctor)
       .subscribe((data) => {
         this.ngOnInit();
+        this.alertify.success("Doctor Updated Successfully!");
       });
     this.editMode = false;
   }
@@ -510,14 +551,17 @@ export class AdminHomeComponent implements OnInit {
         hospitalId: 0,
       };
       this.ngOnInit();
+      this.alertify.success("Department Added Successfully!");
     });
   }
 
   deleteDepartment(deptId: number) {
-    this.deleteService.deleteDepartment(deptId).subscribe(() => {
-      this.ngOnInit();
-      //alert
-    });
+    this.alertify.confirm("Are you sure you want to remove this department?", () => {
+      this.deleteService.deleteDepartment(deptId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Department Removed Successfully!");
+      });
+    })
   }
 
   async updateDepartment(deptId: number) {
@@ -531,8 +575,8 @@ export class AdminHomeComponent implements OnInit {
     this.updateService
       .updateDepartment(this.updatedDept.id, this.updatedDept)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("Department Updated Successfully!");
       });
     this.editMode = false;
   }
@@ -556,14 +600,17 @@ export class AdminHomeComponent implements OnInit {
         departmentId: 0,
       };
       this.ngOnInit();
+      this.alertify.success("Disease Added Successfully!");
     });
   }
 
   deleteDisease(diseaseId: number) {
-    this.deleteService.deleteDisease(diseaseId).subscribe(() => {
-      this.ngOnInit();
-      //alert
-    });
+    this.alertify.confirm("Are you sure you want to remove this disease?", () => {
+      this.deleteService.deleteDisease(diseaseId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Disease Removed Successfully!");
+      });
+    })
   }
 
   async updateDisease(diseaseId: number) {
@@ -577,8 +624,8 @@ export class AdminHomeComponent implements OnInit {
     this.updateService
       .updateDisease(this.updatedDisease.id, this.updatedDisease)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("Disease Updated Successfully!");
       });
     this.editMode = false;
   }
@@ -601,14 +648,17 @@ export class AdminHomeComponent implements OnInit {
         description: '',
       };
       this.ngOnInit();
+      this.alertify.success("Degree Added Successfully!");
     });
   }
 
   deleteDegree(degreeId: number) {
-    this.deleteService.deleteDegree(degreeId).subscribe(() => {
-      this.ngOnInit();
-      //alert
-    });
+    this.alertify.confirm("Are you sure you want to remove this degree?", () => {
+      this.deleteService.deleteDegree(degreeId).subscribe(() => {
+        this.ngOnInit();
+        this.alertify.success("Degree Removed Successfully!");
+      });
+    })
   }
 
   async updateDegree(degreeId: number) {
@@ -622,8 +672,8 @@ export class AdminHomeComponent implements OnInit {
     this.updateService
       .updateDegree(this.updatedDegree.id, this.updatedDegree)
       .subscribe((data) => {
-        console.log(data);
         this.ngOnInit();
+        this.alertify.success("Degree Updated Successfully!");
       });
     this.editMode = false;
   }

@@ -30,4 +30,8 @@ export class DoctorDeleteService {
   deletePatient(patientId : number) {
     return this.http.delete(`${this.apiUrl}/Patients/${patientId}`);
   }
+
+  deleteAppointment(appointmentId : number) {
+    return this.http.delete(`${this.apiUrl}/Appointments/${appointmentId}`);
+  }
 }

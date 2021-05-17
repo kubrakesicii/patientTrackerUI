@@ -74,9 +74,6 @@ export class PatientDetailComponent implements OnInit {
         this.patQuestions.push(x.questionDesc)
     });
 
-    console.log("pat Quest",this.patientQuestionList);
-    console.log("desc arr : ",this.patQuestions);
-
 
     await this.getService.getAnswersOfPatient(this.patientId)
     .then((data) => JSON.parse(JSON.stringify(data)))
