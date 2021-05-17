@@ -1,14 +1,49 @@
 .passive {
-    background-color: rgb(166, 168, 170);
-    color: snow;
-    font-weight: bold;
+  background-color: rgb(166, 168, 170);
+  color: snow;
+  font-weight: bold;
 }
 
 .table {
-    width: 500px;
+  width: 500px;
 }
 
 .mat-dialog-container {
-    height: 450px;
+  height: 450px;
 }
-
+/* .box-1 {
+  background-color: grey;
+  width: 2px;
+  height: 20px;
+  font-size: small;
+  margin-top: 40px;
+}
+.box-2 {
+  width: 2px;
+  height: 20px;
+  border: 1px solid red;
+  background-color: #fbfcfc;
+} */
+.boxes-1 {
+  display: flex;
+}
+.col-2.box-2 {
+  height: 26px;
+  width: 36px;
+  background-color: white;
+  border: 1px solid grey;
+  margin-top: 5px;
+}
+.col-2.box-1 {
+  height: 26px;
+  width: 92px;
+  background-color: grey;
+  margin-top: 5px;
+}
+.boxes-2 {
+  display: flex;
+}
+p.mevcut-durumu {
+  margin-top: 12px;
+  margin-left: 20px;
+}

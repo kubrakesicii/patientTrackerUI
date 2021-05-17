@@ -89,8 +89,13 @@
 
     <div class="row mt-5" *ngFor="let ansArr of this.answerDateDivider">
       <div class="col-md-12">
-        <button class="btn btn-dark w-100" (click)="openAnsTable(ansArr.date)"> {{ansArr.date}} </button>
-        <table class="table table-light mt-3" *ngIf="ansArr.date == this.selectedDate">
+        <button class="btn btn-dark w-100" (click)="openAnsTable(ansArr.date)">
+          {{ ansArr.date }}
+        </button>
+        <table
+          class="table table-light mt-3"
+          *ngIf="ansArr.date == this.selectedDate"
+        >
           <thead>
             <tr>
               <th>Question</th>
@@ -101,7 +106,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let answer of ansArr.answers" [ngClass]="{ danger: answer.result == false }">
+            <tr
+              *ngFor="let answer of ansArr.answers"
+              [ngClass]="{ danger: answer.result == false }"
+            >
               <td>{{ answer.questionDesc }}</td>
               <td>{{ answer.answerDesc }}</td>
               <td>{{ answer.patientScore }}</td>
@@ -137,10 +145,7 @@
       </table>
     </div>
 
-    <hr>
-    <hr mt-5>
-
-
-    
+    <hr />
+    <hr mt-5 />
   </div>
 </div>

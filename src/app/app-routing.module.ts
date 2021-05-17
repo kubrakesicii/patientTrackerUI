@@ -14,7 +14,6 @@ const routes: Routes = [
   {
     path: 'admin-home',
     component: AdminHomeComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'doctor-home',
