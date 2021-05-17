@@ -3,7 +3,7 @@
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="col-9">
+  <div class="col-9 mt-3 pr-5 pl-0 ml-0">
     <h3>Patient Detail</h3>
 
     <div class="row">
@@ -87,30 +87,30 @@
       </div>
     </div>
 
-    <div class="row mt-3">
-      <table class="table table-light">
-        <thead>
-          <tr>
-            <th>Question</th>
-            <th>Answer</th>
-            <th>Score</th>
-            <th>Upper Limit</th>
-            <th>Lower Limit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let answer of this.patientAnswerList"
-            [ngClass]="{ danger: answer.result == false }"
-          >
-            <td>{{ answer.questionDesc }}</td>
-            <td>{{ answer.answerDesc }}</td>
-            <td>{{ answer.patientScore }}</td>
-            <td>{{ answer.upperLimit }}</td>
-            <td>{{ answer.lowerLimit }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row mt-5" *ngFor="let ansArr of this.answerDateDivider">
+      <div class="col-md-12">
+        <button class="btn btn-dark w-100" (click)="openAnsTable(ansArr.date)"> {{ansArr.date}} </button>
+        <table class="table table-light mt-3" *ngIf="ansArr.date == this.selectedDate">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Score</th>
+              <th>Lower Limit</th>
+              <th>Upper Limit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let answer of ansArr.answers" [ngClass]="{ danger: answer.result == false }">
+              <td>{{ answer.questionDesc }}</td>
+              <td>{{ answer.answerDesc }}</td>
+              <td>{{ answer.patientScore }}</td>
+              <td>{{ answer.lowerLimit }}</td>
+              <td>{{ answer.upperLimit }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="row mt-3">
@@ -121,8 +121,8 @@
             <th>Question</th>
             <th>Answer</th>
             <th>Score</th>
-            <th>Upper Limit</th>
             <th>Lower Limit</th>
+            <th>Upper Limit</th>
           </tr>
         </thead>
         <tbody>
@@ -130,11 +130,17 @@
             <td>{{ answer.questionDesc }}</td>
             <td>{{ answer.answerDesc }}</td>
             <td>{{ answer.patientScore }}</td>
-            <td>{{ answer.upperLimit }}</td>
             <td>{{ answer.lowerLimit }}</td>
+            <td>{{ answer.upperLimit }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <hr>
+    <hr mt-5>
+
+
+    
   </div>
 </div>

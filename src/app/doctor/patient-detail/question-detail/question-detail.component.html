@@ -1,30 +1,49 @@
-<h4>Add Question to this Patient</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <span class="badge badge-light p-2 float-left">Add Disease to Patient</span>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline my-2 my-lg-0 float-right">
+                <input
+                  #filterText
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Search"
+                  (keyup)="searchQuestion(filterText.value)"
+                />
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-light mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Question</th>
+                    <th>Add/Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let question of this.questionList"
+                    [ngClass]="{'passive' : this.patQuestions.indexOf(question.description) != -1}">
+                    <td> {{question.id}} </td>
+                    <td> {{question.description}} </td>
+                    <td> 
+                        <button class="btn btn-warning mr-2" 
+                        [disabled]="this.patQuestions.indexOf(question.description) != -1" 
+                        (click)="addToPatient(question.id, this.patientId, $event)">
+                        +
+                        </button> 
+                        <button class="btn btn-danger"
+                        [disabled]="this.patQuestions.indexOf(question.description) == -1"
+                        (click)="deletePatQuestion(question.id,this.patientId, $event)">
+                            -
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<table class="table table-light mt-3">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Question</th>
-            <th>Add/Remove</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let question of this.questionList"
-            [ngClass]="{'passive' : this.patQuestions.indexOf(question.description) != -1}">
-            <td> {{question.id}} </td>
-            <td> {{question.description}} </td>
-            <td> 
-                <button class="btn btn-warning mr-2" 
-                [disabled]="this.patQuestions.indexOf(question.description) != -1" 
-                (click)="addToPatient(question.id, this.patientId, $event)">
-                +
-                </button> 
-                <button class="btn btn-danger"
-                [disabled]="this.patQuestions.indexOf(question.description) == -1"
-                (click)="deletePatQuestion(question.id,this.patientId, $event)">
-                    -
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>

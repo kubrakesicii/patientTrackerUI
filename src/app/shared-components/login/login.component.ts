@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { User } from 'src/app/auth/models/user.model';
 import { LoginUser } from '../../auth/models/loginUser.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { ForgotPassComponent } from '../forgot-pass/forgot-pass.component';
+import { AlertifyService } from '../services/alertify.service';
+
 
 
 @Component({
@@ -16,8 +17,9 @@ export class LoginComponent implements OnInit {
   loginModel : LoginUser = new LoginUser();
 
   constructor(private authService : AuthService,
-    private dialog: MatDialog
-    ) {}
+              private dialog: MatDialog,
+              private alertify : AlertifyService
+             ) {}
 
   ngOnInit(): void {
     
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   login(form : NgForm){
     this.authService.login(this.loginModel);
+    this.alertify.success("Logged in sucessfully");
   }
 
   changePassword(){

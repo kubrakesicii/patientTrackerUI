@@ -31,9 +31,19 @@
 }
 
 .danger {
+  font-weight: bold;
+  animation: blinkingBackground 1s infinite;
+}
+
+@keyframes blinkingBackground{
+  50%		{ 
     background-color: rgb(209, 137, 137);
     color: white;
-    font-weight: bold;
+  }
+  100%	{ 
+    background-color: #ffffff;
+    color: rgb(95, 91, 91);
+  }
 }
 
 .passive {

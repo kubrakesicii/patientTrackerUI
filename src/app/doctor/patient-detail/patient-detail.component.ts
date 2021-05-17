@@ -7,9 +7,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DiseaseDetailComponent } from './disease-detail/disease-detail.component';
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 import { AppointmentDetailComponent } from './appointment-detail/appointment-detail.component';
-import { PatientQuestion } from '../models/patient-question.model';
 import { GetPatQuestion } from '../models/get-pat-question.model';
 
+declare function divideArrIntoDays(message: PatientAnswer[]) : any;
 @Component({
   selector: 'app-patient-detail',
   templateUrl: './patient-detail.component.html',
@@ -27,6 +27,10 @@ export class PatientDetailComponent implements OnInit {
   patQuestions : string[] = new Array();
   patAnswers : string[] = new Array();
 
+  answerDateDivider : any = new Array();
+
+  public selectedDate : string;
+
 
   constructor(private activeRoute : ActivatedRoute,
               private getService : DoctorGetService,
@@ -38,10 +42,8 @@ export class PatientDetailComponent implements OnInit {
       this.patientId = +params['patientId'];
     });
 
-    console.log(this.patientId);
+    this.patQuestions.splice(0, this.patQuestions.length)
     this.getPatientInfo();
-
-    console.log("hist : ",this.answerHistory);
   }
 
 
@@ -67,27 +69,30 @@ export class PatientDetailComponent implements OnInit {
     await this.getService.getQuestionsOfPatient(this.patientId)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.patientQuestionList = x['$values']));
-    this.patientQuestionList.forEach(x => this.patQuestions.push(x.questionDesc));
+    this.patientQuestionList.forEach(x => {
+      if(!this.patQuestions.includes(x.questionDesc))
+        this.patQuestions.push(x.questionDesc)
+    });
+
+    console.log("pat Quest",this.patientQuestionList);
+    console.log("desc arr : ",this.patQuestions);
 
 
     await this.getService.getAnswersOfPatient(this.patientId)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.patientAnswerList = x['$values']));
-    this.patientAnswerList.forEach(x => this.patAnswers.push(x.questionDesc));
+    
 
-    this.patientAnswerList = this.patientAnswerList.filter(ans => {
-      if(this.patQuestions.indexOf(ans.questionDesc) == -1){
-        this.answerHistory.push(ans);
-        return false;
-      }
-      return true;
-    })
+    await this.getService.getAnswerHistoryOfPatient(this.patientId)
+    .then((data) => JSON.parse(JSON.stringify(data)))
+    .then((x) => (this.answerHistory = x['$values']));
 
-    console.log("curr : ",this.patientAnswerList);
 
+    this.answerDateDivider = divideArrIntoDays(this.patientAnswerList);
+    //console.log("answerDateDivider" , this.answerDateDivider);
   }
 
-
+  
 
   openQuestionDialog(patientId : number, deptId : number, hospitalId : number, patQuestions : string[]){
       const dialogConfig = new MatDialogConfig();
@@ -131,5 +136,9 @@ export class PatientDetailComponent implements OnInit {
       })
   }
 
+
+  openAnsTable(date : string){
+    this.selectedDate = date;
+  }
 
 }

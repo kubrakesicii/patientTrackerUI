@@ -33,7 +33,9 @@
               "./node_modules/bootswatch/dist/minty/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/index.js"
+            ]
           },
           "configurations": {
             "production": {

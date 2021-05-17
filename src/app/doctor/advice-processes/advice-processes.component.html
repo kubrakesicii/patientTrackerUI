@@ -3,32 +3,46 @@
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="col-9 mt-4">
-    <h3>Advice Processes</h3>
+  <div class="col-9 mt-3 pr-5 pl-0 ml-0">
+    <span class="badge badge-dark p-2">Add Advice Form</span>
+    <hr>
 
-    <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
-      <div class="row m-0">
-        <div class="col-md-10">
-          <div class="form-group">
-            <textarea
-              type="text"
-              class="form-control"
-              placeholder="Enter description"
-              cols="40"
-              rows="7"
-              name="description"
-              #description="ngModel"
-              [(ngModel)]="this.adviceModel.description"
-            ></textarea>
+    <div class="form-box">
+      <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
+        <div class="row m-0">
+          <div class="col-md-10">
+            <div class="form-group">
+              <textarea
+                type="text"
+                class="form-control"
+                placeholder="Enter description"
+                cols="40"
+                rows="7"
+                name="description"
+                #description="ngModel"
+                required
+                [(ngModel)]="this.adviceModel.description"
+              ></textarea>
+
+              <div class="text-danger pt-2"
+                *ngIf="(description.touched || adviceForm.submitted) && description.errors?.required">
+                Description is Required!
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-md-2">
+            <button class="btn btn-warning" type="submit">Add</button>
           </div>
         </div>
+      </form>
+    </div>
+  
 
-        <div class="col-md-2">
-          <button class="btn btn-warning" type="submit">Add</button>
-        </div>
-      </div>
-    </form>
 
+    <hr>
+    <span class="badge badge-dark p-2">Advice List</span>
+    <hr>
     <table class="table table-light mt-4">
       <thead>
         <tr>

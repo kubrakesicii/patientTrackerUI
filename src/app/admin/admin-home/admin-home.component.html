@@ -62,11 +62,11 @@
       </div>
 
       <div class="col-md-8">
-        <div class="card mb-4 scroll">
+        <div class="card scroll form-box">
           <div class="card-body" [ngSwitch]="this.clickType">
             <div *ngSwitchCase="'country'">
-              <h3>Country Operations</h3>
-              <div class="col-md-12">
+              <span class="badge badge-dark p-2 w-25">Country Operations</span>
+              <hr>
                 <form #countryForm="ngForm" (submit)="addCountry()">
                   <div class="row">
                     <div class="col-md-5">
@@ -101,6 +101,9 @@
                     </div>
                   </div>
                 </form>
+                <hr>
+                  <span class="badge badge-dark p-2 w-25">Country List</span>
+                  <hr>
                 <table class="table table-light">
                   <thead>
                     <tr>
@@ -186,12 +189,11 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
             </div>
 
             <div *ngSwitchCase="'city'">
-              <h3>City Operations</h3>
-              <div class="col-md-12">
+              <span class="badge badge-dark p-2 w-25">City Operations</span>
+              <hr>
                 <form #cityForm="ngForm" (submit)="addCity()">
                   <div class="row">
                     <div class="col-md-5">
@@ -235,8 +237,9 @@
                     </div>
                   </div>
                 </form>
-              </div>
-
+                <hr>
+                <span class="badge badge-dark p-2 w-25">City List</span>
+                <hr>
               <table class="table table-light">
                 <thead>
                   <tr>
@@ -314,8 +317,8 @@
             </div>
 
             <div *ngSwitchCase="'district'">
-              <h3>District Operations</h3>
-              <div class="col-md-12">
+              <span class="badge badge-dark p-2 w-25">District Operations</span>
+              <hr>
                 <form #districtForm="ngForm" (submit)="addDistrict()">
                   <div class="row">
                     <div class="col-md-5">
@@ -357,7 +360,9 @@
                     </div>
                   </div>
                 </form>
-              </div>
+                <hr>
+                <span class="badge badge-dark p-2 w-25">District List</span>
+                <hr>
               <table class="table table-light">
                 <thead>
                   <tr>
@@ -456,7 +461,8 @@
             </div>
 
             <div *ngSwitchCase="'hospital'">
-              <h3>Hospital Operations</h3>
+              <span class="badge badge-dark p-2 w-25">Hospital Operations</span>
+              <hr>
               <div class="container">
                 <form #hospitalForm (submit)="addHospital()">
                   <div class="row">
@@ -589,226 +595,228 @@
 
     <hr class="mt-5 mb-5">
 
+  <div class="form-box">
     <div class="container mt-3">
       <div class="row">
         <div class="col-md-6">
-          <h3 class="text-danger">
-            Select a Hospital and view statistics about that hospital
-          </h3>
+            <span class="badge badge-danger p-2 w75">Select a Hospital and view statistics about that hospital</span>
+            <hr>
         </div>
         <div class="col-md-6">
           <form class="form-inline my-2 my-lg-0 float-right">
             <input
-              #filterText
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Search"
-              (keyup)="searchHospital(filterText.value)"
+               #filterText
+               class="form-control mr-sm-2"
+               type="text"
+               placeholder="Search"
+               (keyup)="searchHospital(filterText.value)"
             />
           </form>
         </div>
       </div>
-
-      <table class="table table-striped">
-        <thead>
-          <th>Description</th>
-          <th>Address</th>
-          <th>Country</th>
-          <th>City</th>
-          <th>District</th>
-          <th>Phone</th>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let hospital of hospitalList ">
-            <td
-              *ngIf="
-                !(editMode && hospital.id == this.updatedHospital.id);
-                else hDesc
-              "
-            >
-              {{ hospital.description }}
-            </td>
-            <td
-              *ngIf="
-                !(editMode && hospital.id == this.updatedHospital.id);
-                else hAddress
-              "
-            >
-              {{ hospital.address }}
-            </td>
-            <td>
-              {{ hospital.countryName }}
-            </td>
-            <td>
-              {{ hospital.cityName }}
-            </td>
-            <td
-              *ngIf="
-                !(editMode && hospital.id == this.updatedHospital.id);
-                else hDistrict
-              "
-            >
-              {{ hospital.districtName }}
-            </td>
-            <td
-              *ngIf="
-                !(editMode && hospital.id == this.updatedHospital.id);
-                else hPhone
-              "
-            >
-              {{ hospital.phone }}
-            </td>
-
-            <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
-              <button
-                class="btn btn-danger mr-2"
-                (click)="deleteHospital(hospital.id)"
+      <div class="row">
+        <table class="table table-striped p-3">
+          <thead>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>District</th>
+            <th>Phone</th>
+          </thead>
+  
+          <tbody>
+            <tr *ngFor="let hospital of hospitalList ">
+              <td
+                *ngIf="
+                  !(editMode && hospital.id == this.updatedHospital.id);
+                  else hDesc
+                "
               >
-                <i class="far fa-trash-alt"></i>
-              </button>
-              <button
-                class="btn btn-primary mr-2"
-                (click)="updateHospital(hospital.id); editMode = true"
-              >
-                <i class="fa fa-pencil-alt"></i>
-              </button>
-              <button
-                class="btn btn-success"
-                (click)="setHospital(hospital.id, hospital.description)"
-              >
-                <i class="fas fa-info-circle"></i>
-              </button>
-            </td>
-
-            <ng-template #hDesc>
-              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                <span class="inline" scope="row">
-                  <input
-                    class="form-control input-field"
-                    [(ngModel)]="updatedHospital.description"
-                    #description="ngModel"
-                    [ngModelOptions]="{ standalone: true }"
-                  />
-                </span>
+                {{ hospital.description }}
               </td>
-            </ng-template>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <select
-                  type="text"
-                  class="form-control input-field"
-                  name="districtId"
-                  [(ngModel)]="updatedHospital.countryId"
+              <td
+                *ngIf="
+                  !(editMode && hospital.id == this.updatedHospital.id);
+                  else hAddress
+                "
+              >
+                {{ hospital.address }}
+              </td>
+              <td>
+                {{ hospital.countryName }}
+              </td>
+              <td>
+                {{ hospital.cityName }}
+              </td>
+              <td
+                *ngIf="
+                  !(editMode && hospital.id == this.updatedHospital.id);
+                  else hDistrict
+                "
+              >
+                {{ hospital.districtName }}
+              </td>
+              <td
+                *ngIf="
+                  !(editMode && hospital.id == this.updatedHospital.id);
+                  else hPhone
+                "
+              >
+                {{ hospital.phone }}
+              </td>
+  
+              <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
+                <button
+                  class="btn btn-danger mr-2"
+                  (click)="deleteHospital(hospital.id)"
                 >
-                  <option
-                    *ngFor="let country of countryList"
-                    [value]="country.id"
-                  ></option>
-                  <option *ngFor="let country of countryList">
-                    {{ country.description }}
-                  </option>
-                </select>
-              </span>
-            </td>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <select
-                  type="text"
-                  class="form-control input-field"
-                  name="cityId"
-                  [(ngModel)]="updatedHospital.cityId"
+                  <i class="far fa-trash-alt"></i>
+                </button>
+                <button
+                  class="btn btn-primary mr-2"
+                  (click)="updateHospital(hospital.id); editMode = true"
                 >
-                  <option
-                    *ngFor="let city of cityList | hospitalPipe: countryid"
-                    [value]="city.id"
-                  >
-                    {{ city.description }}
-                  </option>
-                </select>
-              </span>
-            </td>
-
-            <ng-template #hDistrict>
+                  <i class="fa fa-pencil-alt"></i>
+                </button>
+                <button
+                  class="btn btn-success"
+                  (click)="setHospital(hospital.id, hospital.description)"
+                >
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </td>
+  
+              <ng-template #hDesc>
+                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                  <span class="inline" scope="row">
+                    <input
+                      class="form-control input-field"
+                      [(ngModel)]="updatedHospital.description"
+                      #description="ngModel"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </span>
+                </td>
+              </ng-template>
+  
               <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
                 <span class="inline" scope="row">
                   <select
                     type="text"
                     class="form-control input-field"
                     name="districtId"
-                    [(ngModel)]="updatedHospital.districtId"
+                    [(ngModel)]="updatedHospital.countryId"
                   >
                     <option
-                      *ngFor="let district of districtList"
-                      [value]="district.id"
-                    >
-                      {{ district.description }}
+                      *ngFor="let country of countryList"
+                      [value]="country.id"
+                    ></option>
+                    <option *ngFor="let country of countryList">
+                      {{ country.description }}
                     </option>
                   </select>
                 </span>
               </td>
-            </ng-template>
-
-            <ng-template #hAddress>
+  
               <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
                 <span class="inline" scope="row">
-                  <textarea
-                    rows="4"
-                    cols="10"
+                  <select
+                    type="text"
                     class="form-control input-field"
-                    [(ngModel)]="updatedHospital.address"
-                    #address="ngModel"
-                    [ngModelOptions]="{ standalone: true }"
-                  ></textarea>
+                    name="cityId"
+                    [(ngModel)]="updatedHospital.cityId"
+                  >
+                    <option
+                      *ngFor="let city of cityList | hospitalPipe: countryid"
+                      [value]="city.id"
+                    >
+                      {{ city.description }}
+                    </option>
+                  </select>
                 </span>
               </td>
-            </ng-template>
-
-            <ng-template #hPhone>
+  
+              <ng-template #hDistrict>
+                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                  <span class="inline" scope="row">
+                    <select
+                      type="text"
+                      class="form-control input-field"
+                      name="districtId"
+                      [(ngModel)]="updatedHospital.districtId"
+                    >
+                      <option
+                        *ngFor="let district of districtList"
+                        [value]="district.id"
+                      >
+                        {{ district.description }}
+                      </option>
+                    </select>
+                  </span>
+                </td>
+              </ng-template>
+  
+              <ng-template #hAddress>
+                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                  <span class="inline" scope="row">
+                    <textarea
+                      rows="4"
+                      cols="10"
+                      class="form-control input-field"
+                      [(ngModel)]="updatedHospital.address"
+                      #address="ngModel"
+                      [ngModelOptions]="{ standalone: true }"
+                    ></textarea>
+                  </span>
+                </td>
+              </ng-template>
+  
+              <ng-template #hPhone>
+                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                  <span class="inline" scope="row">
+                    <input
+                      class="form-control input-field"
+                      [(ngModel)]="updatedHospital.phone"
+                      #phone="ngModel"
+                      [ngModelOptions]="{ standalone: true }"
+                    />
+                  </span>
+                </td>
+              </ng-template>
+  
               <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
                 <span class="inline" scope="row">
-                  <input
-                    class="form-control input-field"
-                    [(ngModel)]="updatedHospital.phone"
-                    #phone="ngModel"
-                    [ngModelOptions]="{ standalone: true }"
-                  />
+                  <button class="btn btn-primary mr-2" (click)="saveHospital()">
+                    <i class="far fa-save"></i>
+                  </button>
+                  <button
+                    class="btn btn-danger buttons"
+                    (click)="cancelHospital()"
+                  >
+                    <i class="fa fa-times"></i>
+                  </button>
                 </span>
               </td>
-            </ng-template>
-
-            <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-              <span class="inline" scope="row">
-                <button class="btn btn-primary mr-2" (click)="saveHospital()">
-                  <i class="far fa-save"></i>
-                </button>
-                <button
-                  class="btn btn-danger buttons"
-                  (click)="cancelHospital()"
-                >
-                  <i class="fa fa-times"></i>
-                </button>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </tr>
+          </tbody>
+        </table>
+      </div>  
     </div>
+  </div>
 
-    <hr class="mt-5 mb-5">
+  <hr class="mt-5 mb-4">
 
-    <div class="container pt-5">
-      <h2>{{ selectedHospitalName }}</h2>
+    <div class="container">
+      <div class="display-4 mb-3" style="font-size:30px; text-align:center;">{{ selectedHospitalName }}</div>
 
       <div class="row">
         <div class="col-md-8">
-          <div class="card scroll">
+          <div class="card scroll form-box">
             <div class="card-body" [ngSwitch]="this.hospitalClickType">
               <div *ngSwitchCase="'doctor'">
-                <h3>Doctor Operations</h3>
-                <div class="col-md-12">
+                <span class="badge badge-dark p-2 w-25">Doctor Operations</span>
+                <hr>            
                   <form #doctorForm="ngForm" (submit)="addDoctor()">
                     <div class="row m-0">
                       <div class="col-md-6">
@@ -926,8 +934,10 @@
                       </div>
                     </div>
                   </form>
-
-                  <table class="table table-light">
+                  <hr>
+                  <span class="badge badge-dark p-2 w-25">Doctor List</span>
+                  <hr>
+                  <table class="table table-light w-100">
                     <thead>
                       <tr>
                         <th>First Name</th>
@@ -1085,12 +1095,11 @@
                         </td>
                       </tr>
                     </tbody>
-                  </table>
-                </div>
+                  </table>             
               </div>
               <div *ngSwitchCase="'department'">
-                <h3>Department Operations</h3>
-                <div class="col-md-12">
+                <span class="badge badge-dark p-2 w-25">Department Operations</span>
+                <hr>
                   <form #deptForm="ngForm" (click)="addDepartment()">
                     <div class="row">
                       <div class="col-md-10">
@@ -1112,7 +1121,9 @@
                       </div>
                     </div>
                   </form>
-
+                  <hr>
+                  <span class="badge badge-dark p-2 w-25">Department List</span>
+                  <hr>
                   <table class="table table-light">
                     <thead>
                       <tr>
@@ -1172,12 +1183,11 @@
                         </td>
                       </tr>
                     </tbody>
-                  </table>
-                </div>
+                  </table>         
               </div>
               <div *ngSwitchCase="'disease'">
-                <h3>Disease Operations</h3>
-                <div class="col-md-12">
+                <span class="badge badge-dark p-2 w-25">Disease Operations</span>
+                <hr>
                   <form #diseaseForm="ngForm" (submit)="addDisease()">
                     <div class="row">
                       <div class="col-md-6">
@@ -1222,7 +1232,9 @@
                       </button>
                     </div>
                   </form>
-
+                  <hr>
+                  <span class="badge badge-dark p-2 w-25">Disease List</span>
+                  <hr>
                   <table class="table table-light">
                     <thead>
                       <tr>
@@ -1326,11 +1338,10 @@
                       </tr>
                     </tbody>
                   </table>
-                </div>
               </div>
               <div *ngSwitchCase="'degree'">
-                <h3>Degree Operations</h3>
-                <div class="col-md-12">
+                <span class="badge badge-dark p-2 w-25">Degree Operations</span>
+                <hr>
                   <form #degreeForm="ngForm" (submit)="addDegree()">
                     <div class="row">
                       <div class="col-md-9">
@@ -1352,7 +1363,9 @@
                       </div>
                     </div>
                   </form>
-
+                  <hr>
+                  <span class="badge badge-dark p-2 w-25">Degree List</span>
+                  <hr>
                   <table class="table table-light">
                     <thead>
                       <tr>
@@ -1420,7 +1433,6 @@
                       </tr>
                     </tbody>
                   </table>
-                </div>
               </div>
             </div>
           </div>

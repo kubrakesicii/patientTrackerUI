@@ -18,6 +18,15 @@ nav.navbar.navbar-expand-lg.navbar-dark.bg-primary {
   position: relative;
   height: 400px;
 }
+
+.form-box{
+  padding: 15px;
+  /*alt üst dağılmapayı*/
+  box-shadow: 0 0 8px rgb(209, 203, 203);
+  background-color: rgb(255, 255, 255);
+  height: 100%;
+}
+
 .card1 {
   position: absolute;
   height: 140px;

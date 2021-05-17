@@ -42,8 +42,6 @@ export class QuestionDetailComponent implements OnInit {
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.questionList = x['$values']));
 
-    console.log(this.questionList);
-
   }
 
   addToPatient(questionId : number, patientId : number, event : Event){
@@ -53,9 +51,7 @@ export class QuestionDetailComponent implements OnInit {
     this.postService.addQuestiontoPatient(this.patientQuestion).subscribe(() => {
       var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
       tr?.classList.add("passive");
-      this.ngOnInit();
     });
-
   }
 
   async deletePatQuestion(questionId : number, patientId : number, event : Event){
@@ -63,11 +59,25 @@ export class QuestionDetailComponent implements OnInit {
     this.patientQuestion.patientId = patientId;
 
     await this.getService.getPatQuestionId(this.patientQuestion).then((data) => this.patQuestionId = data);
+    console.log(this.patQuestionId);
     await this.deleteService.removeQuestionFromPatient(this.patQuestionId).subscribe(() => { 
-      this.ngOnInit();
       var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
       tr?.classList.remove("passive");
     });
+
+  }
+
+  async searchQuestion(filterText : string) {
+    if(filterText == ""){
+      await this.getService.getAllQuestions(this.data.deptId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.questionList = x['$values']));
+    }
+    this.questionList = this.questionList.filter(question => {
+      if(question.description.toLowerCase().includes(filterText.toLowerCase()))
+        return true;
+      return false;
+   })
   }
 
 }

@@ -86,7 +86,8 @@ export class AdminHomeComponent implements OnInit {
   hospitalClickType: string = 'doctor';
 
   selectedHospitalId: any = 1;
-  selectedHospitalName: any = '';
+  selectedHospitalName: any = 'Central Hospital';
+
   countryid: any;
 
   public editMode = false;

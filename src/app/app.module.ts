@@ -36,6 +36,7 @@ import { DoctorPostService } from './doctor/services/doctor-post.service';
 import { DoctorDeleteService } from './doctor/services/doctor-delete.service';
 import { DoctorUpdateService } from './doctor/services/doctor-update.service';
 import { MatIconModule } from '@angular/material/icon';
+import { AlertifyService } from './shared-components/services/alertify.service';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { MatIconModule } from '@angular/material/icon';
     DoctorPostService,
     DoctorDeleteService,
     DoctorUpdateService,
+    AlertifyService,
     AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,

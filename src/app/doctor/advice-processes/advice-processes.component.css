@@ -1,0 +1,7 @@
+.form-box{
+    padding: 15px;
+    /*alt üst dağılmapayı*/
+    box-shadow: 0 0 8px rgb(209, 203, 203);
+    background-color: rgb(255, 255, 255);
+    height: 260px;
+}

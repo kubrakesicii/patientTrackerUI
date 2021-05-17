@@ -5,4 +5,5 @@ export class PatientAnswer {
     patientScore : number;
     result : boolean;
     answerDesc : string;
+    createdAt : string;
 }

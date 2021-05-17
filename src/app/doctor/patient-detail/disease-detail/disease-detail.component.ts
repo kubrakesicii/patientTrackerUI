@@ -58,7 +58,6 @@ export class DiseaseDetailComponent implements OnInit {
     this.postService.addDiseaseToPatient(this.patientDiseaseModel).subscribe(data => {
       var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
       tr?.classList.add("passive");
-      this.ngOnInit();
     })
   }
 
@@ -70,10 +69,27 @@ export class DiseaseDetailComponent implements OnInit {
     await this.getService.getPatDiseaseId(this.patientDiseaseModel).then(data => this.patdiseaseId = data);
 
     await this.deleteService.removeDiseaseFromPatient(this.patdiseaseId).subscribe(() => {
-      this.ngOnInit();
       var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
       tr?.classList.remove("passive");
     });
+  }
+
+
+  async searchDisease(filterText : string) {
+    if(filterText == ""){
+      await this.adminGetService.getAllDiseasesByHospital(this.hospitalId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.diseaseList = x['$values']));
+    }
+    await this.adminGetService.getAllDiseasesByHospital(this.hospitalId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.diseaseList = x['$values']));
+
+    this.diseaseList = this.diseaseList.filter(disease => {
+       if(disease.description.toLowerCase().includes(filterText.toLowerCase()))
+         return true;
+       return false;
+    })
   }
 
 }

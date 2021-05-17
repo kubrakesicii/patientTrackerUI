@@ -69,6 +69,10 @@ export class DoctorGetService {
     return this.http.get<PatientAnswer[]>(`${this.apiUrl}/PatientAnswers/AnswersOfPatient?patientId=${patientId}`).toPromise();
   }
 
+  async getAnswerHistoryOfPatient(patientId : number) {
+    return this.http.get<PatientAnswer[]>(`${this.apiUrl}/PatientAnswers/AnswerHistoryOfPatient?patientId=${patientId}`).toPromise();
+  }
+
   async getQuestionsOfPatient(patientId : number) {
     return this.http.get<PatientAnswer[]>(`${this.apiUrl}/PatientQuestions/Questions?patientId=${patientId}`).toPromise();
   }

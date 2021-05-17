@@ -1,8 +1,20 @@
 .danger {
-  background-color: rgb(209, 137, 137);
-  color: white;
   font-weight: bold;
+  animation: blinkingBackground 1s infinite;
 }
+
+@keyframes blinkingBackground{
+  50%		{ 
+    background-color: rgb(209, 137, 137);
+    color: white;
+  }
+  100%	{ 
+    background-color: #ffffff;
+    color: rgb(95, 91, 91);
+  }
+}
+
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -21,4 +33,10 @@
   background-color: #4e8846;
   text-transform: uppercase;
   color: white;
+}
+
+.form-box{
+  padding: 15px;
+  box-shadow: 0 0 8px rgb(209, 203, 203);
+  background-color: rgb(255, 255, 255);
 }

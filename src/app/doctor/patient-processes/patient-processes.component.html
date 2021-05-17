@@ -3,88 +3,93 @@
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="col-9 pr-5 pl-0 ml-0">
-    <h3>Patient Processes</h3>
-
-    <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
-      <div class="row m-0">
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Firstname"
-              name="firstname"
-              #firstname="ngModel"
-              [(ngModel)]="this.patientModel.firstName"
-            />
+  <div class="col-9 pr-5 pl-0 ml-0 mt-4">
+    <span class="badge badge-dark p-2">Add Patient Form</span>
+    <hr>
+    <div class="form-box mb-5">
+      <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Firstname"
+                name="firstname"
+                #firstname="ngModel"
+                [(ngModel)]="this.patientModel.firstName"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Lastname"
+                name="lastname"
+                #lastname="ngModel"
+                [(ngModel)]="this.patientModel.lastName"
+              />
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Lastname"
-              name="lastname"
-              #lastname="ngModel"
-              [(ngModel)]="this.patientModel.lastName"
-            />
+  
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Gsm"
+                name="gsm"
+                #gsm="ngModel"
+                [(ngModel)]="this.patientModel.gsm"
+              />
+            </div>
+          </div>
+  
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter ID"
+                name="identity"
+                #identity="ngModel"
+                [(ngModel)]="this.patientModel.identityNumber"
+              />
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="row m-0">
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Gsm"
-              name="gsm"
-              #gsm="ngModel"
-              [(ngModel)]="this.patientModel.gsm"
-            />
+  
+        <div class="row m-0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Email"
+                name="email"
+                #email="ngModel"
+                [(ngModel)]="this.patientModel.email"
+              />
+            </div>
           </div>
         </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter ID"
-              name="identity"
-              #identity="ngModel"
-              [(ngModel)]="this.patientModel.identityNumber"
-            />
+  
+        <div class="row m-0">
+          <div class="col-md-2">
+            <button class="btn btn-warning" type="submit">Add</button>
           </div>
         </div>
-      </div>
-
-      <div class="row m-0">
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Email"
-              name="email"
-              #email="ngModel"
-              [(ngModel)]="this.patientModel.email"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row m-0">
-        <div class="col-md-2">
-          <button class="btn btn-warning" type="submit">Add</button>
-        </div>
-      </div>
-    </form>
-
-    <table class="table table-light mt-4">
+      </form>
+    </div>
+    
+    <hr>
+    <span class="badge badge-dark p-2 mt-3">Patient List</span>
+    <hr>
+    <table class="table table-light mt-4 mb-5">
       <thead class="bg-priary">
         <tr>
           <th>Identity Number</th>
@@ -217,8 +222,10 @@
       </tbody>
     </table>
 
-    <h3>Patient History</h3>
-    <table class="table table-light mt-4">
+    <hr>
+    <span class="badge badge-dark p-2 mt-3">Removed Patients</span>
+    <hr>
+    <table class="table table-light mt-4 mb-5">
       <thead>
         <tr>
           <th>Identity Number</th>
