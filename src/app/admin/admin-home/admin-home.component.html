@@ -1,11 +1,13 @@
 <div class="item-body m-0 p-0">
-  <nav class="navbar navbar-expand-lg mb-5" style="background-color: #78c2ad">
+  <nav class="navbar navbar-expand-lg mb-5" style="background-color: #d1e2dd">
     <a class="navbar-brand">
-      <button class="btn" (click)="logout()">
-        <img src="assets/images/log-out.png" />
-      </button>
+      <div class="logo"></div>
     </a>
     <p class="welcome">Welcome {{ userInfo.fullName }} <br /></p>
+    <button class="btn btn-danger float-right" (click)="logout()">
+      <!-- <img src="assets/images/log-out.png" /> -->
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
   </nav>
  
 

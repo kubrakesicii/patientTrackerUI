@@ -6,13 +6,14 @@ import { DoctorGetService } from '../services/doctor-get.service';
 import { DoctorPostService } from '../services/doctor-post.service';
 import { PatientDisease } from '../models/patient-disease.model';
 import { Disease } from 'src/app/admin/models/disease.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddPatient } from '../models/add-patient.model';
 import { NgForm } from '@angular/forms';
 import { UpdatePatient } from '../models/update-patient.model';
 import { DoctorDeleteService } from '../services/doctor-delete.service';
 import { DoctorUpdateService } from '../services/doctor-update.service';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-patient-processes',
@@ -27,7 +28,7 @@ export class PatientProcessesComponent implements OnInit {
   updatedPatient : UpdatePatient = new UpdatePatient();
   activePatientList : GetPatient[];
   removedPatientList : GetPatient[];
-
+  personId : any;
   public editMode = false;
 
   patDiseaseModel : PatientDisease = new PatientDisease();
@@ -38,21 +39,26 @@ export class PatientProcessesComponent implements OnInit {
               private deleteService : DoctorDeleteService,
               private updateService : DoctorUpdateService,
               private router : Router,
-              private alertify : AlertifyService) { }
+              private alertify : AlertifyService,
+              private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.loadListData();
+      this.loadListData();
   }
 
 
-  async getUserInfo(){
-    this.userInfo.personId = JSON.parse(localStorage.getItem("userInfo") || "{}").id;
-    this.userInfo.personType = JSON.parse(localStorage.getItem("userInfo") || "{}").personType;
-    this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
-  }
+  // async getUserInfo(){
+  //   this.userInfo.personId = JSON.parse(localStorage.getItem("userInfo") || "{}").id ? JSON.parse(localStorage.getItem("userInfo") || "{}").id : this.personId;
+  //   this.userInfo.personType = JSON.parse(localStorage.getItem("userInfo") || "{}").personType;
+  //   this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
+  // }
 
   async loadListData(){
-    await this.getUserInfo();
+    await this.authService.getUserInfo().then((data) => {
+      this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
+      this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
+      this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
+    })
 
     await this.getService.getDoctorById(this.userInfo.personId).then(data =>{
       this.doctorModel.id = JSON.parse(JSON.stringify(data)).id;

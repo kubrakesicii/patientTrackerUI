@@ -440,7 +440,7 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   async getUserInfo() {
-    await this.authService.getUserInfo().subscribe((data) => {
+    await this.authService.getUserInfo().then((data) => {
       this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
       this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
       this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;

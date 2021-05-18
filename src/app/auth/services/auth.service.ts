@@ -15,6 +15,7 @@ export class AuthService {
   userToken : any;
   decodedToken : any;
   userRole : number;
+  personId : number;
 
   public tokenInfo : TokenInfo = new TokenInfo();
   public userInfo : UserInfo = new UserInfo();
@@ -35,8 +36,9 @@ export class AuthService {
 
       this.userRole = this.decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
       console.log(this.userRole);
+      this.personId = this.decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
 
-      this.getUserInfo().subscribe(data => {
+      this.getUserInfo().then(data => {
         localStorage.setItem("userInfo",JSON.stringify(data))
   
         this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
@@ -48,7 +50,8 @@ export class AuthService {
         this.router.navigateByUrl("admin-home");       
       }
       else if(this.userRole == 2) {
-         this.router.navigateByUrl("doctor-home");
+        //  this.router.navigateByUrl("doctor-home");
+        this.router.navigate(['doctor-home', {personId : this.personId}])
       }
       else {
         this.router.navigateByUrl("");
@@ -73,8 +76,8 @@ export class AuthService {
     return localStorage.getItem("refreshToken");
   }
 
-  getUserInfo() {
-    return this.http.get(this.apiUrl+"Authentication/UserInfo");
+  async getUserInfo() {
+    return this.http.get(this.apiUrl+"Authentication/UserInfo").toPromise();
   }
 
   isLoggedIn(){

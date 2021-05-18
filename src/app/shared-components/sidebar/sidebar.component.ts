@@ -27,13 +27,20 @@ export class SidebarComponent implements OnInit {
 
 
   async getUserInfo(){
-    this.userInfo.personId = JSON.parse(localStorage.getItem("userInfo") || "{}").id;
-    this.userInfo.personType = JSON.parse(localStorage.getItem("userInfo") || "{}").personType;
-    this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
+    // this.userInfo.personId = JSON.parse(localStorage.getItem("userInfo") || "{}").id;
+    // this.userInfo.personType = JSON.parse(localStorage.getItem("userInfo") || "{}").personType;
+    // this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
+   
 }
 
 async loadData(){
- await this.getUserInfo();
+  await this.authService.getUserInfo().then((data) => {
+    this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
+    this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
+    this.userInfo.personId = JSON.parse(JSON.stringify(data)).id;
+  })
+  
+ console.log(this.userInfo.personId)
 
  await this.getService.getDoctorById(this.userInfo.personId).then(data =>{
    this.doctorModel.id = JSON.parse(JSON.stringify(data)).id;

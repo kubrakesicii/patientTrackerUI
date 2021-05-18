@@ -310,23 +310,11 @@ p.welcome {
   margin-left: 500px;
 }
 
-/* .alertify .ajs-dialog {
-  max-width: 250px;
-  min-height: 122px;
-  background-color: #fff;
-  border: 1px solid rgba(0,0,0,.2);
-  box-shadow: 0 5px 15px rgb(0 0 0 / 50%);
-  border-radius: 6px;
+.logo {
+  width: 150px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  background-image: url("../../shared-components/images/logo.png");
+  background-size: cover;
 }
-
-.alertify .ajs-footer .ajs-buttons .ajs-button .ajs-ok{
-  min-width: 75px;
-  min-height: 35px;
-  background-color: rgb(58, 131, 58);
-}
-
-.alertify .ajs-footer .ajs-buttons .ajs-button .ajs-cancel{
-  min-width: 75px;
-  min-height: 35px;
-  background-color: rgb(165, 84, 73);
-} */
