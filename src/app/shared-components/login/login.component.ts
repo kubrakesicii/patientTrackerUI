@@ -5,6 +5,7 @@ import { LoginUser } from '../../auth/models/loginUser.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { ForgotPassComponent } from '../forgot-pass/forgot-pass.component';
 import { AlertifyService } from '../services/alertify.service';
+import { LoaderService } from '../services/loader.service';
 
 
 
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService : AuthService,
               private dialog: MatDialog,
-              private alertify : AlertifyService
+              private alertify : AlertifyService,
+              public loaderService : LoaderService
              ) {}
 
   ngOnInit(): void {

@@ -44,3 +44,7 @@
     <hr>
   </div>
 </div>
+
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+  <mat-spinner></mat-spinner>
+</div>

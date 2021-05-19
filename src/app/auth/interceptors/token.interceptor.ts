@@ -7,26 +7,33 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { LoaderService } from 'src/app/shared-components/services/loader.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private authService : AuthService) {}
+  constructor(private authService : AuthService, public loaderService : LoaderService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    // const token = this.authService.tokenInfo;
-    // const isLoggedIn = token && token.token;
-
-    // const isApiUrl = request.url.startsWith(this.authService.apiUrl);
-    // if (isLoggedIn && isApiUrl) {
-    //   request = request.clone({
-    //     setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` },
-    //   });
-    // }
-
     request = request.clone({
       setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` },
     });
     return next.handle(request);
   }
+
+  
+  // intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  //   request = request.clone({
+  //     setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` },
+  //   });
+  //   this.loaderService.isLoading.next(true);
+
+  //   return next.handle(request).pipe(
+  //     finalize(
+  //       () => {
+  //         this.loaderService.isLoading.next(false);
+  //       }
+  //     )
+  //   );
+  // }
 }

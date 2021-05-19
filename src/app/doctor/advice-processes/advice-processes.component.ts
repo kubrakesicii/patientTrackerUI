@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
+import { LoaderService } from 'src/app/shared-components/services/loader.service';
 import { Advice } from '../models/advice.model';
 import { Doctor } from '../models/doctor.model';
 import { DoctorDeleteService } from '../services/doctor-delete.service';
@@ -29,7 +31,8 @@ export class AdviceProcessesComponent implements OnInit {
               private postService : DoctorPostService,
               private deleteService : DoctorDeleteService,
               private updateService : DoctorUpdateService,
-              private alertify : AlertifyService) { }
+              private alertify : AlertifyService,
+              public loaderService : LoaderService) { }
 
   ngOnInit(): void {
     this.loadListData();
@@ -59,10 +62,13 @@ async loadListData(){
 
 
     addAdvice(adviceForm : NgForm){
-      this.adviceModel.departmentId = this.doctorModel.departmentId;
-      this.adviceModel.createdUserName = this.userInfo.fullName;
+      this.loaderService.isLoading.next(true);
 
-      return this.postService.addAdvice(this.adviceModel).subscribe(data => {
+      this.adviceModel.departmentId = this.doctorModel.departmentId;
+
+      return this.postService.addAdvice(this.adviceModel)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+      .subscribe(data => {
         this.resetForm(adviceForm);
         this.ngOnInit();
         this.alertify.success("Advice Added Successfully!");
@@ -71,7 +77,11 @@ async loadListData(){
 
     deleteAdvice(adviceId : number) {
       this.alertify.confirm("Are you sure you want to delete this advice?", () => {
-        this.deleteService.deleteAdvice(adviceId).subscribe(data => {
+        this.loaderService.isLoading.next(true);
+
+        this.deleteService.deleteAdvice(adviceId)
+        .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+        .subscribe(data => {
           this.ngOnInit();
           this.alertify.success("Advice Removed Successfully!");
         })
@@ -83,13 +93,15 @@ async loadListData(){
       await this.getService.getAdviceById(adviceId).then(data => {
         this.updatedAdvice.id = JSON.parse(JSON.stringify(data))['id'];
         this.updatedAdvice.description = JSON.parse(JSON.stringify(data))['description'];
-        this.updatedAdvice.createdUserName = JSON.parse(JSON.stringify(data))['createdUserName'];
         this.updatedAdvice.departmentId = this.doctorModel.departmentId;
       });
     }
 
     saveAdvice() {
+      this.loaderService.isLoading.next(true);
+
       this.updateService.updateAdvice(this.updatedAdvice.id, this.updatedAdvice)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Advice Updated Successfully!");
@@ -102,7 +114,6 @@ async loadListData(){
       this.updatedAdvice = {
         id : 0,
         description : '',
-        createdUserName : '',
         departmentId : 0
       }
     }
@@ -113,7 +124,6 @@ async loadListData(){
       }
       this.adviceModel = {
         description : '',
-        createdUserName : 'string',
         departmentId: 0,
         id : 0
       }

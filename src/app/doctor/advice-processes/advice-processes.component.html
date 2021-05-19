@@ -11,10 +11,11 @@
       <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
         <div class="row m-0">
           <div class="col-md-10">
-            <div class="form-group">
+            <div class="form-group" [class.has-error]="description.invalid">
               <textarea
                 type="text"
                 class="form-control"
+                [class.is-invalid] = "description.invalid && (description.dirty || description.touched)"
                 placeholder="Enter description"
                 cols="40"
                 rows="7"
@@ -23,11 +24,9 @@
                 required
                 [(ngModel)]="this.adviceModel.description"
               ></textarea>
-
-              <div class="text-danger pt-2"
-                *ngIf="(description.touched || adviceForm.submitted) && description.errors?.required">
+              <span class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
                 Description is Required!
-              </div>
+              </span>
             </div>
           </div>
   
@@ -91,4 +90,8 @@
       </tbody>
     </table>
   </div>
+</div>
+
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+  <mat-spinner></mat-spinner>
 </div>

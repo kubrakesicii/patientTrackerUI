@@ -11,28 +11,28 @@
       <form #questionForm="ngForm" (submit)="addQuestion(questionForm)">
         <div class="row m-0">
           <div class="col-md-6">
-            <div class="form-group">
-              <input
+            <div class="form-group " >
+              <input             
                 type="text"
                 class="form-control"
+                [class.is-invalid] = "description.invalid && (description.dirty || description.touched)"  
                 placeholder="Enter description"
                 name="description"
                 #description="ngModel"
                 [(ngModel)]="this.questionModel.description"
                 required
               />
+              <span class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
+                Description is Required!
+              </span>
             </div>
-            <div class="text-danger mb-1"
-              *ngIf="(description.touched || questionForm.submitted) && description.errors?.required">
-            Description is Required!
-            </div>
-
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <select
                 type="number"
                 class="form-control selection"
+                [class.is-invalid] = "questionType.invalid && (questionType.dirty || questionType.touched)"
                 placeholder="Select questionType"
                 name="questionType"
                 #questionType="ngModel"
@@ -43,10 +43,9 @@
                   {{ o.name }}
                 </option>
               </select>
-            </div>
-            <div class="text-danger"
-              *ngIf="(questionType.touched || questionForm.submitted) && questionType.errors?.required">
-            Question Type is Required!
+              <span class="invalid-feedback" *ngIf="questionType.invalid && (questionType.dirty || questionType.touched)">
+                Question Type is Required!
+              </span>
             </div>
           </div>
         </div>
@@ -57,16 +56,16 @@
               <input
                 type="number"
                 class="form-control"
+                [class.is-invalid] = "lowerLimit.invalid && (lowerLimit.dirty || lowerLimit.touched)"
                 placeholder="Enter Lower Limit"
                 name="gsm"
                 #lowerLimit="ngModel"
                 [(ngModel)]="this.questionModel.lowerLimit"
                 required
               />
-            </div>
-            <div class="text-danger"
-              *ngIf="(lowerLimit.touched || questionForm.submitted) && lowerLimit.errors?.required">
-            Lower Limit is Required!
+              <span class="invalid-feedback" *ngIf="lowerLimit.invalid && (lowerLimit.dirty || lowerLimit.touched)">
+                Lower Limit is Required!
+              </span>
             </div>
           </div>
   
@@ -75,16 +74,16 @@
               <input
                 type="number"
                 class="form-control"
+                [class.is-invalid] = "upperLimit.invalid && (upperLimit.dirty || upperLimit.touched)"
                 placeholder="Enter Upper Limit"
                 name="upperLimit"
                 #upperLimit="ngModel"
                 [(ngModel)]="this.questionModel.upperLimit"
                 required
               />
-            </div>
-            <div class="text-danger"
-              *ngIf="(upperLimit.touched || questionForm.submitted) && upperLimit.errors?.required">
-            Upper Limit is Required!
+              <span class="invalid-feedback" *ngIf="upperLimit.invalid && (upperLimit.dirty || upperLimit.touched)">
+                Upper Limit is Required!
+              </span>
             </div>
           </div>
         </div>
@@ -108,11 +107,16 @@
                   <input
                     type="text"
                     class="form-control"
+                    [class.is-invalid] = "ans1.invalid && (ans1.dirty || ans1.touched)"
                     placeholder="Enter Description"
-                    name="gsm"
-                    #lowerLimit="ngModel"
+                    name="ans1"
+                    #ans1="ngModel"
+                    required
                     [(ngModel)]="this.answer1.description"
                   />
+                  <span class="invalid-feedback" *ngIf="ans1.invalid && (ans1.dirty || ans1.touched)">
+                    Answer1 is Required!
+                  </span>
                 </div>
               </div>
   
@@ -121,11 +125,16 @@
                   <input
                     type="number"
                     class="form-control"
+                    [class.is-invalid] = "score1.invalid && (score1.dirty || score1.touched)"
                     placeholder="Enter Score"
-                    name="upperLimit"
-                    #upperLimit="ngModel"
+                    name="score1"
+                    #score1="ngModel"
+                    required
                     [(ngModel)]="this.answer1.score"
                   />
+                  <span class="invalid-feedback" *ngIf="score1.invalid && (score1.dirty || score1.touched)">
+                    Score is Required!
+                  </span>
                 </div>
               </div>
             </div>
@@ -138,11 +147,16 @@
                   <input
                     type="text"
                     class="form-control"
+                    [class.is-invalid] = "ans2.invalid && (ans2.dirty || ans2.touched)"
                     placeholder="Enter Description"
-                    name="gsm"
-                    #lowerLimit="ngModel"
+                    name="ans2"
+                    #ans2="ngModel"
+                    required
                     [(ngModel)]="this.answer2.description"
                   />
+                  <span class="invalid-feedback" *ngIf="ans2.invalid && (ans2.dirty || ans2.touched)">
+                    Description is Required!
+                  </span>
                 </div>
               </div>
   
@@ -151,11 +165,16 @@
                   <input
                     type="number"
                     class="form-control"
+                    [class.is-invalid]="score2.invalid && (score2.dirty || score2.touched)"
                     placeholder="Enter Score"
-                    name="upperLimit"
-                    #upperLimit="ngModel"
+                    name="score2"
+                    #score2="ngModel"
+                    required
                     [(ngModel)]="this.answer2.score"
                   />
+                  <span class="invalid-feedback" *ngIf="score2.invalid && (score2.dirty || score2.touched)">
+                    Score is Required!
+                  </span>
                 </div>
               </div>
             </div>
@@ -168,11 +187,16 @@
                   <input
                     type="text"
                     class="form-control"
+                    [class.is-invalid] = "ans3.invalid && (ans3.dirty || ans3.touched)"
                     placeholder="Enter Description"
-                    name="gsm"
-                    #lowerLimit="ngModel"
+                    name="ans3"
+                    #ans3="ngModel"
+                    required
                     [(ngModel)]="this.answer3.description"
                   />
+                  <span class="invalid-feedback" *ngIf="ans3.invalid && (ans3.dirty || ans3.touched)">
+                    Description is Required!
+                  </span>
                 </div>
               </div>
   
@@ -181,11 +205,16 @@
                   <input
                     type="number"
                     class="form-control"
+                    [class.is-invalid] = "score3.invalid && (score3.dirty || score3.touched)"
                     placeholder="Enter Score"
-                    name="upperLimit"
-                    #upperLimit="ngModel"
+                    name="score3"
+                    #score3="ngModel"
+                    required
                     [(ngModel)]="this.answer3.score"
                   />
+                  <span class="invalid-feedback" *ngIf="score3.invalid && (score3.dirty || score3.touched)">
+                    Score is Required!
+                  </span>
                 </div>
               </div>
             </div>
@@ -198,11 +227,16 @@
                   <input
                     type="text"
                     class="form-control"
+                    [class.is-invalid] = "ans4.invalid && (ans4.dirty || ans4.touched)"
                     placeholder="Enter Description"
-                    name="gsm"
-                    #lowerLimit="ngModel"
+                    name="ans4"
+                    #ans4="ngModel"
+                    required
                     [(ngModel)]="this.answer4.description"
                   />
+                  <span class="invalid-feedback" *ngIf="ans4.invalid && (ans4.dirty || ans4.touched)">
+                    Description is Required!
+                  </span>
                 </div>
               </div>
   
@@ -211,11 +245,16 @@
                   <input
                     type="number"
                     class="form-control"
+                    [class.is-invalid] = "score4.invalid && (score4.dirty || score4.touched)"
                     placeholder="Enter Score"
-                    name="upperLimit"
-                    #upperLimit="ngModel"
+                    name="score4"
+                    #score4="ngModel"
+                    required
                     [(ngModel)]="this.answer4.score"
                   />
+                  <span class="invalid-feedback" *ngIf="score4.invalid && (score4.dirty || score4.touched)">
+                    Score is Required!
+                  </span>
                 </div>
               </div>
             </div>
@@ -340,4 +379,7 @@
       </tbody>
     </table>
   </div>
+</div>
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+  <mat-spinner></mat-spinner>
 </div>

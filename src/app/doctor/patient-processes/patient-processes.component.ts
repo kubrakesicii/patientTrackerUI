@@ -14,6 +14,8 @@ import { DoctorDeleteService } from '../services/doctor-delete.service';
 import { DoctorUpdateService } from '../services/doctor-update.service';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { LoaderService } from 'src/app/shared-components/services/loader.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-patient-processes',
@@ -40,7 +42,8 @@ export class PatientProcessesComponent implements OnInit {
               private updateService : DoctorUpdateService,
               private router : Router,
               private alertify : AlertifyService,
-              private authService : AuthService) { }
+              private authService : AuthService,
+              public loaderService : LoaderService) { }
 
   ngOnInit(): void {
       this.loadListData();
@@ -54,6 +57,8 @@ export class PatientProcessesComponent implements OnInit {
   // }
 
   async loadListData(){
+    this.loaderService.isLoading.next(true);
+
     await this.authService.getUserInfo().then((data) => {
       this.userInfo.personType = JSON.parse(JSON.stringify(data)).personType;
       this.userInfo.fullName = JSON.parse(JSON.stringify(data)).fullName;
@@ -72,21 +77,24 @@ export class PatientProcessesComponent implements OnInit {
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.activePatientList = x['$values']));
 
-    await this.getService.getAllRemovedPatients(this.userInfo.personId)
+    await this.getService
+    .getAllRemovedPatients(this.userInfo.personId)
     .then((data) => JSON.parse(JSON.stringify(data)))
-    .then((x) => (this.removedPatientList = x['$values']));
+    .then((x) => (this.removedPatientList = x['$values']))
+    .finally(() => this.loaderService.isLoading.next(false));
+
   }
 
   addPatient(patientForm : NgForm) {
-    this.postService.addPatient(this.patientModel).subscribe(data => {
+    this.loaderService.isLoading.next(true);
+
+    this.postService.addPatient(this.patientModel)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe(data => {
       this.ngOnInit();
       this.resetForm(patientForm);
       this.alertify.success("Patient Added Successfully!");
     });
-  }
-
-  addDisease(){
-    return this.postService.addDiseaseToPatient(this.patDiseaseModel).subscribe(data => console.log(data));
   }
 
   resetForm(form : NgForm) {
@@ -104,7 +112,11 @@ export class PatientProcessesComponent implements OnInit {
 
   deletePatient(patientId : number) {
     this.alertify.confirm("Are you sure yout want to remove this Patient?", () => {
-      this.deleteService.deletePatient(patientId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deletePatient(patientId)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+      .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Patient Removed Successfully!");
       })
@@ -117,8 +129,11 @@ export class PatientProcessesComponent implements OnInit {
   }
 
   savePatient(){
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updatePatient(this.updatedPatient.id, this.updatedPatient)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Patient Updated Successfully!");

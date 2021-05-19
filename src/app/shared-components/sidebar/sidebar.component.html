@@ -1,76 +1,29 @@
-<!-- <div class="sidenav">
-    <div>
-      <h2><b>{{degree.description}} {{this.userInfo.fullName}} </b></h2>
-      <h3> {{department.description}} </h3>
-    </div>
-    <div class="mt-5">
-      <a routerLink = "/doctor-home/patient-processes" routerLinkActive> Patient Processes </a>
-      <a routerLink = "/doctor-home/advice-processes"> Advice Processes </a>
-      <a routerLink = "/doctor-home/question-processes"> Question Processes </a>
-      <a routerLink = "/doctor-home/appointment-processes"> Appointment Processes </a>
 
-
-      <button class="btn btn-danger mt-5 ml-5" (click)="logout()">LOGOUT</button>
-    </div>
-  </div> -->
-
-<!-- ---------------------------------------------------------------- -->
-
-<!-- <div class="sidenav">
-  <div class="logo">
-    <a href="/" class="simple-text logo-mini">
-      <div class="logo-img">
-        <img src="" alt="" />
-      </div>
-    </a>
-    <a href="/" class="simple-text logo-normal"> Patient Tracker </a>
-  </div>
-
-  <ul class="nav">
-    <li class="active">
-      <a routerLink="/doctor-home/patient-processes" routerLinkActive>
-        Patient Processes
-      </a>
-    </li>
-    <li class="active">
-      <a routerLink="/doctor-home/advice-processes"> Advice Processes </a>
-    </li>
-    <li class="active">
-      <a routerLink="/doctor-home/question-processes"> Question Processes </a>
-    </li>
-    <li class="active">
-      <a routerLink="/doctor-home/appointment-processes">
-        Appointment Processes
-      </a>
-    </li>
-  </ul>
-
-  <button class="btn btn-danger mt-5 ml-5" (click)="logout()">LOGOUT</button>
-
-</div> -->
-
-<div class="wrapper">
+<div class="wrapper mr-0 ml-0">
   <div class="sidebar">
     <h2> {{degree.description}}  Dr. {{userInfo.fullName}} </h2>
     <p> {{department.description}} </p>
     <ul>
-      <li>
+      <li [ngClass]="{active: this.currentRoute == 'patient-processes'}">
         <a routerLink="/doctor-home/patient-processes"><i class="fas fa-user-injured"></i>Patient Processes</a>
       </li>
-      <li>
+      <li [ngClass]="{active: this.currentRoute == 'advice-processes'}">
         <a routerLink="/doctor-home/advice-processes"><i class="fas fa-clipboard-list"></i>Advice Processes</a>
       </li>
 
-      <li>
+      <li [ngClass]="{active: this.currentRoute == 'question-processes'}">
         <a routerLink="/doctor-home/question-processes"><i class="fas fa-question"></i>Question Processes</a>
       </li>
-      <li>
+      <li [ngClass]="{active: this.currentRoute == 'appointment-processes'}">
         <a routerLink="/doctor-home/appointment-processes"><i class="fas fa-user-edit"></i>Appointment Processes</a>
       </li>
       <li>
         <a (click)="logout()"><i class="fas fa-sign-out-alt"></i>LOGOUT</a>
       </li>
     </ul>
+      <div class="logo-box">
+        <div class="logo text-center"></div>
+      </div>
   </div>
   <div class="main_content">
     <div class="header">Welcome!!!!</div>

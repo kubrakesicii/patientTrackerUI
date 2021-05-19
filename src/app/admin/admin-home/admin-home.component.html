@@ -1,17 +1,41 @@
 <div class="item-body m-0 p-0">
-  <nav class="navbar navbar-expand-lg mb-5" style="background-color: #d1e2dd">
+  <!-- <nav class="navbar navbar-expand-lg mb-5" style="background-color: #d1e2dd">
     <a class="navbar-brand">
       <div class="logo"></div>
     </a>
-    <p class="welcome">Welcome {{ userInfo.fullName }} <br /></p>
-    <button class="btn btn-danger float-right" (click)="logout()">
-      <!-- <img src="assets/images/log-out.png" /> -->
-      <i class="fas fa-sign-out-alt"></i>
-    </button>
-  </nav>
- 
+    
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <p class="welcome mav-link disabled">Welcome {{ userInfo.fullName }} <br /></p>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-light float-right" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </li>
+    </ul>  
+  </nav> -->
 
-  <div class="container mb-5">
+  <div *ngIf="loaderService.isLoading | async" class="loader-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+    <div class="nav-brand d-inline">
+      <a class="navbar-brand">
+        <div class="logo"></div>
+      </a>
+    </div>
+  
+    <div class="nav-end float-right mt-3">
+        <p class="welcome mav-link disabled mr-5">Welcome, {{ userInfo.fullName }} <br /></p>
+        <button class="btn btn-danger" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+    
+  <hr class="m-0">
+
+  <div class="container mb-5 mt-5">
     <div class="row">
       <div class="col-md-4">
         <div
@@ -703,7 +727,7 @@
                 </button>
               </td>
   
-              <ng-template #hDesc>
+              <ng-template #hDesc class="m-0 p-0">
                 <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
                   <span class="inline" scope="row">
                     <input
@@ -1005,15 +1029,18 @@
                           *ngIf="
                             !(editMode && doctor.id == this.updatedDoctorId)
                           "
+                          class="p-0 m-0"
                         >
                           <button
-                            class="btn btn-danger mr-2"
+                            class="btn btn-danger mr-1"
+                            style="margin-right: 0; padding: 5px 7px 5px 7px;"
                             (click)="deleteDoctor(doctor.id)"
                           >
                             <i class="far fa-trash-alt"></i>
                           </button>
                           <button
                             class="btn btn-primary"
+                            style="margin-right: 0; padding: 5px 7px 5px 7px;"
                             (click)="updateDoctor(doctor.id)"
                           >
                             <i class="fa fa-pencil-alt"></i>
@@ -1131,7 +1158,7 @@
                         </div>
                       </div>
                       <div class="col-md-2">
-                        <button class="btnbtn-outline-warning" type="submit">
+                        <button class="btn btn-outline-warning" type="submit">
                           Add
                         </button>
                       </div>

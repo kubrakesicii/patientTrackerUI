@@ -3,6 +3,7 @@ import { finalize } from 'rxjs/operators';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
+import { LoaderService } from 'src/app/shared-components/services/loader.service';
 import { City } from '../models/city.model';
 import { Country } from '../models/country.model';
 import { Degree } from '../models/degree.model';
@@ -34,7 +35,8 @@ export class AdminHomeComponent implements OnInit {
     private deleteService: AdminDeleteService,
     private authService: AuthService,
     private updateService: AdminUpdateService,
-    private alertify : AlertifyService
+    private alertify : AlertifyService,
+    public loaderService : LoaderService
   ) {}
 
   userInfo: UserInfo = new UserInfo();
@@ -210,9 +212,10 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addCountry() {
-    this.loading = true;
+    this.loaderService.isLoading.next(true);
+
     this.postService.addCountry(this.countryModel)
-      .pipe(finalize(() => this.loading = false))
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
       this.countryModel = {
         id: 0,
@@ -226,7 +229,11 @@ export class AdminHomeComponent implements OnInit {
 
   deleteCountry(countryId: number) {
     this.alertify.confirm("Are you sure you want to remove this country?",() => {
-      this.deleteService.deleteCountry(countryId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteCountry(countryId)
+        .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+        .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Country Removed Successfully!");
       });
@@ -241,8 +248,11 @@ export class AdminHomeComponent implements OnInit {
       .then((data) => (this.updatedCountry = JSON.parse(JSON.stringify(data))));
   }
   saveCountry() {
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updateCountry(this.updatedCountry.id, this.updatedCountry)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Country Updated Successfully!");
@@ -261,7 +271,11 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addCity() {
-    this.postService.addCity(this.cityModel).subscribe((data) => {
+    this.loaderService.isLoading.next(true);
+
+    this.postService.addCity(this.cityModel)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe((data) => {
       this.cityModel = {
         id: 0,
         description: '',
@@ -274,7 +288,11 @@ export class AdminHomeComponent implements OnInit {
 
   deleteCity(cityId: number) {
     this.alertify.confirm("Are you sure you want to remove this city?", () => {
-      this.deleteService.deleteCity(cityId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteCity(cityId)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+      .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("City Removed Successfully!");
       });
@@ -289,8 +307,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveCity() {
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updateCity(this.updatedCity.id, this.updatedCity)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("City Updated Successfully!");
@@ -309,7 +330,11 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addDistrict() {
-    this.postService.addDistrict(this.districtModel).subscribe((data) => {
+    this.loaderService.isLoading.next(true);
+
+    this.postService.addDistrict(this.districtModel)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe((data) => {
       this.districtModel = {
         id: 0,
         cityId: 0,
@@ -322,7 +347,11 @@ export class AdminHomeComponent implements OnInit {
 
   deleteDistrict(districtId: number) {
     this.alertify.confirm("Are you sure you want to remove this district?", () => {
-      this.deleteService.deleteDistrict(districtId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteDistrict(districtId)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+      .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("District Removed Successfully!");
       });
@@ -339,8 +368,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveDistrict() {
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updateDistrict(this.updatedDistrict.id, this.updatedDistrict)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("District Updated Successfully!");
@@ -376,7 +408,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   addHospital() {
-    this.postService.addHospital(this.hospitalModel).subscribe((data) => {
+    this.loaderService.isLoading.next(true);
+
+    this.postService.addHospital(this.hospitalModel)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe((data) => {
       this.hospitalModel = {
         id: 0,
         description: '',
@@ -396,7 +432,11 @@ export class AdminHomeComponent implements OnInit {
 
   deleteHospital(hospitalId: number) {
     this.alertify.confirm("Are you sure you want to remove this hospital?", () => {
-      this.deleteService.deleteHospital(hospitalId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteHospital(hospitalId)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+      .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Hospital Removed Successfully!");
       });
@@ -413,8 +453,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveHospital() {
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updateHospital(this.updatedHospital.id, this.updatedHospital)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Hospital Updated Successfully!");
@@ -472,23 +515,27 @@ export class AdminHomeComponent implements OnInit {
   }
 
   async loadPageData() {
+    this.loaderService.isLoading.next(true);
+
     await this.loadGeneralData();
     await this.loadHospitalData(this.selectedHospitalId);
+
+    this.loaderService.isLoading.next(false);
   }
 
   ////////
 
   addDoctor() {
-    console.log(this.postDoctor);
-    this.postService.addDoctor(this.postDoctor).subscribe((data) => {
-      this.doctorModel = {
-        id: 0,
+    this.loaderService.isLoading.next(true);
+
+    this.postService.addDoctor(this.postDoctor)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+    .subscribe((data) => {
+      this.postDoctor = {
         email: '',
         firstName: '',
         lastName: '',
         gsm: '',
-        departmentName: '',
-        degreeName: '',
         departmentId: 0,
         degreeId: 0,
       };
@@ -499,7 +546,11 @@ export class AdminHomeComponent implements OnInit {
 
   deleteDoctor(doctorId: number) {
     this.alertify.confirm("Are you sure you want to remove this doctor?", () => {
-      this.deleteService.deleteDoctor(doctorId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteDoctor(doctorId)
+        .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+        .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Doctor Removed Successfully!");
       });
@@ -520,8 +571,10 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveDoctor() {
+    this.loaderService.isLoading.next(true);
     this.updateService
       .updateDoctor(this.updatedDoctorId, this.updatedDoctor)
+      .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Doctor Updated Successfully!");
@@ -543,8 +596,12 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addDepartment() {
+    this.loaderService.isLoading.next(true);
+
     this.deptModel.hospitalId = this.selectedHospitalId;
-    this.postService.addDepartment(this.deptModel).subscribe((data) => {
+    this.postService.addDepartment(this.deptModel)
+      .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
+      .subscribe((data) => {
       this.deptModel = {
         id: 0,
         description: '',
@@ -557,7 +614,11 @@ export class AdminHomeComponent implements OnInit {
 
   deleteDepartment(deptId: number) {
     this.alertify.confirm("Are you sure you want to remove this department?", () => {
-      this.deleteService.deleteDepartment(deptId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteDepartment(deptId)
+        .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
+        .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Department Removed Successfully!");
       });
@@ -572,8 +633,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveDept() {
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updateDepartment(this.updatedDept.id, this.updatedDept)
+      .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Department Updated Successfully!");
@@ -592,23 +656,31 @@ export class AdminHomeComponent implements OnInit {
   ////////
 
   addDisease() {
-    this.postService.addDisease(this.diseaseModel).subscribe((data) => {
-      this.diseaseModel = {
-        id: 0,
-        description: '',
-        departmentName: '',
-        departmentId: 0,
-      };
-      this.ngOnInit();
-      this.alertify.success("Disease Added Successfully!");
+    this.loaderService.isLoading.next(true);
+
+    this.postService.addDisease(this.diseaseModel)
+      .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
+      .subscribe((data) => {
+        this.diseaseModel = {
+          id: 0,
+          description: '',
+          departmentName: '',
+          departmentId: 0,
+        };
+        this.ngOnInit();
+        this.alertify.success("Disease Added Successfully!");
     });
   }
 
   deleteDisease(diseaseId: number) {
     this.alertify.confirm("Are you sure you want to remove this disease?", () => {
-      this.deleteService.deleteDisease(diseaseId).subscribe(() => {
-        this.ngOnInit();
-        this.alertify.success("Disease Removed Successfully!");
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteDisease(diseaseId)
+        .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
+        .subscribe(() => {
+          this.ngOnInit();
+          this.alertify.success("Disease Removed Successfully!");
       });
     })
   }
@@ -621,8 +693,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveDisease() {
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updateDisease(this.updatedDisease.id, this.updatedDisease)
+      .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Disease Updated Successfully!");
@@ -642,7 +717,11 @@ export class AdminHomeComponent implements OnInit {
   /////////
 
   addDegree() {
-    this.postService.addDegree(this.degreeModel).subscribe((data) => {
+    this.loaderService.isLoading.next(true);
+
+    this.postService.addDegree(this.degreeModel)
+    .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
+    .subscribe((data) => {
       this.degreeModel = {
         id: 0,
         description: '',
@@ -654,7 +733,11 @@ export class AdminHomeComponent implements OnInit {
 
   deleteDegree(degreeId: number) {
     this.alertify.confirm("Are you sure you want to remove this degree?", () => {
-      this.deleteService.deleteDegree(degreeId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteDegree(degreeId)
+      .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
+      .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Degree Removed Successfully!");
       });
@@ -669,8 +752,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   saveDegree() {
+    this.loaderService.isLoading.next(true);
+
     this.updateService
       .updateDegree(this.updatedDegree.id, this.updatedDegree)
+      .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
       .subscribe((data) => {
         this.ngOnInit();
         this.alertify.success("Degree Updated Successfully!");

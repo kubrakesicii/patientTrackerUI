@@ -40,3 +40,12 @@
   box-shadow: 0 0 8px rgb(209, 203, 203);
   background-color: rgb(255, 255, 255);
 }
+
+.loader-container {
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50px, -50px);
+}

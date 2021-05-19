@@ -37,6 +37,9 @@ import { DoctorDeleteService } from './doctor/services/doctor-delete.service';
 import { DoctorUpdateService } from './doctor/services/doctor-update.service';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertifyService } from './shared-components/services/alertify.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +71,8 @@ import { AlertifyService } from './shared-components/services/alertify.service';
     MatDialogModule,
     MatSidenavModule,
     MatIconModule,
-    ToastrModule.forRoot(),
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService,

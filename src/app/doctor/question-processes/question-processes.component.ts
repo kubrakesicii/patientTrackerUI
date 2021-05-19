@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { finalize } from 'rxjs/operators';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
+import { LoaderService } from 'src/app/shared-components/services/loader.service';
 import { Answer } from '../models/answer.model';
 import { Doctor } from '../models/doctor.model';
 import { Question } from '../models/question.model';
@@ -37,7 +39,8 @@ export class QuestionProcessesComponent implements OnInit {
               private postService : DoctorPostService,
               private deleteService : DoctorDeleteService,
               private updateService : DoctorUpdateService,
-              private alertify : AlertifyService) {
+              private alertify : AlertifyService,
+              public loaderService : LoaderService) {
                 this.options = [{name :  "Multiple Choice Question", value : 1},
                                 {name :  "Numeric Question", value : 2}];
                }
@@ -53,6 +56,8 @@ export class QuestionProcessesComponent implements OnInit {
 }
 
 async loadListData(){
+  this.loaderService.isLoading.next(true);
+
     await this.getUserInfo();
 
     await this.getService.getDoctorById(this.userInfo.personId).then(data =>{
@@ -65,7 +70,8 @@ async loadListData(){
 
     await this.getService.getAllQuestions(this.doctorModel.departmentId)
     .then((data) => JSON.parse(JSON.stringify(data)))
-    .then((x) => (this.questionList = x['$values']));
+    .then((x) => (this.questionList = x['$values']))
+    .finally(() => this.loaderService.isLoading.next(false));
 
     this.questionList.forEach((x) => {
       x.questionType == 1 ? x.questionType = "Multiple Choice" : x.questionType = "Numeric"
@@ -74,6 +80,8 @@ async loadListData(){
 
 
   async addQuestion(questionForm : NgForm){
+    this.loaderService.isLoading.next(true);
+
     this.questionModel.questionType = parseInt(this.questionModel.questionType);
     this.questionType = this.questionModel.questionType;
 
@@ -86,7 +94,8 @@ async loadListData(){
       this.answer2.questionPoolId = this.insertId;
       this.answer3.questionPoolId = this.insertId;
       this.answer4.questionPoolId = this.insertId;  
-    });
+    })
+    .finally(() => this.loaderService.isLoading.next(false));
 
 
     if(this.questionType == 1) {
@@ -105,7 +114,11 @@ async loadListData(){
 
   deleteQuestion(questionId : number) {
     this.alertify.confirm("Are you sure you want to remove this Question?", () => {
-      this.deleteService.deleteQuestion(questionId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteQuestion(questionId)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+      .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Question Removed Successfully!");
       })
@@ -118,7 +131,10 @@ async loadListData(){
   }
 
   saveQuestion(){
+    this.loaderService.isLoading.next(true);
+
     this.updateService.updateQuestion(this.updatedQuestion.id, this.updatedQuestion)
+    .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe((data) => {
       this.ngOnInit();
       this.alertify.success("Question Updated Successfully!");

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
+import { LoaderService } from 'src/app/shared-components/services/loader.service';
 import { Appointment } from '../models/appointment.model';
 import { Doctor } from '../models/doctor.model';
 import { DoctorDeleteService } from '../services/doctor-delete.service';
@@ -25,7 +27,8 @@ export class AppointmentProcessesComponent implements OnInit {
   constructor(private getService : DoctorGetService, 
               private postService : DoctorPostService,
               private alertify : AlertifyService,
-              private deleteService : DoctorDeleteService)
+              private deleteService : DoctorDeleteService,
+              public loaderService : LoaderService)
               { }
 
   ngOnInit(): void {
@@ -57,7 +60,11 @@ async loadData(){
 
   deleteAppointment(appointmentId : number) {
     this.alertify.confirm("Are you sure you want to remove this Appointment?", () => {
-      this.deleteService.deleteAppointment(appointmentId).subscribe(() => {
+      this.loaderService.isLoading.next(true);
+
+      this.deleteService.deleteAppointment(appointmentId)
+      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+      .subscribe(() => {
         this.ngOnInit();
         this.alertify.success("Appointment is Removed Successfully!");
       })

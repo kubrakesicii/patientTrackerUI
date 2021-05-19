@@ -72,3 +72,12 @@ body, html {
   background-image: url("../images/logo.png");
   background-size: cover;
 }
+
+.loader-container {
+  position: absolute;
+  width: 100%;
+  z-index: 9;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50px, -50px);
+}

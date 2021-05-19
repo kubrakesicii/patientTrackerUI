@@ -46,3 +46,8 @@
   table {
     font-size : 16px
   }
+
+  .mat-progress-spinner circle, .mat-spinner circle {
+    /* stroke: #cac5c5; */
+    stroke: rgb(176, 199, 163);
+  }

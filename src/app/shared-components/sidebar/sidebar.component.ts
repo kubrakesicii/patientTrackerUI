@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 import { Degree } from 'src/app/admin/models/degree.model';
 import { Department } from 'src/app/admin/models/department.model';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
@@ -17,21 +18,19 @@ export class SidebarComponent implements OnInit {
   userInfo : UserInfo = new UserInfo();
   degree : Degree = new Degree();
   department : Department = new Department();
+  currentRoute: string;
 
   constructor(private getService : DoctorGetService,
-              private authService : AuthService) { }
+              private authService : AuthService,
+              private activeRoute : ActivatedRoute) { 
+                
+              }
 
   ngOnInit(): void {
     this.loadData();
+    this.activeRoute.url.subscribe(data => this.currentRoute = data[1].path)
   }
 
-
-  async getUserInfo(){
-    // this.userInfo.personId = JSON.parse(localStorage.getItem("userInfo") || "{}").id;
-    // this.userInfo.personType = JSON.parse(localStorage.getItem("userInfo") || "{}").personType;
-    // this.userInfo.fullName = JSON.parse(localStorage.getItem("userInfo") || "{}").fullName;
-   
-}
 
 async loadData(){
   await this.authService.getUserInfo().then((data) => {
