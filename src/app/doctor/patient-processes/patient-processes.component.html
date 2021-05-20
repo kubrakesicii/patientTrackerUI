@@ -122,7 +122,78 @@
                 class="invalid-feedback"
                 *ngIf="email.invalid && (email.dirty || email.touched)"
               >
-                Email is Required!
+                Age is Required!
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-0">
+          <div class="col-md-4">
+            <div class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter Age"
+                [class.is-invalid]="
+                age.invalid && (age.dirty || age.touched)
+                "
+                required
+                name="age"
+                #age="ngModel"
+                [(ngModel)]="this.patientModel.age"
+              />
+              <span
+                class="invalid-feedback"
+                *ngIf="
+                age.invalid && (age.dirty || age.touched)
+                "
+              >
+                FirstName is Required!
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter Weight"
+                [class.is-invalid]="
+                weight.invalid && (weight.dirty || weight.touched)
+                "
+                required
+                name="weight"
+                #weight="ngModel"
+                [(ngModel)]="this.patientModel.weight"
+              />
+              <span
+                class="invalid-feedback"
+                *ngIf="weight.invalid && (weight.dirty || weight.touched)"
+              >
+                Weight is Required!
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <input
+                type="number"
+                class="form-control"
+                placeholder="Enter Height"
+                [class.is-invalid]="
+                height.invalid && (height.dirty || height.touched)
+                "
+                required
+                name="height"
+                #height="ngModel"
+                [(ngModel)]="this.patientModel.height"
+              />
+              <span
+                class="invalid-feedback"
+                *ngIf="height.invalid && (height.dirty || height.touched)"
+              >
+                Height is Required!
               </span>
             </div>
           </div>

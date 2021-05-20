@@ -77,6 +77,10 @@ export class QuestionDetailComponent implements OnInit {
       .then((data) => JSON.parse(JSON.stringify(data)))
       .then((x) => (this.questionList = x['$values']));
     }
+    await this.getService.getAllQuestions(this.data.deptId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.questionList = x['$values']));
+      
     this.questionList = this.questionList.filter(question => {
       if(question.description.toLowerCase().includes(filterText.toLowerCase()))
         return true;

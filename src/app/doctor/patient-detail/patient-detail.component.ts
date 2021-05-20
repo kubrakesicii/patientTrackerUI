@@ -63,7 +63,10 @@ export class PatientDetailComponent implements OnInit {
       this.patientModel.identityNumber = data.identityNumber,
       this.patientModel.diseases = JSON.parse(JSON.stringify(data.diseases))['$values'],
       this.patientModel.departmentId = data.departmentId,
-      this.patientModel.hospitalId = data.hospitalId
+      this.patientModel.hospitalId = data.hospitalId,
+      this.patientModel.age = data.age,
+      this.patientModel.weight = data.weight,
+      this.patientModel.height = data.height
     })
 
     await this.getService.getQuestionsOfPatient(this.patientId)

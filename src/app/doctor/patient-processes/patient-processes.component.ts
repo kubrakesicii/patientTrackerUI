@@ -107,6 +107,9 @@ export class PatientProcessesComponent implements OnInit {
       firstName : '',
       lastName : '',
       gsm : '',
+      age : 0,
+      height : 0,
+      weight : 0
     }
   }
 
@@ -149,7 +152,10 @@ export class PatientProcessesComponent implements OnInit {
       lastName : '',
       gsm : '',
       email : '',
-      identityNumber : ''
+      identityNumber : '',
+      age : 0,
+      weight : 0,
+      height : 0
     }
   }
 }

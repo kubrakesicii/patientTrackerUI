@@ -4,4 +4,7 @@ export class AddPatient {
     firstName : string;
     lastName : string;
     gsm : string;
+    age : number;
+    weight : number;
+    height : number;
 }
