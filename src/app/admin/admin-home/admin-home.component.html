@@ -3,7 +3,7 @@
     <a class="navbar-brand">
       <div class="logo"></div>
     </a>
-    
+
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <p class="welcome mav-link disabled">Welcome {{ userInfo.fullName }} <br /></p>
@@ -13,27 +13,29 @@
           <i class="fas fa-sign-out-alt"></i>
         </button>
       </li>
-    </ul>  
+    </ul>
   </nav> -->
 
   <div *ngIf="loaderService.isLoading | async" class="loader-container">
     <mat-spinner></mat-spinner>
   </div>
 
-    <div class="nav-brand d-inline">
-      <a class="navbar-brand">
-        <div class="logo"></div>
-      </a>
-    </div>
-  
-    <div class="nav-end float-right mt-3">
-        <p class="welcome mav-link disabled mr-5">Welcome, {{ userInfo.fullName }} <br /></p>
-        <button class="btn btn-danger" (click)="logout()">
-          <i class="fas fa-sign-out-alt"></i>
-        </button>
-    </div>
-    
-  <hr class="m-0">
+  <div class="nav-brand d-inline">
+    <a class="navbar-brand">
+      <div class="logo"></div>
+    </a>
+  </div>
+
+  <div class="nav-end float-right mt-3">
+    <p class="welcome mav-link disabled mr-5">
+      Welcome, {{ userInfo.fullName }} <br />
+    </p>
+    <button class="btn btn-danger" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </div>
+
+  <hr class="m-0" />
 
   <div class="container mb-5 mt-5">
     <div class="row">
@@ -45,11 +47,14 @@
           <!--begin::Row-->
           <div class="row">
             <div class="col-md-12">
-              <span class="badge badge-primary p-2 mb-2 text-center" style="font-size: 17px; text-align:center;">
+              <span
+                class="badge badge-primary p-2 mb-2 text-center"
+                style="font-size: 17px; text-align: center"
+              >
                 <i class="fas fa-chart-line mr-3"></i> General Statistics ( # )
               </span>
             </div>
-            <hr>
+            <hr />
           </div>
           <div class="row m-0">
             <div
@@ -100,180 +105,206 @@
           <div class="card-body" [ngSwitch]="this.clickType">
             <div *ngSwitchCase="'country'">
               <span class="badge badge-dark p-2 w-25">Country Operations</span>
-              <hr>
-                <form #countryForm="ngForm" (submit)="addCountry()">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Enter Country Name"
-                          name="description"
-                          #description="ngModel"
-                          [(ngModel)]="this.countryModel.description"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Enter Country Code"
-                          name="countryCode"
-                          #countryCode="ngModel"
-                          [(ngModel)]="this.countryModel.countryCode"
-                        />
-                      </div>
-                    </div>
-
-                    <div class="col-md-2">
-                      <button class="btn btn-outline-warning" type="submit">
-                        Add
-                      </button>
+              <hr />
+              <form #countryForm="ngForm" (submit)="addCountry()">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [class.is-invalid]="
+                          description.invalid &&
+                          (description.dirty || description.touched)
+                        "
+                        required
+                        placeholder="Enter Country Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.countryModel.description"
+                      />
+                      <span
+                        class="invalid-feedback"
+                        *ngIf="
+                          description.invalid &&
+                          (description.dirty || description.touched)
+                        "
+                      >
+                        Description is Required!
+                      </span>
                     </div>
                   </div>
-                </form>
-                <hr>
-                  <span class="badge badge-dark p-2 w-25">Country List</span>
-                  <hr>
-                <table class="table table-light">
-                  <thead>
-                    <tr>
-                      <th>Description</th>
-                      <th>Country Code</th>
-                      <th>D / U</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let country of countryList">
-                      <td
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [class.is-invalid]="
+                          countryCode.invalid &&
+                          (countryCode.dirty || countryCode.touched)
+                        "
+                        required
+                        placeholder="Enter Country Code"
+                        name="countryCode"
+                        #countryCode="ngModel"
+                        [(ngModel)]="this.countryModel.countryCode"
+                      />
+                      <span
+                        class="invalid-feedback"
                         *ngIf="
-                          !(editMode && country.id == this.updatedCountry.id)
+                          countryCode.invalid &&
+                          (countryCode.dirty || countryCode.touched)
                         "
                       >
-                        {{ country.description }}
-                      </td>
-                      <td
-                        *ngIf="
-                          !(editMode && country.id == this.updatedCountry.id)
-                        "
+                        Country Code is Required!
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <button class="btn btn-outline-warning" type="submit">
+                      Add
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <hr />
+              <span class="badge badge-dark p-2 w-25">Country List</span>
+              <hr />
+              <table class="table table-light">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Country Code</th>
+                    <th>D / U</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let country of countryList">
+                    <td
+                      *ngIf="
+                        !(editMode && country.id == this.updatedCountry.id)
+                      "
+                    >
+                      {{ country.description }}
+                    </td>
+                    <td
+                      *ngIf="
+                        !(editMode && country.id == this.updatedCountry.id)
+                      "
+                    >
+                      {{ country.countryCode }}
+                    </td>
+                    <td
+                      *ngIf="
+                        !(editMode && country.id == this.updatedCountry.id)
+                      "
+                    >
+                      <button
+                        class="btn btn-danger mr-2"
+                        (click)="deleteCountry(country.id)"
                       >
-                        {{ country.countryCode }}
-                      </td>
-                      <td
-                        *ngIf="
-                          !(editMode && country.id == this.updatedCountry.id)
-                        "
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                      <button
+                        class="btn btn-primary"
+                        (click)="updateCountry(country.id); editMode = true"
                       >
+                        <i class="fa fa-pencil-alt"></i>
+                      </button>
+                    </td>
+                    <td
+                      *ngIf="editMode && country.id == this.updatedCountry.id"
+                    >
+                      <span scope="row">
+                        <input
+                          class="form-control input-field"
+                          [(ngModel)]="updatedCountry.description"
+                          type="text"
+                        />
+                      </span>
+                    </td>
+                    <td
+                      *ngIf="editMode && country.id == this.updatedCountry.id"
+                    >
+                      <span scope="row">
+                        <input
+                          class="form-control input-field"
+                          [(ngModel)]="updatedCountry.countryCode"
+                          type="text"
+                        />
+                      </span>
+                    </td>
+                    <td
+                      *ngIf="editMode && country.id == this.updatedCountry.id"
+                    >
+                      <span scope="row">
                         <button
-                          class="btn btn-danger mr-2"
-                          (click)="deleteCountry(country.id)"
+                          class="btn btn-primary mr-2"
+                          (click)="saveCountry(); editMode = false"
                         >
-                          <i class="far fa-trash-alt"></i>
+                          <i class="far fa-save"></i>
                         </button>
                         <button
-                          class="btn btn-primary"
-                          (click)="updateCountry(country.id); editMode = true"
+                          class="btn btn-danger"
+                          (click)="cancelCountry()"
                         >
-                          <i class="fa fa-pencil-alt"></i>
+                          <i class="fas fa-times"></i>
                         </button>
-                      </td>
-                      <td
-                        *ngIf="editMode && country.id == this.updatedCountry.id"
-                      >
-                        <span scope="row">
-                          <input
-                            class="form-control input-field"
-                            [(ngModel)]="updatedCountry.description"
-                            type="text"
-                          />
-                        </span>
-                      </td>
-                      <td
-                        *ngIf="editMode && country.id == this.updatedCountry.id"
-                      >
-                        <span scope="row">
-                          <input
-                            class="form-control input-field"
-                            [(ngModel)]="updatedCountry.countryCode"
-                            type="text"
-                          />
-                        </span>
-                      </td>
-                      <td
-                        *ngIf="editMode && country.id == this.updatedCountry.id"
-                      >
-                        <span scope="row">
-                          <button
-                            class="btn btn-primary mr-2"
-                            (click)="saveCountry(); editMode = false"
-                          >
-                            <i class="far fa-save"></i>
-                          </button>
-                          <button
-                            class="btn btn-danger"
-                            (click)="cancelCountry()"
-                          >
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <div *ngSwitchCase="'city'">
               <span class="badge badge-dark p-2 w-25">City Operations</span>
-              <hr>
-                <form #cityForm="ngForm" (submit)="addCity()">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <select
-                          type="text"
-                          class="form-control"
-                          placeholder="Select Country"
-                          name="countryId"
-                          #countryId="ngModel"
-                          [(ngModel)]="this.cityModel.countryId"
+              <hr />
+              <form #cityForm="ngForm" (submit)="addCity()">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <select
+                        type="text"
+                        class="form-control"
+                        placeholder="Select Country"
+                        name="countryId"
+                        #countryId="ngModel"
+                        [(ngModel)]="this.cityModel.countryId"
+                      >
+                        <option value="0" disabled>--Select a Country--</option>
+                        <option
+                          *ngFor="let country of countryList"
+                          [value]="country.id"
                         >
-                          <option value="0" disabled>
-                            --Select a Country--
-                          </option>
-                          <option
-                            *ngFor="let country of countryList"
-                            [value]="country.id"
-                          >
-                            {{ country.description }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Enter City Name"
-                          name="description"
-                          #description="ngModel"
-                          [(ngModel)]="this.cityModel.description"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                      <button class="btn btn-outline-warning" type="submit">
-                        Add
-                      </button>
+                          {{ country.description }}
+                        </option>
+                      </select>
                     </div>
                   </div>
-                </form>
-                <hr>
-                <span class="badge badge-dark p-2 w-25">City List</span>
-                <hr>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter City Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.cityModel.description"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-outline-warning" type="submit">
+                      Add
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <hr />
+              <span class="badge badge-dark p-2 w-25">City List</span>
+              <hr />
               <table class="table table-light">
                 <thead>
                   <tr>
@@ -352,51 +383,48 @@
 
             <div *ngSwitchCase="'district'">
               <span class="badge badge-dark p-2 w-25">District Operations</span>
-              <hr>
-                <form #districtForm="ngForm" (submit)="addDistrict()">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <select
-                          type="text"
-                          class="form-control"
-                          placeholder="Select District"
-                          name="districtId"
-                          #cityId="ngModel"
-                          [(ngModel)]="this.districtModel.cityId"
-                        >
-                          <option value="0" disabled>--Select a City--</option>
-                          <option
-                            *ngFor="let city of cityList"
-                            [value]="city.id"
-                          >
-                            {{ city.description }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Enter Discription Name"
-                          name="description"
-                          #description="ngModel"
-                          [(ngModel)]="this.districtModel.description"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                      <button class="btn btn-outline-warning" type="submit">
-                        Add
-                      </button>
+              <hr />
+              <form #districtForm="ngForm" (submit)="addDistrict()">
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <select
+                        type="text"
+                        class="form-control"
+                        placeholder="Select District"
+                        name="districtId"
+                        #cityId="ngModel"
+                        [(ngModel)]="this.districtModel.cityId"
+                      >
+                        <option value="0" disabled>--Select a City--</option>
+                        <option *ngFor="let city of cityList" [value]="city.id">
+                          {{ city.description }}
+                        </option>
+                      </select>
                     </div>
                   </div>
-                </form>
-                <hr>
-                <span class="badge badge-dark p-2 w-25">District List</span>
-                <hr>
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Discription Name"
+                        name="description"
+                        #description="ngModel"
+                        [(ngModel)]="this.districtModel.description"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-outline-warning" type="submit">
+                      Add
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <hr />
+              <span class="badge badge-dark p-2 w-25">District List</span>
+              <hr />
               <table class="table table-light">
                 <thead>
                   <tr>
@@ -496,7 +524,7 @@
 
             <div *ngSwitchCase="'hospital'">
               <span class="badge badge-dark p-2 w-25">Hospital Operations</span>
-              <hr>
+              <hr />
               <div class="container">
                 <form #hospitalForm (submit)="addHospital()">
                   <div class="row">
@@ -510,10 +538,17 @@
                           name="countryId"
                           #country
                           [(value)]="countryid"
-                          (change)="filterCity(country.options[country.selectedIndex].value)"
+                          (change)="
+                            filterCity(
+                              country.options[country.selectedIndex].value
+                            )
+                          "
                         >
                           <option>--Select a Country--</option>
-                          <option [value]="country.id" *ngFor="let country of countryList">
+                          <option
+                            [value]="country.id"
+                            *ngFor="let country of countryList"
+                          >
                             {{ country.description }}
                           </option>
                         </select>
@@ -529,14 +564,15 @@
                           placeholder="Select City"
                           name="cityId"
                           #city
-                          (change)="filterDistrict(city.options[city.selectedIndex].value)"
-
+                          (change)="
+                            filterDistrict(
+                              city.options[city.selectedIndex].value
+                            )
+                          "
                         >
                           <option>--Select a City--</option>
                           <option
-                            *ngFor="
-                              let city of filteredCityList
-                            "
+                            *ngFor="let city of filteredCityList"
                             [value]="city.id"
                           >
                             {{ city.description }}
@@ -628,227 +664,243 @@
               </div>
             </div>
           </div>
-         
         </div>
       </div>
     </div>
 
-    <hr class="mt-5 mb-5">
+    <hr class="mt-5 mb-5" />
 
-  <div class="form-box">
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-md-6">
-            <span class="badge badge-danger p-2 w-75">Select a Hospital and view statistics about that hospital</span>
-            <hr>
+    <div class="form-box">
+      <div class="container mt-3">
+        <div class="row">
+          <div class="col-md-6">
+            <span class="badge badge-danger p-2 w-75"
+              >Select a Hospital and view statistics about that hospital</span
+            >
+            <hr />
+          </div>
+          <div class="col-md-6">
+            <form class="form-inline my-2 my-lg-0 float-right">
+              <input
+                #filterText
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Search"
+                (keyup)="searchHospital(filterText.value)"
+              />
+            </form>
+          </div>
         </div>
-        <div class="col-md-6">
-          <form class="form-inline my-2 my-lg-0 float-right">
-            <input
-               #filterText
-               class="form-control mr-sm-2"
-               type="text"
-               placeholder="Search"
-               (keyup)="searchHospital(filterText.value)"
-            />
-          </form>
-        </div>
-      </div>
-      <div class="row">
-        <table class="table table-striped p-3">
-          <thead>
-            <th>Description</th>
-            <th>Address</th>
-            <th>Country</th>
-            <th>City</th>
-            <th>District</th>
-            <th>Phone</th>
-          </thead>
-  
-          <tbody>
-            <tr *ngFor="let hospital of hospitalList ">
-              <td
-                *ngIf="
-                  !(editMode && hospital.id == this.updatedHospital.id);
-                  else hDesc
-                "
-              >
-                {{ hospital.description }}
-              </td>
-              <td
-                *ngIf="
-                  !(editMode && hospital.id == this.updatedHospital.id);
-                  else hAddress
-                "
-              >
-                {{ hospital.address }}
-              </td>
-              <td>
-                {{ hospital.countryName }}
-              </td>
-              <td>
-                {{ hospital.cityName }}
-              </td>
-              <td
-                *ngIf="
-                  !(editMode && hospital.id == this.updatedHospital.id);
-                  else hDistrict
-                "
-              >
-                {{ hospital.districtName }}
-              </td>
-              <td
-                *ngIf="
-                  !(editMode && hospital.id == this.updatedHospital.id);
-                  else hPhone
-                "
-              >
-                {{ hospital.phone }}
-              </td>
-  
-              <td *ngIf="!(editMode && hospital.id == this.updatedHospital.id)">
-                <button
-                  class="btn btn-danger mr-2"
-                  (click)="deleteHospital(hospital.id)"
+        <div class="row">
+          <table class="table table-striped p-3">
+            <thead>
+              <th>Description</th>
+              <th>Address</th>
+              <th>Country</th>
+              <th>City</th>
+              <th>District</th>
+              <th>Phone</th>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let hospital of hospitalList">
+                <td
+                  *ngIf="
+                    !(editMode && hospital.id == this.updatedHospital.id);
+                    else hDesc
+                  "
                 >
-                  <i class="far fa-trash-alt"></i>
-                </button>
-                <button
-                  class="btn btn-primary mr-2"
-                  (click)="updateHospital(hospital.id); editMode = true"
-                >
-                  <i class="fa fa-pencil-alt"></i>
-                </button>
-                <button
-                  class="btn btn-success"
-                  (click)="setHospital(hospital.id, hospital.description)"
-                >
-                  <i class="fas fa-info-circle"></i>
-                </button>
-              </td>
-  
-              <ng-template #hDesc class="m-0 p-0">
-                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                  <span class="inline" scope="row">
-                    <input
-                      class="form-control input-field"
-                      [(ngModel)]="updatedHospital.description"
-                      #description="ngModel"
-                      [ngModelOptions]="{ standalone: true }"
-                    />
-                  </span>
+                  {{ hospital.description }}
                 </td>
-              </ng-template>
-  
-              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                <span class="inline" scope="row">
-                  <select
-                    type="text"
-                    class="form-control input-field"
-                    name="districtId"
-                    [(ngModel)]="updatedHospital.countryId"
+                <td
+                  *ngIf="
+                    !(editMode && hospital.id == this.updatedHospital.id);
+                    else hAddress
+                  "
+                >
+                  {{ hospital.address }}
+                </td>
+                <td>
+                  {{ hospital.countryName }}
+                </td>
+                <td>
+                  {{ hospital.cityName }}
+                </td>
+                <td
+                  *ngIf="
+                    !(editMode && hospital.id == this.updatedHospital.id);
+                    else hDistrict
+                  "
+                >
+                  {{ hospital.districtName }}
+                </td>
+                <td
+                  *ngIf="
+                    !(editMode && hospital.id == this.updatedHospital.id);
+                    else hPhone
+                  "
+                >
+                  {{ hospital.phone }}
+                </td>
+
+                <td
+                  *ngIf="!(editMode && hospital.id == this.updatedHospital.id)"
+                >
+                  <button
+                    class="btn btn-danger mr-2"
+                    (click)="deleteHospital(hospital.id)"
                   >
-                    <option
-                      *ngFor="let country of countryList"
-                      [value]="country.id"
-                    ></option>
-                    <option *ngFor="let country of countryList">
-                      {{ country.description }}
-                    </option>
-                  </select>
-                </span>
-              </td>
-  
-              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                <span class="inline" scope="row">
-                  <select
-                    type="text"
-                    class="form-control input-field"
-                    name="cityId"
-                    [(ngModel)]="updatedHospital.cityId"
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button
+                    class="btn btn-primary mr-2"
+                    (click)="updateHospital(hospital.id); editMode = true"
                   >
-                    <option
-                      *ngFor="let city of cityList | hospitalPipe: countryid"
-                      [value]="city.id"
-                    >
-                      {{ city.description }}
-                    </option>
-                  </select>
-                </span>
-              </td>
-  
-              <ng-template #hDistrict>
+                    <i class="fa fa-pencil-alt"></i>
+                  </button>
+                  <button
+                    class="btn btn-success"
+                    (click)="setHospital(hospital.id, hospital.description)"
+                  >
+                    <i class="fas fa-info-circle"></i>
+                  </button>
+                </td>
+
+                <ng-template #hDesc class="m-0 p-0">
+                  <td
+                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                  >
+                    <span class="inline" scope="row">
+                      <input
+                        class="form-control input-field"
+                        [(ngModel)]="updatedHospital.description"
+                        #description="ngModel"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </span>
+                  </td>
+                </ng-template>
+
                 <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
                   <span class="inline" scope="row">
                     <select
                       type="text"
                       class="form-control input-field"
                       name="districtId"
-                      [(ngModel)]="updatedHospital.districtId"
+                      [(ngModel)]="updatedHospital.countryId"
                     >
                       <option
-                        *ngFor="let district of districtList"
-                        [value]="district.id"
-                      >
-                        {{ district.description }}
+                        *ngFor="let country of countryList"
+                        [value]="country.id"
+                      ></option>
+                      <option *ngFor="let country of countryList">
+                        {{ country.description }}
                       </option>
                     </select>
                   </span>
                 </td>
-              </ng-template>
-  
-              <ng-template #hAddress>
-                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                  <span class="inline" scope="row">
-                    <textarea
-                      rows="4"
-                      cols="10"
-                      class="form-control input-field"
-                      [(ngModel)]="updatedHospital.address"
-                      #address="ngModel"
-                      [ngModelOptions]="{ standalone: true }"
-                    ></textarea>
-                  </span>
-                </td>
-              </ng-template>
-  
-              <ng-template #hPhone>
-                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                  <span class="inline" scope="row">
-                    <input
-                      class="form-control input-field"
-                      [(ngModel)]="updatedHospital.phone"
-                      #phone="ngModel"
-                      [ngModelOptions]="{ standalone: true }"
-                    />
-                  </span>
-                </td>
-              </ng-template>
-  
-              <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                <span class="inline" scope="row">
-                  <button class="btn btn-primary mr-2" (click)="saveHospital()">
-                    <i class="far fa-save"></i>
-                  </button>
-                  <button
-                    class="btn btn-danger buttons"
-                    (click)="cancelHospital()"
-                  >
-                    <i class="fa fa-times"></i>
-                  </button>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>  
-    </div>
-  </div>
 
-  <hr class="mt-5 mb-4">
+                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                  <span class="inline" scope="row">
+                    <select
+                      type="text"
+                      class="form-control input-field"
+                      name="cityId"
+                      [(ngModel)]="updatedHospital.cityId"
+                    >
+                      <option
+                        *ngFor="let city of cityList | hospitalPipe: countryid"
+                        [value]="city.id"
+                      >
+                        {{ city.description }}
+                      </option>
+                    </select>
+                  </span>
+                </td>
+
+                <ng-template #hDistrict>
+                  <td
+                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                  >
+                    <span class="inline" scope="row">
+                      <select
+                        type="text"
+                        class="form-control input-field"
+                        name="districtId"
+                        [(ngModel)]="updatedHospital.districtId"
+                      >
+                        <option
+                          *ngFor="let district of districtList"
+                          [value]="district.id"
+                        >
+                          {{ district.description }}
+                        </option>
+                      </select>
+                    </span>
+                  </td>
+                </ng-template>
+
+                <ng-template #hAddress>
+                  <td
+                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                  >
+                    <span class="inline" scope="row">
+                      <textarea
+                        rows="4"
+                        cols="10"
+                        class="form-control input-field"
+                        [(ngModel)]="updatedHospital.address"
+                        #address="ngModel"
+                        [ngModelOptions]="{ standalone: true }"
+                      ></textarea>
+                    </span>
+                  </td>
+                </ng-template>
+
+                <ng-template #hPhone>
+                  <td
+                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                  >
+                    <span class="inline" scope="row">
+                      <input
+                        class="form-control input-field"
+                        [(ngModel)]="updatedHospital.phone"
+                        #phone="ngModel"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                    </span>
+                  </td>
+                </ng-template>
+
+                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                  <span class="inline" scope="row">
+                    <button
+                      class="btn btn-primary mr-2"
+                      (click)="saveHospital()"
+                    >
+                      <i class="far fa-save"></i>
+                    </button>
+                    <button
+                      class="btn btn-danger buttons"
+                      (click)="cancelHospital()"
+                    >
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <hr class="mt-5 mb-4" />
 
     <div class="container">
-      <div class="display-4 mb-3" style="font-size:30px; text-align:center;">{{ selectedHospitalName }}</div>
+      <div class="display-4 mb-3" style="font-size: 30px; text-align: center">
+        {{ selectedHospitalName }}
+      </div>
 
       <div class="row">
         <div class="col-md-8">
@@ -856,81 +908,296 @@
             <div class="card-body" [ngSwitch]="this.hospitalClickType">
               <div *ngSwitchCase="'doctor'">
                 <span class="badge badge-dark p-2 w-25">Doctor Operations</span>
-                <hr>            
-                  <form #doctorForm="ngForm" (submit)="addDoctor()">
-                    <div class="row m-0">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter Firstname"
-                            name="firstname"
-                            #firstname="ngModel"
-                            [(ngModel)]="this.doctorModel.firstName"
-                            [(ngModel)]="this.postDoctor.firstName"
-                          />
-                        </div>
+                <hr />
+                <form #doctorForm="ngForm" (submit)="addDoctor()">
+                  <div class="row m-0">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="
+                            firstname.invalid &&
+                            (firstname.dirty || firstname.touched)
+                          "
+                          required
+                          placeholder="Enter Firstname"
+                          name="firstname"
+                          #firstname="ngModel"
+                          [(ngModel)]="this.doctorModel.firstName"
+                          [(ngModel)]="this.postDoctor.firstName"
+                        />
+                        <span
+                          class="invalid-feedback"
+                          *ngIf="
+                            firstname.invalid &&
+                            (firstname.dirty || firstname.touched)
+                          "
+                        >
+                          FirstName is Required!
+                        </span>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter Lastname"
-                            name="lastname"
-                            #lastname="ngModel"
-                            [(ngModel)]="this.doctorModel.lastName"
-                            [(ngModel)]="this.postDoctor.lastName"
-                          />
-                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="
+                            lastname.invalid &&
+                            (lastname.dirty || lastname.touched)
+                          "
+                          required
+                          placeholder="Enter Lastname"
+                          name="lastname"
+                          #lastname="ngModel"
+                          [(ngModel)]="this.doctorModel.lastName"
+                          [(ngModel)]="this.postDoctor.lastName"
+                        />
+                        <span
+                          class="invalid-feedback"
+                          *ngIf="
+                            lastname.invalid &&
+                            (lastname.dirty || lastname.touched)
+                          "
+                        >
+                          LastName is Required!
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row m-0">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="
+                            email.invalid && (email.dirty || email.touched)
+                          "
+                          required
+                          placeholder="Enter Email"
+                          name="email"
+                          #email="ngModel"
+                          [(ngModel)]="this.doctorModel.email"
+                          [(ngModel)]="this.postDoctor.email"
+                        />
+                        <span
+                          class="invalid-feedback"
+                          *ngIf="
+                            email.invalid && (email.dirty || email.touched)
+                          "
+                        >
+                          E-mail is Required!
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="
+                            gsm.invalid && (gsm.dirty || gsm.touched)
+                          "
+                          required
+                          placeholder="Enter Gsm"
+                          name="gsm"
+                          #gsm="ngModel"
+                          [(ngModel)]="this.doctorModel.gsm"
+                          [(ngModel)]="this.postDoctor.gsm"
+                        />
+                        <span
+                          class="invalid-feedback"
+                          *ngIf="gsm.invalid && (gsm.dirty || gsm.touched)"
+                        >
+                          Gsm is Required!
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row department-degree">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <select
+                          type="text"
+                          class="form-control selection"
+                          [class.is-invalid]="
+                            deptId.invalid && (deptId.dirty || deptId.touched)
+                          "
+                          required
+                          placeholder="Select Department"
+                          name="deptId"
+                          #deptId="ngModel"
+                          [(ngModel)]="this.doctorModel.departmentName"
+                          [(ngModel)]="this.postDoctor.departmentId"
+                        >
+                          <option value="0" disabled>
+                            --Select a Department--
+                          </option>
+                          <option
+                            *ngFor="let dept of deptList"
+                            [value]="dept.id"
+                          >
+                            {{ dept.description }}
+                          </option>
+                        </select>
+                        <span
+                          class="invalid-feedback"
+                          *ngIf="
+                            deptId.invalid && (deptId.dirty || deptId.touched)
+                          "
+                        >
+                          Please Select Department!
+                        </span>
                       </div>
                     </div>
 
-                    <div class="row m-0">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter Email"
-                            name="email"
-                            #email="ngModel"
-                            [(ngModel)]="this.doctorModel.email"
-                            [(ngModel)]="this.postDoctor.email"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter Gsm"
-                            name="gsm"
-                            #gsm="ngModel"
-                            [(ngModel)]="this.doctorModel.gsm"
-                            [(ngModel)]="this.postDoctor.gsm"
-                          />
-                        </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <select
+                          type="text"
+                          class="form-control selection"
+                          [class.is-invalid]="
+                            degreeId.invalid &&
+                            (degreeId.dirty || degreeId.touched)
+                          "
+                          required
+                          placeholder="Select Degree"
+                          name="degreeId"
+                          #degreeId="ngModel"
+                          [(ngModel)]="this.doctorModel.degreeName"
+                          [(ngModel)]="this.postDoctor.degreeId"
+                        >
+                          <option value="0" disabled>
+                            --Select a Degree--
+                          </option>
+                          <option
+                            *ngFor="let degree of degreeList"
+                            [value]="degree.id"
+                          >
+                            {{ degree.description }}
+                          </option>
+                        </select>
+                        <span
+                          class="invalid-feedback"
+                          *ngIf="
+                            degreeId.invalid &&
+                            (degreeId.dirty || degreeId.touched)
+                          "
+                        >
+                          Please Select Degree!
+                        </span>
                       </div>
                     </div>
+                  </div>
 
-                    <div class="row department-degree">
-                      <div class="col-md-6">
-                        <div class="form-group">
+                  <div class="row m-0">
+                    <div class="col-md-2">
+                      <button class="btn btn-outline-warning" type="submit">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <hr />
+                <span class="badge badge-dark p-2 w-25">Doctor List</span>
+                <hr />
+                <table class="table table-light w-100">
+                  <thead>
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Email</th>
+                      <th>Department</th>
+                      <th>Degree</th>
+                      <th>R / U</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let doctor of doctorList">
+                      <td
+                        *ngIf="!(editMode && doctor.id == this.updatedDoctorId)"
+                      >
+                        {{ doctor.firstName }}
+                      </td>
+                      <td
+                        *ngIf="!(editMode && doctor.id == this.updatedDoctorId)"
+                      >
+                        {{ doctor.lastName }}
+                      </td>
+                      <td
+                        *ngIf="!(editMode && doctor.id == this.updatedDoctorId)"
+                      >
+                        {{ doctor.email }}
+                      </td>
+                      <td
+                        *ngIf="!(editMode && doctor.id == this.updatedDoctorId)"
+                      >
+                        {{ doctor.departmentName }}
+                      </td>
+                      <td
+                        *ngIf="!(editMode && doctor.id == this.updatedDoctorId)"
+                      >
+                        {{ doctor.degreeName }}
+                      </td>
+                      <td
+                        *ngIf="!(editMode && doctor.id == this.updatedDoctorId)"
+                        class="p-0 m-0"
+                      >
+                        <button
+                          class="btn btn-danger mr-1"
+                          style="margin-right: 0; padding: 5px 7px 5px 7px"
+                          (click)="deleteDoctor(doctor.id)"
+                        >
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                        <button
+                          class="btn btn-primary"
+                          style="margin-right: 0; padding: 5px 7px 5px 7px"
+                          (click)="updateDoctor(doctor.id)"
+                        >
+                          <i class="fa fa-pencil-alt"></i>
+                        </button>
+                      </td>
+
+                      <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="this.updatedDoctor.firstName"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="this.updatedDoctor.lastName"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="this.updatedDoctor.email"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                        <span scope="row">
                           <select
                             type="text"
-                            class="form-control selection"
-                            placeholder="Select Department"
-                            name="deptId"
+                            class="form-control input-field"
                             #deptId="ngModel"
-                            [(ngModel)]="this.doctorModel.departmentName"
-                            [(ngModel)]="this.postDoctor.departmentId"
+                            [(ngModel)]="this.updatedDoctor.departmentId"
                           >
-                            <option value="0" disabled>
-                              --Select a Department--
-                            </option>
                             <option
                               *ngFor="let dept of deptList"
                               [value]="dept.id"
@@ -938,23 +1205,16 @@
                               {{ dept.description }}
                             </option>
                           </select>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                        <span scope="row">
                           <select
                             type="text"
-                            class="form-control selection"
-                            placeholder="Select Degree"
-                            name="degreeId"
+                            class="form-control input-field"
                             #degreeId="ngModel"
-                            [(ngModel)]="this.doctorModel.degreeName"
-                            [(ngModel)]="this.postDoctor.degreeId"
+                            [(ngModel)]="this.updatedDoctor.degreeId"
                           >
-                            <option value="0" disabled>
-                              --Select a Degree--
-                            </option>
                             <option
                               *ngFor="let degree of degreeList"
                               [value]="degree.id"
@@ -962,290 +1222,228 @@
                               {{ degree.description }}
                             </option>
                           </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row m-0">
-                      <div class="col-md-2">
-                        <button class="btn btn-outline-warning" type="submit">
-                          Add
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  <hr>
-                  <span class="badge badge-dark p-2 w-25">Doctor List</span>
-                  <hr>
-                  <table class="table table-light w-100">
-                    <thead>
-                      <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th>Degree</th>
-                        <th>R / U</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let doctor of doctorList">
-                        <td
-                          *ngIf="
-                            !(editMode && doctor.id == this.updatedDoctorId)
-                          "
-                        >
-                          {{ doctor.firstName }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && doctor.id == this.updatedDoctorId)
-                          "
-                        >
-                          {{ doctor.lastName }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && doctor.id == this.updatedDoctorId)
-                          "
-                        >
-                          {{ doctor.email }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && doctor.id == this.updatedDoctorId)
-                          "
-                        >
-                          {{ doctor.departmentName }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && doctor.id == this.updatedDoctorId)
-                          "
-                        >
-                          {{ doctor.degreeName }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && doctor.id == this.updatedDoctorId)
-                          "
-                          class="p-0 m-0"
-                        >
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
+                        <span scope="row">
                           <button
-                            class="btn btn-danger mr-1"
-                            style="margin-right: 0; padding: 5px 7px 5px 7px;"
-                            (click)="deleteDoctor(doctor.id)"
+                            class="btn btn-primary mr-2"
+                            (click)="saveDoctor()"
                           >
-                            <i class="far fa-trash-alt"></i>
+                            <i class="far fa-save"></i>
                           </button>
                           <button
-                            class="btn btn-primary"
-                            style="margin-right: 0; padding: 5px 7px 5px 7px;"
-                            (click)="updateDoctor(doctor.id)"
+                            class="btn btn-danger"
+                            (click)="cancelDoctor()"
                           >
-                            <i class="fa fa-pencil-alt"></i>
+                            <i class="fas fa-times"></i>
                           </button>
-                        </td>
-
-                        <td
-                          *ngIf="editMode && doctor.id == this.updatedDoctorId"
-                        >
-                          <span scope="row">
-                            <input
-                              class="form-control input-field"
-                              [(ngModel)]="this.updatedDoctor.firstName"
-                              type="text"
-                            />
-                          </span>
-                        </td>
-                        <td
-                          *ngIf="editMode && doctor.id == this.updatedDoctorId"
-                        >
-                          <span scope="row">
-                            <input
-                              class="form-control input-field"
-                              [(ngModel)]="this.updatedDoctor.lastName"
-                              type="text"
-                            />
-                          </span>
-                        </td>
-                        <td
-                          *ngIf="editMode && doctor.id == this.updatedDoctorId"
-                        >
-                          <span scope="row">
-                            <input
-                              class="form-control input-field"
-                              [(ngModel)]="this.updatedDoctor.email"
-                              type="text"
-                            />
-                          </span>
-                        </td>
-                        <td
-                          *ngIf="editMode && doctor.id == this.updatedDoctorId"
-                        >
-                          <span scope="row">
-                            <select
-                              type="text"
-                              class="form-control input-field"
-                              #deptId="ngModel"
-                              [(ngModel)]="this.updatedDoctor.departmentId"
-                            >
-                              <option
-                                *ngFor="let dept of deptList"
-                                [value]="dept.id"
-                              >
-                                {{ dept.description }}
-                              </option>
-                            </select>
-                          </span>
-                        </td>
-                        <td
-                          *ngIf="editMode && doctor.id == this.updatedDoctorId"
-                        >
-                          <span scope="row">
-                            <select
-                              type="text"
-                              class="form-control input-field"
-                              #degreeId="ngModel"
-                              [(ngModel)]="this.updatedDoctor.degreeId"
-                            >
-                              <option
-                                *ngFor="let degree of degreeList"
-                                [value]="degree.id"
-                              >
-                                {{ degree.description }}
-                              </option>
-                            </select>
-                          </span>
-                        </td>
-                        <td
-                          *ngIf="editMode && doctor.id == this.updatedDoctorId"
-                        >
-                          <span scope="row">
-                            <button
-                              class="btn btn-primary mr-2"
-                              (click)="saveDoctor()"
-                            >
-                              <i class="far fa-save"></i>
-                            </button>
-                            <button
-                              class="btn btn-danger"
-                              (click)="cancelDoctor()"
-                            >
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>             
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div *ngSwitchCase="'department'">
-                <span class="badge badge-dark p-2 w-25">Department Operations</span>
-                <hr>
-                  <form #deptForm="ngForm" (submit)="addDepartment()">
-                    <div class="row">
-                      <div class="col-md-10">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter Department Name"
-                            name="description"
-                            #description="ngModel"
-                            [(ngModel)]="this.deptModel.description"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-2">
-                        <button class="btn btn-outline-warning" type="submit">
-                          Add
-                        </button>
+                <span class="badge badge-dark p-2 w-25"
+                  >Department Operations</span
+                >
+                <hr />
+                <form #deptForm="ngForm" (submit)="addDepartment()">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter Department Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.deptModel.description"
+                        />
                       </div>
                     </div>
-                  </form>
-                  <hr>
-                  <span class="badge badge-dark p-2 w-25">Department List</span>
-                  <hr>
-                  <table class="table table-light">
-                    <thead>
-                      <tr>
-                        <th>Description</th>
-                        <th>R / U</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let dept of deptList">
-                        <td
-                          *ngIf="!(editMode && dept.id == this.updatedDept.id)"
+                    <div class="col-md-2">
+                      <button class="btn btn-outline-warning" type="submit">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <hr />
+                <span class="badge badge-dark p-2 w-25">Department List</span>
+                <hr />
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>R / U</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let dept of deptList">
+                      <td *ngIf="!(editMode && dept.id == this.updatedDept.id)">
+                        {{ dept.description }}
+                      </td>
+                      <td *ngIf="!(editMode && dept.id == this.updatedDept.id)">
+                        <button
+                          class="btn btn-danger mr-2"
+                          (click)="deleteDepartment(dept.id)"
                         >
-                          {{ dept.description }}
-                        </td>
-                        <td
-                          *ngIf="!(editMode && dept.id == this.updatedDept.id)"
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                        <button
+                          class="btn btn-primary"
+                          (click)="updateDepartment(dept.id)"
                         >
-                          <button
-                            class="btn btn-danger mr-2"
-                            (click)="deleteDepartment(dept.id)"
-                          >
-                            <i class="far fa-trash-alt"></i>
-                          </button>
-                          <button
-                            class="btn btn-primary"
-                            (click)="updateDepartment(dept.id)"
-                          >
-                            <i class="fa fa-pencil-alt"></i>
-                          </button>
-                        </td>
+                          <i class="fa fa-pencil-alt"></i>
+                        </button>
+                      </td>
 
-                        <td *ngIf="editMode && dept.id == this.updatedDept.id">
-                          <span scope="row">
-                            <input
-                              class="form-control input-field"
-                              [(ngModel)]="updatedDept.description"
-                              type="text"
-                            />
-                          </span>
-                        </td>
+                      <td *ngIf="editMode && dept.id == this.updatedDept.id">
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="updatedDept.description"
+                            type="text"
+                          />
+                        </span>
+                      </td>
 
-                        <td *ngIf="editMode && dept.id == this.updatedDept.id">
-                          <span scope="row">
-                            <button
-                              class="btn btn-primary mr-2"
-                              (click)="saveDept()"
-                            >
-                              <i class="far fa-save"></i>
-                            </button>
-                            <button
-                              class="btn btn-danger"
-                              (click)="cancelDept()"
-                            >
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>         
+                      <td *ngIf="editMode && dept.id == this.updatedDept.id">
+                        <span scope="row">
+                          <button
+                            class="btn btn-primary mr-2"
+                            (click)="saveDept()"
+                          >
+                            <i class="far fa-save"></i>
+                          </button>
+                          <button class="btn btn-danger" (click)="cancelDept()">
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div *ngSwitchCase="'disease'">
-                <span class="badge badge-dark p-2 w-25">Disease Operations</span>
-                <hr>
-                  <form #diseaseForm="ngForm" (submit)="addDisease()">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
+                <span class="badge badge-dark p-2 w-25"
+                  >Disease Operations</span
+                >
+                <hr />
+                <form #diseaseForm="ngForm" (submit)="addDisease()">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <select
+                          type="text"
+                          class="form-control"
+                          placeholder="Select Department"
+                          name="deptId"
+                          #deptId="ngModel"
+                          [(ngModel)]="this.diseaseModel.departmentId"
+                        >
+                          <option value="0" disabled>
+                            --Select a Department--
+                          </option>
+                          <option
+                            *ngFor="let dept of deptList"
+                            [value]="dept.id"
+                          >
+                            {{ dept.description }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter Country Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.diseaseModel.description"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+                    <button class="btn btn-outline-warning" type="submit">
+                      Add
+                    </button>
+                  </div>
+                </form>
+                <hr />
+                <span class="badge badge-dark p-2 w-25">Disease List</span>
+                <hr />
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>Department</th>
+                      <th>R / U</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let disease of diseaseList">
+                      <td
+                        *ngIf="
+                          !(editMode && disease.id == this.updatedDisease.id)
+                        "
+                      >
+                        {{ disease.description }}
+                      </td>
+                      <td
+                        *ngIf="
+                          !(editMode && disease.id == this.updatedDisease.id)
+                        "
+                      >
+                        {{ disease.departmentName }}
+                      </td>
+                      <td
+                        *ngIf="
+                          !(editMode && disease.id == this.updatedDisease.id)
+                        "
+                      >
+                        <button
+                          class="btn btn-danger mr-2"
+                          (click)="deleteDisease(disease.id)"
+                        >
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                        <button
+                          class="btn btn-primary"
+                          (click)="updateDisease(disease.id)"
+                        >
+                          <i class="fa fa-pencil-alt"></i>
+                        </button>
+                      </td>
+
+                      <td
+                        *ngIf="editMode && disease.id == this.updatedDisease.id"
+                      >
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="updatedDisease.description"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+
+                      <td
+                        *ngIf="editMode && disease.id == this.updatedDisease.id"
+                      >
+                        <span scope="row">
                           <select
                             type="text"
-                            class="form-control"
-                            placeholder="Select Department"
-                            name="deptId"
+                            class="form-control input-field"
                             #deptId="ngModel"
-                            [(ngModel)]="this.diseaseModel.departmentId"
+                            [(ngModel)]="this.updatedDisease.departmentId"
                           >
-                            <option value="0" disabled>
-                              --Select a Department--
-                            </option>
                             <option
                               *ngFor="let dept of deptList"
                               [value]="dept.id"
@@ -1253,229 +1451,126 @@
                               {{ dept.description }}
                             </option>
                           </select>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter Country Name"
-                            name="description"
-                            #description="ngModel"
-                            [(ngModel)]="this.diseaseModel.description"
-                          />
-                        </div>
+                        </span>
+                      </td>
+
+                      <td
+                        *ngIf="editMode && disease.id == this.updatedDisease.id"
+                      >
+                        <span scope="row">
+                          <button
+                            mat-button
+                            class="btn btn-primary mr-2"
+                            (click)="saveDisease(); editMode = false"
+                          >
+                            <i class="far fa-save"></i>
+                          </button>
+                          <button
+                            class="btn btn-danger"
+                            (click)="cancelDisease()"
+                          >
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div *ngSwitchCase="'degree'">
+                <span class="badge badge-dark p-2 w-25">Degree Operations</span>
+                <hr />
+                <form #degreeForm="ngForm" (submit)="addDegree()">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter Degree Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.degreeModel.description"
+                        />
                       </div>
                     </div>
-
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <button class="btn btn-outline-warning" type="submit">
                         Add
                       </button>
                     </div>
-                  </form>
-                  <hr>
-                  <span class="badge badge-dark p-2 w-25">Disease List</span>
-                  <hr>
-                  <table class="table table-light">
-                    <thead>
-                      <tr>
-                        <th>Description</th>
-                        <th>Department</th>
-                        <th>R / U</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let disease of diseaseList">
-                        <td
-                          *ngIf="
-                            !(editMode && disease.id == this.updatedDisease.id)
-                          "
+                  </div>
+                </form>
+                <hr />
+                <span class="badge badge-dark p-2 w-25">Degree List</span>
+                <hr />
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>R / U</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let degree of degreeList">
+                      <td
+                        *ngIf="
+                          !(editMode && degree.id == this.updatedDegree.id)
+                        "
+                      >
+                        {{ degree.description }}
+                      </td>
+                      <td
+                        *ngIf="
+                          !(editMode && degree.id == this.updatedDegree.id)
+                        "
+                      >
+                        <button
+                          class="btn btn-danger mr-2"
+                          (click)="deleteDegree(degree.id)"
                         >
-                          {{ disease.description }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && disease.id == this.updatedDisease.id)
-                          "
-                        >
-                          {{ disease.departmentName }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && disease.id == this.updatedDisease.id)
-                          "
-                        >
-                          <button
-                            class="btn btn-danger mr-2"
-                            (click)="deleteDisease(disease.id)"
-                          >
-                            <i class="far fa-trash-alt"></i>
-                          </button>
-                          <button
-                            class="btn btn-primary"
-                            (click)="updateDisease(disease.id)"
-                          >
-                            <i class="fa fa-pencil-alt"></i>
-                          </button>
-                        </td>
-
-                        <td
-                          *ngIf="
-                            editMode && disease.id == this.updatedDisease.id
-                          "
-                        >
-                          <span scope="row">
-                            <input
-                              class="form-control input-field"
-                              [(ngModel)]="updatedDisease.description"
-                              type="text"
-                            />
-                          </span>
-                        </td>
-
-                        <td
-                          *ngIf="
-                            editMode && disease.id == this.updatedDisease.id
-                          "
-                        >
-                          <span scope="row">
-                            <select
-                              type="text"
-                              class="form-control input-field"
-                              #deptId="ngModel"
-                              [(ngModel)]="this.updatedDisease.departmentId"
-                            >
-                              <option
-                                *ngFor="let dept of deptList"
-                                [value]="dept.id"
-                              >
-                                {{ dept.description }}
-                              </option>
-                            </select>
-                          </span>
-                        </td>
-
-                        <td
-                          *ngIf="
-                            editMode && disease.id == this.updatedDisease.id
-                          "
-                        >
-                          <span scope="row">
-                            <button
-                              mat-button
-                              class="btn btn-primary mr-2"
-                              (click)="saveDisease(); editMode = false"
-                            >
-                              <i class="far fa-save"></i>
-                            </button>
-                            <button
-                              class="btn btn-danger"
-                              (click)="cancelDisease()"
-                            >
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-              </div>
-              <div *ngSwitchCase="'degree'">
-                <span class="badge badge-dark p-2 w-25">Degree Operations</span>
-                <hr>
-                  <form #degreeForm="ngForm" (submit)="addDegree()">
-                    <div class="row">
-                      <div class="col-md-9">
-                        <div class="form-group">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter Degree Name"
-                            name="description"
-                            #description="ngModel"
-                            [(ngModel)]="this.degreeModel.description"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-3">
-                        <button class="btn btn-outline-warning" type="submit">
-                          Add
+                          <i class="far fa-trash-alt"></i>
                         </button>
-                      </div>
-                    </div>
-                  </form>
-                  <hr>
-                  <span class="badge badge-dark p-2 w-25">Degree List</span>
-                  <hr>
-                  <table class="table table-light">
-                    <thead>
-                      <tr>
-                        <th>Description</th>
-                        <th>R / U</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let degree of degreeList">
-                        <td
-                          *ngIf="
-                            !(editMode && degree.id == this.updatedDegree.id)
-                          "
+                        <button
+                          class="btn btn-primary"
+                          (click)="updateDegree(degree.id)"
                         >
-                          {{ degree.description }}
-                        </td>
-                        <td
-                          *ngIf="
-                            !(editMode && degree.id == this.updatedDegree.id)
-                          "
-                        >
-                          <button
-                            class="btn btn-danger mr-2"
-                            (click)="deleteDegree(degree.id)"
-                          >
-                            <i class="far fa-trash-alt"></i>
-                          </button>
-                          <button
-                            class="btn btn-primary"
-                            (click)="updateDegree(degree.id)"
-                          >
-                            <i class="fa fa-pencil-alt"></i>
-                          </button>
-                        </td>
+                          <i class="fa fa-pencil-alt"></i>
+                        </button>
+                      </td>
 
-                        <td
-                          *ngIf="editMode && degree.id == this.updatedDegree.id"
-                        >
-                          <span scope="row">
-                            <input
-                              class="form-control input-field"
-                              [(ngModel)]="updatedDegree.description"
-                              type="text"
-                            />
-                          </span>
-                        </td>
-                        <td
-                          *ngIf="editMode && degree.id == this.updatedDegree.id"
-                        >
-                          <span scope="row">
-                            <button
-                              class="btn btn-primary mr-2"
-                              (click)="saveDegree(); editMode = false"
-                            >
-                              <i class="far fa-save"></i>
-                            </button>
-                            <button
-                              class="btn btn-danger"
-                              (click)="cancelDegree()"
-                            >
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <td
+                        *ngIf="editMode && degree.id == this.updatedDegree.id"
+                      >
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="updatedDegree.description"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td
+                        *ngIf="editMode && degree.id == this.updatedDegree.id"
+                      >
+                        <span scope="row">
+                          <button
+                            class="btn btn-primary mr-2"
+                            (click)="saveDegree(); editMode = false"
+                          >
+                            <i class="far fa-save"></i>
+                          </button>
+                          <button
+                            class="btn btn-danger"
+                            (click)="cancelDegree()"
+                          >
+                            <i class="fas fa-times"></i>
+                          </button>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -1489,11 +1584,15 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-md-12">
-                <span class="badge badge-primary p-2 mb-2 text-center" style="font-size: 18px; text-align:center;">
-                  <i class="fas fa-chart-line mr-3"></i> {{selectedHospitalName}} Statistics ( # )
+                <span
+                  class="badge badge-primary p-2 mb-2 text-center"
+                  style="font-size: 18px; text-align: center"
+                >
+                  <i class="fas fa-chart-line mr-3"></i>
+                  {{ selectedHospitalName }} Statistics ( # )
                 </span>
               </div>
-              <hr>
+              <hr />
             </div>
             <div class="row m-0">
               <div

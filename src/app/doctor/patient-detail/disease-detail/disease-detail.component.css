@@ -28,15 +28,15 @@
   display: flex;
 }
 .col-2.box-2 {
-  height: 26px;
+  height: 14px;
   width: 36px;
   background-color: white;
   border: 1px solid grey;
   margin-top: 5px;
 }
 .col-2.box-1 {
-  height: 26px;
-  width: 92px;
+  height: 14px;
+  width: 32px;
   background-color: grey;
   margin-top: 5px;
 }
@@ -44,6 +44,6 @@
   display: flex;
 }
 p.mevcut-durumu {
-  margin-top: 12px;
+  margin-top: 0px;
   margin-left: 20px;
 }

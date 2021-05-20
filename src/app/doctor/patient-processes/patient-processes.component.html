@@ -5,7 +5,7 @@
 
   <div class="col-9 pr-5 pl-0 ml-0 mt-4">
     <span class="badge badge-dark p-2">Add Patient Form</span>
-    <hr>
+    <hr />
     <div class="form-box mb-5">
       <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
         <div class="row m-0">
@@ -15,10 +15,22 @@
                 type="text"
                 class="form-control"
                 placeholder="Enter Firstname"
+                [class.is-invalid]="
+                  firstname.invalid && (firstname.dirty || firstname.touched)
+                "
+                required
                 name="firstname"
                 #firstname="ngModel"
                 [(ngModel)]="this.patientModel.firstName"
               />
+              <span
+                class="invalid-feedback"
+                *ngIf="
+                  firstname.invalid && (firstname.dirty || firstname.touched)
+                "
+              >
+                FirstName is Required!
+              </span>
             </div>
           </div>
           <div class="col-md-6">
@@ -27,57 +39,95 @@
                 type="text"
                 class="form-control"
                 placeholder="Enter Lastname"
+                [class.is-invalid]="
+                  lastname.invalid && (lastname.dirty || lastname.touched)
+                "
+                required
                 name="lastname"
                 #lastname="ngModel"
                 [(ngModel)]="this.patientModel.lastName"
               />
+              <span
+                class="invalid-feedback"
+                *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+              >
+                LastName is Required!
+              </span>
             </div>
           </div>
         </div>
-  
+
         <div class="row m-0">
           <div class="col-md-6">
             <div class="form-group">
               <input
                 type="text"
                 class="form-control"
+                [class.is-invalid]="gsm.invalid && (gsm.dirty || gsm.touched)"
+                required
                 placeholder="Enter Gsm"
                 name="gsm"
                 #gsm="ngModel"
                 [(ngModel)]="this.patientModel.gsm"
               />
+              <span
+                class="invalid-feedback"
+                *ngIf="gsm.invalid && (gsm.dirty || gsm.touched)"
+              >
+                Gsm is Required!
+              </span>
             </div>
           </div>
-  
+
           <div class="col-md-6">
             <div class="form-group">
               <input
                 type="text"
                 class="form-control"
+                [class.is-invalid]="
+                  identity.invalid && (identity.dirty || identity.touched)
+                "
+                required
                 placeholder="Enter ID"
                 name="identity"
                 #identity="ngModel"
                 [(ngModel)]="this.patientModel.identityNumber"
               />
+              <span
+                class="invalid-feedback"
+                *ngIf="identity.invalid && (identity.dirty || identity.touched)"
+              >
+                ID is Required!
+              </span>
             </div>
           </div>
         </div>
-  
+
         <div class="row m-0">
           <div class="col-md-6">
             <div class="form-group">
               <input
                 type="text"
                 class="form-control"
+                [class.is-invalid]="
+                  email.invalid && (email.dirty || email.touched)
+                "
+                required
                 placeholder="Enter Email"
                 name="email"
                 #email="ngModel"
                 [(ngModel)]="this.patientModel.email"
               />
+              <span
+                class="invalid-feedback"
+                *ngIf="email.invalid && (email.dirty || email.touched)"
+              >
+                Email is Required!
+              </span>
             </div>
           </div>
         </div>
-  
+
         <div class="row m-0">
           <div class="col-md-2">
             <button class="btn btn-warning" type="submit">Add</button>
@@ -85,10 +135,10 @@
         </div>
       </form>
     </div>
-    
-    <hr>
+
+    <hr />
     <span class="badge badge-dark p-2 mt-3">Patient List</span>
-    <hr>
+    <hr />
     <table class="table table-light mt-4 mb-5">
       <thead class="bg-priary">
         <tr>
@@ -222,9 +272,9 @@
       </tbody>
     </table>
 
-    <hr>
+    <hr />
     <span class="badge badge-dark p-2 mt-3">Removed Patients</span>
-    <hr>
+    <hr />
     <table class="table table-light mt-4 mb-5">
       <thead>
         <tr>

@@ -1,10 +1,10 @@
 .rounded-xl {
-    border-radius: 1.25rem !important;
-    height: 200px;
-  }
-  .bg-light-warning {
-    background-color: #fff4de !important;
-  }
+  border-radius: 1.25rem !important;
+  height: 200px;
+}
+.bg-light-warning {
+  background-color: #fff4de !important;
+}
 .pb-8,
 .py-8 {
   padding-bottom: 2rem !important;
@@ -35,12 +35,12 @@
   animation: blinkingBackground 1s infinite;
 }
 
-@keyframes blinkingBackground{
-  50%		{ 
+@keyframes blinkingBackground {
+  50% {
     background-color: rgb(209, 137, 137);
     color: white;
   }
-  100%	{ 
+  100% {
     background-color: #ffffff;
     color: rgb(95, 91, 91);
   }
@@ -52,7 +52,7 @@
   font-weight: bold;
 }
 
-.info-box{
+.info-box {
   padding: 15px;
   /*alt üst dağılmapayı*/
   box-shadow: 0 0 8px rgb(209, 203, 203);
@@ -60,10 +60,52 @@
 }
 
 label {
-  font-size: 16px; 
+  font-size: 16px;
 }
 
 .info {
   font-weight: 400;
   font-size: 16px;
+}
+
+button.btn.btn-warning.float-right:hover,
+button.btn.btn-warning.float-right:focus {
+  color: rgb(143, 68, 68);
+  outline: 0;
+}
+button.btn.btn-warning.float-right {
+  border-color: #39d47a;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+}
+button.btn.btn-warning.float-right:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+button.btn.btn-primary.float-right.disease-detail {
+  border-color: #34db50;
+  color: #fff;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+}
+button.btn.btn-primary.float-right.disease-detail:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+button.btn.btn-primary.float-right.disease-detail:hover,
+button.btn.btn-primary.float-right.disease-detail:focus {
+  color: rgb(143, 68, 68);
+  outline: 0;
+}
+button.btn.btn-secondary.float-right {
+  border-color: #39d47a;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+}
+button.btn.btn-secondary.float-right:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
 }
