@@ -76,23 +76,23 @@ button.btn.btn-warning.float-right:focus {
 button.btn.btn-warning.float-right {
   border-color: #39d47a;
   color: rgb(255, 255, 255);
-  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  box-shadow: 0 0 40px 40px #7bb0d3 inset, 0 0 0 0 #7bb0d3;
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
 }
 button.btn.btn-warning.float-right:hover {
-  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+  box-shadow: 0 0 10px 0 #7bb0d3 inset, 0 0 10px 4px #7bb0d3;
 }
 
 button.btn.btn-primary.float-right.disease-detail {
   border-color: #34db50;
   color: #fff;
-  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  box-shadow: 0 0 40px 40px #7bb0d3 inset, 0 0 0 0 #7bb0d3;
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
 }
 button.btn.btn-primary.float-right.disease-detail:hover {
-  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+  box-shadow: 0 0 10px 0 #7bb0d3 inset, 0 0 10px 4px #7bb0d3;
 }
 button.btn.btn-primary.float-right.disease-detail:hover,
 button.btn.btn-primary.float-right.disease-detail:focus {
@@ -102,10 +102,10 @@ button.btn.btn-primary.float-right.disease-detail:focus {
 button.btn.btn-secondary.float-right {
   border-color: #39d47a;
   color: rgb(255, 255, 255);
-  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  box-shadow: 0 0 40px 40px #7bb0d3 inset, 0 0 0 0 #7bb0d3;
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
 }
 button.btn.btn-secondary.float-right:hover {
-  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+  box-shadow: 0 0 10px 0 #7bb0d3 inset, 0 0 10px 4px #7bb0d3;
 }
