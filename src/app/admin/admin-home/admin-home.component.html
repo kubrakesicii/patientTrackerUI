@@ -144,6 +144,7 @@
                           (countryCode.dirty || countryCode.touched)
                         "
                         required
+                        maxlength="5"
                         placeholder="Enter Country Code"
                         name="countryCode"
                         #countryCode="ngModel"
@@ -157,6 +158,12 @@
                         "
                       >
                         Country Code is Required!
+                      </span>
+                      <span
+                        class="invalid-feedback"
+                        *ngIf="countryCode.errors?.maxlength"
+                      >
+                        Country Code must be at most 5 character long!
                       </span>
                     </div>
                   </div>
@@ -268,6 +275,7 @@
                       <select
                         type="text"
                         class="form-control"
+                        [class.is-invalid]="countryId.invalid &&(countryId.dirty || countryId.touched)"
                         placeholder="Select Country"
                         name="countryId"
                         #countryId="ngModel"
@@ -281,6 +289,10 @@
                           {{ country.description }}
                         </option>
                       </select>
+                      <span
+                        class="invalid-feedback" *ngIf="countryId.invalid &&(countryId.dirty || countryId.touched)">
+                        Country is Required!
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -288,11 +300,16 @@
                       <input
                         type="text"
                         class="form-control"
+                        [class.is-invalid]="description.invalid &&(description.dirty || description.touched)"
                         placeholder="Enter City Name"
                         name="description"
                         #description="ngModel"
                         [(ngModel)]="this.cityModel.description"
                       />
+                      <span
+                        class="invalid-feedback" *ngIf="description.invalid &&(description.dirty || description.touched)">
+                        Description is Required!
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-2">
@@ -391,8 +408,9 @@
                       <select
                         type="text"
                         class="form-control"
+                        [class.is-invalid]="cityId.invalid &&(cityId.dirty || cityId.touched)"
                         placeholder="Select District"
-                        name="districtId"
+                        name="cityId"
                         #cityId="ngModel"
                         [(ngModel)]="this.districtModel.cityId"
                       >
@@ -401,6 +419,10 @@
                           {{ city.description }}
                         </option>
                       </select>
+                      <span
+                        class="invalid-feedback" *ngIf="cityId.invalid &&(cityId.dirty || cityId.touched)">
+                        City is Required!
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-5">
@@ -536,11 +558,10 @@
                           class="form-control"
                           placeholder="Select Country"
                           name="countryId"
-                          #country
-                          [(value)]="countryid"
+                          #countryId
                           (change)="
                             filterCity(
-                              country.options[country.selectedIndex].value
+                              countryId.options[countryId.selectedIndex].value
                             )
                           "
                         >
@@ -587,6 +608,7 @@
                           onchange=""
                           type="text"
                           class="form-control"
+                          [class.is-invalid]="districtId.invalid &&(districtId.dirty || districtId.touched)"
                           placeholder="Select District"
                           name="districtId"
                           #districtId="ngModel"
@@ -600,6 +622,10 @@
                             {{ district.description }}
                           </option>
                         </select>
+                        <span
+                        class="invalid-feedback" *ngIf="districtId.invalid &&(districtId.dirty || districtId.touched)">
+                        City is Required!
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -612,11 +638,16 @@
                           type="text"
                           rows="3"
                           class="form-control"
+                          [class.is-invalid]="address.invalid &&(address.dirty || address.touched)"
                           placeholder="Address"
-                          name="description"
-                          #description="ngModel"
+                          name="address"
+                          #address="ngModel"
                           [(ngModel)]="this.hospitalModel.address"
                         ></textarea>
+                        <span
+                        class="invalid-feedback" *ngIf="address.invalid &&(address.dirty || address.touched)">
+                        Address is Required!
+                      </span>
                       </div>
                     </div>
                   </div>
@@ -628,11 +659,16 @@
                         <input
                           type="text"
                           class="form-control"
+                          [class.is-invalid]="description.invalid &&(description.dirty || description.touched)"
                           placeholder="Hospital Name"
                           name="description"
                           #description="ngModel"
                           [(ngModel)]="this.hospitalModel.description"
                         />
+                        <span
+                        class="invalid-feedback" *ngIf="description.invalid &&(description.dirty || description.touched)">
+                        Description is Required!
+                      </span>
                       </div>
                     </div>
                   </div>
@@ -644,11 +680,16 @@
                         <input
                           type="text"
                           class="form-control"
+                          [class.is-invalid]="phone.invalid &&(phone.dirty || phone.touched)"
                           placeholder="Enter Phone"
                           name="phone"
                           #phone="ngModel"
                           [(ngModel)]="this.hospitalModel.phone"
                         />
+                        <span
+                        class="invalid-feedback" *ngIf="phone.invalid &&(phone.dirty || phone.touched)">
+                        Phone is Required!
+                      </span>
                       </div>
                     </div>
                   </div>
@@ -977,6 +1018,7 @@
                             email.invalid && (email.dirty || email.touched)
                           "
                           required
+                          pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
                           placeholder="Enter Email"
                           name="email"
                           #email="ngModel"
@@ -990,6 +1032,12 @@
                           "
                         >
                           E-mail is Required!
+                        </span>
+                        <span
+                          class="invalid-feedback"
+                          *ngIf="email.errors?.pattern"
+                        >
+                          Please Enter a Valid E-mail!
                         </span>
                       </div>
                     </div>
