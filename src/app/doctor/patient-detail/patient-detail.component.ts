@@ -8,6 +8,9 @@ import { DiseaseDetailComponent } from './disease-detail/disease-detail.componen
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 import { AppointmentDetailComponent } from './appointment-detail/appointment-detail.component';
 import { GetPatQuestion } from '../models/get-pat-question.model';
+import { Appointment } from '../models/appointment.model';
+import { Doctor } from 'src/app/admin/models/doctor.model';
+import { LoaderService } from 'src/app/shared-components/services/loader.service';
 
 declare function divideArrIntoDays(message: PatientAnswer[]) : any;
 @Component({
@@ -26,6 +29,11 @@ export class PatientDetailComponent implements OnInit {
   patientQuestionList : GetPatQuestion[];
   patQuestions : string[] = new Array();
   patAnswers : string[] = new Array();
+  existingAppointment : Appointment = new Appointment();
+  doctorModel : Doctor = new Doctor();
+
+
+  public show = false;
 
   answerDateDivider : any = new Array();
 
@@ -35,7 +43,7 @@ export class PatientDetailComponent implements OnInit {
   constructor(private activeRoute : ActivatedRoute,
               private getService : DoctorGetService,
               private dialog: MatDialog,
-              ) { }
+              public loaderService : LoaderService) { }
 
   ngOnInit(): void {
     this.sub = this.activeRoute.params.subscribe(params => {
@@ -53,6 +61,8 @@ export class PatientDetailComponent implements OnInit {
   }
 
   async getPatientInfo() {
+    this.loaderService.isLoading.next(true);
+
     await this.getService.getPatientById(this.patientId).then(data => {
       this.patientModel.id = data.id,
       this.patientModel.firstName = data.firstName,
@@ -90,6 +100,15 @@ export class PatientDetailComponent implements OnInit {
 
     this.answerDateDivider = divideArrIntoDays(this.patientAnswerList);
     //console.log("answerDateDivider" , this.answerDateDivider);
+        
+   await this.getService.getDoctorById(JSON.parse(localStorage.getItem("userInfo") || "{}").id).then(data =>{
+    this.doctorModel.id = JSON.parse(JSON.stringify(data)).id;
+  });
+
+    await this.getService.getAppointmentPatDoctor(this.patientModel.id,this.doctorModel.id)
+    .finally(() => this.loaderService.isLoading.next(false))
+    .then((data) =>this.existingAppointment =  JSON.parse(JSON.stringify(data)));
+
   }
 
   
@@ -112,7 +131,7 @@ export class PatientDetailComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {patientId, deptId, hospitalId};
     dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = false;
+    dialogConfig.disableClose = true;
 
     this.dialog
       .open(AppointmentDetailComponent, dialogConfig)
@@ -138,7 +157,18 @@ export class PatientDetailComponent implements OnInit {
 
 
   openAnsTable(date : string){
+    this.show = true;
     this.selectedDate = date;
+
+    console.log("open : ",this.show);
+
+  }
+
+  closeAnsTable(date : string){
+    this.show = false;
+    this.selectedDate = date;
+
+    console.log("close : ",this.show);
   }
 
 }

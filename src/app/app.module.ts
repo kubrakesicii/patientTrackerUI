@@ -37,8 +37,13 @@ import { DoctorDeleteService } from './doctor/services/doctor-delete.service';
 import { DoctorUpdateService } from './doctor/services/doctor-update.service';
 import { MatIconModule } from '@angular/material/icon';
 import { AlertifyService } from './shared-components/services/alertify.service';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from "@angular/material/input";
+import {MatNativeDateModule} from "@angular/material/core";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NGX_MAT_DATE_FORMATS } from '@angular-material-components/datetime-picker';
+import {NgxMatMomentModule, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular-material-components/moment-adapter';
 
 
 @NgModule({
@@ -71,8 +76,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatSidenavModule,
     MatIconModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatMomentModule,
+    MatDatepickerModule
   ],
   providers: [
     AuthService,
@@ -90,6 +102,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       useClass: TokenInterceptor,
       multi: true,
     },
+    {provide: NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}},
   ],
   bootstrap: [AppComponent],
 })

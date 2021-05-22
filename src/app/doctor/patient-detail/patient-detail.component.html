@@ -1,23 +1,23 @@
 <div class="row">
-  <div class="col-3">
+  <div class="col-md-3">
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="col-9 mt-5 pr-5 pl-0 ml-0">
+  <div class="col-md-9 col-sm-6 mt-5 pr-5 pl-0 ml-0">
     <div class="row info-box">
       <div class="col px-6 py-8 rounded-xl mr-7 mb-7 buttons-body">
         <div class="row">
-          <div class="col-4">
+          <div class="col-md-4 col-sm-6 col-xs-12">
             <label class="badge badge-light label">Patient Name : </label>
             <h4 class="card-title d-inline info">
               {{ patientModel.firstName }} {{ patientModel.lastName }}
             </h4>
           </div>
-          <div class="col-4">
+          <div class="col-md-4 col-sm-6 col-xs-12">
             <label class="badge badge-light label">ID : </label>
             <p class="d-inline info">{{ patientModel.identityNumber }}</p>
           </div>
-          <div class="col-4 buttons">
+          <div class="col-md-4 col-sm-6 col-xs-12 buttons">
             <button
               class="btn btn-primary float-right disease-detail"
               (click)="
@@ -44,6 +44,7 @@
           </div>
           <div class="col-4 buttons">
             <button
+             [disabled]="this.existingAppointment != null"
               class="btn btn-warning float-right"
               (click)="
                 openAppointmentDialog(
@@ -114,35 +115,45 @@
     </div>
     <div class="row mt-5" *ngFor="let ansArr of this.answerDateDivider">
       <div class="col-md-12">
-        <button class="btn btn-dark w-100" (click)="openAnsTable(ansArr.date)">
-          {{ ansArr.date }}
-        </button>
-        <table
-          class="table table-light mt-3"
-          *ngIf="ansArr.date == this.selectedDate"
-        >
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Answer</th>
-              <th>Score</th>
-              <th>Lower Limit</th>
-              <th>Upper Limit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let answer of ansArr.answers"
-              [ngClass]="{ danger: answer.result == false }"
-            >
-              <td>{{ answer.questionDesc }}</td>
-              <td>{{ answer.answerDesc }}</td>
-              <td>{{ answer.patientScore }}</td>
-              <td>{{ answer.lowerLimit }}</td>
-              <td>{{ answer.upperLimit }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="row">
+          <button class="btn btn-dark w-100">
+            {{ ansArr.date }}
+  
+            <i class="fas fa-chevron-down float-right" *ngIf="!(this.show && ansArr.date == this.selectedDate)" (click)="openAnsTable(ansArr.date)"></i>
+            <i class="fas fa-chevron-up float-right" *ngIf="this.show && ansArr.date == this.selectedDate" (click)="closeAnsTable(ansArr.date)"></i>
+          </button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table
+            class="table table-light mt-3"
+            *ngIf="ansArr.date == this.selectedDate"
+            [ngStyle]="{display : this.show ? 'table' : 'none'}"
+          >
+            <thead>
+              <tr> 
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Score</th>
+                <th>Lower Limit</th>
+                <th>Upper Limit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let answer of ansArr.answers"
+                [ngClass]="{ danger: answer.result == false }"
+              >
+                <td>{{ answer.questionDesc }}</td>
+                <td>{{ answer.answerDesc }}</td>
+                <td>{{ answer.patientScore }}</td>
+                <td>{{ answer.lowerLimit }}</td>
+                <td>{{ answer.upperLimit }}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -175,4 +186,8 @@
     <hr />
     <hr mt-5 />
   </div>
+</div>
+
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+  <mat-spinner></mat-spinner>
 </div>

@@ -112,6 +112,24 @@ div#hospital {
   cursor: pointer;
 }
 
+div#country:hover {
+  box-shadow: 0 0 20px #e6cc9a;
+  border: solid 1px #e4c68f;
+}
+div#city:hover {
+  box-shadow: 0 0 20px #97dad6;
+  border: solid 1px #97dad6;
+}
+div#district:hover {
+  box-shadow: 0 0 20px #e69fa6;
+  border: solid 1px #e69fa6;
+}
+div#hospital:hover {
+  box-shadow: 0 0 20px #83a9ce;
+  border: solid 1px #83a9ce;
+}
+
+
 input.form-control.ng-untouched.ng-pristine.ng-valid {
   margin-left: 12px;
 }
@@ -214,6 +232,23 @@ div#department,
 div#disease,
 div#degree {
   cursor: pointer;
+}
+
+div#doctor:hover {
+  box-shadow: 0 0 20px #e6cc9a;
+  border: solid 1px #e4c68f;
+}
+div#department:hover {
+  box-shadow: 0 0 20px #97dad6;
+  border: solid 1px #97dad6;
+}
+div#disease:hover {
+  box-shadow: 0 0 20px #e69fa6;
+  border: solid 1px #e69fa6;
+}
+div#degree:hover {
+  box-shadow: 0 0 20px #83a9ce;
+  border: solid 1px #83a9ce;
 }
 
 button.btn.btn-warning {

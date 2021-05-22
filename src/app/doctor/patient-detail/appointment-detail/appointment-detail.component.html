@@ -1,31 +1,20 @@
-<div class="container">
+<div class="container p-3">
     <div class="row">
         <div class="col-md-6">
             <span class="badge badge-light p-2 float-left">Create Appointment for Patient</span>
         </div>
-        <div class="col-md-6">
-            <form class="form-inline my-2 my-lg-0 float-right">
-                <input
-                  #filterText
-                  class="form-control mr-sm-2"
-                  type="text"
-                  placeholder="Search"
-                  
-                />
-            </form>
-        </div>
     </div>
+    <hr>
 
-    <div class="row p-5">
-        <form #appointmentForm="ngForm" (submit)="addAppointment()">
+    <div class="row mt-3">
+        <form #appointmentForm="ngForm" (submit)="addAppointment(dateControl.value)">
+
             <div class="row m-0">
                 <div class="form-group">
                   <input
                     type="text"
                     class="form-control"
                     placeholder="Enter description"
-                    cols="40"
-                    rows="7"
                     name="description"
                     #description="ngModel"
                     [(ngModel)]="this.patientName"
@@ -34,23 +23,29 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1' (click)="setDate($event)">
-                        <input type='text' class="form-control" />
-                        <span class="input-group-addon">
-                        <i class="far fa-calendar-alt fa-2x ml-2"></i>
-                        </span>
-                     </div>
-                </div>
+            <div class="row m-0">
+                <mat-form-field>
+                    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" #dateControl
+                      [min]="minDate" [max]="maxDate" [disabled]="disabled" class="form-control">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
+                      [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond" [touchUi]="touchUi"
+                      [enableMeridian]="enableMeridian"
+                      >
+                    </ngx-mat-datetime-picker>
+                  </mat-form-field>
             </div>
-      
+
             <div class="row">
                 <div class="col-md-2">
                     <button class="btn btn-warning" type="submit">Add</button>
                 </div>
             </div>
-            
+        
         </form>
     </div>
 </div>
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+    <mat-spinner></mat-spinner>
+  </div>
+  

@@ -6,3 +6,9 @@
     left: 50%;
     transform: translate(-50px, -50px);
   }
+
+  .passive {
+    background-color: rgb(185, 185, 185);
+    color: snow;
+    font-weight: bold;
+}

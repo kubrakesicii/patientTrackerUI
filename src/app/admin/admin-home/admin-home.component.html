@@ -1,21 +1,4 @@
 <div class="item-body m-0 p-0">
-  <!-- <nav class="navbar navbar-expand-lg mb-5" style="background-color: #d1e2dd">
-    <a class="navbar-brand">
-      <div class="logo"></div>
-    </a>
-
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <p class="welcome mav-link disabled">Welcome {{ userInfo.fullName }} <br /></p>
-      </li>
-      <li class="nav-item">
-        <button class="btn btn-light float-right" (click)="logout()">
-          <i class="fas fa-sign-out-alt"></i>
-        </button>
-      </li>
-    </ul>
-  </nav> -->
-
   <div *ngIf="loaderService.isLoading | async" class="loader-container">
     <mat-spinner></mat-spinner>
   </div>
@@ -736,7 +719,7 @@
           <table class="table table-striped p-3">
             <thead>
               <th>Description</th>
-              <th>Address</th>
+              <th class = "w-25">Address</th>
               <th>Country</th>
               <th>City</th>
               <th>District</th>
@@ -788,19 +771,22 @@
                   *ngIf="!(editMode && hospital.id == this.updatedHospital.id)"
                 >
                   <button
-                    class="btn btn-danger mr-2"
+                    class="btn btn-danger mr-1"
+                    style="margin-right: 0; padding: 6px 9px 6px 9px"
                     (click)="deleteHospital(hospital.id)"
                   >
                     <i class="far fa-trash-alt"></i>
                   </button>
                   <button
-                    class="btn btn-primary mr-2"
+                    class="btn btn-primary mr-1"
+                    style="margin-right: 0; padding: 6px 8px 6px 8px"
                     (click)="updateHospital(hospital.id); editMode = true"
                   >
                     <i class="fa fa-pencil-alt"></i>
                   </button>
                   <button
                     class="btn btn-success"
+                    style="margin-right: 0; padding: 6px 8px 6px 8px"
                     (click)="setHospital(hospital.id, hospital.description)"
                   >
                     <i class="fas fa-info-circle"></i>
@@ -821,43 +807,6 @@
                     </span>
                   </td>
                 </ng-template>
-
-                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                  <span class="inline" scope="row">
-                    <select
-                      type="text"
-                      class="form-control input-field"
-                      name="districtId"
-                      [(ngModel)]="updatedHospital.countryId"
-                    >
-                      <option
-                        *ngFor="let country of countryList"
-                        [value]="country.id"
-                      ></option>
-                      <option *ngFor="let country of countryList">
-                        {{ country.description }}
-                      </option>
-                    </select>
-                  </span>
-                </td>
-
-                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                  <span class="inline" scope="row">
-                    <select
-                      type="text"
-                      class="form-control input-field"
-                      name="cityId"
-                      [(ngModel)]="updatedHospital.cityId"
-                    >
-                      <option
-                        *ngFor="let city of cityList | hospitalPipe: countryid"
-                        [value]="city.id"
-                      >
-                        {{ city.description }}
-                      </option>
-                    </select>
-                  </span>
-                </td>
 
                 <ng-template #hDistrict>
                   <td
@@ -887,8 +836,8 @@
                   >
                     <span class="inline" scope="row">
                       <textarea
-                        rows="4"
-                        cols="10"
+                        rows="5"
+                        cols="6"
                         class="form-control input-field"
                         [(ngModel)]="updatedHospital.address"
                         #address="ngModel"

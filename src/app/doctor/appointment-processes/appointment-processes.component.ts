@@ -20,6 +20,7 @@ export class AppointmentProcessesComponent implements OnInit {
   doctorModel : Doctor = new Doctor();
   appointmentModel : Appointment = new Appointment();
   appointmentList : Appointment[];
+  expiredAppointmentList : Appointment[];
 
   public editMode = false;
 
@@ -42,6 +43,8 @@ export class AppointmentProcessesComponent implements OnInit {
 }
 
 async loadData(){
+  this.loaderService.isLoading.next(true);
+
     await this.getUserInfo();
 
     await this.getService.getDoctorById(this.userInfo.personId).then(data =>{
@@ -55,24 +58,27 @@ async loadData(){
     await this.getService.getAllAppointments(this.doctorModel.id)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.appointmentList = x['$values']));
+
+    await this.getService.getAllExpiredAppointments(this.doctorModel.id)
+    .then((data) => JSON.parse(JSON.stringify(data)))
+    .then((x) => (this.expiredAppointmentList = x['$values']))
+    .finally(() => this.loaderService.isLoading.next(false));
   }
 
 
-  deleteAppointment(appointmentId : number) {
-    this.alertify.confirm("Are you sure you want to remove this Appointment?", () => {
-      this.loaderService.isLoading.next(true);
+  // deleteAppointment(appointmentId : number) {
+  //   this.alertify.confirm("Are you sure you want to remove this Appointment?", () => {
+  //     this.loaderService.isLoading.next(true);
 
-      this.deleteService.deleteAppointment(appointmentId)
-      .pipe(finalize(() => this.loaderService.isLoading.next(false)))
-      .subscribe(() => {
-        this.ngOnInit();
-        this.alertify.success("Appointment is Removed Successfully!");
-      })
-    })
-  }
+  //     this.deleteService.deleteAppointment(appointmentId)
+  //     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
+  //     .subscribe(() => {
+  //       this.ngOnInit();
+  //       this.alertify.success("Appointment is Removed Successfully!");
+  //     })
+  //   })
+  // }
   
-  updateAppointment(appointmentId : number) {
-    
-  }
+ 
 
 }

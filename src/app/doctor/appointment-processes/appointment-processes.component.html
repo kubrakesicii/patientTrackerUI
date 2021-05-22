@@ -13,15 +13,14 @@
           <th>Patient Name</th>
           <th>Date</th>
           <th>Time</th>
-          <th>R/U</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let appointment of this.appointmentList">
-          <td>{{ appointment.patientName }}</td>
-          <td>{{ appointment.date }}</td>
-          <td>{{ appointment.time }}</td>
-          <td>
+        <td>{{ appointment.patientName }}</td>
+          <td>{{ appointment.date.split("T")[0] }}</td>
+          <td>{{ appointment.date.split("T")[1] }}</td>
+          <!-- <td>
             <button
               class="btn btn-danger mr-2"
               (click)="deleteAppointment(appointment.id)"
@@ -34,7 +33,7 @@
             >
               <i class="fa fa-pencil-alt"></i>
             </button>
-          </td>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -42,6 +41,23 @@
     <hr>
     <span class="badge badge-dark p-2 mt-3">Expired Appointments</span>
     <hr>
+
+    <table class="table table-light mt-4">
+      <thead>
+        <tr>
+          <th>Patient Name</th>
+          <th>Date</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of this.expiredAppointmentList" class="passive">
+        <td>{{ appointment.patientName }}</td>
+          <td>{{ appointment.date.split("T")[0] }}</td>
+          <td>{{ appointment.date.split("T")[1] }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 

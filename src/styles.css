@@ -51,3 +51,9 @@
     /* stroke: #cac5c5; */
     stroke: rgb(176, 199, 163);
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cdk-overlay-backdrop {
+  z-index: 100; 
+}

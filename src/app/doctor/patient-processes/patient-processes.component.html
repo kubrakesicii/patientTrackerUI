@@ -263,22 +263,26 @@
           <td *ngIf="!(editMode && patient.id == this.updatedPatient.id)">
             <a
               [routerLink]="['/doctor-home/patient-details', patient.id]"
-              class="btn btn-warning mr-2"
+              class="btn btn-warning mr-1"
+              style="margin-right: 0; padding: 7px 9px 7px 9px"
             >
               <i class="fas fa-info-circle"></i>
             </a>
             <button
-              class="btn btn-danger mr-2"
+              class="btn btn-danger mr-1"
+              style="margin-right: 0; padding: 7px 9px 7px 9px"
               (click)="deletePatient(patient.id)"
             >
               <i class="far fa-trash-alt"></i>
             </button>
-            <button class="btn btn-primary" (click)="updatePatient(patient.id)">
+            <button class="btn btn-primary" 
+            style="margin-right: 0; padding: 7px 9px 7px 9px"
+            (click)="updatePatient(patient.id)">
               <i class="fa fa-pencil-alt"></i>
             </button>
           </td>
 
-          <ng-template #idnum>
+          <ng-template #idnum class="m-0">
             <td *ngIf="editMode && patient.id == this.updatedPatient.id">
               <span scope="row">
                 <input
@@ -290,7 +294,7 @@
             </td>
           </ng-template>
 
-          <ng-template #fname>
+          <ng-template #fname class="m-0">
             <td *ngIf="editMode && patient.id == this.updatedPatient.id">
               <span scope="row">
                 <input
@@ -302,7 +306,7 @@
             </td>
           </ng-template>
 
-          <ng-template #lname>
+          <ng-template #lname class="m-0">
             <td *ngIf="editMode && patient.id == this.updatedPatient.id">
               <span scope="row">
                 <input
@@ -314,7 +318,7 @@
             </td>
           </ng-template>
 
-          <ng-template #gsm>
+          <ng-template #gsm class="m-0">
             <td>
               <span scope="row">
                 <input
@@ -329,12 +333,15 @@
           <td *ngIf="editMode && patient.id == this.updatedPatient.id">
             <span scope="row">
               <button
-                class="btn btn-primary mr-2"
+                class="btn btn-primary mr-1"
+                style="margin-right: 0; padding: 7px 9px 7px 9px"
                 (click)="savePatient(); editMode = false"
               >
                 <i class="far fa-save"></i>
               </button>
-              <button class="btn btn-danger" (click)="cancelPatient()">
+              <button class="btn btn-danger" 
+              style="margin-right: 0; padding: 7px 10px 7px 10px"
+              (click)="cancelPatient()">
                 <i class="fas fa-times"></i>
               </button>
             </span>
