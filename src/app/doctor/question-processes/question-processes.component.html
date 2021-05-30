@@ -3,381 +3,379 @@
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="col-9 mt-3 pr-5 pl-0 ml-0">
-    <span class="badge badge-dark p-2">Add Question Form</span>
-    <hr>
-
-    <div class="form-box">
-      <form #questionForm="ngForm" (submit)="addQuestion(questionForm)">
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group " >
-              <input             
-                type="text"
-                class="form-control"
-                [class.is-invalid] = "description.invalid && (description.dirty || description.touched)"  
-                placeholder="Enter description"
-                name="description"
-                #description="ngModel"
-                [(ngModel)]="this.questionModel.description"
-                required
-              />
-              <span class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
-                Description is Required!
-              </span>
+  <div class="content">
+    <div class="col-12 mt-3 pr-5 pl-0 ml-0">
+      <span class="badge badge-dark p-2">Add Question Form</span>
+      <hr>
+  
+      <div class="form-box">
+        <form #questionForm="ngForm" (submit)="addQuestion(questionForm)">
+          <div class="row m-0">
+            <div class="col-md-6">
+              <div class="form-group " >
+                <input             
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid] = "description.invalid && (description.dirty || description.touched)"  
+                  placeholder="Enter description"
+                  name="description"
+                  #description="ngModel"
+                  [(ngModel)]="this.questionModel.description"
+                  required
+                />
+                <span class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
+                  Description is Required!
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <select
+                  type="number"
+                  class="form-control selection"
+                  [class.is-invalid] = "questionType.invalid && (questionType.dirty || questionType.touched)"
+                  placeholder="Select questionType"
+                  name="questionType"
+                  #questionType="ngModel"
+                  [(ngModel)]="this.questionModel.questionType"
+                  required
+                >
+                  <option *ngFor="let o of options" [value]="o.value">
+                    {{ o.name }}
+                  </option>
+                </select>
+                <span class="invalid-feedback" *ngIf="questionType.invalid && (questionType.dirty || questionType.touched)">
+                  Question Type is Required!
+                </span>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <select
-                type="number"
-                class="form-control selection"
-                [class.is-invalid] = "questionType.invalid && (questionType.dirty || questionType.touched)"
-                placeholder="Select questionType"
-                name="questionType"
-                #questionType="ngModel"
-                [(ngModel)]="this.questionModel.questionType"
-                required
-              >
-                <option *ngFor="let o of options" [value]="o.value">
-                  {{ o.name }}
-                </option>
-              </select>
-              <span class="invalid-feedback" *ngIf="questionType.invalid && (questionType.dirty || questionType.touched)">
-                Question Type is Required!
-              </span>
-            </div>
-          </div>
-        </div>
-  
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                [class.is-invalid] = "lowerLimit.invalid && (lowerLimit.dirty || lowerLimit.touched)"
-                placeholder="Enter Lower Limit"
-                name="gsm"
-                #lowerLimit="ngModel"
-                [(ngModel)]="this.questionModel.lowerLimit"
-                required
-              />
-              <span class="invalid-feedback" *ngIf="lowerLimit.invalid && (lowerLimit.dirty || lowerLimit.touched)">
-                Lower Limit is Required!
-              </span>
-            </div>
-          </div>
-  
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                [class.is-invalid] = "upperLimit.invalid && (upperLimit.dirty || upperLimit.touched)"
-                placeholder="Enter Upper Limit"
-                name="upperLimit"
-                #upperLimit="ngModel"
-                [(ngModel)]="this.questionModel.upperLimit"
-                required
-              />
-              <span class="invalid-feedback" *ngIf="upperLimit.invalid && (upperLimit.dirty || upperLimit.touched)">
-                Upper Limit is Required!
-              </span>
-            </div>
-          </div>
-        </div>
-  
-        <div class="row m-0" *ngIf="this.questionModel.questionType == 1">
-          <div class="col-md-12">
-            <hr>
-          <span class="badge badge-light">Add 4 Options to this Question!</span>
-          </div>
-          <div class="col-md-12">
-            <form
-            #answerForm="ngForm"
-            class="mt-3"            
-            >           
-            <div class="row m-0">
-              <div class="col-md-2 pr-0">
-                <span class="badge badge-success">Answer 1 :</span>
-              </div>
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [class.is-invalid] = "ans1.invalid && (ans1.dirty || ans1.touched)"
-                    placeholder="Enter Description"
-                    name="ans1"
-                    #ans1="ngModel"
-                    required
-                    [(ngModel)]="this.answer1.description"
-                  />
-                  <span class="invalid-feedback" *ngIf="ans1.invalid && (ans1.dirty || ans1.touched)">
-                    Answer1 is Required!
-                  </span>
-                </div>
-              </div>
-  
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="number"
-                    class="form-control"
-                    [class.is-invalid] = "score1.invalid && (score1.dirty || score1.touched)"
-                    placeholder="Enter Score"
-                    name="score1"
-                    #score1="ngModel"
-                    required
-                    [(ngModel)]="this.answer1.score"
-                  />
-                  <span class="invalid-feedback" *ngIf="score1.invalid && (score1.dirty || score1.touched)">
-                    Score is Required!
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="row m-0">
-              <div class="col-md-2 pr-0">
-                <span class="badge badge-success">Answer 2 :</span>
-              </div>
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [class.is-invalid] = "ans2.invalid && (ans2.dirty || ans2.touched)"
-                    placeholder="Enter Description"
-                    name="ans2"
-                    #ans2="ngModel"
-                    required
-                    [(ngModel)]="this.answer2.description"
-                  />
-                  <span class="invalid-feedback" *ngIf="ans2.invalid && (ans2.dirty || ans2.touched)">
-                    Description is Required!
-                  </span>
-                </div>
-              </div>
-  
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="number"
-                    class="form-control"
-                    [class.is-invalid]="score2.invalid && (score2.dirty || score2.touched)"
-                    placeholder="Enter Score"
-                    name="score2"
-                    #score2="ngModel"
-                    required
-                    [(ngModel)]="this.answer2.score"
-                  />
-                  <span class="invalid-feedback" *ngIf="score2.invalid && (score2.dirty || score2.touched)">
-                    Score is Required!
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="row m-0">
-              <div class="col-md-2 pr-0">
-                <span class="badge badge-success">Answer 3 :</span>
-              </div>
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [class.is-invalid] = "ans3.invalid && (ans3.dirty || ans3.touched)"
-                    placeholder="Enter Description"
-                    name="ans3"
-                    #ans3="ngModel"
-                    required
-                    [(ngModel)]="this.answer3.description"
-                  />
-                  <span class="invalid-feedback" *ngIf="ans3.invalid && (ans3.dirty || ans3.touched)">
-                    Description is Required!
-                  </span>
-                </div>
-              </div>
-  
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="number"
-                    class="form-control"
-                    [class.is-invalid] = "score3.invalid && (score3.dirty || score3.touched)"
-                    placeholder="Enter Score"
-                    name="score3"
-                    #score3="ngModel"
-                    required
-                    [(ngModel)]="this.answer3.score"
-                  />
-                  <span class="invalid-feedback" *ngIf="score3.invalid && (score3.dirty || score3.touched)">
-                    Score is Required!
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="row m-0">
-              <div class="col-md-2 pr-0">
-                <span class="badge badge-success">Answer 4 :</span>
-              </div>
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [class.is-invalid] = "ans4.invalid && (ans4.dirty || ans4.touched)"
-                    placeholder="Enter Description"
-                    name="ans4"
-                    #ans4="ngModel"
-                    required
-                    [(ngModel)]="this.answer4.description"
-                  />
-                  <span class="invalid-feedback" *ngIf="ans4.invalid && (ans4.dirty || ans4.touched)">
-                    Description is Required!
-                  </span>
-                </div>
-              </div>
-  
-              <div class="col-md-4 pl-0">
-                <div class="form-group">
-                  <input
-                    type="number"
-                    class="form-control"
-                    [class.is-invalid] = "score4.invalid && (score4.dirty || score4.touched)"
-                    placeholder="Enter Score"
-                    name="score4"
-                    #score4="ngModel"
-                    required
-                    [(ngModel)]="this.answer4.score"
-                  />
-                  <span class="invalid-feedback" *ngIf="score4.invalid && (score4.dirty || score4.touched)">
-                    Score is Required!
-                  </span>
-                </div>
-              </div>
-            </div>
-          </form>
-          </div>
-         
-        </div>
-        <div class="row m-0">
-          <div class="col-md-12">
-            <button class="btn btn-warning float-right" type="submit">
-              Add Question
-            </button>
-          </div>
-        </div>
-      </form>  
-    </div>
     
-    <hr>
-    <span class="badge badge-dark p-2 mt-3">Question List</span>
-    <hr>
-
-    <table class="table table-light mt-4">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Upper Limit</th>
-          <th>Lower Limit</th>
-          <th>Question Type</th>
-          <th>R/U</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let question of this.questionList">
-          <td
-            *ngIf="
-              !(editMode && question.id == this.updatedQuestion.id);
-              else qDesc
-            "
-          >
-            {{ question.description }}
-          </td>
-          <td
-            *ngIf="
-              !(editMode && question.id == this.updatedQuestion.id);
-              else qUp
-            "
-          >
-            {{ question.upperLimit }}
-          </td>
-          <td
-            *ngIf="
-              !(editMode && question.id == this.updatedQuestion.id);
-              else qLow
-            "
-          >
-            {{ question.lowerLimit }}
-          </td>
-          <td>{{ question.questionType }}</td>
-
-          <td *ngIf="!(editMode && question.id == this.updatedQuestion.id)">
-            <button
-              class="btn btn-danger mr-2"
-              (click)="deleteQuestion(question.id)"
-            >
-              <i class="far fa-trash-alt"></i>
-            </button>
-            <button
-              class="btn btn-primary"
-              (click)="updateQuestion(question.id)"
-            >
-              <i class="fa fa-pencil-alt"></i>
-            </button>
-          </td>
-
-          <ng-template #qDesc>
-            <td *ngIf="editMode && question.id == this.updatedQuestion.id">
-              <span scope="row" *ngIf="editMode">
+          <div class="row m-0">
+            <div class="col-md-6">
+              <div class="form-group">
                 <input
-                  class="form-control input-field"
-                  [(ngModel)]="updatedQuestion.description"
-                  type="text"
+                  type="number"
+                  class="form-control"
+                  [class.is-invalid] = "lowerLimit.invalid && (lowerLimit.dirty || lowerLimit.touched)"
+                  placeholder="Enter Lower Limit"
+                  name="gsm"
+                  #lowerLimit="ngModel"
+                  [(ngModel)]="this.questionModel.lowerLimit"
+                  required
                 />
-              </span>
-            </td>
-          </ng-template>
-
-          <ng-template #qUp>
-            <td *ngIf="editMode && question.id == this.updatedQuestion.id">
-              <span scope="row" *ngIf="editMode">
+                <span class="invalid-feedback" *ngIf="lowerLimit.invalid && (lowerLimit.dirty || lowerLimit.touched)">
+                  Lower Limit is Required!
+                </span>
+              </div>
+            </div>
+    
+            <div class="col-md-6">
+              <div class="form-group">
                 <input
-                  class="form-control input-field"
-                  [(ngModel)]="updatedQuestion.upperLimit"
-                  type="text"
+                  type="number"
+                  class="form-control"
+                  [class.is-invalid] = "upperLimit.invalid && (upperLimit.dirty || upperLimit.touched)"
+                  placeholder="Enter Upper Limit"
+                  name="upperLimit"
+                  #upperLimit="ngModel"
+                  [(ngModel)]="this.questionModel.upperLimit"
+                  required
                 />
-              </span>
-            </td>
-          </ng-template>
-
-          <ng-template #qLow>
-            <td *ngIf="editMode && question.id == this.updatedQuestion.id">
-              <span scope="row" *ngIf="editMode">
-                <input
-                  class="form-control input-field"
-                  [(ngModel)]="updatedQuestion.lowerLimit"
-                  type="text"
-                />
-              </span>
-            </td>
-          </ng-template>
-
-          <td *ngIf="editMode && question.id == this.updatedQuestion.id">
-            <span scope="row" *ngIf="editMode">
-              <button class="btn btn-primary mr-2" (click)="saveQuestion()">
-                <i class="far fa-save"></i>
+                <span class="invalid-feedback" *ngIf="upperLimit.invalid && (upperLimit.dirty || upperLimit.touched)">
+                  Upper Limit is Required!
+                </span>
+              </div>
+            </div>
+          </div>
+    
+          <div class="row m-0" *ngIf="this.questionModel.questionType == 1">
+            <div class="col-md-12">
+              <hr>
+            <span class="badge badge-light">Add 4 Options to this Question!</span>
+            </div>
+            <div class="col-md-12">
+              <form
+              #answerForm="ngForm"
+              class="mt-3"            
+              >           
+              <div class="row m-0">
+                <div class="col-md-2 pr-0">
+                  <span class="badge badge-success">Answer 1 :</span>
+                </div>
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [class.is-invalid] = "ans1.invalid && (ans1.dirty || ans1.touched)"
+                      placeholder="Enter Description"
+                      name="ans1"
+                      #ans1="ngModel"
+                      required
+                      [(ngModel)]="this.answer1.description"
+                    />
+                    <span class="invalid-feedback" *ngIf="ans1.invalid && (ans1.dirty || ans1.touched)">
+                      Answer1 is Required!
+                    </span>
+                  </div>
+                </div>
+    
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      [class.is-invalid] = "score1.invalid && (score1.dirty || score1.touched)"
+                      placeholder="Enter Score"
+                      name="score1"
+                      #score1="ngModel"
+                      required
+                      [(ngModel)]="this.answer1.score"
+                    />
+                    <span class="invalid-feedback" *ngIf="score1.invalid && (score1.dirty || score1.touched)">
+                      Score is Required!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-0">
+                <div class="col-md-2 pr-0">
+                  <span class="badge badge-success">Answer 2 :</span>
+                </div>
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [class.is-invalid] = "ans2.invalid && (ans2.dirty || ans2.touched)"
+                      placeholder="Enter Description"
+                      name="ans2"
+                      #ans2="ngModel"
+                      required
+                      [(ngModel)]="this.answer2.description"
+                    />
+                    <span class="invalid-feedback" *ngIf="ans2.invalid && (ans2.dirty || ans2.touched)">
+                      Description is Required!
+                    </span>
+                  </div>
+                </div>
+    
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      [class.is-invalid]="score2.invalid && (score2.dirty || score2.touched)"
+                      placeholder="Enter Score"
+                      name="score2"
+                      #score2="ngModel"
+                      required
+                      [(ngModel)]="this.answer2.score"
+                    />
+                    <span class="invalid-feedback" *ngIf="score2.invalid && (score2.dirty || score2.touched)">
+                      Score is Required!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-0">
+                <div class="col-md-2 pr-0">
+                  <span class="badge badge-success">Answer 3 :</span>
+                </div>
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [class.is-invalid] = "ans3.invalid && (ans3.dirty || ans3.touched)"
+                      placeholder="Enter Description"
+                      name="ans3"
+                      #ans3="ngModel"
+                      required
+                      [(ngModel)]="this.answer3.description"
+                    />
+                    <span class="invalid-feedback" *ngIf="ans3.invalid && (ans3.dirty || ans3.touched)">
+                      Description is Required!
+                    </span>
+                  </div>
+                </div>
+    
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      [class.is-invalid] = "score3.invalid && (score3.dirty || score3.touched)"
+                      placeholder="Enter Score"
+                      name="score3"
+                      #score3="ngModel"
+                      required
+                      [(ngModel)]="this.answer3.score"
+                    />
+                    <span class="invalid-feedback" *ngIf="score3.invalid && (score3.dirty || score3.touched)">
+                      Score is Required!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-0">
+                <div class="col-md-2 pr-0">
+                  <span class="badge badge-success">Answer 4 :</span>
+                </div>
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      [class.is-invalid] = "ans4.invalid && (ans4.dirty || ans4.touched)"
+                      placeholder="Enter Description"
+                      name="ans4"
+                      #ans4="ngModel"
+                      required
+                      [(ngModel)]="this.answer4.description"
+                    />
+                    <span class="invalid-feedback" *ngIf="ans4.invalid && (ans4.dirty || ans4.touched)">
+                      Description is Required!
+                    </span>
+                  </div>
+                </div>
+    
+                <div class="col-md-4 pl-0">
+                  <div class="form-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      [class.is-invalid] = "score4.invalid && (score4.dirty || score4.touched)"
+                      placeholder="Enter Score"
+                      name="score4"
+                      #score4="ngModel"
+                      required
+                      [(ngModel)]="this.answer4.score"
+                    />
+                    <span class="invalid-feedback" *ngIf="score4.invalid && (score4.dirty || score4.touched)">
+                      Score is Required!
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </div>
+           
+          </div>
+          <div class="row m-0">
+            <div class="col-md-12">
+              <button class="btn btn-warning float-right" type="submit">
+                Add Question
               </button>
-              <button class="btn btn-danger" (click)="cancelQuestion()">
-                <i class="fas fa-times"></i>
-              </button>
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </div>
+          </div>
+        </form>  
+      </div>
+      
+      <hr>
+      <span class="badge badge-dark p-2 mt-3">Question List</span>
+      <hr>
+  
+      <table class="table table-light mt-4">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Upper Limit</th>
+            <th>Lower Limit</th>
+            <th>Question Type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let question of this.questionList">
+            <td
+              *ngIf="
+                !(editMode && question.id == this.updatedQuestion.id);
+                else qDesc
+              "
+            >
+              {{ question.description }}
+            </td>
+            <td
+              *ngIf="
+                !(editMode && question.id == this.updatedQuestion.id);
+                else qUp
+              "
+            >
+              {{ question.upperLimit }}
+            </td>
+            <td
+              *ngIf="
+                !(editMode && question.id == this.updatedQuestion.id);
+                else qLow
+              "
+            >
+              {{ question.lowerLimit }}
+            </td>
+            <td>{{ question.questionType }}</td>
+  
+            <td *ngIf="!(editMode && question.id == this.updatedQuestion.id)">
+
+                <i class="far fa-trash-alt text-danger mr-3"
+                style="cursor: pointer;"
+                (click)="deleteQuestion(question.id)"></i>
+
+                <i class="fa fa-pencil-alt text-warning"
+                style="cursor: pointer;"
+                (click)="updateQuestion(question.id)"></i>
+            </td>
+  
+            <ng-template #qDesc>
+              <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+                <span scope="row" *ngIf="editMode">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedQuestion.description"
+                    type="text"
+                  />
+                </span>
+              </td>
+            </ng-template>
+  
+            <ng-template #qUp>
+              <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+                <span scope="row" *ngIf="editMode">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedQuestion.upperLimit"
+                    type="text"
+                  />
+                </span>
+              </td>
+            </ng-template>
+  
+            <ng-template #qLow>
+              <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+                <span scope="row" *ngIf="editMode">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedQuestion.lowerLimit"
+                    type="text"
+                  />
+                </span>
+              </td>
+            </ng-template>
+  
+            <td *ngIf="editMode && question.id == this.updatedQuestion.id">
+              <span scope="row" *ngIf="editMode">
+                  <i class="far fa-save text-warning mr-3"
+                  (click)="saveQuestion()"
+                  style="cursor: pointer;"></i>
+                  <i class="fas fa-times text-danger"
+                  (click)="cancelQuestion()"
+                  style="cursor: pointer;"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 <div *ngIf="loaderService.isLoading | async" class="loader-container">

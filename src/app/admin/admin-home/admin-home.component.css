@@ -315,52 +315,11 @@ button.btn.btn-outline-warning {
   margin-bottom: 12px;
 }
 
-/* .welcome {
-  font-weight: 700;
-  text-align: center;
-  font-size: 20px;
-  font-family: Hack, sans-serif;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #000, #fff, #000);
-  letter-spacing: 5px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-repeat: no-repeat;
-  background-size: 80%;
-  animation: shine 5s linear infinite;
-  position: relative;
-}
-
-@keyframes shine {
-  0% {
-    background-position-x: -500%;
-  }
-  100% {
-    background-position-x: 500%;
-  }
-}
 
 p.welcome {
   margin-top: 11px;
   margin-left: 500px;
 } */
-
-/* .nav-container {
-  display: flex;
-  justify-content: start;
-}
-
-.nav-container button {
-  justify-content: end;
-  padding: 0;
-}
-
-.nav-container p {
-  align-items: center;
-}
-
- */
 
  .welcome {
     font-weight: 600;
@@ -390,3 +349,6 @@ p.welcome {
   left: 50%;
   transform: translate(-50px, -50px);
 }
+
+
+

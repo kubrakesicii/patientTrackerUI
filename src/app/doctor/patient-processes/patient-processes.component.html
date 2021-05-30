@@ -3,377 +3,377 @@
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="col-9 pr-5 pl-0 ml-0 mt-4">
-    <span class="badge badge-dark p-2">Add Patient Form</span>
-    <hr />
-    <div class="form-box mb-5">
-      <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Firstname"
-                [class.is-invalid]="
-                  firstname.invalid && (firstname.dirty || firstname.touched)
-                "
-                required
-                name="firstname"
-                #firstname="ngModel"
-                [(ngModel)]="this.patientModel.firstName"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="
-                  firstname.invalid && (firstname.dirty || firstname.touched)
-                "
-              >
-                FirstName is Required!
-              </span>
+  <div class="content">
+    <div class="col-12 pl-2 ml-0 mt-4">
+      <span class="badge badge-dark p-2">Add Patient Form</span>
+      <hr />
+      <div class="form-box mb-5">
+        <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
+          <div class="row m-0">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Firstname"
+                  [class.is-invalid]="
+                    firstname.invalid && (firstname.dirty || firstname.touched)
+                  "
+                  required
+                  name="firstname"
+                  #firstname="ngModel"
+                  [(ngModel)]="this.patientModel.firstName"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="
+                    firstname.invalid && (firstname.dirty || firstname.touched)
+                  "
+                >
+                  FirstName is Required!
+                </span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Lastname"
+                  [class.is-invalid]="
+                    lastname.invalid && (lastname.dirty || lastname.touched)
+                  "
+                  required
+                  name="lastname"
+                  #lastname="ngModel"
+                  [(ngModel)]="this.patientModel.lastName"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+                >
+                  LastName is Required!
+                </span>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Lastname"
-                [class.is-invalid]="
-                  lastname.invalid && (lastname.dirty || lastname.touched)
-                "
-                required
-                name="lastname"
-                #lastname="ngModel"
-                [(ngModel)]="this.patientModel.lastName"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
-              >
-                LastName is Required!
-              </span>
+  
+          <div class="row m-0">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid]="gsm.invalid && (gsm.dirty || gsm.touched)"
+                  required
+                  placeholder="Enter Gsm"
+                  name="gsm"
+                  #gsm="ngModel"
+                  [(ngModel)]="this.patientModel.gsm"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="gsm.invalid && (gsm.dirty || gsm.touched)"
+                >
+                  Gsm is Required!
+                </span>
+              </div>
+            </div>
+  
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid]="
+                    identity.invalid && (identity.dirty || identity.touched)
+                  "
+                  required
+                  placeholder="Enter ID"
+                  name="identity"
+                  #identity="ngModel"
+                  [(ngModel)]="this.patientModel.identityNumber"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="identity.invalid && (identity.dirty || identity.touched)"
+                >
+                  ID is Required!
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                [class.is-invalid]="gsm.invalid && (gsm.dirty || gsm.touched)"
-                required
-                placeholder="Enter Gsm"
-                name="gsm"
-                #gsm="ngModel"
-                [(ngModel)]="this.patientModel.gsm"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="gsm.invalid && (gsm.dirty || gsm.touched)"
-              >
-                Gsm is Required!
-              </span>
+  
+          <div class="row m-0">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid]="
+                    email.invalid && (email.dirty || email.touched)
+                  "
+                  required
+                  placeholder="Enter Email"
+                  name="email"
+                  #email="ngModel"
+                  [(ngModel)]="this.patientModel.email"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="email.invalid && (email.dirty || email.touched)"
+                >
+                  Age is Required!
+                </span>
+              </div>
             </div>
           </div>
-
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                [class.is-invalid]="
-                  identity.invalid && (identity.dirty || identity.touched)
-                "
-                required
-                placeholder="Enter ID"
-                name="identity"
-                #identity="ngModel"
-                [(ngModel)]="this.patientModel.identityNumber"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="identity.invalid && (identity.dirty || identity.touched)"
-              >
-                ID is Required!
-              </span>
+  
+          <div class="row m-0">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Age"
+                  [class.is-invalid]="
+                  age.invalid && (age.dirty || age.touched)
+                  "
+                  required
+                  name="age"
+                  #age="ngModel"
+                  [(ngModel)]="this.patientModel.age"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="
+                  age.invalid && (age.dirty || age.touched)
+                  "
+                >
+                  FirstName is Required!
+                </span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Weight"
+                  [class.is-invalid]="
+                  weight.invalid && (weight.dirty || weight.touched)
+                  "
+                  required
+                  name="weight"
+                  #weight="ngModel"
+                  [(ngModel)]="this.patientModel.weight"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="weight.invalid && (weight.dirty || weight.touched)"
+                >
+                  Weight is Required!
+                </span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter Height"
+                  [class.is-invalid]="
+                  height.invalid && (height.dirty || height.touched)
+                  "
+                  required
+                  name="height"
+                  #height="ngModel"
+                  [(ngModel)]="this.patientModel.height"
+                />
+                <span
+                  class="invalid-feedback"
+                  *ngIf="height.invalid && (height.dirty || height.touched)"
+                >
+                  Height is Required!
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="row m-0">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                [class.is-invalid]="
-                  email.invalid && (email.dirty || email.touched)
-                "
-                required
-                placeholder="Enter Email"
-                name="email"
-                #email="ngModel"
-                [(ngModel)]="this.patientModel.email"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="email.invalid && (email.dirty || email.touched)"
-              >
-                Age is Required!
-              </span>
+  
+          <div class="row m-0">
+            <div class="col-md-2">
+              <button class="btn btn-warning" type="submit">Add</button>
             </div>
           </div>
-        </div>
-
-        <div class="row m-0">
-          <div class="col-md-4">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Enter Age"
-                [class.is-invalid]="
-                age.invalid && (age.dirty || age.touched)
-                "
-                required
-                name="age"
-                #age="ngModel"
-                [(ngModel)]="this.patientModel.age"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="
-                age.invalid && (age.dirty || age.touched)
-                "
-              >
-                FirstName is Required!
-              </span>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Enter Weight"
-                [class.is-invalid]="
-                weight.invalid && (weight.dirty || weight.touched)
-                "
-                required
-                name="weight"
-                #weight="ngModel"
-                [(ngModel)]="this.patientModel.weight"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="weight.invalid && (weight.dirty || weight.touched)"
-              >
-                Weight is Required!
-              </span>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Enter Height"
-                [class.is-invalid]="
-                height.invalid && (height.dirty || height.touched)
-                "
-                required
-                name="height"
-                #height="ngModel"
-                [(ngModel)]="this.patientModel.height"
-              />
-              <span
-                class="invalid-feedback"
-                *ngIf="height.invalid && (height.dirty || height.touched)"
-              >
-                Height is Required!
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="row m-0">
-          <div class="col-md-2">
-            <button class="btn btn-warning" type="submit">Add</button>
-          </div>
-        </div>
+        </form>
+      </div>
+  
+      <hr />
+      <span class="badge badge-dark p-2 mt-3">Patient List</span>
+      <form class="form-inline my-2 my-lg-0 float-right">
+        <input
+          #filterText
+          class="form-control mr-sm-2"
+          type="text"
+          placeholder="Search"
+          (keyup)="searchPatient(filterText.value)"
+        />
       </form>
+      <hr />
+      <table class="table table-light mt-4 mb-5">
+        <thead class="bg-priary">
+          <tr>
+            <th>Identity Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gsm</th>
+            <th>Health Score</th>
+            <th>Detail/R/U</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr
+            *ngFor="let patient of this.activePatientList"
+            [ngClass]="{ danger: patient.danger > 0 }"
+          >
+            <td
+              *ngIf="
+                !(editMode && patient.id == this.updatedPatient.id);
+                else idnum
+              "
+            >
+              {{ patient.identityNumber }}
+            </td>
+            <td
+              *ngIf="
+                !(editMode && patient.id == this.updatedPatient.id);
+                else fname
+              "
+            >
+              {{ patient.firstName }}
+            </td>
+            <td
+              *ngIf="
+                !(editMode && patient.id == this.updatedPatient.id);
+                else lname
+              "
+            >
+              {{ patient.lastName }}
+            </td>
+            <td
+              *ngIf="
+                !(editMode && patient.id == this.updatedPatient.id);
+                else gsm
+              "
+            >
+              {{ patient.gsm }}
+            </td>
+            <td>{{ patient.healthScore }}</td>
+            <td *ngIf="!(editMode && patient.id == this.updatedPatient.id)">
+                <i class="fas fa-info-circle text-primary mr-2"
+                style="cursor: pointer;"
+                [routerLink]="['/doctor-home/patient-details', patient.id]"></i>
+
+                <i class="far fa-trash-alt mr-2 text-danger"
+                style="cursor: pointer;"
+                (click)="deletePatient(patient.id)"></i>
+
+                <i class="fa fa-pencil-alt text-warning"
+                style="cursor: pointer;"
+                (click)="updatePatient(patient.id)"></i>
+            </td>
+  
+            <ng-template #idnum class="m-0">
+              <td *ngIf="editMode && patient.id == this.updatedPatient.id">
+                <span scope="row">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedPatient.identityNumber"
+                    type="text"
+                  />
+                </span>
+              </td>
+            </ng-template>
+  
+            <ng-template #fname class="m-0">
+              <td *ngIf="editMode && patient.id == this.updatedPatient.id">
+                <span scope="row">
+                  <input
+                    class="form-control input-field mr-2"
+                    [(ngModel)]="updatedPatient.firstName"
+                    type="text"
+                  />
+                </span>
+              </td>
+            </ng-template>
+  
+            <ng-template #lname class="m-0">
+              <td *ngIf="editMode && patient.id == this.updatedPatient.id">
+                <span scope="row">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedPatient.lastName"
+                    type="text"
+                  />
+                </span>
+              </td>
+            </ng-template>
+  
+            <ng-template #gsm class="m-0">
+              <td>
+                <span scope="row">
+                  <input
+                    class="form-control input-field"
+                    [(ngModel)]="updatedPatient.gsm"
+                    type="text"
+                  />
+                </span>
+              </td>
+            </ng-template>
+  
+            <td *ngIf="editMode && patient.id == this.updatedPatient.id">
+              <span scope="row">
+
+                  <i class="far fa-save text-warning mr-3"
+                  style="cursor: pointer;"
+                  (click)="savePatient(); editMode = false"></i>
+  
+                  <i class="fas fa-times text-danger"
+                  style="cursor: pointer;"
+                  (click)="cancelPatient()"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <hr />
+      <span class="badge badge-dark p-2 mt-3">Removed Patients</span>
+      <hr />
+      <table class="table table-light mt-4 mb-5">
+        <thead>
+          <tr>
+            <th>Identity Number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gsm</th>
+            <th>Health Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of removedPatientList" class="passive">
+            <td>{{ patient.identityNumber }}</td>
+            <td>{{ patient.firstName }}</td>
+            <td>{{ patient.lastName }}</td>
+            <td>{{ patient.gsm }}</td>
+            <td>{{ patient.healthScore }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <hr />
-    <span class="badge badge-dark p-2 mt-3">Patient List</span>
-    <hr />
-    <table class="table table-light mt-4 mb-5">
-      <thead class="bg-priary">
-        <tr>
-          <th>Identity Number</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Gsm</th>
-          <th>Health Score</th>
-          <th>Detail/R/U</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr
-          *ngFor="let patient of this.activePatientList"
-          [ngClass]="{ danger: patient.danger > 0 }"
-        >
-          <td
-            *ngIf="
-              !(editMode && patient.id == this.updatedPatient.id);
-              else idnum
-            "
-          >
-            {{ patient.identityNumber }}
-          </td>
-          <td
-            *ngIf="
-              !(editMode && patient.id == this.updatedPatient.id);
-              else fname
-            "
-          >
-            {{ patient.firstName }}
-          </td>
-          <td
-            *ngIf="
-              !(editMode && patient.id == this.updatedPatient.id);
-              else lname
-            "
-          >
-            {{ patient.lastName }}
-          </td>
-          <td
-            *ngIf="
-              !(editMode && patient.id == this.updatedPatient.id);
-              else gsm
-            "
-          >
-            {{ patient.gsm }}
-          </td>
-          <td>{{ patient.healthScore }}</td>
-          <td *ngIf="!(editMode && patient.id == this.updatedPatient.id)">
-            <a
-              [routerLink]="['/doctor-home/patient-details', patient.id]"
-              class="btn btn-warning mr-1"
-              style="margin-right: 0; padding: 7px 9px 7px 9px"
-            >
-              <i class="fas fa-info-circle"></i>
-            </a>
-            <button
-              class="btn btn-danger mr-1"
-              style="margin-right: 0; padding: 7px 9px 7px 9px"
-              (click)="deletePatient(patient.id)"
-            >
-              <i class="far fa-trash-alt"></i>
-            </button>
-            <button class="btn btn-primary" 
-            style="margin-right: 0; padding: 7px 9px 7px 9px"
-            (click)="updatePatient(patient.id)">
-              <i class="fa fa-pencil-alt"></i>
-            </button>
-          </td>
-
-          <ng-template #idnum class="m-0">
-            <td *ngIf="editMode && patient.id == this.updatedPatient.id">
-              <span scope="row">
-                <input
-                  class="form-control input-field"
-                  [(ngModel)]="updatedPatient.identityNumber"
-                  type="text"
-                />
-              </span>
-            </td>
-          </ng-template>
-
-          <ng-template #fname class="m-0">
-            <td *ngIf="editMode && patient.id == this.updatedPatient.id">
-              <span scope="row">
-                <input
-                  class="form-control input-field mr-2"
-                  [(ngModel)]="updatedPatient.firstName"
-                  type="text"
-                />
-              </span>
-            </td>
-          </ng-template>
-
-          <ng-template #lname class="m-0">
-            <td *ngIf="editMode && patient.id == this.updatedPatient.id">
-              <span scope="row">
-                <input
-                  class="form-control input-field"
-                  [(ngModel)]="updatedPatient.lastName"
-                  type="text"
-                />
-              </span>
-            </td>
-          </ng-template>
-
-          <ng-template #gsm class="m-0">
-            <td>
-              <span scope="row">
-                <input
-                  class="form-control input-field"
-                  [(ngModel)]="updatedPatient.gsm"
-                  type="text"
-                />
-              </span>
-            </td>
-          </ng-template>
-
-          <td *ngIf="editMode && patient.id == this.updatedPatient.id">
-            <span scope="row">
-              <button
-                class="btn btn-primary mr-1"
-                style="margin-right: 0; padding: 7px 9px 7px 9px"
-                (click)="savePatient(); editMode = false"
-              >
-                <i class="far fa-save"></i>
-              </button>
-              <button class="btn btn-danger" 
-              style="margin-right: 0; padding: 7px 10px 7px 10px"
-              (click)="cancelPatient()">
-                <i class="fas fa-times"></i>
-              </button>
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <hr />
-    <span class="badge badge-dark p-2 mt-3">Removed Patients</span>
-    <hr />
-    <table class="table table-light mt-4 mb-5">
-      <thead>
-        <tr>
-          <th>Identity Number</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Gsm</th>
-          <th>Health Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let patient of removedPatientList" class="passive">
-          <td>{{ patient.identityNumber }}</td>
-          <td>{{ patient.firstName }}</td>
-          <td>{{ patient.lastName }}</td>
-          <td>{{ patient.gsm }}</td>
-          <td>{{ patient.healthScore }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
+ 
 </div>
 <div *ngIf="loaderService.isLoading | async" class="loader-container">
   <mat-spinner></mat-spinner>

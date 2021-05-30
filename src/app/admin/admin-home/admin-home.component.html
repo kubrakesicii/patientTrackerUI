@@ -1,4 +1,4 @@
-<div class="item-body m-0 p-0">
+<div class="item-body p-0 mb-4">
   <div *ngIf="loaderService.isLoading | async" class="loader-container">
     <mat-spinner></mat-spinner>
   </div>
@@ -166,7 +166,7 @@
                   <tr>
                     <th>Description</th>
                     <th>Country Code</th>
-                    <th>D / U</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -190,18 +190,11 @@
                         !(editMode && country.id == this.updatedCountry.id)
                       "
                     >
-                      <button
-                        class="btn btn-danger mr-2"
-                        (click)="deleteCountry(country.id)"
-                      >
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                      <button
-                        class="btn btn-primary"
-                        (click)="updateCountry(country.id); editMode = true"
-                      >
-                        <i class="fa fa-pencil-alt"></i>
-                      </button>
+               
+                      <i class="far fa-trash-alt text-danger mr-3"
+                      (click)="deleteCountry(country.id)"></i>
+
+                      <i class="fa fa-pencil-alt text-warning" (click)="updateCountry(country.id); editMode = true"></i>
                     </td>
                     <td
                       *ngIf="editMode && country.id == this.updatedCountry.id"
@@ -229,18 +222,12 @@
                       *ngIf="editMode && country.id == this.updatedCountry.id"
                     >
                       <span scope="row">
-                        <button
-                          class="btn btn-primary mr-2"
-                          (click)="saveCountry(); editMode = false"
-                        >
-                          <i class="far fa-save"></i>
-                        </button>
-                        <button
-                          class="btn btn-danger"
-                          (click)="cancelCountry()"
-                        >
-                          <i class="fas fa-times"></i>
-                        </button>
+
+                          <i class="far fa-save text-warning mr-3"
+                          (click)="saveCountry(); editMode = false"></i>
+   
+                          <i class="fas fa-times text-danger"
+                          (click)="cancelCountry()"></i>
                       </span>
                     </td>
                   </tr>
@@ -310,7 +297,7 @@
                   <tr>
                     <th>Description</th>
                     <th>Country</th>
-                    <th>R / U</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -322,18 +309,12 @@
                       {{ city.countryName }}
                     </td>
                     <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
-                      <button
-                        class="btn btn-danger mr-2"
-                        (click)="deleteCity(city.id)"
-                      >
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                      <button
-                        class="btn btn-primary"
-                        (click)="updateCity(city.id)"
-                      >
-                        <i class="fa fa-pencil-alt"></i>
-                      </button>
+  
+                        <i class="far fa-trash-alt mr-3 text-danger"
+                        (click)="deleteCity(city.id)"></i>
+
+                        <i class="fa fa-pencil-alt text-warning"
+                        (click)="updateCity(city.id)"></i>
                     </td>
 
                     <td *ngIf="editMode && city.id == this.updatedCity.id">
@@ -364,16 +345,12 @@
                     </td>
                     <td *ngIf="editMode && city.id == this.updatedCity.id">
                       <span scope="row">
-                        <button
-                          mat-button
-                          class="btn btn-primary mr-2"
-                          (click)="saveCity(); editMode = false"
-                        >
-                          <i class="far fa-save"></i>
-                        </button>
-                        <button class="btn btn-danger" (click)="cancelCity()">
-                          <i class="fas fa-times"></i>
-                        </button>
+
+                          <i class="far fa-save mr-3 text-warning"
+                          (click)="saveCity(); editMode = false"></i>
+      
+                          <i class="fas fa-times text-danger"
+                          (click)="cancelCity()"></i>
                       </span>
                     </td>
                   </tr>
@@ -435,7 +412,7 @@
                   <tr>
                     <th>Description</th>
                     <th>City</th>
-                    <th>R / U</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -459,18 +436,12 @@
                         !(editMode && district.id == this.updatedDistrict.id)
                       "
                     >
-                      <button
-                        class="btn btn-danger mr-2"
-                        (click)="deleteDistrict(district.id)"
-                      >
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                      <button
-                        class="btn btn-primary"
-                        (click)="updateDistrict(district.id)"
-                      >
-                        <i class="fa fa-pencil-alt"></i>
-                      </button>
+
+                        <i class="far fa-trash-alt mr-3 text-danger"
+                        (click)="deleteDistrict(district.id)"></i>
+
+                        <i class="fa fa-pencil-alt text-warning"
+                        (click)="updateDistrict(district.id)"></i>
                     </td>
 
                     <td
@@ -508,18 +479,12 @@
                       *ngIf="editMode && district.id == this.updatedDistrict.id"
                     >
                       <span scope="row">
-                        <button
-                          class="btn btn-primary mr-2"
-                          (click)="saveDistrict(); editMode = false"
-                        >
-                          <i class="far fa-save"></i>
-                        </button>
-                        <button
-                          class="btn btn-danger"
-                          (click)="cancelDistrict()"
-                        >
-                          <i class="fas fa-times"></i>
-                        </button>
+
+                          <i class="far fa-save mr-3 text-warning"
+                          (click)="saveDistrict(); editMode = false"></i>
+    
+                          <i class="fas fa-times text-danger"
+                          (click)="cancelDistrict()"></i>
                       </span>
                     </td>
                   </tr>
@@ -694,193 +659,175 @@
 
     <hr class="mt-5 mb-5" />
 
-    <div class="form-box">
-      <div class="container mt-3">
-        <div class="row">
-          <div class="col-md-6">
-            <span class="badge badge-danger p-2 w-75"
-              >Select a Hospital and view statistics about that hospital</span
-            >
-            <hr />
+    <div class="row">
+      <div class="form-box col-sm-12" style="max-width: 1200px;">
+        <div class="container mt-3">
+          <div class="row">
+            <div class="col-12">
+              <span class="badge badge-danger p-2 w-75"
+                >Select a Hospital and view statistics about that hospital</span
+              >
+              <hr />
+            </div>
+            <div class="col-md-6">
+              <form class="form-inline my-2 my-lg-0 float-right">
+                <input
+                  #filterText
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Search"
+                  (keyup)="searchHospital(filterText.value)"
+                />
+              </form>
+            </div>
           </div>
-          <div class="col-md-6">
-            <form class="form-inline my-2 my-lg-0 float-right">
-              <input
-                #filterText
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Search"
-                (keyup)="searchHospital(filterText.value)"
-              />
-            </form>
-          </div>
-        </div>
-        <div class="row">
-          <table class="table table-striped p-3">
-            <thead>
-              <th>Description</th>
-              <th class = "w-25">Address</th>
-              <th>Country</th>
-              <th>City</th>
-              <th>District</th>
-              <th>Phone</th>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let hospital of hospitalList">
-                <td
-                  *ngIf="
-                    !(editMode && hospital.id == this.updatedHospital.id);
-                    else hDesc
-                  "
-                >
-                  {{ hospital.description }}
-                </td>
-                <td
-                  *ngIf="
-                    !(editMode && hospital.id == this.updatedHospital.id);
-                    else hAddress
-                  "
-                >
-                  {{ hospital.address }}
-                </td>
-                <td>
-                  {{ hospital.countryName }}
-                </td>
-                <td>
-                  {{ hospital.cityName }}
-                </td>
-                <td
-                  *ngIf="
-                    !(editMode && hospital.id == this.updatedHospital.id);
-                    else hDistrict
-                  "
-                >
-                  {{ hospital.districtName }}
-                </td>
-                <td
-                  *ngIf="
-                    !(editMode && hospital.id == this.updatedHospital.id);
-                    else hPhone
-                  "
-                >
-                  {{ hospital.phone }}
-                </td>
-
-                <td
-                  *ngIf="!(editMode && hospital.id == this.updatedHospital.id)"
-                >
-                  <button
-                    class="btn btn-danger mr-1"
-                    style="margin-right: 0; padding: 6px 9px 6px 9px"
-                    (click)="deleteHospital(hospital.id)"
-                  >
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                  <button
-                    class="btn btn-primary mr-1"
-                    style="margin-right: 0; padding: 6px 8px 6px 8px"
-                    (click)="updateHospital(hospital.id); editMode = true"
-                  >
-                    <i class="fa fa-pencil-alt"></i>
-                  </button>
-                  <button
-                    class="btn btn-success"
-                    style="margin-right: 0; padding: 6px 8px 6px 8px"
-                    (click)="setHospital(hospital.id, hospital.description)"
-                  >
-                    <i class="fas fa-info-circle"></i>
-                  </button>
-                </td>
-
-                <ng-template #hDesc class="m-0 p-0">
+          <div class="row">
+            <table class="table table-striped p-3">
+              <thead>
+                <th>Description</th>
+                <th class = "w-25">Address</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>District</th>
+                <th>Phone</th>
+              </thead>
+  
+              <tbody>
+                <tr *ngFor="let hospital of hospitalList">
                   <td
-                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                    *ngIf="
+                      !(editMode && hospital.id == this.updatedHospital.id);
+                      else hDesc
+                    "
                   >
-                    <span class="inline" scope="row">
-                      <input
-                        class="form-control input-field"
-                        [(ngModel)]="updatedHospital.description"
-                        #description="ngModel"
-                        [ngModelOptions]="{ standalone: true }"
-                      />
-                    </span>
+                    {{ hospital.description }}
                   </td>
-                </ng-template>
-
-                <ng-template #hDistrict>
                   <td
-                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                    *ngIf="
+                      !(editMode && hospital.id == this.updatedHospital.id);
+                      else hAddress
+                    "
                   >
-                    <span class="inline" scope="row">
-                      <select
-                        type="text"
-                        class="form-control input-field"
-                        name="districtId"
-                        [(ngModel)]="updatedHospital.districtId"
-                      >
-                        <option
-                          *ngFor="let district of districtList"
-                          [value]="district.id"
+                    {{ hospital.address }}
+                  </td>
+                  <td>
+                    {{ hospital.countryName }}
+                  </td>
+                  <td>
+                    {{ hospital.cityName }}
+                  </td>
+                  <td
+                    *ngIf="
+                      !(editMode && hospital.id == this.updatedHospital.id);
+                      else hDistrict
+                    "
+                  >
+                    {{ hospital.districtName }}
+                  </td>
+                  <td
+                    *ngIf="
+                      !(editMode && hospital.id == this.updatedHospital.id);
+                      else hPhone
+                    "
+                  >
+                    {{ hospital.phone }}
+                  </td>
+  
+                  <td
+                    *ngIf="!(editMode && hospital.id == this.updatedHospital.id)"
+                  >
+
+                      <i class="far fa-trash-alt text-danger mr-2"
+                      (click)="deleteHospital(hospital.id)"></i>
+                      <i class="fa fa-pencil-alt mr-2 text-warning"
+                      (click)="updateHospital(hospital.id); editMode = true"></i>
+                      <i class="fas fa-info-circle text-success"
+                      (click)="setHospital(hospital.id, hospital.description)"></i>
+                  </td>
+  
+                  <ng-template #hDesc class="m-0 p-0">
+                    <td
+                      *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                    >
+                      <span class="inline" scope="row">
+                        <input
+                          class="form-control input-field"
+                          [(ngModel)]="updatedHospital.description"
+                          #description="ngModel"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </span>
+                    </td>
+                  </ng-template>
+  
+                  <ng-template #hDistrict>
+                    <td
+                      *ngIf="editMode && hospital.id == this.updatedHospital.id"
+                    >
+                      <span class="inline" scope="row">
+                        <select
+                          type="text"
+                          class="form-control input-field"
+                          name="districtId"
+                          [(ngModel)]="updatedHospital.districtId"
                         >
-                          {{ district.description }}
-                        </option>
-                      </select>
-                    </span>
-                  </td>
-                </ng-template>
-
-                <ng-template #hAddress>
-                  <td
-                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
-                  >
-                    <span class="inline" scope="row">
-                      <textarea
-                        rows="5"
-                        cols="6"
-                        class="form-control input-field"
-                        [(ngModel)]="updatedHospital.address"
-                        #address="ngModel"
-                        [ngModelOptions]="{ standalone: true }"
-                      ></textarea>
-                    </span>
-                  </td>
-                </ng-template>
-
-                <ng-template #hPhone>
-                  <td
-                    *ngIf="editMode && hospital.id == this.updatedHospital.id"
-                  >
-                    <span class="inline" scope="row">
-                      <input
-                        class="form-control input-field"
-                        [(ngModel)]="updatedHospital.phone"
-                        #phone="ngModel"
-                        [ngModelOptions]="{ standalone: true }"
-                      />
-                    </span>
-                  </td>
-                </ng-template>
-
-                <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
-                  <span class="inline" scope="row">
-                    <button
-                      class="btn btn-primary mr-2"
-                      (click)="saveHospital()"
+                          <option
+                            *ngFor="let district of districtList"
+                            [value]="district.id"
+                          >
+                            {{ district.description }}
+                          </option>
+                        </select>
+                      </span>
+                    </td>
+                  </ng-template>
+  
+                  <ng-template #hAddress>
+                    <td
+                      *ngIf="editMode && hospital.id == this.updatedHospital.id"
                     >
-                      <i class="far fa-save"></i>
-                    </button>
-                    <button
-                      class="btn btn-danger buttons"
-                      (click)="cancelHospital()"
+                      <span class="inline" scope="row">
+                        <textarea
+                          rows="5"
+                          cols="6"
+                          class="form-control input-field"
+                          [(ngModel)]="updatedHospital.address"
+                          #address="ngModel"
+                          [ngModelOptions]="{ standalone: true }"
+                        ></textarea>
+                      </span>
+                    </td>
+                  </ng-template>
+  
+                  <ng-template #hPhone>
+                    <td
+                      *ngIf="editMode && hospital.id == this.updatedHospital.id"
                     >
-                      <i class="fa fa-times"></i>
-                    </button>
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                      <span class="inline" scope="row">
+                        <input
+                          class="form-control input-field"
+                          [(ngModel)]="updatedHospital.phone"
+                          #phone="ngModel"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                      </span>
+                    </td>
+                  </ng-template>
+  
+                  <td *ngIf="editMode && hospital.id == this.updatedHospital.id">
+                    <span class="inline" scope="row">
+  
+                        <i class="far fa-save text-warning mr-3"
+                        (click)="saveHospital()"></i>
+
+                        <i class="fa fa-times text-danger"
+                        (click)="cancelHospital()"></i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -893,7 +840,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-12">
           <div class="card scroll form-box">
             <div class="card-body" [ngSwitch]="this.hospitalClickType">
               <div *ngSwitchCase="'doctor'">
@@ -1110,7 +1057,7 @@
                       <th>Email</th>
                       <th>Department</th>
                       <th>Degree</th>
-                      <th>R / U</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1144,20 +1091,11 @@
                         *ngIf="!(editMode && doctor.id == this.updatedDoctorId)"
                         class="p-0 m-0"
                       >
-                        <button
-                          class="btn btn-danger mr-1"
-                          style="margin-right: 0; padding: 5px 7px 5px 7px"
-                          (click)="deleteDoctor(doctor.id)"
-                        >
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="btn btn-primary"
-                          style="margin-right: 0; padding: 5px 7px 5px 7px"
-                          (click)="updateDoctor(doctor.id)"
-                        >
-                          <i class="fa fa-pencil-alt"></i>
-                        </button>
+                          <i class="far fa-trash-alt mr-3 text-danger" 
+                          (click)="deleteDoctor(doctor.id)"></i>
+  
+                          <i class="fa fa-pencil-alt text-warning"
+                          (click)="updateDoctor(doctor.id)"></i>
                       </td>
 
                       <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
@@ -1223,18 +1161,12 @@
                       </td>
                       <td *ngIf="editMode && doctor.id == this.updatedDoctorId">
                         <span scope="row">
-                          <button
-                            class="btn btn-primary mr-2"
-                            (click)="saveDoctor()"
-                          >
-                            <i class="far fa-save"></i>
-                          </button>
-                          <button
-                            class="btn btn-danger"
-                            (click)="cancelDoctor()"
-                          >
-                            <i class="fas fa-times"></i>
-                          </button>
+
+                            <i class="far fa-save text-warning mr-3" 
+                            (click)="saveDoctor()"></i>
+  
+                            <i class="fas fa-times text-danger"
+                            (click)="cancelDoctor()"></i>
                         </span>
                       </td>
                     </tr>
@@ -1274,7 +1206,7 @@
                   <thead>
                     <tr>
                       <th>Description</th>
-                      <th>R / U</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1283,18 +1215,11 @@
                         {{ dept.description }}
                       </td>
                       <td *ngIf="!(editMode && dept.id == this.updatedDept.id)">
-                        <button
-                          class="btn btn-danger mr-2"
-                          (click)="deleteDepartment(dept.id)"
-                        >
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="btn btn-primary"
-                          (click)="updateDepartment(dept.id)"
-                        >
-                          <i class="fa fa-pencil-alt"></i>
-                        </button>
+                          <i class="far fa-trash-alt text-danger mr-3"
+                          (click)="deleteDepartment(dept.id)"></i>
+
+                          <i class="fa fa-pencil-alt text-warning"
+                          (click)="updateDepartment(dept.id)"></i>
                       </td>
 
                       <td *ngIf="editMode && dept.id == this.updatedDept.id">
@@ -1309,16 +1234,12 @@
 
                       <td *ngIf="editMode && dept.id == this.updatedDept.id">
                         <span scope="row">
-                          <button
-                            class="btn btn-primary mr-2"
-                            (click)="saveDept()"
-                          >
-                            <i class="far fa-save"></i>
-                          </button>
-                          <button class="btn btn-danger" (click)="cancelDept()">
-                            <i class="fas fa-times"></i>
-                          </button>
-                        </span>
+   
+                            <i class="far fa-save text-warning mr-3"
+                            (click)="saveDept()"></i>
+                            <i class="fas fa-times text-danger"
+                            (click)="cancelDept()"></i>
+                          </span>
                       </td>
                     </tr>
                   </tbody>
@@ -1381,7 +1302,7 @@
                     <tr>
                       <th>Description</th>
                       <th>Department</th>
-                      <th>R / U</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1405,18 +1326,12 @@
                           !(editMode && disease.id == this.updatedDisease.id)
                         "
                       >
-                        <button
-                          class="btn btn-danger mr-2"
-                          (click)="deleteDisease(disease.id)"
-                        >
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="btn btn-primary"
-                          (click)="updateDisease(disease.id)"
-                        >
-                          <i class="fa fa-pencil-alt"></i>
-                        </button>
+  
+                          <i class="far fa-trash-alt text-danger mr-3"
+                          (click)="deleteDisease(disease.id)"></i>
+
+                          <i class="fa fa-pencil-alt text-warning"
+                          (click)="updateDisease(disease.id)"></i>
                       </td>
 
                       <td
@@ -1455,19 +1370,11 @@
                         *ngIf="editMode && disease.id == this.updatedDisease.id"
                       >
                         <span scope="row">
-                          <button
-                            mat-button
-                            class="btn btn-primary mr-2"
-                            (click)="saveDisease(); editMode = false"
-                          >
-                            <i class="far fa-save"></i>
-                          </button>
-                          <button
-                            class="btn btn-danger"
-                            (click)="cancelDisease()"
-                          >
-                            <i class="fas fa-times"></i>
-                          </button>
+
+                            <i class="far fa-save text-warning mr-3"
+                            (click)="saveDisease(); editMode = false"></i>
+                            <i class="fas fa-times text-danger"
+                            (click)="cancelDisease()"></i>
                         </span>
                       </td>
                     </tr>
@@ -1505,7 +1412,7 @@
                   <thead>
                     <tr>
                       <th>Description</th>
-                      <th>R / U</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1522,18 +1429,11 @@
                           !(editMode && degree.id == this.updatedDegree.id)
                         "
                       >
-                        <button
-                          class="btn btn-danger mr-2"
-                          (click)="deleteDegree(degree.id)"
-                        >
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                        <button
-                          class="btn btn-primary"
-                          (click)="updateDegree(degree.id)"
-                        >
-                          <i class="fa fa-pencil-alt"></i>
-                        </button>
+                          <i class="far fa-trash-alt text-danger mr-3"
+                          (click)="deleteDegree(degree.id)"></i>
+
+                          <i class="fa fa-pencil-alt text-warning"
+                          (click)="updateDegree(degree.id)"></i>
                       </td>
 
                       <td
@@ -1551,18 +1451,12 @@
                         *ngIf="editMode && degree.id == this.updatedDegree.id"
                       >
                         <span scope="row">
-                          <button
-                            class="btn btn-primary mr-2"
-                            (click)="saveDegree(); editMode = false"
-                          >
-                            <i class="far fa-save"></i>
-                          </button>
-                          <button
-                            class="btn btn-danger"
-                            (click)="cancelDegree()"
-                          >
-                            <i class="fas fa-times"></i>
-                          </button>
+
+                            <i class="far fa-save text-warning mr-3"
+                            (click)="saveDegree(); editMode = false"></i>
+  
+                            <i class="fas fa-times text-danger"
+                            (click)="cancelDegree()"></i>
                         </span>
                       </td>
                     </tr>
@@ -1573,7 +1467,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-12">
           <div
             class="card border-primary mb-3 card-background"
             style="max-width: 40rem"

@@ -80,3 +80,14 @@ padding-right: 0;
 .active {
   background: rgb(51, 66, 46);
 }
+
+/* transition: margin-left 250ms ease-out,transform 250ms ease-out;
+    width: 240px; */
+
+    .SidebarHeader-sideBurgerIcon {
+      cursor: pointer;
+      fill: var(--color-sidebar-icon);
+      flex-grow: 0;
+      margin-right: 16px;
+      padding: 0 8px;
+  }

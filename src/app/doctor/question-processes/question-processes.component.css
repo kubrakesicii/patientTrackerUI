@@ -13,3 +13,11 @@
     left: 50%;
     transform: translate(-50px, -50px);
   }
+
+  .content {
+    position: absolute;
+    left: 240px;
+    padding: 10px;
+    width: 920px;
+  }
+  

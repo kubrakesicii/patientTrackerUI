@@ -3,92 +3,92 @@
     <app-sidebar></app-sidebar>
   </div>
 
-  <div class="col-9 mt-3 pr-5 pl-0 ml-0">
-    <span class="badge badge-dark p-2">Add Advice Form</span>
-    <hr>
+  <div class="content">
+    <div class="col-12 mt-3 pr-5 pl-0 ml-0">
+      <span class="badge badge-dark p-2">Add Advice Form</span>
+      <hr>
 
-    <div class="form-box">
-      <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
-        <div class="row m-0">
-          <div class="col-md-10">
-            <div class="form-group" [class.has-error]="description.invalid">
-              <textarea
-                type="text"
-                class="form-control"
-                [class.is-invalid] = "description.invalid && (description.dirty || description.touched)"
-                placeholder="Enter description"
-                cols="40"
-                rows="7"
-                name="description"
-                #description="ngModel"
-                required
-                [(ngModel)]="this.adviceModel.description"
-              ></textarea>
-              <span class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
-                Description is Required!
-              </span>
+      <div class="form-box">
+        <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
+          <div class="row m-0">
+            <div class="col-md-10">
+              <div class="form-group" [class.has-error]="description.invalid">
+                <textarea
+                  type="text"
+                  class="form-control"
+                  [class.is-invalid] = "description.invalid && (description.dirty || description.touched)"
+                  placeholder="Enter description"
+                  cols="40"
+                  rows="7"
+                  name="description"
+                  #description="ngModel"
+                  required
+                  [(ngModel)]="this.adviceModel.description"
+                ></textarea>
+                <span class="invalid-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
+                  Description is Required!
+                </span>
+              </div>
+            </div>
+    
+            <div class="col-md-2">
+              <button class="btn btn-warning" type="submit">Add</button>
             </div>
           </div>
+        </form>
+      </div>
+    
+
+
+      <hr>
+      <span class="badge badge-dark p-2">Advice List</span>
+      <hr>
+      <table class="table table-light mt-4">
+        <thead>
+          <tr>
+            <th>Advice</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let advice of this.adviceList">
+            <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
+              {{ advice.description }}
+            </td>
+            <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
   
-          <div class="col-md-2">
-            <button class="btn btn-warning" type="submit">Add</button>
-          </div>
-        </div>
-      </form>
+                <i class="far fa-trash-alt text-danger mr-3"
+                style="cursor: pointer;"
+                (click)="deleteAdvice(advice.id)"></i>
+                <i class="fa fa-pencil-alt text-warning"
+                style="cursor: pointer;"
+                (click)="updateAdvice(advice.id)"></i>
+            </td>
+
+            <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
+              <span scope="row" *ngIf="editMode">
+                <input
+                  class="form-control input-field"
+                  [(ngModel)]="updatedAdvice.description"
+                  type="text"
+                />
+              </span>
+            </td>
+
+            <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
+              <span scope="row" *ngIf="editMode">
+                  <i class="far fa-save text-warning mr-3"
+                  style="cursor: pointer;"
+                  (click)="saveAdvice()"></i>
+                  <i class="fas fa-times text-danger"
+                  style="cursor: pointer;"
+                  (click)="cancelAdvice()"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  
-
-
-    <hr>
-    <span class="badge badge-dark p-2">Advice List</span>
-    <hr>
-    <table class="table table-light mt-4">
-      <thead>
-        <tr>
-          <th>Advice</th>
-          <th>R/U</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let advice of this.adviceList">
-          <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
-            {{ advice.description }}
-          </td>
-          <td *ngIf="!(editMode && advice.id == this.updatedAdvice.id)">
-            <button
-              class="btn btn-danger mr-2"
-              (click)="deleteAdvice(advice.id)"
-            >
-              <i class="far fa-trash-alt"></i>
-            </button>
-            <button class="btn btn-primary" (click)="updateAdvice(advice.id)">
-              <i class="fa fa-pencil-alt"></i>
-            </button>
-          </td>
-
-          <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
-            <span scope="row" *ngIf="editMode">
-              <input
-                class="form-control input-field"
-                [(ngModel)]="updatedAdvice.description"
-                type="text"
-              />
-            </span>
-          </td>
-
-          <td *ngIf="editMode && advice.id == this.updatedAdvice.id">
-            <span scope="row" *ngIf="editMode">
-              <button class="btn btn-primary mr-2" (click)="saveAdvice()">
-                <i class="far fa-save"></i>
-              </button>
-              <button class="btn btn-danger" (click)="cancelAdvice()">
-                <i class="fas fa-times"></i>
-              </button>
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </div>
 

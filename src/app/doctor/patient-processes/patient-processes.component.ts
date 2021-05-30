@@ -158,6 +158,23 @@ export class PatientProcessesComponent implements OnInit {
       height : 0
     }
   }
+
+  async searchPatient(filterText : string) {
+    if(filterText == "") {
+      await this.getService.getAllActivePatients(this.userInfo.personId)
+      .then((data) => JSON.parse(JSON.stringify(data)))
+      .then((x) => (this.activePatientList = x['$values']));
+    }
+    this.activePatientList = this.activePatientList.filter(patient => {
+      if(patient.firstName.toLowerCase().includes(filterText.toLowerCase()) ||
+        patient.identityNumber.includes(filterText)) {
+          return true;
+        }
+        return false;
+    })
+  }
+
+
 }
 
 
