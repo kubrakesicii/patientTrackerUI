@@ -14,7 +14,7 @@ import { AddAppointment } from '../models/add-appointment.model';
 })
 export class DoctorPostService {
 
-  apiUrl = "https://localhost:5001/api";
+  apiUrl = "http://localhost:5000/api";
 
   constructor(private http : HttpClient) { }
 

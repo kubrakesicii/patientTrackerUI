@@ -16,7 +16,7 @@ import { UpdateDoctor } from '../models/update-doctor.model';
 })
 export class AdminUpdateService {
 
-  apiUrl = "https://localhost:5001/api";
+  apiUrl = "http://localhost:5000/api";
 
   constructor(private http : HttpClient) { }
 

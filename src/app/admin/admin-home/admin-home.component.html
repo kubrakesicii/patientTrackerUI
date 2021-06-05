@@ -21,628 +21,137 @@
   <hr class="m-0" />
 
   <div class="container mb-5 mt-5">
-    <div class="row">
-      <div class="col-md-4">
-        <div
-          class="card border-primary mb-3 card-background"
-          style="max-width: 40rem"
-        >
-          <!--begin::Row-->
-          <div class="row">
-            <div class="col-md-12">
-              <span
-                class="badge badge-primary p-2 mb-2 text-center"
-                style="font-size: 17px; text-align: center"
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-12">
+          <div
+            class="card border-primary mb-3 card-background"
+            style="max-width: 40rem"
+          >
+            <!--begin::Row-->
+            <div class="row">
+              <div class="col-md-12">
+                <span
+                  class="badge badge-primary p-2 mb-2 text-center"
+                  style="font-size: 17px; text-align: center"
+                >
+                  <i class="fas fa-chart-line mr-3"></i> General Statistics ( # )
+                </span>
+              </div>
+              <hr />
+            </div>
+            <div class="row m-0">
+              <div
+                id="country"
+                class="col-5 bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
+                (click)="titleChange($event)"
               >
-                <i class="fas fa-chart-line mr-3"></i> General Statistics ( # )
-              </span>
-            </div>
-            <hr />
-          </div>
-          <div class="row m-0">
-            <div
-              id="country"
-              class="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7"
-              (click)="titleChange($event)"
-            >
-              <p class="card-title">Country</p>
-              <p class="card-number">{{ countryCount }}</p>
-            </div>
-            <div
-              id="city"
-              class="col bg-light-primary px-6 py-8 rounded-xl mb-7"
-              (click)="titleChange($event)"
-            >
-              <p class="card-title">City</p>
-              <p class="card-number">{{ this.cityCount }}</p>
-              <!-- <p class="card-number">{{ cityCount }}</p> -->
-            </div>
-          </div>
-
-          <div class="row m-0">
-            <div
-              id="district"
-              class="col bg-light-danger px-6 py-8 rounded-xl mr-7"
-              (click)="titleChange($event)"
-            >
-              <a><p class="card-title">District</p></a>
-              <a
-                ><p class="card-number">{{ this.districtCount }}</p></a
+                <p class="card-title">Country</p>
+                <p class="card-number">{{ countryCount }}</p>
+              </div>
+              <div
+                id="city"
+                class="col-5 bg-light-primary px-6 py-8 rounded-xl mb-7"
+                (click)="titleChange($event)"
               >
+                <p class="card-title">City</p>
+                <p class="card-number">{{ this.cityCount }}</p>
+                <!-- <p class="card-number">{{ cityCount }}</p> -->
+              </div>
             </div>
-
-            <div
-              id="hospital"
-              class="col bg-light-success px-6 py-8 rounded-xl"
-              (click)="titleChange($event)"
-            >
-              <p class="card-title">Hospital</p>
-              <p class="card-number">{{ this.hospitalCount }}</p>
+  
+            <div class="row m-0">
+              <div
+                id="district"
+                class="col-5 bg-light-danger px-6 py-8 rounded-xl mr-7"
+                (click)="titleChange($event)"
+              >
+                <a><p class="card-title">District</p></a>
+                <a
+                  ><p class="card-number">{{ this.districtCount }}</p></a
+                >
+              </div>
+  
+              <div
+                id="hospital"
+                class="col-5 bg-light-success px-6 py-8 rounded-xl"
+                (click)="titleChange($event)"
+              >
+                <p class="card-title">Hospital</p>
+                <p class="card-number">{{ this.hospitalCount }}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="col-md-8">
-        <div class="card scroll form-box">
-          <div class="card-body" [ngSwitch]="this.clickType">
-            <div *ngSwitchCase="'country'">
-              <span class="badge badge-dark p-2 w-25">Country Operations</span>
-              <hr />
-              <form #countryForm="ngForm" (submit)="addCountry()">
-                <div class="row">
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        [class.is-invalid]="
-                          description.invalid &&
-                          (description.dirty || description.touched)
-                        "
-                        required
-                        placeholder="Enter Country Name"
-                        name="description"
-                        #description="ngModel"
-                        [(ngModel)]="this.countryModel.description"
-                      />
-                      <span
-                        class="invalid-feedback"
-                        *ngIf="
-                          description.invalid &&
-                          (description.dirty || description.touched)
-                        "
-                      >
-                        Description is Required!
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        [class.is-invalid]="
-                          countryCode.invalid &&
-                          (countryCode.dirty || countryCode.touched)
-                        "
-                        required
-                        maxlength="5"
-                        placeholder="Enter Country Code"
-                        name="countryCode"
-                        #countryCode="ngModel"
-                        [(ngModel)]="this.countryModel.countryCode"
-                      />
-                      <span
-                        class="invalid-feedback"
-                        *ngIf="
-                          countryCode.invalid &&
-                          (countryCode.dirty || countryCode.touched)
-                        "
-                      >
-                        Country Code is Required!
-                      </span>
-                      <span
-                        class="invalid-feedback"
-                        *ngIf="countryCode.errors?.maxlength"
-                      >
-                        Country Code must be at most 5 character long!
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="col-md-2">
-                    <button class="btn btn-outline-warning" type="submit">
-                      Add
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <hr />
-              <span class="badge badge-dark p-2 w-25">Country List</span>
-              <hr />
-              <table class="table table-light">
-                <thead>
-                  <tr>
-                    <th>Description</th>
-                    <th>Country Code</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let country of countryList">
-                    <td
-                      *ngIf="
-                        !(editMode && country.id == this.updatedCountry.id)
-                      "
-                    >
-                      {{ country.description }}
-                    </td>
-                    <td
-                      *ngIf="
-                        !(editMode && country.id == this.updatedCountry.id)
-                      "
-                    >
-                      {{ country.countryCode }}
-                    </td>
-                    <td
-                      *ngIf="
-                        !(editMode && country.id == this.updatedCountry.id)
-                      "
-                    >
-               
-                      <i class="far fa-trash-alt text-danger mr-3"
-                      (click)="deleteCountry(country.id)"></i>
-
-                      <i class="fa fa-pencil-alt text-warning" (click)="updateCountry(country.id); editMode = true"></i>
-                    </td>
-                    <td
-                      *ngIf="editMode && country.id == this.updatedCountry.id"
-                    >
-                      <span scope="row">
-                        <input
-                          class="form-control input-field"
-                          [(ngModel)]="updatedCountry.description"
-                          type="text"
-                        />
-                      </span>
-                    </td>
-                    <td
-                      *ngIf="editMode && country.id == this.updatedCountry.id"
-                    >
-                      <span scope="row">
-                        <input
-                          class="form-control input-field"
-                          [(ngModel)]="updatedCountry.countryCode"
-                          type="text"
-                        />
-                      </span>
-                    </td>
-                    <td
-                      *ngIf="editMode && country.id == this.updatedCountry.id"
-                    >
-                      <span scope="row">
-
-                          <i class="far fa-save text-warning mr-3"
-                          (click)="saveCountry(); editMode = false"></i>
-   
-                          <i class="fas fa-times text-danger"
-                          (click)="cancelCountry()"></i>
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div *ngSwitchCase="'city'">
-              <span class="badge badge-dark p-2 w-25">City Operations</span>
-              <hr />
-              <form #cityForm="ngForm" (submit)="addCity()">
-                <div class="row">
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <select
-                        type="text"
-                        class="form-control"
-                        [class.is-invalid]="countryId.invalid &&(countryId.dirty || countryId.touched)"
-                        placeholder="Select Country"
-                        name="countryId"
-                        #countryId="ngModel"
-                        [(ngModel)]="this.cityModel.countryId"
-                      >
-                        <option value="0" disabled>--Select a Country--</option>
-                        <option
-                          *ngFor="let country of countryList"
-                          [value]="country.id"
-                        >
-                          {{ country.description }}
-                        </option>
-                      </select>
-                      <span
-                        class="invalid-feedback" *ngIf="countryId.invalid &&(countryId.dirty || countryId.touched)">
-                        Country is Required!
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        [class.is-invalid]="description.invalid &&(description.dirty || description.touched)"
-                        placeholder="Enter City Name"
-                        name="description"
-                        #description="ngModel"
-                        [(ngModel)]="this.cityModel.description"
-                      />
-                      <span
-                        class="invalid-feedback" *ngIf="description.invalid &&(description.dirty || description.touched)">
-                        Description is Required!
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-outline-warning" type="submit">
-                      Add
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <hr />
-              <span class="badge badge-dark p-2 w-25">City List</span>
-              <hr />
-              <table class="table table-light">
-                <thead>
-                  <tr>
-                    <th>Description</th>
-                    <th>Country</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let city of getCityList">
-                    <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
-                      {{ city.description }}
-                    </td>
-                    <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
-                      {{ city.countryName }}
-                    </td>
-                    <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
   
-                        <i class="far fa-trash-alt mr-3 text-danger"
-                        (click)="deleteCity(city.id)"></i>
-
-                        <i class="fa fa-pencil-alt text-warning"
-                        (click)="updateCity(city.id)"></i>
-                    </td>
-
-                    <td *ngIf="editMode && city.id == this.updatedCity.id">
-                      <span scope="row">
-                        <input
-                          class="form-control input-field"
-                          [(ngModel)]="updatedCity.description"
-                          type="text"
-                        />
-                      </span>
-                    </td>
-                    <td *ngIf="editMode && city.id == this.updatedCity.id">
-                      <span scope="row">
-                        <select
-                          type="text"
-                          class="form-control input-field"
-                          placeholder="Select Country"
-                          [(ngModel)]="this.updatedCity.countryId"
-                        >
-                          <option
-                            *ngFor="let country of countryList"
-                            [value]="country.id"
-                          >
-                            {{ country.description }}
-                          </option>
-                        </select>
-                      </span>
-                    </td>
-                    <td *ngIf="editMode && city.id == this.updatedCity.id">
-                      <span scope="row">
-
-                          <i class="far fa-save mr-3 text-warning"
-                          (click)="saveCity(); editMode = false"></i>
-      
-                          <i class="fas fa-times text-danger"
-                          (click)="cancelCity()"></i>
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div *ngSwitchCase="'district'">
-              <span class="badge badge-dark p-2 w-25">District Operations</span>
-              <hr />
-              <form #districtForm="ngForm" (submit)="addDistrict()">
-                <div class="row">
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <select
-                        type="text"
-                        class="form-control"
-                        [class.is-invalid]="cityId.invalid &&(cityId.dirty || cityId.touched)"
-                        placeholder="Select District"
-                        name="cityId"
-                        #cityId="ngModel"
-                        [(ngModel)]="this.districtModel.cityId"
-                      >
-                        <option value="0" disabled>--Select a City--</option>
-                        <option *ngFor="let city of cityList" [value]="city.id">
-                          {{ city.description }}
-                        </option>
-                      </select>
-                      <span
-                        class="invalid-feedback" *ngIf="cityId.invalid &&(cityId.dirty || cityId.touched)">
-                        City is Required!
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="form-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter Discription Name"
-                        name="description"
-                        #description="ngModel"
-                        [(ngModel)]="this.districtModel.description"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-2">
-                    <button class="btn btn-outline-warning" type="submit">
-                      Add
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <hr />
-              <span class="badge badge-dark p-2 w-25">District List</span>
-              <hr />
-              <table class="table table-light">
-                <thead>
-                  <tr>
-                    <th>Description</th>
-                    <th>City</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let district of getDistrictList">
-                    <td
-                      *ngIf="
-                        !(editMode && district.id == this.updatedDistrict.id)
-                      "
-                    >
-                      {{ district.description }}
-                    </td>
-                    <td
-                      *ngIf="
-                        !(editMode && district.id == this.updatedDistrict.id)
-                      "
-                    >
-                      {{ district.cityName }}
-                    </td>
-                    <td
-                      *ngIf="
-                        !(editMode && district.id == this.updatedDistrict.id)
-                      "
-                    >
-
-                        <i class="far fa-trash-alt mr-3 text-danger"
-                        (click)="deleteDistrict(district.id)"></i>
-
-                        <i class="fa fa-pencil-alt text-warning"
-                        (click)="updateDistrict(district.id)"></i>
-                    </td>
-
-                    <td
-                      *ngIf="editMode && district.id == this.updatedDistrict.id"
-                    >
-                      <span scope="row">
-                        <input
-                          class="form-control input-field"
-                          [(ngModel)]="updatedDistrict.description"
-                          type="text"
-                        />
-                      </span>
-                    </td>
-                    <td
-                      *ngIf="editMode && district.id == this.updatedDistrict.id"
-                    >
-                      <span scope="row">
-                        <select
-                          type="text"
-                          class="form-control input-field"
-                          #cityId="ngModel"
-                          [(ngModel)]="this.updatedDistrict.cityId"
-                        >
-                          <option value="0" disabled>--Select a City--</option>
-                          <option
-                            *ngFor="let city of cityList"
-                            [value]="city.id"
-                          >
-                            {{ city.description }}
-                          </option>
-                        </select>
-                      </span>
-                    </td>
-                    <td
-                      *ngIf="editMode && district.id == this.updatedDistrict.id"
-                    >
-                      <span scope="row">
-
-                          <i class="far fa-save mr-3 text-warning"
-                          (click)="saveDistrict(); editMode = false"></i>
-    
-                          <i class="fas fa-times text-danger"
-                          (click)="cancelDistrict()"></i>
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div *ngSwitchCase="'hospital'">
-              <span class="badge badge-dark p-2 w-25">Hospital Operations</span>
-              <hr />
-              <div class="container">
-                <form #hospitalForm (submit)="addHospital()">
+        <div class="col-lg-8 col-md-12">
+          <div class="card scroll form-box">
+            <div class="card-body" [ngSwitch]="this.clickType">
+              <div *ngSwitchCase="'country'">
+                <span class="badge badge-dark p-2 w-25">Country Operations</span>
+                <hr />
+                <form #countryForm="ngForm" (submit)="addCountry()">
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                       <div class="form-group">
-                        <label>Select Country</label>
-                        <select
+                        <input
                           type="text"
                           class="form-control"
-                          placeholder="Select Country"
-                          name="countryId"
-                          #countryId
-                          (change)="
-                            filterCity(
-                              countryId.options[countryId.selectedIndex].value
-                            )
+                          [class.is-invalid]="
+                            description.invalid &&
+                            (description.dirty || description.touched)
                           "
-                        >
-                          <option>--Select a Country--</option>
-                          <option
-                            [value]="country.id"
-                            *ngFor="let country of countryList"
-                          >
-                            {{ country.description }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Select City</label>
-                        <select
-                          onchange=""
-                          type="text"
-                          class="form-control"
-                          placeholder="Select City"
-                          name="cityId"
-                          #city
-                          (change)="
-                            filterDistrict(
-                              city.options[city.selectedIndex].value
-                            )
-                          "
-                        >
-                          <option>--Select a City--</option>
-                          <option
-                            *ngFor="let city of filteredCityList"
-                            [value]="city.id"
-                          >
-                            {{ city.description }}
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Select District</label>
-                        <select
-                          onchange=""
-                          type="text"
-                          class="form-control"
-                          [class.is-invalid]="districtId.invalid &&(districtId.dirty || districtId.touched)"
-                          placeholder="Select District"
-                          name="districtId"
-                          #districtId="ngModel"
-                          [(ngModel)]="this.hospitalModel.districtId"
-                        >
-                          <option value="0">--Select a District--</option>
-                          <option
-                            *ngFor="let district of filteredDistrictList"
-                            [value]="district.id"
-                          >
-                            {{ district.description }}
-                          </option>
-                        </select>
+                          required
+                          placeholder="Enter Country Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.countryModel.description"
+                        />
                         <span
-                        class="invalid-feedback" *ngIf="districtId.invalid &&(districtId.dirty || districtId.touched)">
-                        City is Required!
+                          class="invalid-feedback"
+                          *ngIf="
+                            description.invalid &&
+                            (description.dirty || description.touched)
+                          "
+                        >
+                          Description is Required!
                         </span>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-5">
                       <div class="form-group">
-                        <label class="labelT">Enter Address</label>
-                        <textarea
-                          type="text"
-                          rows="3"
-                          class="form-control"
-                          [class.is-invalid]="address.invalid &&(address.dirty || address.touched)"
-                          placeholder="Address"
-                          name="address"
-                          #address="ngModel"
-                          [(ngModel)]="this.hospitalModel.address"
-                        ></textarea>
-                        <span
-                        class="invalid-feedback" *ngIf="address.invalid &&(address.dirty || address.touched)">
-                        Address is Required!
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label class="labelT">Enter Hospital Name</label>
                         <input
                           type="text"
                           class="form-control"
-                          [class.is-invalid]="description.invalid &&(description.dirty || description.touched)"
-                          placeholder="Hospital Name"
-                          name="description"
-                          #description="ngModel"
-                          [(ngModel)]="this.hospitalModel.description"
+                          [class.is-invalid]="
+                            countryCode.invalid &&
+                            (countryCode.dirty || countryCode.touched)
+                          "
+                          required
+                          maxlength="5"
+                          placeholder="Enter Country Code"
+                          name="countryCode"
+                          #countryCode="ngModel"
+                          [(ngModel)]="this.countryModel.countryCode"
                         />
                         <span
-                        class="invalid-feedback" *ngIf="description.invalid &&(description.dirty || description.touched)">
-                        Description is Required!
-                      </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="labelT">Enter Phone</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          [class.is-invalid]="phone.invalid &&(phone.dirty || phone.touched)"
-                          placeholder="Enter Phone"
-                          name="phone"
-                          #phone="ngModel"
-                          [(ngModel)]="this.hospitalModel.phone"
-                        />
+                          class="invalid-feedback"
+                          *ngIf="
+                            countryCode.invalid &&
+                            (countryCode.dirty || countryCode.touched)
+                          "
+                        >
+                          Country Code is Required!
+                        </span>
                         <span
-                        class="invalid-feedback" *ngIf="phone.invalid &&(phone.dirty || phone.touched)">
-                        Phone is Required!
-                      </span>
+                          class="invalid-feedback"
+                          *ngIf="countryCode.errors?.maxlength"
+                        >
+                          Country Code must be at most 5 character long!
+                        </span>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="row m-0">
+  
                     <div class="col-md-2">
                       <button class="btn btn-outline-warning" type="submit">
                         Add
@@ -650,12 +159,506 @@
                     </div>
                   </div>
                 </form>
+                <hr />
+                <span class="badge badge-dark p-2 w-25">Country List</span>
+                <hr />
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>Country Code</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let country of countryList">
+                      <td
+                        *ngIf="
+                          !(editMode && country.id == this.updatedCountry.id)
+                        "
+                      >
+                        {{ country.description }}
+                      </td>
+                      <td
+                        *ngIf="
+                          !(editMode && country.id == this.updatedCountry.id)
+                        "
+                      >
+                        {{ country.countryCode }}
+                      </td>
+                      <td
+                        *ngIf="
+                          !(editMode && country.id == this.updatedCountry.id)
+                        "
+                      >
+                 
+                        <i class="far fa-trash-alt text-danger mr-3"
+                        (click)="deleteCountry(country.id)"></i>
+  
+                        <i class="fa fa-pencil-alt text-warning" (click)="updateCountry(country.id); editMode = true"></i>
+                      </td>
+                      <td
+                        *ngIf="editMode && country.id == this.updatedCountry.id"
+                      >
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="updatedCountry.description"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td
+                        *ngIf="editMode && country.id == this.updatedCountry.id"
+                      >
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="updatedCountry.countryCode"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td
+                        *ngIf="editMode && country.id == this.updatedCountry.id"
+                      >
+                        <span scope="row">
+  
+                            <i class="far fa-save text-warning mr-3"
+                            (click)="saveCountry(); editMode = false"></i>
+     
+                            <i class="fas fa-times text-danger"
+                            (click)="cancelCountry()"></i>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+              <div *ngSwitchCase="'city'">
+                <span class="badge badge-dark p-2 w-25">City Operations</span>
+                <hr />
+                <form #cityForm="ngForm" (submit)="addCity()">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <select
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="countryId.invalid &&(countryId.dirty || countryId.touched)"
+                          placeholder="Select Country"
+                          name="countryId"
+                          #countryId="ngModel"
+                          [(ngModel)]="this.cityModel.countryId"
+                        >
+                          <option value="0" disabled>--Select a Country--</option>
+                          <option
+                            *ngFor="let country of countryList"
+                            [value]="country.id"
+                          >
+                            {{ country.description }}
+                          </option>
+                        </select>
+                        <span
+                          class="invalid-feedback" *ngIf="countryId.invalid &&(countryId.dirty || countryId.touched)">
+                          Country is Required!
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="description.invalid &&(description.dirty || description.touched)"
+                          placeholder="Enter City Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.cityModel.description"
+                        />
+                        <span
+                          class="invalid-feedback" *ngIf="description.invalid &&(description.dirty || description.touched)">
+                          Description is Required!
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-outline-warning" type="submit">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <hr />
+                <span class="badge badge-dark p-2 w-25">City List</span>
+                <hr />
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>Country</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let city of getCityList">
+                      <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
+                        {{ city.description }}
+                      </td>
+                      <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
+                        {{ city.countryName }}
+                      </td>
+                      <td *ngIf="!(editMode && city.id == this.updatedCity.id)">
+    
+                          <i class="far fa-trash-alt mr-3 text-danger"
+                          (click)="deleteCity(city.id)"></i>
+  
+                          <i class="fa fa-pencil-alt text-warning"
+                          (click)="updateCity(city.id)"></i>
+                      </td>
+  
+                      <td *ngIf="editMode && city.id == this.updatedCity.id">
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="updatedCity.description"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && city.id == this.updatedCity.id">
+                        <span scope="row">
+                          <select
+                            type="text"
+                            class="form-control input-field"
+                            placeholder="Select Country"
+                            [(ngModel)]="this.updatedCity.countryId"
+                          >
+                            <option
+                              *ngFor="let country of countryList"
+                              [value]="country.id"
+                            >
+                              {{ country.description }}
+                            </option>
+                          </select>
+                        </span>
+                      </td>
+                      <td *ngIf="editMode && city.id == this.updatedCity.id">
+                        <span scope="row">
+  
+                            <i class="far fa-save mr-3 text-warning"
+                            (click)="saveCity(); editMode = false"></i>
+        
+                            <i class="fas fa-times text-danger"
+                            (click)="cancelCity()"></i>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+              <div *ngSwitchCase="'district'">
+                <span class="badge badge-dark p-2 w-25">District Operations</span>
+                <hr />
+                <form #districtForm="ngForm" (submit)="addDistrict()">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <select
+                          type="text"
+                          class="form-control"
+                          [class.is-invalid]="cityId.invalid &&(cityId.dirty || cityId.touched)"
+                          placeholder="Select District"
+                          name="cityId"
+                          #cityId="ngModel"
+                          [(ngModel)]="this.districtModel.cityId"
+                        >
+                          <option value="0" disabled>--Select a City--</option>
+                          <option *ngFor="let city of cityList" [value]="city.id">
+                            {{ city.description }}
+                          </option>
+                        </select>
+                        <span
+                          class="invalid-feedback" *ngIf="cityId.invalid &&(cityId.dirty || cityId.touched)">
+                          City is Required!
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter Discription Name"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="this.districtModel.description"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-outline-warning" type="submit">
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <hr />
+                <span class="badge badge-dark p-2 w-25">District List</span>
+                <hr />
+                <table class="table table-light">
+                  <thead>
+                    <tr>
+                      <th>Description</th>
+                      <th>City</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let district of getDistrictList">
+                      <td
+                        *ngIf="
+                          !(editMode && district.id == this.updatedDistrict.id)
+                        "
+                      >
+                        {{ district.description }}
+                      </td>
+                      <td
+                        *ngIf="
+                          !(editMode && district.id == this.updatedDistrict.id)
+                        "
+                      >
+                        {{ district.cityName }}
+                      </td>
+                      <td
+                        *ngIf="
+                          !(editMode && district.id == this.updatedDistrict.id)
+                        "
+                      >
+  
+                          <i class="far fa-trash-alt mr-3 text-danger"
+                          (click)="deleteDistrict(district.id)"></i>
+  
+                          <i class="fa fa-pencil-alt text-warning"
+                          (click)="updateDistrict(district.id)"></i>
+                      </td>
+  
+                      <td
+                        *ngIf="editMode && district.id == this.updatedDistrict.id"
+                      >
+                        <span scope="row">
+                          <input
+                            class="form-control input-field"
+                            [(ngModel)]="updatedDistrict.description"
+                            type="text"
+                          />
+                        </span>
+                      </td>
+                      <td
+                        *ngIf="editMode && district.id == this.updatedDistrict.id"
+                      >
+                        <span scope="row">
+                          <select
+                            type="text"
+                            class="form-control input-field"
+                            #cityId="ngModel"
+                            [(ngModel)]="this.updatedDistrict.cityId"
+                          >
+                            <option value="0" disabled>--Select a City--</option>
+                            <option
+                              *ngFor="let city of cityList"
+                              [value]="city.id"
+                            >
+                              {{ city.description }}
+                            </option>
+                          </select>
+                        </span>
+                      </td>
+                      <td
+                        *ngIf="editMode && district.id == this.updatedDistrict.id"
+                      >
+                        <span scope="row">
+  
+                            <i class="far fa-save mr-3 text-warning"
+                            (click)="saveDistrict(); editMode = false"></i>
+      
+                            <i class="fas fa-times text-danger"
+                            (click)="cancelDistrict()"></i>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+  
+              <div *ngSwitchCase="'hospital'">
+                <span class="badge badge-dark p-2 w-25">Hospital Operations</span>
+                <hr />
+                <div class="container">
+                  <form #hospitalForm (submit)="addHospital()">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Select Country</label>
+                          <select
+                            type="text"
+                            class="form-control"
+                            placeholder="Select Country"
+                            name="countryId"
+                            #countryId
+                            (change)="
+                              filterCity(
+                                countryId.options[countryId.selectedIndex].value
+                              )
+                            "
+                          >
+                            <option>--Select a Country--</option>
+                            <option
+                              [value]="country.id"
+                              *ngFor="let country of countryList"
+                            >
+                              {{ country.description }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Select City</label>
+                          <select
+                            onchange=""
+                            type="text"
+                            class="form-control"
+                            placeholder="Select City"
+                            name="cityId"
+                            #city
+                            (change)="
+                              filterDistrict(
+                                city.options[city.selectedIndex].value
+                              )
+                            "
+                          >
+                            <option>--Select a City--</option>
+                            <option
+                              *ngFor="let city of filteredCityList"
+                              [value]="city.id"
+                            >
+                              {{ city.description }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label>Select District</label>
+                          <select
+                            onchange=""
+                            type="text"
+                            class="form-control"
+                            [class.is-invalid]="districtId.invalid &&(districtId.dirty || districtId.touched)"
+                            placeholder="Select District"
+                            name="districtId"
+                            #districtId="ngModel"
+                            [(ngModel)]="this.hospitalModel.districtId"
+                          >
+                            <option value="0">--Select a District--</option>
+                            <option
+                              *ngFor="let district of filteredDistrictList"
+                              [value]="district.id"
+                            >
+                              {{ district.description }}
+                            </option>
+                          </select>
+                          <span
+                          class="invalid-feedback" *ngIf="districtId.invalid &&(districtId.dirty || districtId.touched)">
+                          City is Required!
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="labelT">Enter Address</label>
+                          <textarea
+                            type="text"
+                            rows="3"
+                            class="form-control"
+                            [class.is-invalid]="address.invalid &&(address.dirty || address.touched)"
+                            placeholder="Address"
+                            name="address"
+                            #address="ngModel"
+                            [(ngModel)]="this.hospitalModel.address"
+                          ></textarea>
+                          <span
+                          class="invalid-feedback" *ngIf="address.invalid &&(address.dirty || address.touched)">
+                          Address is Required!
+                        </span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="labelT">Enter Hospital Name</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            [class.is-invalid]="description.invalid &&(description.dirty || description.touched)"
+                            placeholder="Hospital Name"
+                            name="description"
+                            #description="ngModel"
+                            [(ngModel)]="this.hospitalModel.description"
+                          />
+                          <span
+                          class="invalid-feedback" *ngIf="description.invalid &&(description.dirty || description.touched)">
+                          Description is Required!
+                        </span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="labelT">Enter Phone</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            [class.is-invalid]="phone.invalid &&(phone.dirty || phone.touched)"
+                            placeholder="Enter Phone"
+                            name="phone"
+                            #phone="ngModel"
+                            [(ngModel)]="this.hospitalModel.phone"
+                          />
+                          <span
+                          class="invalid-feedback" *ngIf="phone.invalid &&(phone.dirty || phone.touched)">
+                          Phone is Required!
+                        </span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row m-0">
+                      <div class="col-md-2">
+                        <button class="btn btn-outline-warning" type="submit">
+                          Add
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
 
     <hr class="mt-5 mb-5" />
 
@@ -840,7 +843,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-8 col-sm-12">
+        <div class="col-lg-8 col-md-12">
           <div class="card scroll form-box">
             <div class="card-body" [ngSwitch]="this.hospitalClickType">
               <div *ngSwitchCase="'doctor'">
@@ -1467,7 +1470,7 @@
           </div>
         </div>
 
-        <div class="col-md-4 col-sm-12">
+        <div class="col-lg-4 col-md-12 mt-2">
           <div
             class="card border-primary mb-3 card-background"
             style="max-width: 40rem"
@@ -1512,6 +1515,7 @@
                 <p class="card-number">{{ this.deptCount }}</p>
               </div>
             </div>
+
             <div class="row m-0">
               <div
                 id="disease"

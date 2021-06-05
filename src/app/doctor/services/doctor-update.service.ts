@@ -11,7 +11,7 @@ import { Question } from '../models/question.model';
 export class DoctorUpdateService {
 
   
-  apiUrl = "https://localhost:5001/api";
+  apiUrl = "http://localhost:5000/api";
 
   constructor(private http : HttpClient) { }
 
