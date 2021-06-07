@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { UserInfo } from 'src/app/auth/models/userInfo.model';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -217,12 +218,7 @@ export class AdminHomeComponent implements OnInit {
     this.postService.addCountry(this.countryModel)
       .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe((data) => {
-      this.countryModel = {
-        id: 0,
-        description: '',
-        countryCode: '',
-      };
-      this.ngOnInit();
+        this.ngOnInit();
       this.alertify.success("Country Added Successfully!");
     });
   }
@@ -276,11 +272,6 @@ export class AdminHomeComponent implements OnInit {
     this.postService.addCity(this.cityModel)
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe((data) => {
-      this.cityModel = {
-        id: 0,
-        description: '',
-        countryId: 0,
-      };
       this.ngOnInit();
       this.alertify.success("City Added Successfully!");
     });
@@ -335,11 +326,6 @@ export class AdminHomeComponent implements OnInit {
     this.postService.addDistrict(this.districtModel)
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe((data) => {
-      this.districtModel = {
-        id: 0,
-        cityId: 0,
-        description: '',
-      };
       this.ngOnInit();
       this.alertify.success("District Added Successfully!");
     });
@@ -413,18 +399,6 @@ export class AdminHomeComponent implements OnInit {
     this.postService.addHospital(this.hospitalModel)
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe((data) => {
-      this.hospitalModel = {
-        id: 0,
-        description: '',
-        address: '',
-        districtName: '',
-        cityName: '',
-        countryName: '',
-        phone: '',
-        districtId : 0,
-        cityId : 0,
-        countryId : 0
-      };
       this.ngOnInit();
       this.alertify.success("Hospital Added Successfully!");
     });
@@ -531,14 +505,6 @@ export class AdminHomeComponent implements OnInit {
     this.postService.addDoctor(this.postDoctor)
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe((data) => {
-      this.postDoctor = {
-        email: '',
-        firstName: '',
-        lastName: '',
-        gsm: '',
-        departmentId: 0,
-        degreeId: 0,
-      };
       this.ngOnInit();
       this.alertify.success("Doctor Added Successfully!");
     });
@@ -602,11 +568,6 @@ export class AdminHomeComponent implements OnInit {
     this.postService.addDepartment(this.deptModel)
       .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
       .subscribe((data) => {
-      this.deptModel = {
-        id: 0,
-        description: '',
-        hospitalId: 0,
-      };
       this.ngOnInit();
       this.alertify.success("Department Added Successfully!");
     });
@@ -722,10 +683,6 @@ export class AdminHomeComponent implements OnInit {
     this.postService.addDegree(this.degreeModel)
     .pipe(finalize(()=>this.loaderService.isLoading.next(true)))
     .subscribe((data) => {
-      this.degreeModel = {
-        id: 0,
-        description: '',
-      };
       this.ngOnInit();
       this.alertify.success("Degree Added Successfully!");
     });

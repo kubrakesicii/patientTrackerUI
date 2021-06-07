@@ -85,33 +85,17 @@ export class PatientProcessesComponent implements OnInit {
 
   }
 
-  addPatient(patientForm : NgForm) {
+  addPatient() {
     this.loaderService.isLoading.next(true);
 
     this.postService.addPatient(this.patientModel)
     .pipe(finalize(() => this.loaderService.isLoading.next(false)))
     .subscribe(data => {
       this.ngOnInit();
-      this.resetForm(patientForm);
       this.alertify.success("Patient Added Successfully!");
     });
   }
 
-  resetForm(form : NgForm) {
-    if(form == null){
-      this.resetForm(form);
-    }
-    this.patientModel = {
-      identityNumber : '',
-      email : '',
-      firstName : '',
-      lastName : '',
-      gsm : '',
-      age : 0,
-      height : 0,
-      weight : 0
-    }
-  }
 
   deletePatient(patientId : number) {
     this.alertify.confirm("Are you sure yout want to remove this Patient?", () => {

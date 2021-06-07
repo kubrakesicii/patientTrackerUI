@@ -90,7 +90,7 @@
               <div *ngSwitchCase="'country'">
                 <span class="badge badge-dark p-2 w-25">Country Operations</span>
                 <hr />
-                <form #countryForm="ngForm" (submit)="addCountry()">
+                <form #countryForm="ngForm" (submit)="addCountry(); countryForm.resetForm();">
                   <div class="row">
                     <div class="col-md-5">
                       <div class="form-group">
@@ -239,7 +239,7 @@
               <div *ngSwitchCase="'city'">
                 <span class="badge badge-dark p-2 w-25">City Operations</span>
                 <hr />
-                <form #cityForm="ngForm" (submit)="addCity()">
+                <form #cityForm="ngForm" (submit)="addCity(); cityForm.resetForm();">
                   <div class="row">
                     <div class="col-md-5">
                       <div class="form-group">
@@ -249,6 +249,7 @@
                           [class.is-invalid]="countryId.invalid &&(countryId.dirty || countryId.touched)"
                           placeholder="Select Country"
                           name="countryId"
+                          required
                           #countryId="ngModel"
                           [(ngModel)]="this.cityModel.countryId"
                         >
@@ -275,6 +276,7 @@
                           placeholder="Enter City Name"
                           name="description"
                           #description="ngModel"
+                          required
                           [(ngModel)]="this.cityModel.description"
                         />
                         <span
@@ -362,7 +364,7 @@
               <div *ngSwitchCase="'district'">
                 <span class="badge badge-dark p-2 w-25">District Operations</span>
                 <hr />
-                <form #districtForm="ngForm" (submit)="addDistrict()">
+                <form #districtForm="ngForm" (submit)="addDistrict(); districtForm.resetForm();">
                   <div class="row">
                     <div class="col-md-5">
                       <div class="form-group">
@@ -373,6 +375,7 @@
                           placeholder="Select District"
                           name="cityId"
                           #cityId="ngModel"
+                          required
                           [(ngModel)]="this.districtModel.cityId"
                         >
                           <option value="0" disabled>--Select a City--</option>
@@ -394,6 +397,7 @@
                           placeholder="Enter Discription Name"
                           name="description"
                           #description="ngModel"
+                          required
                           [(ngModel)]="this.districtModel.description"
                         />
                       </div>
@@ -464,6 +468,7 @@
                             type="text"
                             class="form-control input-field"
                             #cityId="ngModel"
+                            required
                             [(ngModel)]="this.updatedDistrict.cityId"
                           >
                             <option value="0" disabled>--Select a City--</option>
@@ -497,7 +502,7 @@
                 <span class="badge badge-dark p-2 w-25">Hospital Operations</span>
                 <hr />
                 <div class="container">
-                  <form #hospitalForm (submit)="addHospital()">
+                  <form #hospitalForm (submit)="addHospital(); hospitalForm.resetForm();">
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
@@ -507,6 +512,7 @@
                             class="form-control"
                             placeholder="Select Country"
                             name="countryId"
+                            required
                             #countryId
                             (change)="
                               filterCity(
@@ -533,6 +539,7 @@
                             class="form-control"
                             placeholder="Select City"
                             name="cityId"
+                            required
                             #city
                             (change)="
                               filterDistrict(
@@ -560,6 +567,7 @@
                             [class.is-invalid]="districtId.invalid &&(districtId.dirty || districtId.touched)"
                             placeholder="Select District"
                             name="districtId"
+                            required
                             #districtId="ngModel"
                             [(ngModel)]="this.hospitalModel.districtId"
                           >
@@ -590,6 +598,7 @@
                             [class.is-invalid]="address.invalid &&(address.dirty || address.touched)"
                             placeholder="Address"
                             name="address"
+                            required
                             #address="ngModel"
                             [(ngModel)]="this.hospitalModel.address"
                           ></textarea>
@@ -611,6 +620,7 @@
                             [class.is-invalid]="description.invalid &&(description.dirty || description.touched)"
                             placeholder="Hospital Name"
                             name="description"
+                            required
                             #description="ngModel"
                             [(ngModel)]="this.hospitalModel.description"
                           />
@@ -632,6 +642,7 @@
                             [class.is-invalid]="phone.invalid &&(phone.dirty || phone.touched)"
                             placeholder="Enter Phone"
                             name="phone"
+                            required
                             #phone="ngModel"
                             [(ngModel)]="this.hospitalModel.phone"
                           />
@@ -849,7 +860,7 @@
               <div *ngSwitchCase="'doctor'">
                 <span class="badge badge-dark p-2 w-25">Doctor Operations</span>
                 <hr />
-                <form #doctorForm="ngForm" (submit)="addDoctor()">
+                <form #doctorForm="ngForm" (submit)="addDoctor(); doctorForm.resetForm();">
                   <div class="row m-0">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -1181,7 +1192,7 @@
                   >Department Operations</span
                 >
                 <hr />
-                <form #deptForm="ngForm" (submit)="addDepartment()">
+                <form #deptForm="ngForm" (submit)="addDepartment(); deptForm.resetForm();">
                   <div class="row">
                     <div class="col-md-10">
                       <div class="form-group">
@@ -1253,7 +1264,7 @@
                   >Disease Operations</span
                 >
                 <hr />
-                <form #diseaseForm="ngForm" (submit)="addDisease()">
+                <form #diseaseForm="ngForm" (submit)="addDisease(); diseaseForm.resetForm();">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -1387,7 +1398,7 @@
               <div *ngSwitchCase="'degree'">
                 <span class="badge badge-dark p-2 w-25">Degree Operations</span>
                 <hr />
-                <form #degreeForm="ngForm" (submit)="addDegree()">
+                <form #degreeForm="ngForm" (submit)="addDegree(); degreeForm.resetForm();">
                   <div class="row">
                     <div class="col-md-9">
                       <div class="form-group">

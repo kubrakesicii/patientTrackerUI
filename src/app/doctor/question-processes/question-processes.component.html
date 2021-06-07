@@ -9,7 +9,7 @@
       <hr>
   
       <div class="form-box">
-        <form #questionForm="ngForm" (submit)="addQuestion(questionForm)">
+        <form #questionForm="ngForm" (submit)="addQuestion(); questionForm.resetForm();">
           <div class="row m-0">
             <div class="col-md-6">
               <div class="form-group " >

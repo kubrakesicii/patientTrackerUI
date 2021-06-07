@@ -79,7 +79,7 @@ async loadListData(){
   }
 
 
-  async addQuestion(questionForm : NgForm){
+  async addQuestion(){
     this.loaderService.isLoading.next(true);
 
     this.questionModel.questionType = parseInt(this.questionModel.questionType);
@@ -88,7 +88,6 @@ async loadListData(){
     await this.postService.addQuestion(this.questionModel).then((data) => {
       this.insertId = JSON.parse(JSON.stringify(data))['data'].id;
       this.ngOnInit();
-      this.resetForm(questionForm);
 
       this.answer1.questionPoolId = this.insertId;
       this.answer2.questionPoolId = this.insertId;
@@ -152,20 +151,5 @@ async loadListData(){
       questionType : 0
     }
   }
-
-
-  resetForm(form : NgForm) {
-    if(form == null){
-      this.resetForm(form);
-    }
-    this.questionModel = {
-      id : 0,
-      description : '',
-      upperLimit : 0,
-      lowerLimit : 0,
-      questionType : 0
-    }
-  }
-
 
 }

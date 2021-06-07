@@ -61,7 +61,7 @@ async loadListData(){
     }
 
 
-    addAdvice(adviceForm : NgForm){
+    addAdvice(){
       this.loaderService.isLoading.next(true);
 
       this.adviceModel.departmentId = this.doctorModel.departmentId;
@@ -69,7 +69,6 @@ async loadListData(){
       return this.postService.addAdvice(this.adviceModel)
       .pipe(finalize(() => this.loaderService.isLoading.next(false)))
       .subscribe(data => {
-        this.resetForm(adviceForm);
         this.ngOnInit();
         this.alertify.success("Advice Added Successfully!");
       });

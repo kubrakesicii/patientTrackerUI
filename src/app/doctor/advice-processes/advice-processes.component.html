@@ -9,10 +9,10 @@
       <hr>
 
       <div class="form-box">
-        <form #adviceForm="ngForm" (submit)="addAdvice(adviceForm)">
+        <form #adviceForm="ngForm" (submit)="addAdvice(); adviceForm.resetForm();">
           <div class="row m-0">
             <div class="col-md-10">
-              <div class="form-group" [class.has-error]="description.invalid">
+              <div class="form-group">
                 <textarea
                   type="text"
                   class="form-control"

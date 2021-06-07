@@ -12,6 +12,7 @@
             class="form-control"
             style="width: 250px;"
             type="text"
+            [class.is-invalid]="this.authService.wrongLogin"
             name="username"
             #username="ngModel"
             [(ngModel)]="this.loginModel.username"
@@ -24,8 +25,13 @@
             type="password"
             name="password"
             #password="ngModel"
+            [class.is-invalid]="this.authService.wrongLogin"
             [(ngModel)]="this.loginModel.password"
           />
+        </div>
+
+        <div class="alert alert-danger" *ngIf="authService.wrongLogin">
+          Invalid Username Or Password!
         </div>
           <input type="submit" value="LOGIN" />
           <a (click)="changePassword()" class="forgotPass">FORGOT PASSWORD</a>

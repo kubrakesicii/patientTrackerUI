@@ -17,7 +17,7 @@ import { LoaderService } from '../services/loader.service';
 export class LoginComponent implements OnInit {
   loginModel : LoginUser = new LoginUser();
 
-  constructor(private authService : AuthService,
+  constructor(public authService : AuthService,
               private dialog: MatDialog,
               private alertify : AlertifyService,
               public loaderService : LoaderService

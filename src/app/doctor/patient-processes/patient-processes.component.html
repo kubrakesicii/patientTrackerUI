@@ -4,11 +4,11 @@
   </div>
 
   <div class="content">
-    <div class="col-12 pl-2 ml-0 mt-4">
+    <div class="mt-4">
       <span class="badge badge-dark p-2">Add Patient Form</span>
       <hr />
       <div class="form-box mb-5">
-        <form #patientForm="ngForm" (submit)="addPatient(patientForm)">
+        <form #patientForm="ngForm" (submit)="addPatient(); patientForm.resetForm();">
           <div class="row m-0">
             <div class="col-md-6">
               <div class="form-group">
@@ -123,7 +123,7 @@
                   class="invalid-feedback"
                   *ngIf="email.invalid && (email.dirty || email.touched)"
                 >
-                  Age is Required!
+                  Email is Required!
                 </span>
               </div>
             </div>
@@ -150,7 +150,7 @@
                   age.invalid && (age.dirty || age.touched)
                   "
                 >
-                  FirstName is Required!
+                  Age is Required!
                 </span>
               </div>
             </div>

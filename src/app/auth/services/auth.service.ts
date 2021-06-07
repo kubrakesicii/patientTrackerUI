@@ -16,6 +16,7 @@ export class AuthService {
   decodedToken : any;
   userRole : number;
   personId : number;
+  wrongLogin : boolean = false;
 
   public tokenInfo : TokenInfo = new TokenInfo();
   public userInfo : UserInfo = new UserInfo();
@@ -26,10 +27,13 @@ export class AuthService {
 
 
   async login(loginUser : LoginUser) {
-    
+    this.wrongLogin = false;
+
     await this.http.post(this.apiUrl+"Authentication/Login",loginUser)
     .subscribe(data => {
       let tokenInfo = JSON.parse(JSON.stringify(data))['data'];
+      if(!tokenInfo)
+        this.wrongLogin = true;
       this.saveTokenInfo(tokenInfo);
       this.decodedToken = this.jwtHelper.decodeToken(tokenInfo.token)
       console.log("decoded :",this.decodedToken);
@@ -113,7 +117,7 @@ export class AuthService {
     let headers = new HttpHeaders();
     headers = headers.append("Content-type" , "application/json");
 
-    return this.http.post(`${this.apiUrl}Authentication/ForgotPassword?gsm=${gsm}`, {headers : headers});
+    return this.http.get(`${this.apiUrl}Authentication/ForgotPassword2?gsm=${gsm}`, {headers : headers});
   }
  
 }
