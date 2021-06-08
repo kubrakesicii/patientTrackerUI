@@ -33,21 +33,20 @@
 .danger {
   font-weight: bold;
   animation: blinkingBackground 1s infinite;
+  animation-iteration-count: 3;
+  background-color: rgb(209, 137, 137);
+  color: white;
 }
 
-@keyframes blinkingBackground {
-  50% {
-    background-color: rgb(209, 137, 137);
-    color: white;
-  }
-  100% {
+@keyframes blinkingBackground{
+  50%	{ 
     background-color: #ffffff;
     color: rgb(95, 91, 91);
   }
 }
 
 .passive {
-  background-color: rgb(203, 204, 206);
+  background-color: rgb(209, 210, 212);
   color: snow;
   font-weight: bold;
 }
@@ -123,5 +122,5 @@ button.btn.btn-secondary.float-right:hover {
   position: absolute;
   left: 240px;
   padding: 10px;
-  width: 920px;
+  width: 960px;
 }

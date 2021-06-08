@@ -1,4 +1,4 @@
-<div class="item-body p-0 mb-4">
+<div class="item-body p-3 mb-4">
   <div *ngIf="loaderService.isLoading | async" class="loader-container">
     <mat-spinner></mat-spinner>
   </div>
@@ -253,7 +253,7 @@
                           #countryId="ngModel"
                           [(ngModel)]="this.cityModel.countryId"
                         >
-                          <option value="0" disabled>--Select a Country--</option>
+                          <option disabled>--Select a Country--</option>
                           <option
                             *ngFor="let country of countryList"
                             [value]="country.id"
@@ -378,7 +378,7 @@
                           required
                           [(ngModel)]="this.districtModel.cityId"
                         >
-                          <option value="0" disabled>--Select a City--</option>
+                          <option disabled>--Select a City--</option>
                           <option *ngFor="let city of cityList" [value]="city.id">
                             {{ city.description }}
                           </option>
@@ -471,7 +471,7 @@
                             required
                             [(ngModel)]="this.updatedDistrict.cityId"
                           >
-                            <option value="0" disabled>--Select a City--</option>
+                            <option disabled>--Select a City--</option>
                             <option
                               *ngFor="let city of cityList"
                               [value]="city.id"
@@ -520,7 +520,7 @@
                               )
                             "
                           >
-                            <option>--Select a Country--</option>
+                            <option disabled>--Select a Country--</option>
                             <option
                               [value]="country.id"
                               *ngFor="let country of countryList"
@@ -547,7 +547,7 @@
                               )
                             "
                           >
-                            <option>--Select a City--</option>
+                            <option disabled>--Select a City--</option>
                             <option
                               *ngFor="let city of filteredCityList"
                               [value]="city.id"
@@ -571,7 +571,7 @@
                             #districtId="ngModel"
                             [(ngModel)]="this.hospitalModel.districtId"
                           >
-                            <option value="0">--Select a District--</option>
+                            <option disabled>--Select a District--</option>
                             <option
                               *ngFor="let district of filteredDistrictList"
                               [value]="district.id"
@@ -677,9 +677,9 @@
       <div class="form-box col-sm-12" style="max-width: 1200px;">
         <div class="container mt-3">
           <div class="row">
-            <div class="col-12">
+            <div class="col-6">
               <span class="badge badge-danger p-2 w-75"
-                >Select a Hospital and view statistics about that hospital</span
+                style="font-size: 15px;">Select a Hospital and view statistics about that hospital</span
               >
               <hr />
             </div>
@@ -976,7 +976,7 @@
                     </div>
                   </div>
 
-                  <div class="row department-degree">
+                  <div class="row m-0">
                     <div class="col-md-6">
                       <div class="form-group">
                         <select
@@ -992,7 +992,7 @@
                           [(ngModel)]="this.doctorModel.departmentName"
                           [(ngModel)]="this.postDoctor.departmentId"
                         >
-                          <option value="0" disabled>
+                          <option disabled>
                             --Select a Department--
                           </option>
                           <option
@@ -1008,7 +1008,7 @@
                             deptId.invalid && (deptId.dirty || deptId.touched)
                           "
                         >
-                          Please Select Department!
+                          Department is Required!
                         </span>
                       </div>
                     </div>
@@ -1029,7 +1029,7 @@
                           [(ngModel)]="this.doctorModel.degreeName"
                           [(ngModel)]="this.postDoctor.degreeId"
                         >
-                          <option value="0" disabled>
+                          <option disabled>
                             --Select a Degree--
                           </option>
                           <option
@@ -1046,7 +1046,7 @@
                             (degreeId.dirty || degreeId.touched)
                           "
                         >
-                          Please Select Degree!
+                          Degree is Required!
                         </span>
                       </div>
                     </div>
@@ -1276,7 +1276,7 @@
                           #deptId="ngModel"
                           [(ngModel)]="this.diseaseModel.departmentId"
                         >
-                          <option value="0" disabled>
+                          <option disabled>
                             --Select a Department--
                           </option>
                           <option

@@ -39,7 +39,7 @@ export class DoctorPostService {
 
 
   addDiseaseToPatient(patientDiseaseModel : PatientDisease) {  /*bu modelin patient idsi tıklanan patientten alınacak */
-    return this.http.post(`${this.apiUrl}/PatientDiseases`, patientDiseaseModel);
+    return this.http.post(`${this.apiUrl}/PatientDiseases/AddDisease`, patientDiseaseModel);
   }
 
   addQuestiontoPatient(patientQuestionModel : PatientQuestion) {

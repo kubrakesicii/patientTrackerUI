@@ -317,7 +317,7 @@
   
             <td *ngIf="!(editMode && question.id == this.updatedQuestion.id)">
 
-                <i class="far fa-trash-alt text-danger mr-3"
+                <i class="far fa-trash-alt text-danger mr-0 float-left"
                 style="cursor: pointer;"
                 (click)="deleteQuestion(question.id)"></i>
 
@@ -364,7 +364,7 @@
   
             <td *ngIf="editMode && question.id == this.updatedQuestion.id">
               <span scope="row" *ngIf="editMode">
-                  <i class="far fa-save text-warning mr-3"
+                  <i class="far fa-save text-warning mr-2"
                   (click)="saveQuestion()"
                   style="cursor: pointer;"></i>
                   <i class="fas fa-times text-danger"

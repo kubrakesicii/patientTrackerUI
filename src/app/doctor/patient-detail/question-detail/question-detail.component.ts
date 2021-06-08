@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AlertifyService } from 'src/app/shared-components/services/alertify.service';
+import { GetPatQuestion } from '../../models/get-pat-question.model';
 import { PatientQuestion } from '../../models/patient-question.model';
 import { Question } from '../../models/question.model';
 import { DoctorDeleteService } from '../../services/doctor-delete.service';
@@ -17,7 +18,8 @@ export class QuestionDetailComponent implements OnInit {
   patientId : number;
   deptId : number;
   hospitalId : number;
-  patQuestions : string[];
+  patientQuestionList : GetPatQuestion[];
+  patQuestions : string[] = new Array();  
   patientQuestion : PatientQuestion = new PatientQuestion();
   patQuestionId : number;
 
@@ -33,7 +35,7 @@ export class QuestionDetailComponent implements OnInit {
     this.patientId = this.data.patientId;
     this.deptId = this.data.deptId;
     this.hospitalId = this.data.hospitalId;
-    this.patQuestions = this.data.patQuestions;
+    this.patQuestions = new Array();  
 
     this.loadData();
   }
@@ -44,6 +46,17 @@ export class QuestionDetailComponent implements OnInit {
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.questionList = x['$values']));
 
+    await this.getService.getQuestionsOfPatient(this.patientId)
+    .then((data) => JSON.parse(JSON.stringify(data)))
+    .then((x) => (this.patientQuestionList = x['$values']));
+
+    this.patientQuestionList.forEach(x => {
+      if(!this.patQuestions.includes(x.questionDesc))
+        this.patQuestions.push(x.questionDesc)
+    });
+
+    console.log("Q List : ",this.patientQuestionList);
+    console.log("Pat Questions : ",this.patQuestions);
   }
 
   addToPatient(questionId : number, patientId : number, event : Event){
@@ -51,9 +64,8 @@ export class QuestionDetailComponent implements OnInit {
     this.patientQuestion.patientId = patientId;
 
     this.postService.addQuestiontoPatient(this.patientQuestion).subscribe(() => {
-      var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
-      tr?.classList.add("passive");
       this.alertify.success("Question Added to Patient!");
+      this.ngOnInit();
     });
   }
 
@@ -62,11 +74,9 @@ export class QuestionDetailComponent implements OnInit {
     this.patientQuestion.patientId = patientId;
 
     await this.getService.getPatQuestionId(this.patientQuestion).then((data) => this.patQuestionId = data);
-    console.log(this.patQuestionId);
     await this.deleteService.removeQuestionFromPatient(this.patQuestionId).subscribe(() => { 
-      var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
-      tr?.classList.remove("passive");
       this.alertify.success("Question Removed from Patient!");
+      this.ngOnInit();
     });
 
   }

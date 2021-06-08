@@ -8,7 +8,7 @@
   }
 
   .passive {
-    background-color: rgb(185, 185, 185);
+    background-color: rgb(209, 210, 212);
     color: snow;
     font-weight: bold;
 }
@@ -17,5 +17,5 @@
   position: absolute;
   left: 240px;
   padding: 10px;
-  width: 920px;
+  width: 960px;
 }

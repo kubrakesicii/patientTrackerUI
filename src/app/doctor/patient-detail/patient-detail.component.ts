@@ -55,7 +55,6 @@ export class PatientDetailComponent implements OnInit {
   }
 
 
-
   ngOnDestroy(){
     this.sub.unsubscribe();
   }
@@ -82,6 +81,7 @@ export class PatientDetailComponent implements OnInit {
     await this.getService.getQuestionsOfPatient(this.patientId)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.patientQuestionList = x['$values']));
+
     this.patientQuestionList.forEach(x => {
       if(!this.patQuestions.includes(x.questionDesc))
         this.patQuestions.push(x.questionDesc)

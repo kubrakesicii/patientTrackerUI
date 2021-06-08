@@ -37,7 +37,7 @@ export class DiseaseDetailComponent implements OnInit {
     this.patientId = this.data.patientId;
     this.deptId = this.data.deptId;
     this.hospitalId = this.data.hospitalId;
-    this.diseases = this.data.diseases;
+    //this.diseases = this.data.diseases;
 
     this.loadData();
     console.log(this.diseases);
@@ -48,6 +48,11 @@ export class DiseaseDetailComponent implements OnInit {
     await this.adminGetService.getAllDiseasesByHospital(this.hospitalId)
     .then((data) => JSON.parse(JSON.stringify(data)))
     .then((x) => (this.diseaseList = x['$values']));
+
+    await this.getService.getPatientById(this.patientId).then(data => {
+      this.diseases = JSON.parse(JSON.stringify(data.diseases))['$values']
+    })
+
   }
 
   addToPatient(diseaseId : number, event : Event){
@@ -55,8 +60,7 @@ export class DiseaseDetailComponent implements OnInit {
     this.patientDiseaseModel.patientId = this.patientId;
 
     this.postService.addDiseaseToPatient(this.patientDiseaseModel).subscribe(data => {
-      var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
-      tr?.classList.add("passive");
+      this.ngOnInit();
       this.alertify.success("Disease Added to Patient!");
     })
   }
@@ -69,8 +73,7 @@ export class DiseaseDetailComponent implements OnInit {
     await this.getService.getPatDiseaseId(this.patientDiseaseModel).then(data => this.patdiseaseId = data);
 
     await this.deleteService.removeDiseaseFromPatient(this.patdiseaseId).subscribe(() => {
-      var tr = (event.target as Element).parentElement?.previousSibling?.previousSibling?.parentElement;
-      tr?.classList.remove("passive");
+      this.ngOnInit();
       this.alertify.success("Disease Removed from Patient!");
     });
   }

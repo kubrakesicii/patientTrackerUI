@@ -1,13 +1,14 @@
 
 <div class="container">
     <div class="row">
-            <form #forgotPassForm = "ngForm" (submit)="sendSms(gsm.value)" class="p-4">
+            <form #forgotPassForm = "ngForm" (submit)="sendSms(gsm.value); forgotPassForm.resetForm();" class="p-4">
                     <span class="badge badge-info p-2 w-100" style="font-size: 15px;">Enter your gsm to get new password!</span>
                     <hr>
                     <div class="form-group">
-                        <input type="text" #gsm class="form-control" placeholder=Gsm...>
+                        <input type="text" #gsm class="form-control" placeholder="Gsm..." [class.is-invalid]="gsmErr">
                     </div>
-        
+                <div *ngIf="gsmErr" class="text-danger">GSM is Not Found!</div>
+
                 <button class="btn btn-outline-warning btn-block mt-2 text-center" type="submit">Send</button>
             </form>           
     </div>
